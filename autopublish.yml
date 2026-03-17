@@ -1,12 +1,12 @@
 name: NY Spotlight Report — Auto-Publisher
 
 on:
-  # Run every morning at 7:00 AM Eastern (12:00 UTC)
   schedule:
     - cron: '0 12 * * *'
-  
-  # Also allow manual trigger from GitHub Actions tab
   workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   publish:
