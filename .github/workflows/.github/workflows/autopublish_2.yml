@@ -1,0 +1,36 @@
+name: NY Spotlight Report Auto-Publisher
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests feedparser anthropic
+
+      - name: Run auto-publisher
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: python autopublisher.py
+
+      - name: Save and push
+        run: |
+          git config user.email "bot@nyspotlightreport.com"
+          git config user.name "NY Spotlight Bot"
+          git add -A
+          git diff --staged --quiet || git commit -m "Auto-publish $(date '+%Y-%m-%d')"
+          git push
