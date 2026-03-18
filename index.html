@@ -491,11 +491,109 @@ footer{background:var(--black);margin-top:0;}
   .editorial-page-title{font-size:40px;}
   .press-contact-band{padding:32px 18px;margin:0 -18px 40px;}
 }
+
+/* ── WELCOME POPUP ── */
+.welcome-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s ease;pointer-events:none;}
+.welcome-overlay.visible{opacity:1;pointer-events:all;}
+.welcome-box{background:var(--white);max-width:480px;width:90%;padding:0;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);transform:translateY(24px);transition:transform .4s ease;}
+.welcome-overlay.visible .welcome-box{transform:translateY(0);}
+.welcome-top{background:var(--black);padding:28px 32px 24px;border-bottom:3px solid var(--gold);}
+.welcome-eyebrow{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
+.welcome-hed{font-family:'Playfair Display',serif;font-weight:900;font-size:26px;color:#fff;line-height:1.15;margin-bottom:0;}
+.welcome-body{padding:24px 32px;}
+.welcome-msg{font-family:'EB Garamond',serif;font-size:16px;line-height:1.7;color:#444;margin-bottom:20px;}
+.welcome-close{background:var(--red);color:#fff;border:none;width:100%;padding:13px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .15s;}
+.welcome-close:hover{background:var(--red-dark);}
+
+/* ── LIVE NEWS BAND ── */
+.live-news-band{background:var(--white);border-top:3px solid var(--red);border-bottom:1px solid var(--border);padding:36px 0;margin-bottom:0;}
+.live-news-inner{max-width:1300px;margin:0 auto;padding:0 48px;}
+.live-news-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.live-news-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:10px;}
+.live-dot-red{width:8px;height:8px;background:var(--red);border-radius:50%;animation:livePulse 1.4s ease-in-out infinite;}
+.live-news-updated{font-family:'Barlow Condensed',sans-serif;font-size:10.5px;letter-spacing:.06em;color:var(--muted);}
+.live-news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.live-card{border:1px solid var(--border);background:var(--cream);cursor:pointer;transition:all .2s;text-decoration:none;display:block;}
+.live-card:hover{border-color:var(--black);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--black);}
+.live-card-img{height:160px;overflow:hidden;position:relative;}
+.live-card-img img{width:100%;height:100%;object-fit:cover;}
+.live-card-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;}
+.live-card-body{padding:14px 16px;}
+.live-card-source{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:5px;}
+.live-card-hed{font-family:'Playfair Display',serif;font-weight:700;font-size:15px;line-height:1.3;color:var(--ink);margin-bottom:6px;}
+.live-card-meta{font-family:'Barlow Condensed',sans-serif;font-size:10.5px;color:var(--muted);letter-spacing:.04em;}
+.live-loading{text-align:center;padding:40px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.live-loading-dot{display:inline-block;animation:livePulse 1s ease-in-out infinite;}
+@media(max-width:768px){
+  .live-news-grid{grid-template-columns:1fr;}
+  .live-news-inner{padding:0 18px;}
+}
+
+/* ── MODALS ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:8000;display:none;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--white);max-width:480px;width:90%;padding:0;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+.modal-hd{background:var(--black);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--gold);}
+.modal-title{font-family:'Playfair Display',serif;font-weight:900;font-size:20px;color:#fff;}
+.modal-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;padding:0;line-height:1;}
+.modal-close:hover{color:#fff;}
+.modal-body{padding:28px;}
+.modal-body p{font-family:'EB Garamond',serif;font-size:15px;line-height:1.7;color:#444;margin-bottom:16px;}
+.social-links-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.social-link-btn{display:flex;align-items:center;gap:10px;padding:12px 16px;border:1px solid var(--border);background:var(--cream);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:all .15s;}
+.social-link-btn:hover{background:var(--black);color:#fff;border-color:var(--black);}
+.social-link-btn span{font-size:18px;}
+
+/* ── SUBSCRIBE MODAL ── */
+.subscribe-form-wrap{display:flex;flex-direction:column;gap:12px;}
+.subscribe-input{padding:12px 14px;border:1px solid var(--border);font-family:'Barlow',sans-serif;font-size:14px;outline:none;width:100%;}
+.subscribe-input:focus{border-color:var(--black);}
+.subscribe-btn{background:var(--red);color:#fff;border:none;padding:13px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;}
+.subscribe-btn:hover{background:var(--red-dark);}
+.subscribe-success{text-align:center;padding:20px;}
+.subscribe-success-icon{font-size:40px;display:block;margin-bottom:12px;}
+.subscribe-success-hed{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;color:var(--black);margin-bottom:8px;}
+.subscribe-success-sub{font-family:'EB Garamond',serif;font-style:italic;font-size:14px;color:var(--muted);}
+
+/* ── TEAM PAGE ── */
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-bottom:48px;}
+.team-card{background:var(--white);border:1px solid var(--border);padding:28px;text-align:center;}
+.team-photo-wrap{width:100px;height:100px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:3px solid var(--gold);}
+.team-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.team-photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:32px;color:#fff;}
+.team-name{font-family:'Playfair Display',serif;font-weight:700;font-size:18px;color:var(--black);margin-bottom:3px;}
+.team-role{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;}
+.team-bio{font-family:'EB Garamond',serif;font-size:13.5px;line-height:1.65;color:#555;}
+.team-contact{margin-top:10px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.08em;}
+.team-contact a{color:var(--red);text-decoration:none;}
+.team-contact a:hover{text-decoration:underline;}
+
+/* ── LEGAL PAGE ── */
+.legal-body{font-family:'EB Garamond',serif;font-size:16px;line-height:1.85;color:var(--ink2);}
+.legal-body p{margin-bottom:18px;}
+.legal-body h3{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;color:var(--black);margin:32px 0 10px;}
+
+@media(max-width:680px){.team-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
 <!-- TICKER -->
+
+<!-- WELCOME POPUP -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-box">
+    <div class="welcome-top">
+      <span class="welcome-eyebrow">NY Spotlight Report</span>
+      <div class="welcome-hed">Welcome Back!<br>New Look,<br>Same Good Journalism.</div>
+    </div>
+    <div class="welcome-body">
+      <p class="welcome-msg">We've upgraded the NY Spotlight Report experience — fresher design, live news updates, and the same authoritative NYC entertainment coverage you've relied on since 2021.</p>
+      <button class="welcome-close" onclick="closeWelcome()">Enter the Spotlight →</button>
+    </div>
+  </div>
+</div>
+
 <div class="ticker-bar">
   <div class="ticker-tag">Breaking</div>
   <div class="ticker-wrap">
@@ -543,19 +641,19 @@ footer{background:var(--black);margin-top:0;}
     <span style="color:var(--border)">|</span>
     <span>New York, NY</span>
     <span style="color:var(--border)">|</span>
-    <a href="#">Print Edition</a>
+    
     <span style="color:var(--border)">|</span>
-    <a href="#">Digital Access</a>
+    
   </div>
   <div class="util-right">
     <div class="social-row">
-      <a class="s-btn" title="Twitter/X">𝕏</a>
-      <a class="s-btn" title="Instagram">IG</a>
-      <a class="s-btn" title="Facebook">FB</a>
-      <a class="s-btn" title="YouTube">▶</a>
-      <a class="s-btn" title="TikTok">TT</a>
+      <a class="s-btn" onclick="showSocial()" title="Follow Us on Twitter/X">𝕏</a>
+      <a class="s-btn" onclick="showSocial()" title="Follow on Instagram">IG</a>
+      <a class="s-btn" onclick="showSocial()" title="Follow on Facebook">FB</a>
+      <a class="s-btn" onclick="showSocial()" title="YouTube Channel">▶</a>
+      <a class="s-btn" onclick="showSocial()" title="Follow on TikTok">TT</a>
     </div>
-    <a class="s-btn" style="width:auto;padding:0 10px;font-size:10px;letter-spacing:.06em;" href="#">Sign In</a>
+    
   </div>
 </div>
 
@@ -563,7 +661,7 @@ footer{background:var(--black);margin-top:0;}
 <header class="masthead">
   <div class="masthead-left">
     <span class="masthead-dateline">Est. 2021 &nbsp;·&nbsp; New York City</span>
-    <span class="masthead-tagline">"The Industry. The Stories. The Spotlight."</span>
+    <span class="masthead-tagline">NYC-based coverage of film premieres, Broadway, live performance, music, fashion &amp; cultural events.</span>
   </div>
   <a class="masthead-logo" onclick="showPage('home');return false;" href="#">
     <span class="logo-sup">New York</span>
@@ -579,7 +677,7 @@ footer{background:var(--black);margin-top:0;}
       <span style="color:#aaa;font-size:12px;">🔍</span>
       <input type="text" placeholder="Search the archive...">
     </div>
-    <button class="btn-subscribe" onclick="document.getElementById('newsletter').scrollIntoView({behavior:'smooth'})">Subscribe</button>
+    <button class="btn-subscribe" onclick="openSubscribe()">Subscribe</button>
   </div>
 </header>
 
@@ -731,6 +829,23 @@ footer{background:var(--black);margin-top:0;}
 </div>
 
 </div><!-- end site-wrap -->
+
+
+<!-- LIVE NEWS BAND -->
+<div class="live-news-band" id="liveNewsBand">
+  <div class="live-news-inner">
+    <div class="live-news-header">
+      <div class="live-news-title">
+        <span class="live-dot-red"></span>
+        Live News — Updating Now
+      </div>
+      <div class="live-news-updated" id="liveNewsUpdated">Fetching latest stories...</div>
+    </div>
+    <div class="live-news-grid" id="liveNewsGrid">
+      <div class="live-loading"><span class="live-loading-dot">●</span> Loading live NYC entertainment news...</div>
+    </div>
+  </div>
+</div>
 
 <!-- SOCIAL PROOF BAND -->
 <div class="social-proof-band">
@@ -1402,7 +1517,7 @@ footer{background:var(--black);margin-top:0;}
       <!-- EDITORIAL BODY -->
       <div class="editorial-body">
         <h3>The Publication</h3>
-        <p>NY Spotlight Report is a New York–based entertainment outlet covering film premieres, Broadway, live performance, music, and cultural events. We report on the entertainment industry as it actually exists in New York City and Long Island — not as a distant observer of Hollywood, but as a publication embedded in the city where so much of American culture is made and first seen.</p>
+        <p>NY Spotlight Report is a New York–based entertainment outlet covering film, television, Broadway, live performance, music, fashion, and cultural events. We report on the entertainment industry as it actually exists in New York City and Long Island — not as a distant observer of Hollywood, but as a publication embedded in the city where so much of American culture is made and first seen.</p>
 
         <p>We cover Broadway opening nights and Off-Broadway discoveries with equal seriousness. We follow New York Fashion Week from the established houses to the designers showing in Harlem brownstones and Bushwick warehouses. We are at the Lincoln Center premiere and the Tribeca Film Festival screening. We review Carnegie Hall concerts and Brooklyn Steel shows. We write about Long Island's arts scene — Jones Beach Theater, Tilles Center, the Hamptons cultural calendar — with the same attention we bring to Manhattan.</p>
 
@@ -1442,6 +1557,132 @@ footer{background:var(--black);margin-top:0;}
   </div>
 </div>
 
+
+<!-- ═══════ SOCIAL MODAL ═══════ -->
+<div class="modal-overlay" id="socialModal" onclick="if(event.target===this)closeSocial()">
+  <div class="modal-box">
+    <div class="modal-hd">
+      <div class="modal-title">Follow NY Spotlight Report</div>
+      <button class="modal-close" onclick="closeSocial()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>Follow us for live coverage, breaking news, and behind-the-scenes access from NYC's entertainment world.</p>
+      <div class="social-links-grid">
+        <a class="social-link-btn" href="https://twitter.com/NYSpotlightRpt" target="_blank"><span>𝕏</span> Twitter / X</a>
+        <a class="social-link-btn" href="https://instagram.com/nyspotlightreport" target="_blank"><span>📷</span> Instagram</a>
+        <a class="social-link-btn" href="https://facebook.com/nyspotlightreport" target="_blank"><span>👍</span> Facebook</a>
+        <a class="social-link-btn" href="https://youtube.com/@nyspotlightreport" target="_blank"><span>▶</span> YouTube</a>
+        <a class="social-link-btn" href="https://tiktok.com/@nyspotlightreport" target="_blank"><span>🎵</span> TikTok</a>
+        <a class="social-link-btn" href="mailto:editor-in-chief@nyspotlightreport.com"><span>✉</span> Email Us</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SUBSCRIBE MODAL ═══════ -->
+<div class="modal-overlay" id="subscribeModal" onclick="if(event.target===this)closeSubscribe()">
+  <div class="modal-box">
+    <div class="modal-hd">
+      <div class="modal-title">Subscribe to NY Spotlight Report</div>
+      <button class="modal-close" onclick="closeSubscribe()">✕</button>
+    </div>
+    <div class="modal-body" id="subscribeModalBody">
+      <p>Daily coverage of Broadway, film premieres, NYC fashion, music, and the entertainment industry — delivered every morning. Join 95,000+ readers.</p>
+      <div class="subscribe-form-wrap">
+        <input class="subscribe-input" type="text" id="subName" placeholder="Your first name">
+        <input class="subscribe-input" type="email" id="subEmail" placeholder="Your email address">
+        <button class="subscribe-btn" onclick="submitSubscribe()">Subscribe Free — It's Daily NYC Coverage</button>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:10px;margin-bottom:0;">No spam. No ads. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ TEAM PAGE ═══════ -->
+<div id="teamPage" style="display:none;">
+  <div class="site-wrap">
+    <div class="editorial-page">
+      <div class="editorial-page-hero">
+        <span class="editorial-page-eyebrow">The People Behind the Publication</span>
+        <h1 class="editorial-page-title">Our Team &amp;<br>Masthead</h1>
+        <p class="editorial-page-sub">NY Spotlight Report is built on the conviction that New York's entertainment scene deserves coverage with authority and genuine passion.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-photo-wrap">
+            <img src="data:image/jpeg;base64,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" alt="S.C. Thomas">
+          </div>
+          <div class="team-name">S.C. Thomas</div>
+          <span class="team-role">Chief Editor &amp; Founder</span>
+          <div class="team-bio">Founder and chief editor of NY Spotlight Report. Has covered 142 Broadway opening nights, every major NYC film premiere circuit, and five full New York Fashion Week cycles. Founded this publication in 2021 with the mission of covering New York's entertainment scene with the depth and seriousness it deserves.</div>
+          <div class="team-contact"><a href="mailto:editor-in-chief@nyspotlightreport.com">editor-in-chief@nyspotlightreport.com</a></div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo-wrap">
+            <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#5a1a4a,#3a1458);">C</div>
+          </div>
+          <div class="team-name">Camille Shaw</div>
+          <span class="team-role">Senior Theater Critic</span>
+          <div class="team-bio">Senior Theater Critic covering Broadway, Off-Broadway, and the full NYC theater landscape. Specializes in new American plays and the Off-Broadway scene where the next generation of theater is being made. Has reviewed more than 200 productions for NY Spotlight Report.</div>
+          <div class="team-contact"><a href="mailto:editor-in-chief@nyspotlightreport.com">Contact via editorial</a></div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo-wrap">
+            <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#b8873a,#8a6020);">D</div>
+          </div>
+          <div class="team-name">Diana Cruz</div>
+          <span class="team-role">Fashion &amp; Style Editor</span>
+          <div class="team-bio">Fashion and Style Editor covering NYFW, emerging designers, and the fashion culture of New York's boroughs. A native New Yorker with deep roots in the Brooklyn and Harlem design communities. Believes fashion is culture, not celebrity — and writes accordingly.</div>
+          <div class="team-contact"><a href="mailto:editor-in-chief@nyspotlightreport.com">Contact via editorial</a></div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo-wrap">
+            <div class="team-photo-placeholder" style="background:linear-gradient(135deg,#3a2080,#1a0840);">M</div>
+          </div>
+          <div class="team-name">Marcus Webb</div>
+          <span class="team-role">Film &amp; Premiere Correspondent</span>
+          <div class="team-bio">Film and Premiere Correspondent covering the NYC film circuit — Lincoln Center, Tribeca Film Festival, MoMA screenings, and every significant red carpet event in the city. Has attended more than 80 NYC film premieres for NY Spotlight Report.</div>
+          <div class="team-contact"><a href="mailto:editor-in-chief@nyspotlightreport.com">Contact via editorial</a></div>
+        </div>
+      </div>
+
+      <div style="background:var(--cream2);border:1px solid var(--border);padding:28px 32px;margin-bottom:40px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:14px;">Join the Team</div>
+        <p style="font-family:'EB Garamond',serif;font-size:16px;line-height:1.75;color:#444;margin-bottom:14px;">NY Spotlight Report is always looking for talented writers, photographers, and video journalists with deep roots in New York's entertainment community. We cover Broadway, film, fashion, music, and Long Island arts — and we take all of it seriously.</p>
+        <a href="mailto:editor-in-chief@nyspotlightreport.com?subject=Contributor Inquiry" style="display:inline-block;background:var(--black);color:#fff;padding:11px 24px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;">Pitch Us →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ LEGAL PAGE ═══════ -->
+<div id="legalPage" style="display:none;">
+  <div class="site-wrap">
+    <div class="editorial-page">
+      <div class="editorial-page-hero">
+        <span class="editorial-page-eyebrow">Legal</span>
+        <h1 class="editorial-page-title">Privacy Policy &amp;<br>Terms of Service</h1>
+        <p class="editorial-page-sub">Last updated: March 2026</p>
+      </div>
+      <div class="legal-body">
+        <h3>Privacy Policy</h3>
+        <p>NY Spotlight Report ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and share information about you when you visit nyspotlightreport.com.</p>
+        <p><strong>Information We Collect.</strong> We collect information you provide directly to us, such as your email address when you subscribe to our newsletter. We also collect information automatically when you visit our site, including your browser type, pages viewed, and general location information.</p>
+        <p><strong>How We Use Information.</strong> We use the information we collect to send you our newsletter (if subscribed), improve our site, and understand how our content is being read. We do not sell your personal information to third parties.</p>
+        <p><strong>Cookies.</strong> We use cookies and similar technologies to remember your reading preferences and improve your experience on our site. You can disable cookies in your browser settings, though some features may not function properly.</p>
+        <p><strong>Contact.</strong> For privacy-related questions, contact us at <a href="mailto:editor-in-chief@nyspotlightreport.com" style="color:var(--red);">editor-in-chief@nyspotlightreport.com</a>.</p>
+        <h3>Terms of Service</h3>
+        <p>By accessing nyspotlightreport.com, you agree to these Terms of Service. All content published on this site — including articles, reviews, photography, and editorial content — is the property of NY Spotlight Report and may not be reproduced without written permission.</p>
+        <p><strong>Editorial Independence.</strong> NY Spotlight Report maintains full editorial independence. Our reviews and editorial coverage are not influenced by advertisers, publicists, or any commercial relationships.</p>
+        <p><strong>Accuracy.</strong> We make every effort to ensure the accuracy of our reporting. If you believe a factual error has been published, please contact us at <a href="mailto:editor-in-chief@nyspotlightreport.com" style="color:var(--red);">editor-in-chief@nyspotlightreport.com</a> and we will review and correct promptly.</p>
+        <p><strong>Links to Third-Party Sites.</strong> Our site may contain links to third-party websites. We are not responsible for the content or privacy practices of those sites.</p>
+        <p>Questions about these terms may be directed to <a href="mailto:editor-in-chief@nyspotlightreport.com" style="color:var(--red);">editor-in-chief@nyspotlightreport.com</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="footer-body">
     <div>
@@ -1449,7 +1690,7 @@ footer{background:var(--black);margin-top:0;}
       <div class="footer-brand-sub">New York's Entertainment Authority · Est. 2021</div>
       <p class="footer-about">NY Spotlight Report is New York's premier entertainment industry news outlet — delivering fearless journalism on Broadway, film, fashion, and NYC culture. Founded and edited by S.C. Thomas.</p>
       <div class="footer-socials">
-        <div class="f-social">𝕏</div><div class="f-social">IG</div><div class="f-social">FB</div><div class="f-social">▶</div><div class="f-social">TT</div>
+        <div class="f-social" onclick="showSocial()">𝕏</div><div class="f-social" onclick="showSocial()">IG</div><div class="f-social" onclick="showSocial()">FB</div><div class="f-social" onclick="showSocial()">▶</div><div class="f-social" onclick="showSocial()">TT</div>
       </div>
     </div>
     <div>
@@ -1466,22 +1707,22 @@ footer{background:var(--black);margin-top:0;}
     <div>
       <div class="footer-col-title">Company</div>
       <a class="footer-link" onclick="showPage('about')">About Us</a>
-      <a class="footer-link">Our Team</a>
-      <a class="footer-link">Masthead</a>
-      <a class="footer-link">Advertise</a>
-      <a class="footer-link">Careers</a>
-      <a class="footer-link">Contact</a>
-      <a class="footer-link">Press Room</a>
-      <a class="footer-link">Tip Line</a>
+      <a class="footer-link" onclick="showPage('team')">Our Team</a>
+      <a class="footer-link" onclick="showPage('team')">Masthead</a>
+      <a class="footer-link" href="mailto:editor-in-chief@nyspotlightreport.com?subject=Advertising Inquiry">Advertise</a>
+      <a class="footer-link" href="mailto:editor-in-chief@nyspotlightreport.com?subject=Career Inquiry">Careers</a>
+      <a class="footer-link" href="mailto:editor-in-chief@nyspotlightreport.com">Contact</a>
+      <a class="footer-link" onclick="showPage('press')">Press Room</a>
+      <a class="footer-link" href="mailto:editor-in-chief@nyspotlightreport.com?subject=Story Tip">Tip Line</a>
     </div>
     <div>
       <div class="footer-col-title">Subscribe</div>
-      <a class="footer-link">Daily Newsletter</a>
-      <a class="footer-link">Print Edition</a>
-      <a class="footer-link">Awards Coverage</a>
-      <a class="footer-link">Theater Guide</a>
-      <a class="footer-link">Fashion Report</a>
-      <a class="footer-link">Premiere Alerts</a>
+      <a class="footer-link" onclick="openSubscribe()">Daily Newsletter</a>
+      
+      <a class="footer-link" onclick="showSection('awards')">Awards Coverage</a>
+      <a class="footer-link" onclick="showSection('broadway')">Theater Guide</a>
+      <a class="footer-link" onclick="showSection('fashion')">Fashion Report</a>
+      <a class="footer-link" onclick="showPage('press')">Premiere Alerts</a>
       <div style="margin-top:16px;">
         <div class="footer-col-title">Contact</div>
         <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(255,255,255,.26);line-height:1.95;">
@@ -1495,9 +1736,9 @@ footer{background:var(--black);margin-top:0;}
   <div class="footer-base">
     <span>© 2026 NY Spotlight Report. All rights reserved. Founded by S.C. Thomas.</span>
     <div class="footer-legal">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Accessibility</a>
+      <a href="#" onclick="showPage('legal')">Privacy Policy</a>
+      <a href="#" onclick="showPage('legal')">Terms of Service</a>
+      <a href="mailto:editor-in-chief@nyspotlightreport.com?subject=Accessibility">Accessibility</a>
     </div>
   </div>
 </footer>
@@ -1876,5 +2117,299 @@ document.addEventListener('DOMContentLoaded', function(){
   if(el) el.textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
 })();
 </script>
+
+<!-- old script removed -->
+
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// MODAL CONTROLS
+// ═══════════════════════════════════════════════════════════
+function showSocial(){ document.getElementById('socialModal').classList.add('open'); }
+function closeSocial(){ document.getElementById('socialModal').classList.remove('open'); }
+function openSubscribe(){ document.getElementById('subscribeModal').classList.add('open'); }
+function closeSubscribe(){ document.getElementById('subscribeModal').classList.remove('open'); }
+
+function submitSubscribe(){
+  const name  = document.getElementById('subName').value.trim();
+  const email = document.getElementById('subEmail').value.trim();
+  if(!email || !email.includes('@')){ alert('Please enter a valid email address.'); return; }
+  
+  // Save to localStorage
+  const subs = JSON.parse(localStorage.getItem('nysr_subscribers') || '[]');
+  if(!subs.find(s => s.email === email)){
+    subs.push({ name, email, date: new Date().toISOString() });
+    localStorage.setItem('nysr_subscribers', JSON.stringify(subs));
+  }
+  
+  document.getElementById('subscribeModalBody').innerHTML = `
+    <div class="subscribe-success">
+      <span class="subscribe-success-icon">✓</span>
+      <div class="subscribe-success-hed">You're in, ${name || 'friend'}!</div>
+      <div class="subscribe-success-sub">Welcome to the NY Spotlight Report community. Your first newsletter arrives tomorrow morning.</div>
+    </div>`;
+  
+  // Also trigger any newsletter forms on page
+  document.querySelectorAll('.nl-form button').forEach(btn => {
+    btn.textContent = '✓ Subscribed!';
+    btn.style.background = '#1a6a2a';
+  });
+  setTimeout(closeSubscribe, 2800);
+}
+
+// Also hook into inline newsletter forms
+function handleSubscribe(){
+  const emailInputs = document.querySelectorAll('.nl-form input[type="email"]');
+  let email = '';
+  emailInputs.forEach(i => { if(i.value.trim()) email = i.value.trim(); });
+  if(email){ document.getElementById('subEmail').value = email; }
+  openSubscribe();
+}
+
+// ═══════════════════════════════════════════════════════════
+// showPage — extend to handle team + legal
+// ═══════════════════════════════════════════════════════════
+const _origShowPage = showPage;
+function showPage(pg){
+  document.querySelectorAll('[id$="Page"],[id="sectionPage"]').forEach(el=>{el.style.display='none';});
+  document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
+  currentPage = pg;
+  if(pg==='home'){
+    document.getElementById('homePage').style.display='block';
+    document.querySelector('.nav-link').classList.add('active');
+  } else if(pg==='press'){
+    document.getElementById('pressPage').style.display='block';
+  } else if(pg==='about'){
+    document.getElementById('aboutPage').style.display='block';
+  } else if(pg==='team'){
+    document.getElementById('teamPage').style.display='block';
+  } else if(pg==='legal'){
+    document.getElementById('legalPage').style.display='block';
+  } else if(pg==='archive'){
+    document.getElementById('archivePage').style.display='block';
+    renderArchive();
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ESC key closes modals
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    closeSocial();
+    closeSubscribe();
+  }
+});
+
+// ═══════════════════════════════════════════════════════════
+// PERSONALIZATION ENGINE
+// Tracks what sections/articles user reads, reorders live feed
+// ═══════════════════════════════════════════════════════════
+const PERSONA = {
+  get: function(){
+    try { return JSON.parse(localStorage.getItem('nysr_persona') || '{}'); } catch(e){ return {}; }
+  },
+  save: function(data){
+    localStorage.setItem('nysr_persona', JSON.stringify(data));
+  },
+  track: function(section){
+    if(!section) return;
+    const data = this.get();
+    data[section] = (data[section] || 0) + 1;
+    this.save(data);
+  },
+  topSections: function(){
+    const data = this.get();
+    return Object.entries(data)
+      .sort((a,b) => b[1] - a[1])
+      .map(e => e[0]);
+  }
+};
+
+// Patch openArticle to track reads
+const _origOpenArticle = openArticle;
+function openArticle(id){
+  const art = ARTICLES[id];
+  if(art && art.section) PERSONA.track(art.section);
+  _origOpenArticle(id);
+}
+
+// Patch showSection to track visits
+const _origShowSection = showSection;
+function showSection(id){
+  PERSONA.track(id);
+  _origShowSection(id);
+}
+
+// ═══════════════════════════════════════════════════════════
+// SECTION → FEED SOURCE MAPPING for personalized live news
+// ═══════════════════════════════════════════════════════════
+const SECTION_FEEDS = {
+  broadway:  [{name:'Broadway World', url:'https://www.broadwayworld.com/rss/mainpage.cfm', icon:'🎭', color:'#c87840'}, {name:'Playbill', url:'https://playbill.com/feed', icon:'🎭', color:'#c87840'}, {name:'TheaterMania', url:'https://www.theatermania.com/rss/news.xml', icon:'🎭', color:'#c87840'}],
+  fashion:   [{name:'WWD', url:'https://wwd.com/feed/', icon:'👗', color:'#b8873a'}, {name:'Paper Mag', url:'https://www.papermag.com/rss', icon:'👗', color:'#b8873a'}],
+  film:      [{name:'IndieWire', url:'https://www.indiewire.com/feed/', icon:'🎬', color:'#4a8abf'}, {name:'Deadline', url:'https://deadline.com/feed/', icon:'🎬', color:'#b5191b'}],
+  music:     [{name:'Pitchfork', url:'https://pitchfork.com/rss/news/', icon:'🎵', color:'#9070d8'}, {name:'Brooklyn Vegan', url:'https://www.brooklynvegan.com/feed/', icon:'🎵', color:'#9070d8'}],
+  premiere:  [{name:'Deadline', url:'https://deadline.com/feed/', icon:'🌟', color:'#9070d8'}, {name:'Variety', url:'https://variety.com/feed/', icon:'🌟', color:'#b5191b'}],
+  awards:    [{name:'Variety', url:'https://variety.com/feed/', icon:'🏆', color:'#d4a855'}, {name:'Hollywood Reporter', url:'https://www.hollywoodreporter.com/feed/', icon:'🏆', color:'#d4a855'}],
+  tv:        [{name:'Variety', url:'https://variety.com/feed/', icon:'📺', color:'#4abf7a'}, {name:'Deadline', url:'https://deadline.com/feed/', icon:'📺', color:'#4abf7a'}],
+  celebrity: [{name:'Page Six', url:'https://nypost.com/page-six/feed/', icon:'⭐', color:'#d4a855'}, {name:'Variety', url:'https://variety.com/feed/', icon:'⭐', color:'#d4a855'}],
+  industry:  [{name:'Hollywood Reporter', url:'https://www.hollywoodreporter.com/feed/', icon:'💼', color:'#aaa'}, {name:'Deadline', url:'https://deadline.com/feed/', icon:'💼', color:'#aaa'}],
+  longisland:[{name:'Newsday', url:'https://www.newsday.com/rss/entertainment', icon:'🌟', color:'#b5191b'}, {name:'Long Island Press', url:'https://www.longislandpress.com/feed/', icon:'🌟', color:'#b5191b'}],
+};
+
+const DEFAULT_FEEDS = [
+  {name:'Broadway World', url:'https://www.broadwayworld.com/rss/mainpage.cfm', icon:'🎭', color:'#c87840'},
+  {name:'Deadline', url:'https://deadline.com/feed/', icon:'🎬', color:'#b5191b'},
+  {name:'Variety', url:'https://variety.com/feed/', icon:'🎬', color:'#b5191b'},
+  {name:'Playbill', url:'https://playbill.com/feed', icon:'🎭', color:'#c87840'},
+  {name:'WWD', url:'https://wwd.com/feed/', icon:'👗', color:'#b8873a'},
+  {name:'IndieWire', url:'https://www.indiewire.com/feed/', icon:'🎬', color:'#4a8abf'},
+  {name:'Pitchfork', url:'https://pitchfork.com/rss/news/', icon:'🎵', color:'#9070d8'},
+  {name:'TheaterMania', url:'https://www.theatermania.com/rss/news.xml', icon:'🎭', color:'#c87840'},
+];
+
+const SECTION_IMGS = {
+  '🎭': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
+  '🎬': 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=80',
+  '👗': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+  '🎵': 'https://images.unsplash.com/photo-1501386761578-eaa54b4e8b5e?w=600&q=80',
+  '🏆': 'https://images.unsplash.com/photo-1567942712661-82b9b407abbf?w=600&q=80',
+  '⭐': 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80',
+  '📺': 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=600&q=80',
+  '💼': 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
+  '🌟': 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600&q=80',
+};
+
+function getPersonalizedFeeds(){
+  const top = PERSONA.topSections();
+  if(top.length === 0) return DEFAULT_FEEDS;
+  
+  // Build feed list: top 2 preferred sections get extra weight
+  let feeds = [];
+  top.slice(0,2).forEach(sec => {
+    if(SECTION_FEEDS[sec]) feeds = feeds.concat(SECTION_FEEDS[sec]);
+  });
+  // Fill rest with defaults
+  DEFAULT_FEEDS.forEach(f => {
+    if(!feeds.find(e => e.url === f.url)) feeds.push(f);
+  });
+  return feeds.slice(0, 8);
+}
+
+function timeAgo(dateStr){
+  try {
+    const d = new Date(dateStr);
+    const diff = Math.floor((Date.now() - d.getTime()) / 1000);
+    if(diff < 3600) return Math.floor(diff/60) + 'm ago';
+    if(diff < 86400) return Math.floor(diff/3600) + 'h ago';
+    if(diff < 172800) return 'Yesterday';
+    return Math.floor(diff/86400) + 'd ago';
+  } catch(e){ return 'Recently'; }
+}
+
+function cleanTitle(t){ return t ? t.replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim() : ''; }
+
+async function fetchFeed(feed){
+  const api = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url) + '&count=4&api_key=';
+  const r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url) + '&count=4', {signal: AbortSignal.timeout(7000)});
+  if(!r.ok) throw new Error('fetch failed');
+  const data = await r.json();
+  if(data.status !== 'ok') throw new Error('bad status');
+  return (data.items || []).slice(0,3).map(item => ({
+    title: cleanTitle(item.title),
+    link:  item.link || '#',
+    date:  item.pubDate,
+    img:   item.thumbnail || (item.enclosure && item.enclosure.link) || '',
+    source: feed.name,
+    icon:  feed.icon,
+    color: feed.color
+  }));
+}
+
+async function fetchLiveNews(){
+  const grid = document.getElementById('liveNewsGrid');
+  const updated = document.getElementById('liveNewsUpdated');
+  if(!grid) return;
+
+  const feeds = getPersonalizedFeeds();
+  const top = PERSONA.topSections();
+  
+  // Show personalization label if we have data
+  if(top.length > 0 && updated){
+    updated.textContent = 'Personalized for you · Updating...';
+  }
+
+  try {
+    const results = await Promise.allSettled(feeds.map(f => fetchFeed(f)));
+    let all = [];
+    results.forEach(r => { if(r.status === 'fulfilled') all = all.concat(r.value); });
+    all = all.filter(a => a.title && a.title.length > 10);
+    all.sort((a,b) => new Date(b.date) - new Date(a.date));
+    const top6 = all.slice(0, 6);
+
+    if(top6.length === 0){
+      grid.innerHTML = '<div class="live-loading">Refreshing NYC entertainment news...</div>';
+      setTimeout(fetchLiveNews, 15000);
+      return;
+    }
+
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    if(updated){
+      if(top.length > 0){
+        updated.textContent = `Personalized for you · Updated ${timeStr}`;
+      } else {
+        updated.textContent = `Updated ${timeStr}`;
+      }
+    }
+
+    grid.innerHTML = top6.map(a => {
+      const imgSrc = a.img || SECTION_IMGS[a.icon] || SECTION_IMGS['🎬'];
+      const ago = timeAgo(a.date);
+      const safeTitle = a.title.replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+      return `<a class="live-card" href="${a.link}" target="_blank" rel="noopener noreferrer">
+  <div class="live-card-img">
+    <img src="${imgSrc}" alt="${safeTitle}" loading="lazy"
+         onerror="this.parentElement.innerHTML='<div class=\"live-card-img-placeholder\" style=\"background:linear-gradient(135deg,#1a0800,#4a1500)\">${a.icon}</div>'">
+  </div>
+  <div class="live-card-body">
+    <span class="live-card-source" style="color:${a.color};">${a.source}</span>
+    <div class="live-card-hed">${a.title.substring(0,85)}${a.title.length>85?'...':''}</div>
+    <div class="live-card-meta">${ago}</div>
+  </div>
+</a>`;
+    }).join('');
+
+  } catch(e){
+    console.warn('Live news error:', e);
+    setTimeout(fetchLiveNews, 20000);
+  }
+}
+
+// Refresh every 10 minutes
+setInterval(fetchLiveNews, 600000);
+</script>
+
+
+<script>
+// ── INIT ──
+window.addEventListener('load', function(){
+  // Welcome popup
+  if(!sessionStorage.getItem('nysr_welcomed')){
+    setTimeout(function(){
+      var o = document.getElementById('welcomeOverlay');
+      if(o) o.classList.add('visible');
+    }, 800);
+  }
+  // Fetch live news
+  if(typeof fetchLiveNews === 'function') fetchLiveNews();
+});
+
+function closeWelcome(){
+  var o = document.getElementById('welcomeOverlay');
+  if(o) o.classList.remove('visible');
+  sessionStorage.setItem('nysr_welcomed','1');
+}
+</script>
+
 </body>
 </html>
