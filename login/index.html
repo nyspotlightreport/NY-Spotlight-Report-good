@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ProFlow Login — Client Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:linear-gradient(135deg,#0a0a0f 0%,#141420 50%,#0d1117 100%);display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;padding:20px}
+.glow{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:240px;height:240px;background:radial-gradient(circle,rgba(201,168,76,.15) 0%,transparent 70%);border-radius:50%;filter:blur(40px)}
+.card{width:100%;max-width:420px;position:relative}
+.inner{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:24px;padding:48px 36px;backdrop-filter:blur(20px)}
+.logo{font-family:'Instrument Serif',serif;font-size:28px;color:#f7f5f0;text-align:center;margin-bottom:4px}
+.logo span{color:#c9a84c}
+.sub{font-size:13px;color:rgba(255,255,255,.35);text-align:center;letter-spacing:.08em;text-transform:uppercase;font-weight:500;margin-bottom:36px}
+label{display:block;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:600}
+input{width:100%;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#f7f5f0;font-size:15px;outline:none;font-family:inherit;margin-bottom:20px;transition:border .2s}
+input:focus{border-color:rgba(201,168,76,.4)}
+.btn{width:100%;padding:15px;background:linear-gradient(135deg,#c9a84c,#b8963f);border:none;border-radius:12px;color:#0a0a0f;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.02em;transition:all .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,168,76,.25)}
+.err{color:#ef4444;font-size:13px;text-align:center;margin-bottom:16px;display:none}
+.links{text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,.3)}
+.links a{color:rgba(201,168,76,.7);text-decoration:none}
+.copy{text-align:center;margin-top:24px;font-size:11px;color:rgba(255,255,255,.2)}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="glow"></div>
+<div class="inner">
+<div class="logo">Pro<span>Flow</span></div>
+<div class="sub">Client Portal</div>
+<div id="err" class="err">Invalid credentials. Please try again.</div>
+<label>Email</label>
+<input type="email" id="email" placeholder="you@company.com">
+<label>Password</label>
+<input type="password" id="pass" placeholder="********">
+<button class="btn" onclick="handleLogin()">Sign In →</button>
+<div class="links">
+<a href="#">Forgot password?</a> · <a href="/proflow/">Get ProFlow</a> · <a href="/">Home</a>
+</div>
+</div>
+<div class="copy">© 2026 NY Spotlight Report · ProFlow AI Platform</div>
+</div>
+<script>
+function handleLogin(){
+  var e=document.getElementById('email').value,p=document.getElementById('pass').value;
+  if(e&&p.length>=4){localStorage.setItem('pf_user',JSON.stringify({email:e,name:e.split('@')[0],plan:'growth',t:Date.now()}));window.location.href='/portal/';}
+  else document.getElementById('err').style.display='block';
+}
+document.getElementById('pass').addEventListener('keydown',function(e){if(e.key==='Enter')handleLogin()});
+</script>
+</body>
+</html>
