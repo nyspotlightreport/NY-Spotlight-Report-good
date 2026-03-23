@@ -173,8 +173,13 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:56px 0 0}
 }
 @media(max-width:640px){
   .topbar-right{display:none}
-  .nav-inner a:not(.nav-home):not(.accent){display:none}
+  .nav-inner a:not(.nav-home):not(.accent):not(.nav-hamburger){display:none}
   .nav-hamburger{display:block}
+  .mobile-menu{display:none;position:fixed;top:46px;left:0;right:0;background:var(--paper);border-bottom:2px solid var(--accent);padding:16px 24px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  .mobile-menu.open{display:flex;flex-direction:column;gap:12px}
+  .mobile-menu a{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--ink);padding:8px 0;border-bottom:1px solid var(--rule)}
+  .mobile-menu a:last-child{border-bottom:none}
+  .mobile-menu a.accent{color:var(--accent);font-weight:700}
   .grid-3{grid-template-columns:1fr}
   .grid-asym .side{flex-direction:column}
   .newsletter form{flex-direction:column}
@@ -226,11 +231,23 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:56px 0 0}
     <a href="/blog/">Fashion</a>
     <a href="/blog/">Culture</a>
     <a href="/blog/hells-kitchen-gay-nightlife-capital/">Nightlife</a>
-    <a href="/blog/10-years-behind-the-scenes-entertainment/">About</a>
+    <a href="/about/sc-thomas/">About</a>
     <a href="#newsletter" class="accent">Subscribe</a>
-    <button class="nav-hamburger" aria-label="Menu">&#9776;</button>
+    <button class="nav-hamburger" aria-label="Menu" onclick="document.getElementById('mobile-menu').classList.toggle('open')">&#9776;</button>
   </div>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/blog/">Entertainment</a>
+  <a href="/blog/">Fashion</a>
+  <a href="/blog/">Culture</a>
+  <a href="/blog/hells-kitchen-gay-nightlife-capital/">Nightlife</a>
+  <a href="/about/sc-thomas/">About</a>
+  <a href="/press/">Press</a>
+  <a href="/newsletter/">Newsletter</a>
+  <a href="/tips/">Send a Tip</a>
+  <a href="#newsletter" class="accent">Subscribe Free</a>
+</div>
 
 <!-- ===== BREAKING TICKER ===== -->
 <div class="ticker">
@@ -585,8 +602,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:56px 0 0}
         <a href="mailto:nyspotlightreport@gmail.com">Tips: nyspotlightreport@gmail.com</a>
         <a href="mailto:nyspotlightreport@gmail.com">General: nyspotlightreport@gmail.com</a>
         <a href="#newsletter">Subscribe to Newsletter</a>
-        <a href="/blog/">Twitter / X</a>
-        <a href="/blog/">Instagram</a>
+        <a href="https://x.com/NYSpotlightRpt" target="_blank" rel="noopener">Twitter / X</a>
+        <a href="https://instagram.com/nyspotlightreport" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
     <div class="footer-bottom">
