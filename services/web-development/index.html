@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Development Agency — NY Spotlight Report</title>
+<meta name="description" content="Full-stack builds, landing pages, e-commerce, hosting, and maintenance Starting at $97/mo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f6; --paper: #fff; --ink: #0f0f0f; --g500: #6b6b6b;
+    --g100: #e5e5e5; --accent: #9e7c0c; --green: #16793a; --red: #b91c1c;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+  h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.2; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+  .btn { display: inline-block; padding: 14px 28px; border-radius: 6px; font-weight: 700; font-size: .95rem; text-align: center; cursor: pointer; transition: opacity .2s; border: none; }
+  .btn:hover { opacity: .88; text-decoration: none; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-outline { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+  .section { padding: 64px 0; }
+  .section-title { font-size: 1.75rem; margin-bottom: 32px; text-align: center; }
+  .card { background: var(--paper); border: 1px solid var(--g100); border-radius: 10px; padding: 32px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--g100); }
+  th { font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--g500); }
+  .tag { display: inline-block; font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .tag-green { background: #e6f4ec; color: var(--green); }
+  .tag-accent { background: #fdf4dc; color: var(--accent); }
+  @media (max-width: 640px) {
+    .grid-2 { grid-template-columns: 1fr !important; }
+    .hero-btns { flex-direction: column; }
+    .hero-btns .btn { width: 100%; }
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  details summary { cursor: pointer; font-weight: 600; padding: 16px 0; border-bottom: 1px solid var(--g100); list-style: none; }
+  details summary::after { content: '+'; float: right; font-size: 1.25rem; color: var(--g500); }
+  details[open] summary::after { content: '−'; }
+  details .faq-body { padding: 12px 0 24px; color: var(--g500); }
+</style>
+</head>
+<body>
+
+<!-- ───────── NAV ───────── -->
+<nav style="background:var(--paper);border-bottom:1px solid var(--g100);padding:16px 0;position:sticky;top:0;z-index:50;">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <a href="/" style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--ink);">NY Spotlight Report</a>
+    <div style="display:flex;gap:24px;align-items:center;font-size:.9rem;">
+      <a href="/">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/demo/">Demo</a>
+      <a href="/capabilities/">Capabilities</a>
+      <a href="/blog/">Blog</a>
+      <a href="/sign-in/" class="btn btn-outline" style="padding:8px 18px;font-size:.85rem;">Sign In</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ───────── HERO ───────── -->
+<header class="section" style="text-align:center;padding-top:80px;">
+  <div class="wrap">
+    <div style="font-size:3rem;margin-bottom:8px;">🌐</div>
+    <h1 style="font-size:2.5rem;margin-bottom:12px;">Website Development Agency</h1>
+    <p style="font-size:1.15rem;color:var(--g500);max-width:600px;margin:0 auto 24px;">Full-stack builds, landing pages, e-commerce, hosting, and maintenance</p>
+    <p style="font-size:1rem;margin-bottom:8px;">Starting at <strong>$97/mo</strong></p>
+    <p style="font-size:.9rem;color:var(--g500);margin-bottom:32px;">or <strong>$49.97</strong> for a day pass</p>
+    <div class="hero-btns" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="#pricing" class="btn btn-primary">Start LITE &mdash; $97/mo</a>
+      <a href="#pricing" class="btn btn-outline">Go FULL &mdash; $497/mo</a>
+    </div>
+  </div>
+</header>
+
+<!-- ───────── WHAT YOU GET ───────── -->
+<section class="section" style="background:var(--paper);">
+  <div class="wrap">
+    <h2 class="section-title">What You Get</h2>
+    <div class="card" style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:50%;">Deliverable</th>
+            <th style="text-align:center;">LITE</th>
+            <th style="text-align:center;">FULL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+<td style="font-weight:600;color:var(--ink)">Unlimited pages</td>
+<td style="text-align:center;color:var(--g500)">Limited</td>
+<td style="text-align:center;color:var(--green);font-weight:600">Full access</td>
+</tr>
+<tr>
+<td style="font-weight:600;color:var(--ink)">Custom design</td>
+<td style="text-align:center;color:var(--g500)">Limited</td>
+<td style="text-align:center;color:var(--green);font-weight:600">Full access</td>
+</tr>
+<tr>
+<td style="font-weight:600;color:var(--ink)">E-commerce</td>
+<td style="text-align:center;color:var(--g500)">Limited</td>
+<td style="text-align:center;color:var(--green);font-weight:600">Full access</td>
+</tr>
+<tr>
+<td style="font-weight:600;color:var(--ink)">Performance optimization</td>
+<td style="text-align:center;color:var(--g500)">Limited</td>
+<td style="text-align:center;color:var(--green);font-weight:600">Full access</td>
+</tr>
+<tr>
+<td style="font-weight:600;color:var(--ink)">A/B testing</td>
+<td style="text-align:center;color:var(--g500)">Limited</td>
+<td style="text-align:center;color:var(--green);font-weight:600">Full access</td>
+</tr>
+<tr>
+<td style="font-weight:600;color:var(--ink)">Analytics</td>
+<td style="text-align:center;color:var(--g500)">Limited</td>
+<td style="text-align:center;color:var(--green);font-weight:600">Full access</td>
+</tr>
+<tr>
+<td style="font-weight:600;color:var(--ink)">SEO-optimized</td>
+<td style="text-align:center;color:var(--g500)">Limited</td>
+<td style="text-align:center;color:var(--green);font-weight:600">Full access</td>
+</tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── LITE vs FULL ───────── -->
+<section id="pricing" class="section">
+  <div class="wrap">
+    <h2 class="section-title">Choose Your Plan</h2>
+    <div class="grid-2">
+      <!-- LITE -->
+      <div class="card">
+        <span class="tag tag-accent">LITE</span>
+        <h3 style="font-size:1.35rem;margin:16px 0 8px;">Essentials</h3>
+        <ul style="list-style:none;margin-bottom:24px;color:var(--g500);">
+          <li>1 landing page/month</li>
+<li>Basic maintenance</li>
+<li>Standard templates</li>
+<li>SSL + hosting</li>
+<li>Monthly backup</li>
+        </ul>
+        <p style="font-size:2rem;font-weight:700;margin-bottom:16px;">$97<span style="font-size:.9rem;font-weight:400;color:var(--g500);">/mo</span></p>
+        <a href="/checkout/?plan=lite&agency={{slug}}" class="btn btn-outline" style="width:100%;">Start LITE</a>
+      </div>
+      <!-- FULL -->
+      <div class="card" style="border:2px solid var(--accent);">
+        <span class="tag tag-green">FULL</span>
+        <h3 style="font-size:1.35rem;margin:16px 0 8px;">Everything</h3>
+        <ul style="list-style:none;margin-bottom:24px;color:var(--g500);">
+          <li>Unlimited pages</li>
+<li>Custom design</li>
+<li>E-commerce</li>
+<li>Performance optimization</li>
+<li>A/B testing</li>
+<li>Analytics</li>
+<li>SEO-optimized</li>
+<li>Mobile-first</li>
+<li>API integrations</li>
+<li>24/7 uptime</li>
+        </ul>
+        <p style="font-size:2rem;font-weight:700;margin-bottom:16px;">$497<span style="font-size:.9rem;font-weight:400;color:var(--g500);">/mo</span></p>
+        <a href="/checkout/?plan=full&agency={{slug}}" class="btn btn-primary" style="width:100%;">Go FULL</a>
+      </div>
+    </div>
+    <!-- Day Pass -->
+    <div class="card" style="text-align:center;margin-top:24px;">
+      <p style="font-weight:700;font-size:1.1rem;margin-bottom:4px;">Just need a one-time deliverable?</p>
+      <p style="color:var(--g500);margin-bottom:16px;">Get a Day Pass for <strong>$49.97</strong> &mdash; no subscription required.</p>
+      <a href="/checkout/?plan=daypass&agency={{slug}}" class="btn btn-outline">Get Day Pass &mdash; $49.97</a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── WHY US vs TRADITIONAL ───────── -->
+<section class="section" style="background:var(--paper);">
+  <div class="wrap">
+    <h2 class="section-title">Why Us vs. Traditional</h2>
+    <div class="grid-2">
+      <div class="card" style="text-align:center;">
+        <p style="font-size:.85rem;color:var(--g500);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">Web development agency</p>
+        <p style="font-size:1.75rem;font-weight:700;color:var(--red);">$3,000-$10,000/mo</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <p style="font-size:.85rem;color:var(--g500);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">This Agency</p>
+        <p style="font-size:1.75rem;font-weight:700;color:var(--green);">$97&ndash;$497/mo</p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:16px;font-weight:600;color:var(--green);">Save up to $4903/mo vs web development agency</p>
+
+    <!-- ROI Mini-Calculator -->
+    <div class="card" style="max-width:480px;margin:32px auto 0;text-align:center;">
+      <h3 style="font-size:1.1rem;margin-bottom:16px;">Quick ROI Calculator</h3>
+      <label for="roi-input" style="font-size:.9rem;color:var(--g500);display:block;margin-bottom:8px;">Your current monthly spend</label>
+      <input id="roi-input" type="number" value="{{traditional_cost}}" style="width:100%;padding:12px;border:1px solid var(--g100);border-radius:6px;font-size:1rem;text-align:center;margin-bottom:12px;">
+      <p style="font-size:.9rem;color:var(--g500);">Potential savings: <strong id="roi-result" style="color:var(--green);">—</strong>/mo</p>
+    </div>
+    <script>
+      (function(){
+        var inp=document.getElementById('roi-input'),out=document.getElementById('roi-result');
+        var full=497;
+        function calc(){var v=parseFloat(inp.value)||0;var s=v-full;out.textContent=s>0?'$'+s.toLocaleString():'$0';}
+        inp.addEventListener('input',calc);calc();
+      })();
+    </script>
+  </div>
+</section>
+
+<!-- ───────── HOW IT WORKS ───────── -->
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">How It Works</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;">
+      <div class="step-card"><div class="step-num">1</div><h3>Onboard</h3><p>Share your requirements</p></div>
+<div class="step-card"><div class="step-num">2</div><h3>We Deliver</h3><p>Our AI team executes</p></div>
+<div class="step-card"><div class="step-num">3</div><h3>You Scale</h3><p>Focus on growth</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── SAMPLE OUTPUT ───────── -->
+<section class="section" style="background:var(--paper);">
+  <div class="wrap">
+    <h2 class="section-title">Sample Output</h2>
+    <div class="card" style="white-space:pre-wrap;font-size:.9rem;color:var(--g500);max-height:420px;overflow-y:auto;">
+Enterprise-grade website development agency deliverables within 48 hours of onboarding.
+    </div>
+  </div>
+</section>
+
+<!-- ───────── FAQ ───────── -->
+<section class="section">
+  <div class="wrap" style="max-width:720px;">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+<div class="faq-q">How quickly can I start?<span class="faq-arrow">+</span></div>
+<div class="faq-a">Most clients are running within 24-48 hours.</div>
+</div>
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<div class="faq-q">Can I upgrade LITE to FULL?<span class="faq-arrow">+</span></div>
+<div class="faq-a">Yes, upgrade instantly. Price difference is prorated.</div>
+</div>
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<div class="faq-q">What about day passes?<span class="faq-arrow">+</span></div>
+<div class="faq-a">Full access for 24 hours, no commitment needed.</div>
+</div>
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<div class="faq-q">Any contracts?<span class="faq-arrow">+</span></div>
+<div class="faq-a">No contracts. Cancel anytime with one click.</div>
+</div>
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<div class="faq-q">Quality vs hiring a firm?<span class="faq-arrow">+</span></div>
+<div class="faq-a">Enterprise-grade output at a fraction of the cost, with faster turnaround.</div>
+</div>
+
+  </div>
+</section>
+
+<!-- ───────── BUNDLE CTA ───────── -->
+<section class="section" style="background:var(--accent);color:#fff;text-align:center;">
+  <div class="wrap">
+    <h2 style="font-size:1.5rem;margin-bottom:12px;">Bundle &amp; Save up to 55%</h2>
+    <p style="opacity:.9;margin-bottom:24px;">Combine this with other agencies for a single discounted subscription.</p>
+    <a href="/services/bundle/" class="btn" style="background:#fff;color:var(--accent);">View Bundles</a>
+  </div>
+</section>
+
+<!-- ───────── BOTTOM CTA ───────── -->
+<section class="section" style="text-align:center;">
+  <div class="wrap">
+    <h2 style="font-size:2rem;margin-bottom:12px;">Ready to start with Website Development Agency?</h2>
+    <p style="color:var(--g500);margin-bottom:24px;">14-day delivery guarantee. Cancel anytime.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="/checkout/?plan=lite&agency={{slug}}" class="btn btn-primary">Start LITE &mdash; $97/mo</a>
+      <a href="/checkout/?plan=full&agency={{slug}}" class="btn btn-outline">Go FULL &mdash; $497/mo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── FOOTER ───────── -->
+<footer style="border-top:1px solid var(--g100);padding:32px 0;text-align:center;font-size:.85rem;color:var(--g500);">
+  <div class="wrap">
+    <p>&copy; 2020&ndash;2026 NY Spotlight Report LLC. All rights reserved.</p>
+  </div>
+</footer>
+
+
+<!-- CONVERSION ENGINE -->
+<!-- CONVERSION ENGINE — Add this to EVERY page on the site -->
+<!-- Drop this before </body> on every HTML page -->
+
+<!-- STICKY BOTTOM CTA BAR -->
+<div id="sticky-cta" style="position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;padding:10px 24px;display:flex;justify-content:center;align-items:center;gap:16px;z-index:9999;transform:translateY(100%);transition:transform .3s ease;box-shadow:0 -2px 20px rgba(0,0,0,.15)">
+<span style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,255,255,.7)">Replace your content team for <strong style="color:#fff">$297/mo</strong></span>
+<a href="/proflow/" style="background:#9e7c0c;color:#fff;padding:8px 20px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap">See How It Works →</a>
+<span style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,.3);cursor:pointer" onclick="this.parentElement.style.display='none';sessionStorage.setItem('cta_closed','1')">✕</span>
+</div>
+
+<!-- EXIT INTENT POPUP -->
+<div id="exit-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10000;justify-content:center;align-items:center;backdrop-filter:blur(4px)">
+<div style="background:#fff;border-radius:8px;padding:40px;max-width:480px;width:90%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+<span onclick="document.getElementById('exit-popup').style.display='none';sessionStorage.setItem('exit_shown','1')" style="position:absolute;top:12px;right:16px;font-size:20px;color:#a3a3a3;cursor:pointer">✕</span>
+<h3 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px;color:#0f0f0f">Before you go...</h3>
+<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:#6b6b6b;margin-bottom:20px;line-height:1.55">Get our free guide: <strong style="color:#0f0f0f">"How to Replace Your Content Team with AI — The Complete Playbook"</strong></p>
+<input type="email" id="exit-email" placeholder="your@email.com" style="width:100%;padding:12px;border:1px solid #e5e5e5;border-radius:5px;font-size:15px;font-family:'DM Sans',sans-serif;margin-bottom:10px;outline:none">
+<button onclick="captureExitLead()" style="width:100%;padding:12px;background:#0f0f0f;color:#fff;border:none;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer">Send Me the Free Guide →</button>
+<p style="font-family:'DM Sans',sans-serif;font-size:11px;color:#a3a3a3;margin-top:8px">No spam. Unsubscribe anytime.</p>
+</div>
+</div>
+
+<!-- INLINE CTA COMPONENT (inject into blog posts) -->
+<template id="inline-cta-template">
+<div style="background:linear-gradient(135deg,#faf9f6,#f0ede5);border:1px solid #e5e5e5;border-radius:8px;padding:28px 32px;margin:32px 0;text-align:center">
+<h4 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:6px;color:#0f0f0f">Tired of doing this manually?</h4>
+<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#6b6b6b;margin-bottom:16px">ProFlow produces 30 blog posts, 90+ social posts, and HD images every month — in your brand voice. Starting at $97/mo.</p>
+<a href="/proflow/" style="display:inline-block;padding:12px 28px;background:#0f0f0f;color:#fff;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;text-decoration:none">See the Full Offer →</a>
+</div>
+</template>
+
+<!-- PHONE DEMO CTA -->
+<template id="phone-cta-template">
+<div style="background:#0f0f0f;border-radius:8px;padding:24px 32px;margin:32px 0;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center">
+<div style="text-align:center">
+<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Try it right now</div>
+<div style="font-family:'Playfair Display',serif;font-size:22px;color:#fff;font-weight:700">Call our AI receptionist</div>
+</div>
+<a href="tel:+16318929817" style="display:inline-block;padding:14px 28px;background:#9e7c0c;color:#fff;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;text-decoration:none;white-space:nowrap">(631) 892-9817</a>
+</div>
+</template>
+
+<script>
+// Sticky CTA — show after 30% scroll
+(function(){
+  if(sessionStorage.getItem('cta_closed'))return;
+  var shown=false;
+  window.addEventListener('scroll',function(){
+    if(shown)return;
+    var pct=window.scrollY/(document.body.scrollHeight-window.innerHeight);
+    if(pct>0.3){
+      document.getElementById('sticky-cta').style.transform='translateY(0)';
+      shown=true;
+    }
+  });
+})();
+
+// Exit intent — show when mouse leaves viewport (desktop only)
+(function(){
+  if(sessionStorage.getItem('exit_shown'))return;
+  if('ontouchstart' in window)return; // skip mobile
+  document.addEventListener('mouseout',function(e){
+    if(!e.relatedTarget && !e.toElement && e.clientY<10){
+      document.getElementById('exit-popup').style.display='flex';
+      sessionStorage.setItem('exit_shown','1');
+    }
+  });
+})();
+
+// Lead capture
+function captureExitLead(){
+  var email=document.getElementById('exit-email').value;
+  if(!email||!email.includes('@'))return;
+  fetch('/.netlify/functions/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:email,source:'exit_intent',page:location.pathname})}).catch(function(){});
+  fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:email,source:'exit_popup'})}).catch(function(){});
+  localStorage.setItem('nysr_lead',email);
+  document.getElementById('exit-popup').innerHTML='<div style="background:#fff;border-radius:8px;padding:48px;text-align:center"><h3 style="font-family:Playfair Display,serif;font-size:24px;color:#16793a">Check your inbox!</h3><p style="font-family:DM Sans,sans-serif;font-size:15px;color:#6b6b6b;margin-top:8px">Your free guide is on its way.</p></div>';
+  setTimeout(function(){document.getElementById('exit-popup').style.display='none'},3000);
+}
+
+// Auto-inject inline CTAs into blog posts (every 3rd section)
+(function(){
+  var article=document.querySelector('article');
+  if(!article)return;
+  var h2s=article.querySelectorAll('h2');
+  var tpl=document.getElementById('inline-cta-template');
+  var phoneTpl=document.getElementById('phone-cta-template');
+  if(h2s.length>2 && tpl){
+    var cta=tpl.content.cloneNode(true);
+    h2s[Math.floor(h2s.length/2)].parentNode.insertBefore(cta,h2s[Math.floor(h2s.length/2)]);
+  }
+  if(h2s.length>4 && phoneTpl){
+    var phone=phoneTpl.content.cloneNode(true);
+    h2s[h2s.length-1].parentNode.insertBefore(phone,h2s[h2s.length-1]);
+  }
+})();
+
+// Track page views for analytics
+(function(){
+  fetch('/.netlify/functions/track',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({event:'pageview',page:location.pathname,ref:document.referrer,ts:Date.now()})}).catch(function(){});
+})();
+</script>
+
+</body>
+</html>
