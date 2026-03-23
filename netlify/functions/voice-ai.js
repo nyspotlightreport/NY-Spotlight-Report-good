@@ -116,7 +116,7 @@ ${say("All plans come with a 14 day delivery guarantee. No contracts. Cancel any
     <Gather numDigits="1" timeout="5" action="${BASE_URL}?step=sales" method="POST">
 ${say("Press 2 to speak with our sales team. Press 0 to return to the main menu.")}
     </Gather>
-${say("Visit n.y. spotlight report dot com slash proflow to get started in just 5 minutes. Thank you for calling. Goodbye.")}`);
+${say("Visit proflow dot com slash proflow to get started in just 5 minutes. Thank you for calling. Goodbye.")}`);
   }
 
   // ── VOICEMAIL / RECORDING HANDLERS ─────────────────
@@ -141,7 +141,7 @@ ${say("Thank you for your message. A member of our team will call you back withi
 
   // ── DEFAULT GREETING ───────────────────────────────
   return twiml(`
-${say("Thank you for calling ProFlow by N.Y. Spotlight Report. My name is Emma, and I am happy to assist you today.")}
+${say("Thank you for calling ProFlow. My name is Emma, and I am happy to assist you today.")}
     <Pause length="1"/>
     <Gather numDigits="1" timeout="8" action="${BASE_URL}?step=route" method="POST">
 ${say("For sales and pricing information, press 1. For support, press 2. To leave a message for our team, press 0. Or simply stay on the line.")}
@@ -149,5 +149,5 @@ ${say("For sales and pricing information, press 1. For support, press 2. To leav
 ${say("I did not receive a selection. No problem.")}
 ${say("Please leave a message after the tone and someone will call you back.")}
     <Record maxLength="120" transcribe="true" transcribeCallback="${BASE_URL}?step=transcription" playBeep="true" action="${BASE_URL}?step=after-record" />
-${say("Thank you for calling N.Y. Spotlight Report. Have a wonderful day.")}`);
+${say("Thank you for calling ProFlow. Have a wonderful day.")}`);
 };
