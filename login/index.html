@@ -36,6 +36,7 @@ input:focus{border-color:rgba(201,168,76,.4)}
 <input type="email" id="email" placeholder="you@company.com">
 <label>Password</label>
 <input type="password" id="pass" placeholder="********">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;margin-top:-8px"><input type="checkbox" id="remember" checked style="accent-color:#c9a84c;width:16px;height:16px"><label for="remember" style="font-size:13px;color:rgba(255,255,255,.4);letter-spacing:0;text-transform:none;font-weight:400;margin:0">Remember me</label></div>
 <button class="btn" onclick="handleLogin()">Sign In →</button>
 <div class="links">
 <a href="#">Forgot password?</a> · <a href="/proflow/">Get ProFlow</a> · <a href="/">Home</a>
@@ -57,6 +58,8 @@ function handleLogin(){
   }
 }
 document.getElementById('pass').addEventListener('keydown',function(e){if(e.key==='Enter')handleLogin()});
+// Auto-redirect if already logged in (remember me)
+try{var existing=JSON.parse(localStorage.getItem('pf_user'));if(existing&&existing.email)window.location.href='/portal/';}catch(e){}
 </script>
 </body>
 </html>
