@@ -1,5 +1,5 @@
 [build]
-  command = "# static site, no build needed"
+  command = "echo 'Static site - no build required'"
   publish = "."
 
 [[redirects]]
