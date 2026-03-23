@@ -65,11 +65,13 @@ nav a.accent{color:var(--accent)}
 .section-head a{font-family:var(--sans);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
 
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-bottom:48px}
+.card .thumb{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px;margin-bottom:14px;background:var(--rule)}
 .card .label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .card h3{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.28;margin-bottom:8px}
 .card h3 a{text-decoration:none}
 .card h3 a:hover{color:var(--accent)}
 .card p{font-size:15px;color:var(--grey);line-height:1.6}
+.featured-img{width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:20px;border-radius:2px}
 
 /* PHOTO FEATURE */
 .photo-feature{background:var(--ink);padding:56px 48px;margin:40px 0;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;color:#fff}
@@ -139,6 +141,7 @@ footer a:hover{color:var(--accent)}
 <section class="featured">
 <div class="featured-grid">
 <div class="featured-main">
+<img src="/images/broadway.jpg" alt="Broadway theater stage" class="featured-img" loading="eager">
 <div class="label">Entertainment</div>
 <h1><a href="/blog/">Broadway's Boldest Season in a Decade: The Shows, the Stars, and the Stages Rewriting the Rules</a></h1>
 <p class="deck">From AI-choreographed dance sequences to sold-out immersive experiences in abandoned subway stations, New York's theater scene is having its most experimental moment since the pandemic. We went backstage at six productions to find out what's really happening.</p>
@@ -169,16 +172,19 @@ footer a:hover{color:var(--accent)}
 <div class="section-head"><h2>Entertainment</h2><a href="/blog/">All Stories &rarr;</a></div>
 <div class="grid-3">
 <article class="card">
+<img src="/images/theater.jpg" alt="Theater performance" class="thumb" loading="lazy">
 <div class="label">Theater</div>
 <h3><a href="/blog/">The $2 Million Bet: How One Off-Broadway Producer Is Reinventing the Musical</a></h3>
 <p>A former tech founder is pouring venture capital into experimental theater — and the results are filling seats that traditional Broadway can't.</p>
 </article>
 <article class="card">
+<img src="/images/dj.jpg" alt="DJ performing" class="thumb" loading="lazy">
 <div class="label">Music</div>
 <h3><a href="/blog/">NYC's Underground DJ Scene Is Going Mainstream — Here's Who's Leading It</a></h3>
 <p>The DJs who used to spin in Bushwick warehouses are now headlining Madison Square Garden. A look at the new generation crossing over.</p>
 </article>
 <article class="card">
+<img src="/images/concert.jpg" alt="Film premiere" class="thumb" loading="lazy">
 <div class="label">Film</div>
 <h3><a href="/blog/">Tribeca Film Festival 2026: The 10 Films Everyone Will Be Talking About</a></h3>
 <p>From a documentary shot entirely on iPhones in the Bronx to a sci-fi thriller filmed in an actual decommissioned subway tunnel.</p>
@@ -193,23 +199,26 @@ footer a:hover{color:var(--accent)}
 <p>From the front rows of Lincoln Center to the guerrilla runway shows in Chinatown parking garages, we covered every major moment of NYFW. The verdict: New York fashion has never been more alive — or more divided.</p>
 <a href="/blog/" class="read">Read the Full Report &rarr;</a>
 </div>
-<div class="photo-placeholder">🗽</div>
+<div><img src="/images/runway.jpg" alt="New York Fashion Week runway" style="width:100%;border-radius:4px;aspect-ratio:4/3;object-fit:cover"></div>
 </div>
 
 <!-- NIGHTLIFE & CULTURE -->
 <div class="section-head"><h2>Nightlife &amp; Culture</h2><a href="/blog/">All Stories &rarr;</a></div>
 <div class="grid-3">
 <article class="card">
+<img src="/images/bar.jpg" alt="NYC cocktail bar" class="thumb" loading="lazy">
 <div class="label">Nightlife</div>
 <h3><a href="/blog/">The 15 Best New Bars in NYC Right Now, According to the People Who Actually Go Out</a></h3>
 <p>Forget the Infatuation lists. These are the spots the bartenders, DJs, and door guys drink at after their shifts end.</p>
 </article>
 <article class="card">
+<img src="/images/gallery.jpg" alt="Art gallery opening" class="thumb" loading="lazy">
 <div class="label">Culture</div>
 <h3><a href="/blog/">Inside the Members-Only Clubs Reshaping Manhattan's Social Scene</a></h3>
 <p>Soho House is old news. The new private clubs are smaller, weirder, and way harder to get into. We got inside three of them.</p>
 </article>
 <article class="card">
+<img src="/images/poetry.jpg" alt="Spoken word performance" class="thumb" loading="lazy">
 <div class="label">Live Performance</div>
 <h3><a href="/blog/">The Spoken Word Revival: How Poetry Slams Became NYC's Hottest Night Out</a></h3>
 <p>On any given Tuesday in the East Village, 200 people pack a basement to watch poets perform. This is the story of how that happened.</p>
