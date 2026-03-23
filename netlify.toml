@@ -1,7 +1,3 @@
-[build]
-  command = "echo 'Static site - no build required'"
-  publish = "."
-
 [[redirects]]
   from = "/api/news"
   to   = "/.netlify/functions/api-news"
