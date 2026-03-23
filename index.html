@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NY Spotlight Report — New York Entertainment, Fashion & Culture News</title>
-<meta name="description" content="New York's independent voice for entertainment, fashion, culture, and lifestyle news. Founded 2020 by S.C. Thomas. ISSN 2026-0147.">
-<meta property="og:title" content="NY Spotlight Report — NYC Entertainment & Culture News">
-<meta property="og:description" content="New York's independent voice for entertainment, fashion, culture, and lifestyle.">
+<title>NY Spotlight Report — AI, Technology & Entrepreneurship from New York</title>
+<meta name="description" content="New York's independent digital publication covering AI, automation, passive income, and digital entrepreneurship. Founded 2020 by S.C. Thomas. ISSN 2026-0147.">
+<meta property="og:title" content="NY Spotlight Report — AI, Technology & Entrepreneurship">
+<meta property="og:description" content="New York's independent voice on AI, automation, and digital entrepreneurship.">
 <link rel="canonical" href="https://nyspotlightreport.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -15,150 +15,258 @@
 body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 
+/* TOP BAR */
+.topbar{background:var(--ink);color:rgba(255,255,255,.55);font-size:11px;padding:8px 0;text-align:center;letter-spacing:.04em;line-height:1.6}
+.topbar strong{color:#fff;font-weight:600}
+.topbar .accent{color:var(--accent)}
+
 /* NAV */
-.topbar{background:var(--ink);color:rgba(255,255,255,.5);font-size:11px;padding:6px 0;text-align:center;letter-spacing:.05em}
-.topbar a{color:var(--accent)}
-nav{background:var(--paper);border-bottom:1px solid var(--border);padding:0 clamp(16px,4vw,64px)}
+nav{background:var(--paper);border-bottom:1px solid var(--border);padding:0 clamp(16px,4vw,64px);position:sticky;top:0;z-index:100}
 .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{font-family:var(--serif);font-size:28px;font-weight:400;letter-spacing:-.02em}
 .logo span{color:var(--accent);font-style:italic}
-.nav-links a{font-size:13px;font-weight:500;color:var(--muted);margin-left:24px;transition:color .15s}
+.nav-links a{font-size:13px;font-weight:500;color:var(--muted);margin-left:28px;transition:color .15s}
 .nav-links a:hover{color:var(--ink)}
 
 .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px)}
 
-/* HERO / FEATURED */
-.hero{padding:48px 0 32px;border-bottom:1px solid var(--border)}
-.hero-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
-.hero h1{font-family:var(--serif);font-size:clamp(32px,4.5vw,52px);font-weight:400;line-height:1.12;margin-bottom:12px;max-width:800px}
+/* HERO */
+.hero{padding:56px 0 40px;border-bottom:1px solid var(--border)}
+.hero-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.hero h1{font-family:var(--serif);font-size:clamp(32px,4.5vw,54px);font-weight:400;line-height:1.1;margin-bottom:14px;max-width:820px}
 .hero h1 em{font-style:italic;color:var(--accent)}
 .hero-deck{font-size:18px;color:var(--muted);max-width:640px;line-height:1.6;margin-bottom:20px}
 .hero-meta{font-size:12px;color:var(--muted)}
 .hero-meta strong{color:var(--ink)}
+.hero-cta{display:inline-block;margin-top:20px;padding:12px 28px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;letter-spacing:.04em;border-radius:4px;transition:background .2s}
+.hero-cta:hover{background:#333}
 
 /* SECTIONS */
-.section-header{display:flex;justify-content:space-between;align-items:baseline;padding:32px 0 16px;border-bottom:1px solid var(--border);margin-bottom:24px}
-.section-header h2{font-family:var(--serif);font-size:24px;font-weight:400}
-.section-header a{font-size:12px;color:var(--accent);font-weight:600}
+.section-header{display:flex;justify-content:space-between;align-items:baseline;padding:36px 0 16px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.section-header h2{font-family:var(--serif);font-size:26px;font-weight:400}
+.section-header a{font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.04em}
 
 /* ARTICLE GRID */
-.article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
+.article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:56px}
 .article-card{border-bottom:1px solid var(--border);padding-bottom:20px}
 .article-card .cat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.article-card h3{font-family:var(--serif);font-size:20px;font-weight:400;line-height:1.25;margin-bottom:8px}
+.article-card h3{font-family:var(--serif);font-size:20px;font-weight:400;line-height:1.25;margin-bottom:8px;transition:color .15s}
 .article-card h3:hover{color:var(--accent)}
 .article-card p{font-size:14px;color:var(--muted);line-height:1.55}
-.article-card .meta{font-size:11px;color:var(--muted);margin-top:8px}
 
-/* FEATURED GRID */
-.feat-grid{display:grid;grid-template-columns:2fr 1fr;gap:32px;margin-bottom:48px}
-.feat-main h3{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:400;line-height:1.2;margin-bottom:12px}
-.feat-main p{font-size:16px;color:var(--muted);line-height:1.6}
-.feat-main .cat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.feat-sidebar{display:flex;flex-direction:column;gap:20px}
-.feat-sidebar .side-item{padding-bottom:16px;border-bottom:1px solid var(--border)}
-.feat-sidebar h4{font-family:var(--serif);font-size:17px;font-weight:400;line-height:1.3}
-.feat-sidebar .cat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+/* NEWSLETTER CTA */
+.newsletter-cta{background:var(--ink);color:#fff;padding:56px 48px;border-radius:8px;margin:48px 0;text-align:center}
+.newsletter-cta h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:400;margin-bottom:10px}
+.newsletter-cta p{color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 24px;line-height:1.6;font-size:15px}
+.newsletter-cta form{display:flex;gap:10px;max-width:440px;margin:0 auto}
+.newsletter-cta input[type="email"]{flex:1;padding:12px 16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-family:var(--sans);font-size:14px;border-radius:4px}
+.newsletter-cta input[type="email"]::placeholder{color:rgba(255,255,255,.35)}
+.newsletter-cta button{padding:12px 24px;background:var(--accent);color:var(--ink);font-family:var(--sans);font-size:13px;font-weight:600;border:none;border-radius:4px;cursor:pointer;transition:opacity .2s}
+.newsletter-cta button:hover{opacity:.85}
 
-/* ABOUT BAR */
-.about-bar{background:var(--ink);color:#fff;padding:48px;border-radius:12px;margin:48px auto;text-align:center}
-.about-bar h2{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:8px}
-.about-bar p{color:rgba(255,255,255,.5);font-size:15px;max-width:600px;margin:0 auto 20px;line-height:1.6}
-.about-bar a{color:var(--accent);font-weight:600;font-size:14px}
+/* ABOUT BLURB */
+.about-blurb{padding:48px 0;border-top:1px solid var(--border);text-align:center}
+.about-blurb h2{font-family:var(--serif);font-size:24px;margin-bottom:12px}
+.about-blurb p{color:var(--muted);max-width:640px;margin:0 auto;line-height:1.7;font-size:15px}
+.about-blurb a.link{color:var(--accent);font-weight:500;border-bottom:1px solid var(--accent)}
 
-/* NEWSLETTER */
-.newsletter{background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:32px;text-align:center;margin:32px 0 48px}
-.newsletter h3{font-family:var(--serif);font-size:22px;margin-bottom:6px}
-.newsletter p{font-size:14px;color:var(--muted);margin-bottom:16px}
-.newsletter form{display:flex;gap:8px;justify-content:center;max-width:400px;margin:0 auto}
-.newsletter input{flex:1;padding:12px;border:1px solid var(--border);border-radius:5px;font-size:14px;font-family:var(--sans)}
-.newsletter button{padding:12px 24px;background:var(--ink);color:#fff;border:none;border-radius:5px;font-size:14px;font-weight:600;cursor:pointer}
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,.45);padding:48px 0 32px;font-size:13px}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer-brand{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:10px}
+.footer-brand span{color:var(--accent);font-style:italic}
+footer p{line-height:1.6}
+footer h4{color:#fff;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+footer ul{list-style:none}
+footer li{margin-bottom:8px}
+footer a{color:rgba(255,255,255,.45);transition:color .15s}
+footer a:hover{color:var(--accent)}
+.footer-bottom{max-width:1200px;margin:0 auto;padding:24px clamp(16px,4vw,64px) 0;border-top:1px solid rgba(255,255,255,.08);margin-top:32px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
 
-footer{border-top:1px solid var(--border);padding:32px 0;text-align:center}
-footer .f-logo{font-family:var(--serif);font-size:20px;margin-bottom:8px}
-footer .f-logo span{color:var(--accent);font-style:italic}
-footer p{font-size:12px;color:var(--muted);line-height:1.8}
-footer a{color:var(--accent)}
-
-@media(max-width:768px){.article-grid{grid-template-columns:1fr}.feat-grid{grid-template-columns:1fr}.nav-links a{display:none}.nav-links a:last-child{display:inline}}
+@media(max-width:768px){
+.article-grid{grid-template-columns:1fr}
+.footer-inner{grid-template-columns:1fr 1fr}
+.newsletter-cta form{flex-direction:column}
+.newsletter-cta{padding:40px 24px}
+.nav-links a{margin-left:16px;font-size:12px}
+}
 </style>
 </head>
 <body>
 
-<div class="topbar">New York's Independent Voice · Est. 2020 · <a href="/about/sc-thomas/">S.C. Thomas, Editor-in-Chief</a> · ISSN 2026-0147</div>
+<!-- TOP BAR -->
+<div class="topbar">
+New York's Independent Voice on AI, Technology &amp; Entrepreneurship &middot; Est. 2020 &middot; <strong>S.C. Thomas</strong>, Editor-in-Chief &middot; <span class="accent">ISSN 2026-0147</span>
+</div>
 
+<!-- NAV -->
 <nav>
 <div class="nav-inner">
-<a href="/" class="logo">NY Spotlight <span>Report</span></a>
+<a href="/" class="logo">NY <span>Spotlight</span> Report</a>
 <div class="nav-links">
 <a href="/blog/">Articles</a>
 <a href="/about/sc-thomas/">About</a>
 <a href="/press/">Press</a>
 <a href="/newsletter/">Newsletter</a>
-<a href="/blog/" style="color:var(--accent)">Read Now</a>
 </div>
 </div>
 </nav>
 
+<!-- FEATURED ARTICLE -->
 <div class="wrap">
+<section class="hero">
+<div class="hero-label">Featured Report</div>
+<h1><a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/">How I Built 63 AI Bots That Run My <em>Business</em></a></h1>
+<p class="hero-deck">Inside the autonomous system that handles content creation, lead generation, email outreach, and client management without human intervention.</p>
+<p class="hero-meta">By <strong>S.C. Thomas</strong> &middot; NY Spotlight Report</p>
+<a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/" class="hero-cta">Read the Full Report</a>
+</section>
 
-<div class="hero">
-<div class="hero-label">Featured</div>
-<h1>The publication that covers New York's <em>entertainment, fashion, and culture</em> — from the inside</h1>
-<p class="hero-deck">We report on the people, brands, and movements shaping New York City. Independent journalism, no gatekeepers, no corporate influence.</p>
-<p class="hero-meta">By <strong>S.C. Thomas</strong> · Editor-in-Chief · March 2026</p>
-</div>
-
-<div class="section-header"><h2>Entertainment & Culture</h2><a href="/blog/">View All →</a></div>
-<div class="feat-grid">
-<div class="feat-main">
-<div class="cat">Entertainment</div>
-<a href="/blog/"><h3>Behind the Curtain: 10 Years of Covering New York's Most Exclusive Entertainment Scenes</h3></a>
-<p>From underground comedy clubs in the East Village to red carpet premieres at Lincoln Center — a decade of reporting on the city that never sleeps. What changes, what stays, and why it all matters.</p>
-</div>
-<div class="feat-sidebar">
-<div class="side-item"><div class="cat">Nightlife</div><a href="/blog/"><h4>Hell's Kitchen Reclaims Its Crown as NYC's Gay Nightlife Capital</h4></a></div>
-<div class="side-item"><div class="cat">Fashion</div><a href="/blog/"><h4>The New Guard: 7 NYC Designers Redefining Streetwear in 2026</h4></a></div>
-<div class="side-item"><div class="cat">Culture</div><a href="/blog/"><h4>Why Independent Media Matters More Than Ever in the Age of AI</h4></a></div>
-</div>
+<!-- LATEST ARTICLES -->
+<div class="section-header">
+<h2>Latest</h2>
+<a href="/blog/">View All Articles &rarr;</a>
 </div>
 
-<div class="section-header"><h2>Business & Technology</h2><a href="/blog/">View All →</a></div>
 <div class="article-grid">
-<div class="article-card"><div class="cat">AI & Business</div><a href="/blog/"><h3>How AI Is Replacing Entire Content Teams — And Why That's Not a Bad Thing</h3></a><p>The businesses embracing AI content automation aren't losing quality — they're gaining scale, consistency, and sleep.</p><div class="meta">March 2026 · 8 min read</div></div>
-<div class="article-card"><div class="cat">Technology</div><a href="/blog/"><h3>The Best AI Writing Tools for Entrepreneurs in 2026</h3></a><p>We tested 15 AI writing platforms head-to-head. Here's what actually works and what's just marketing hype.</p><div class="meta">March 2026 · 12 min read</div></div>
-<div class="article-card"><div class="cat">Passive Income</div><a href="/blog/"><h3>7 Passive Income Ideas That Actually Generate Revenue in 2026</h3></a><p>Skip the guru advice. These are the income streams we've personally tested and verified with real numbers.</p><div class="meta">March 2026 · 10 min read</div></div>
+<article class="article-card">
+<div class="cat">AI Automation</div>
+<h3><a href="/blog/automated-content-operation/">How I Automated My Entire Content Operation for $0/Month</a></h3>
+<p>A step-by-step breakdown of building a zero-cost content pipeline using AI agents, scheduling tools, and automation workflows.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">Sales Systems</div>
+<h3><a href="/blog/cold-email-system-proflow/">The Cold Email System That Books 5 Demos a Week</a></h3>
+<p>The exact outreach framework, templates, and automation stack behind a repeatable demo-booking machine.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">Passive Income</div>
+<h3><a href="/blog/passive-income-zero-cost-2026/">25 Zero-Cost Passive Income Streams in 2026</a></h3>
+<p>Every legitimate passive income model you can launch this year with no upfront capital required.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">PR &amp; Growth</div>
+<h3><a href="/blog/pr-for-entrepreneurs-get-featured/">How to Get Featured Without a PR Agency</a></h3>
+<p>The DIY press strategy that lands coverage in publications, podcasts, and media outlets on your own terms.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">Newsletter Growth</div>
+<h3><a href="/blog/newsletter-growth-strategy-2026/">Newsletter Growth Strategy 2026</a></h3>
+<p>Proven tactics for growing a newsletter audience from zero to thousands of engaged subscribers this year.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">SEO</div>
+<h3><a href="/blog/ahrefs-seo-strategy-small-sites/">Ahrefs SEO Strategy for Small Sites</a></h3>
+<p>How to use Ahrefs to compete with larger publishers and drive organic traffic to a small or new website.</p>
+</article>
 </div>
 
-<div class="section-header"><h2>Guides & Reviews</h2><a href="/blog/">View All →</a></div>
+<!-- GUIDES & REVIEWS -->
+<div class="section-header">
+<h2>Guides &amp; Reviews</h2>
+<a href="/blog/">Browse All &rarr;</a>
+</div>
+
 <div class="article-grid">
-<div class="article-card"><div class="cat">SEO</div><a href="/ahrefs-vs-semrush-2026/"><h3>Ahrefs vs SEMrush 2026: The Only Comparison You Need</h3></a><p>Two SEO giants, one clear winner for most use cases. We break down pricing, features, and real-world performance.</p><div class="meta">March 2026 · 15 min read</div></div>
-<div class="article-card"><div class="cat">Email Marketing</div><a href="/beehiiv-vs-substack-2026/"><h3>Beehiiv vs Substack: Which Newsletter Platform Wins in 2026?</h3></a><p>Monetization, design, deliverability, analytics — we compared everything so you don't have to.</p><div class="meta">March 2026 · 11 min read</div></div>
-<div class="article-card"><div class="cat">Publishing</div><a href="/amazon-kdp-guide-2026/"><h3>The Complete Amazon KDP Guide: From Zero to Published in 2026</h3></a><p>Everything you need to know about self-publishing on Amazon — from manuscript to marketing.</p><div class="meta">March 2026 · 14 min read</div></div>
+<article class="article-card">
+<div class="cat">Comparison</div>
+<h3><a href="/ahrefs-vs-semrush-2026/">Ahrefs vs SEMrush 2026</a></h3>
+<p>An in-depth comparison of the two leading SEO platforms for content creators and small business owners.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">Comparison</div>
+<h3><a href="/beehiiv-vs-substack-2026/">Beehiiv vs Substack 2026</a></h3>
+<p>Which newsletter platform is right for your publication? Features, pricing, and monetization compared.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">Guide</div>
+<h3><a href="/amazon-kdp-guide-2026/">Complete Amazon KDP Guide 2026</a></h3>
+<p>Everything you need to know about publishing and selling books on Amazon's Kindle Direct Publishing platform.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">Tools</div>
+<h3><a href="/best-ai-tools-entrepreneurs-2026/">Best AI Tools for Entrepreneurs 2026</a></h3>
+<p>The definitive list of AI-powered tools that save time, cut costs, and accelerate business growth.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">Tools</div>
+<h3><a href="/best-email-marketing-tools-2026/">Best Email Marketing Tools 2026</a></h3>
+<p>Top email marketing platforms ranked by features, deliverability, pricing, and ease of use.</p>
+</article>
+
+<article class="article-card">
+<div class="cat">Tools</div>
+<h3><a href="/best-seo-tools-bloggers-2026/">Best SEO Tools for Bloggers 2026</a></h3>
+<p>The best SEO software for bloggers and content creators who want to rank higher and grow organic traffic.</p>
+</article>
 </div>
 
-<div class="newsletter">
-<h3>Get the Spotlight Brief</h3>
-<p>NYC entertainment, culture, and business news — delivered weekly. No spam, no fluff, just the stories that matter.</p>
-<form onsubmit="event.preventDefault();fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:this.querySelector('input').value,source:'homepage_newsletter'})});this.innerHTML='<p style=color:var(--accent);font-weight:600>You\'re in. Check your inbox.</p>'">
-<input type="email" placeholder="your@email.com" required>
-<button type="submit">Subscribe →</button>
+<!-- NEWSLETTER SIGNUP -->
+<section class="newsletter-cta">
+<h2>The Spotlight Brief</h2>
+<p>Weekly AI tools, automation strategies, passive income opportunities, and business growth tactics. Delivered every Monday.</p>
+<form action="/.netlify/functions/subscribe" method="POST">
+<input type="email" name="email" placeholder="your@email.com" required>
+<button type="submit">Subscribe Free</button>
 </form>
-</div>
+</section>
 
-<div class="about-bar">
+<!-- ABOUT BLURB -->
+<section class="about-blurb">
 <h2>About NY Spotlight Report</h2>
-<p>Founded in 2020 by S.C. Thomas, NY Spotlight Report is an independent New York media outlet covering entertainment, fashion, culture, and the intersection of technology and creativity. We report without corporate influence, advertiser pressure, or algorithmic bias.</p>
-<a href="/about/sc-thomas/">Meet the Editor-in-Chief →</a>
+<p>NY Spotlight Report is an independent digital publication based in New York, covering the intersection of artificial intelligence, business automation, digital entrepreneurship, and modern content systems. Founded in 2020 by S.C. Thomas, the publication reaches thousands of readers monthly with actionable reporting on the tools, strategies, and systems shaping the future of work.</p>
+<p style="margin-top:14px"><a href="/about/sc-thomas/" class="link">Meet the Editor</a></p>
+</section>
 </div>
 
-</div>
-
+<!-- FOOTER -->
 <footer>
-<div class="wrap">
-<div class="f-logo">NY Spotlight <span>Report</span></div>
-<p>© 2020–2026 NY Spotlight Report LLC · New York, NY · ISSN 2026-0147<br>
-<a href="/blog/">Articles</a> · <a href="/about/sc-thomas/">About</a> · <a href="/press/">Press</a> · <a href="/newsletter/">Newsletter</a> · <a href="mailto:nyspotlightreport@gmail.com">Contact</a></p>
+<div class="footer-inner">
+<div>
+<div class="footer-brand">NY <span>Spotlight</span> Report</div>
+<p>Independent AI, technology, and entrepreneurship reporting from New York. Est. 2020.</p>
+<p style="margin-top:8px">ISSN 2026-0147</p>
+</div>
+<div>
+<h4>Publication</h4>
+<ul>
+<li><a href="/blog/">Articles</a></li>
+<li><a href="/about/sc-thomas/">About</a></li>
+<li><a href="/press/">Press</a></li>
+<li><a href="/newsletter/">Newsletter</a></li>
+</ul>
+</div>
+<div>
+<h4>Popular Guides</h4>
+<ul>
+<li><a href="/best-ai-tools-entrepreneurs-2026/">Best AI Tools 2026</a></li>
+<li><a href="/amazon-kdp-guide-2026/">Amazon KDP Guide</a></li>
+<li><a href="/best-email-marketing-tools-2026/">Email Marketing Tools</a></li>
+<li><a href="/best-passive-income-apps-2026/">Passive Income Apps</a></li>
+</ul>
+</div>
+<div>
+<h4>Top Articles</h4>
+<ul>
+<li><a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/">63 AI Bots</a></li>
+<li><a href="/blog/automated-content-operation/">$0 Content System</a></li>
+<li><a href="/blog/cold-email-system-proflow/">Cold Email System</a></li>
+<li><a href="/blog/passive-income-zero-cost-2026/">Zero-Cost Income</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2020&ndash;2026 NY Spotlight Report. All rights reserved.</span>
+<span>New York, NY &middot; nyspotlightreport@gmail.com</span>
 </div>
 </footer>
 
