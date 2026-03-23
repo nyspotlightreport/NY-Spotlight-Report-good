@@ -1,3 +1,7 @@
+[build]
+  publish = "."
+  command = "echo 'No build step needed'"
+
 [[redirects]]
   from = "/api/voice-conversation"
   to   = "/.netlify/functions/voice-conversation"
