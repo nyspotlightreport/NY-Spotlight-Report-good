@@ -72,6 +72,16 @@
   to   = "/.netlify/functions/health-dashboard"
   status = 200
 
+[[redirects]]
+  from = "/api/create-checkout"
+  to   = "/.netlify/functions/create-checkout"
+  status = 200
+
+[[redirects]]
+  from = "/api/stripe-webhook"
+  to   = "/.netlify/functions/stripe-webhook"
+  status = 200
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"

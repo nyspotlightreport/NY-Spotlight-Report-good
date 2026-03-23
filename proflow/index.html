@@ -997,7 +997,7 @@ document.getElementById('demo-modal').addEventListener('click',function(e){if(e.
           <li><span class="check">✓</span>Weekly KPI report</li>
           <li><span class="check">✓</span>Email support</li>
         </ul>
-        <a href="https://buy.stripe.com/5kQ28rdrK5I772HeDl24004" class="plan-btn plan-btn-secondary">Start Free Trial</a>
+        <button onclick="startCheckout('starter')" class="plan-btn plan-btn-secondary">Start Free Trial</button>
       </div>
 
       <div class="plan popular">
@@ -1014,7 +1014,7 @@ document.getElementById('demo-modal').addEventListener('click',function(e){if(e.
           <li><span class="check">✓</span>Medium + LinkedIn syndication</li>
           <li><span class="check">✓</span>Monthly strategy call (30 min)</li>
         </ul>
-        <a href="https://buy.stripe.com/dRmcN5bjCb2r9aP9j124003" class="plan-btn plan-btn-primary">Start Free Trial</a>
+        <button onclick="startCheckout('growth')" class="plan-btn plan-btn-primary">Start Free Trial</button>
       </div>
 
       <div class="plan">
@@ -1030,12 +1030,40 @@ document.getElementById('demo-modal').addEventListener('click',function(e){if(e.
           <li><span class="check">✓</span>White-label (your brand)</li>
           <li><span class="check">✓</span>Priority support + weekly calls</li>
         </ul>
-        <a href="https://buy.stripe.com/00weVdevO9Yn5YDgLt24002" class="plan-btn plan-btn-secondary">Start Free Trial</a>
+        <button onclick="startCheckout('agency')" class="plan-btn plan-btn-secondary">Start Free Trial</button>
       </div>
 
     </div>
   </div>
 </section>
+
+<script>
+async function startCheckout(plan) {
+  var btn = event.target;
+  var orig = btn.textContent;
+  btn.textContent = 'Loading...';
+  btn.disabled = true;
+  try {
+    var res = await fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan: plan })
+    });
+    var data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert('Something went wrong. Please try again.');
+      btn.textContent = orig;
+      btn.disabled = false;
+    }
+  } catch (e) {
+    alert('Connection error. Please try again.');
+    btn.textContent = orig;
+    btn.disabled = false;
+  }
+}
+</script>
 
 <section class="proof">
   <div class="proof-inner">

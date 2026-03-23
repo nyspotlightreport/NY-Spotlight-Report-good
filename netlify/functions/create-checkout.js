@@ -55,7 +55,7 @@ exports.handler = async (event) => {
     const sessionParams = {
       payment_method_types: ['card'],
       customer_email: email || undefined,
-      success_url: `https://nyspotlightreport.com/activate/?plan=${plan}&session={CHECKOUT_SESSION_ID}`,
+      success_url: `https://nyspotlightreport.com/checkout/success/?plan=${plan}&session={CHECKOUT_SESSION_ID}`,
       cancel_url: 'https://nyspotlightreport.com/proflow/?cancelled=true',
       metadata: { plan, customer_name: name || '' },
     };
