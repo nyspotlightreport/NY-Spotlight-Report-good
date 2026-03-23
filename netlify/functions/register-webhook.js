@@ -54,9 +54,16 @@ exports.handler = async (event) => {
       };
     }
 
+    if (action === 'delete') {
+      const { id } = JSON.parse(event.body || '{}');
+      if (!id) return { statusCode: 400, body: JSON.stringify({ error: 'Need id' }) };
+      await stripe.webhookEndpoints.del(id);
+      return { statusCode: 200, body: JSON.stringify({ deleted: id }) };
+    }
+
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'Send {"action":"list"} or {"action":"create"}' }),
+      body: JSON.stringify({ error: 'Send {"action":"list"} or {"action":"create"} or {"action":"delete","id":"we_xxx"}' }),
     };
   } catch (err) {
     return {
