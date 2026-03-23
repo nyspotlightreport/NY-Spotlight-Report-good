@@ -80,10 +80,10 @@ h2{font-size:20px;font-weight:600;margin-bottom:24px}
 <h1 id="welcome-msg"></h1>
 <p style="font-size:14px;color:var(--muted);margin-bottom:24px">Your content engine is running. Here's today's snapshot.</p>
 <div class="stats">
-<div class="stat"><div class="stat-label">Content Published</div><div class="stat-val" style="color:var(--gold)">23</div><div class="stat-sub" style="color:var(--green)">↑ 15% this week</div></div>
-<div class="stat"><div class="stat-label">Social Posts</div><div class="stat-val" style="color:var(--green)">68</div><div class="stat-sub" style="color:var(--green)">↑ 22% scheduled</div></div>
-<div class="stat"><div class="stat-label">Leads Generated</div><div class="stat-val" style="color:var(--purple)">12</div><div class="stat-sub" style="color:var(--green)">↑ 8% this month</div></div>
-<div class="stat"><div class="stat-label">Voice Calls</div><div class="stat-val" style="color:var(--red)">47</div><div class="stat-sub" style="color:var(--green)">↑ 34% handled by AI</div></div>
+<div class="stat"><div class="stat-label">Content Published</div><div class="stat-val" style="color:var(--gold)" id="s-content">0</div><div class="stat-sub" id="s-content-sub"></div></div>
+<div class="stat"><div class="stat-label">Social Posts</div><div class="stat-val" style="color:var(--green)" id="s-social">0</div><div class="stat-sub" id="s-social-sub"></div></div>
+<div class="stat"><div class="stat-label">Leads Generated</div><div class="stat-val" style="color:var(--purple)" id="s-leads">0</div><div class="stat-sub" id="s-leads-sub"></div></div>
+<div class="stat"><div class="stat-label">Voice Calls</div><div class="stat-val" style="color:var(--red)" id="s-voice">0</div><div class="stat-sub" id="s-voice-sub"></div></div>
 </div>
 <div class="grid2">
 <div class="card"><div class="card-title">This week's content</div>
@@ -188,6 +188,30 @@ function showPanel(id){
   document.getElementById('p-'+id).classList.add('active');
   document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active')});
   event.currentTarget.classList.add('active');
+}
+
+// REAL vs DEMO data
+var isChairman = u.email === 'nyspotlightreport@gmail.com';
+if (isChairman) {
+  document.getElementById('s-content').textContent = '15';
+  document.getElementById('s-content-sub').innerHTML = '<span style="color:var(--muted)">blog posts live on site</span>';
+  document.getElementById('s-social').textContent = '28';
+  document.getElementById('s-social-sub').innerHTML = '<span style="color:var(--muted)">posts pushed by agents</span>';
+  document.getElementById('s-leads').textContent = '0';
+  document.getElementById('s-leads-sub').innerHTML = '<span style="color:var(--muted)">system launched Mar 22</span>';
+  document.getElementById('s-voice').textContent = '1';
+  document.getElementById('s-voice-sub').innerHTML = '<span style="color:var(--muted)">test call (trial mode)</span>';
+} else {
+  var demoBanner = '<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:var(--gold)">ℹ️ <b>Sample data</b> — These numbers are examples. Your real metrics populate once your content engine is active.</div>';
+  document.getElementById('p-dash').insertAdjacentHTML('afterbegin', demoBanner);
+  document.getElementById('s-content').textContent = '23';
+  document.getElementById('s-content-sub').innerHTML = '<span style="color:var(--green)">↑ 15% this week</span>';
+  document.getElementById('s-social').textContent = '68';
+  document.getElementById('s-social-sub').innerHTML = '<span style="color:var(--green)">↑ 22% scheduled</span>';
+  document.getElementById('s-leads').textContent = '12';
+  document.getElementById('s-leads-sub').innerHTML = '<span style="color:var(--green)">↑ 8% this month</span>';
+  document.getElementById('s-voice').textContent = '47';
+  document.getElementById('s-voice-sub').innerHTML = '<span style="color:var(--green)">↑ 34% handled by AI</span>';
 }
 // Social grid
 var socials=[{n:'LinkedIn',p:12,f:'2.4K',e:'4.2%',c:'#0077b5',q:5},{n:'Twitter/X',p:28,f:'1.8K',e:'2.8%',c:'#1da1f2',q:7},{n:'Instagram',p:8,f:'890',e:'5.1%',c:'#e4405f',q:4},{n:'Facebook',p:6,f:'1.2K',e:'1.9%',c:'#1877f2',q:3},{n:'TikTok',p:4,f:'340',e:'7.3%',c:'#000',q:2},{n:'Pinterest',p:10,f:'560',e:'3.1%',c:'#bd081c',q:6}];
