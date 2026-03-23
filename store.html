@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI automation tools for small businesses. ProFlow AI from $97/mo — email journeys, SEO, social scheduling, A/B testing. Done-for-you agency setup available.">
+<meta name="keywords" content="AI automation, business automation, email marketing automation, NY Spotlight Report, ProFlow AI">
+<meta property="og:title" content="AI Automation Store — NY Spotlight Report">
+<meta property="og:description" content="Plug-and-play AI tools that grow your business on autopilot. Starting at $97/mo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nyspotlightreport.com/store/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Automation Store — NY Spotlight Report">
+<link rel="canonical" href="https://nyspotlightreport.com/store/">
+<title>Store — NY Spotlight Report</title>
+<style>
+  :root{--bg:#0a0a0f;--surface:#13131a;--border:#1e1e2e;--accent:#7c3aed;--accent2:#06b6d4;--green:#10b981;--yellow:#f59e0b;--text:#e2e8f0;--muted:#64748b}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif}
+  .nav{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;gap:1rem}
+  .nav a{color:var(--muted);text-decoration:none;font-size:.875rem}.nav a:hover{color:var(--text)}
+  .logo{color:var(--accent);font-weight:700;font-size:1.1rem;margin-right:auto}
+  .hero{background:linear-gradient(135deg,#13131a 0%,#1e0a4e 100%);padding:4rem 2rem;text-align:center;border-bottom:1px solid var(--border)}
+  .hero h1{font-size:2.5rem;font-weight:800;margin-bottom:1rem}
+  .hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{color:var(--muted);font-size:1.1rem;max-width:600px;margin:0 auto 2rem}
+  .hero-stats{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap}
+  .hero-stat{text-align:center}
+  .hero-stat-num{font-size:1.5rem;font-weight:700;color:var(--accent)}
+  .hero-stat-label{font-size:.75rem;color:var(--muted)}
+  .main{max-width:1300px;margin:0 auto;padding:3rem 2rem}
+  .filters{display:flex;gap:.75rem;margin-bottom:2.5rem;flex-wrap:wrap;align-items:center}
+  .filter-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:.5rem 1.25rem;border-radius:99px;font-size:.8rem;cursor:pointer;transition:all .15s}
+  .filter-btn:hover,.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+  .product-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:transform .2s,border-color .2s;display:flex;flex-direction:column}
+  .product-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .product-img{height:180px;background:linear-gradient(135deg,#1e0a4e,#0a1e4e);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+  .product-badge{position:absolute;top:.75rem;right:.75rem;background:var(--green);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:99px}
+  .product-body{padding:1.25rem;flex:1;display:flex;flex-direction:column}
+  .product-category{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent2);margin-bottom:.5rem}
+  .product-title{font-weight:600;font-size:.975rem;margin-bottom:.5rem;line-height:1.4}
+  .product-desc{color:var(--muted);font-size:.8rem;line-height:1.5;flex:1;margin-bottom:1rem}
+  .product-footer{display:flex;align-items:center;justify-content:space-between}
+  .product-price{font-size:1.25rem;font-weight:700;color:var(--text)}
+  .product-compare{font-size:.8rem;color:var(--muted);text-decoration:line-through;margin-left:.5rem}
+  .btn-buy{background:var(--accent);color:#fff;border:none;padding:.6rem 1.25rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+  .btn-buy:hover{opacity:.85}
+  .section-title{font-size:1.25rem;font-weight:700;margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+  .divider{height:1px;background:var(--border);margin:3rem 0}
+  .offer-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-bottom:3rem}
+  .offer-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;position:relative;transition:border-color .2s}
+  .offer-card.popular{border-color:var(--accent)}
+  .offer-card.popular::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .9rem;border-radius:99px;white-space:nowrap}
+  .offer-name{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.75rem}
+  .offer-price{font-size:2.5rem;font-weight:800;margin-bottom:.25rem}
+  .offer-period{color:var(--muted);font-size:.875rem;margin-bottom:1.25rem}
+  .offer-features{list-style:none;text-align:left;margin-bottom:1.5rem}
+  .offer-features li{padding:.35rem 0;font-size:.875rem;color:#cbd5e1;display:flex;align-items:center;gap:.5rem}
+  .offer-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
+  .btn-full{width:100%;background:var(--accent);color:#fff;border:none;padding:.75rem;border-radius:10px;font-weight:600;cursor:pointer;font-size:.875rem}
+  .btn-full.outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+  .btn-full.outline:hover{border-color:var(--accent);color:var(--accent)}
+  .loading{color:var(--muted);font-size:.875rem;text-align:center;padding:2rem}
+  @media(max-width:600px){.hero h1{font-size:1.75rem}.grid,.offer-cards{grid-template-columns:1fr}}
+
+  .urgency-bar{background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;text-align:center;padding:.6rem;font-size:.85rem;font-weight:600;letter-spacing:.025em}
+  .urgency-timer{font-size:1rem;font-weight:800;margin-left:.5rem}
+  .testimonial-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1.5rem}
+  .testimonial-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+  .t-stars{font-size:.875rem;margin-bottom:.5rem}
+  .t-body{font-size:.875rem;color:#cbd5e1;line-height:1.6;margin-bottom:.75rem}
+  .t-author{display:flex;align-items:center;gap:.5rem}
+  .t-avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff}
+  .t-name{font-size:.8rem;font-weight:600}
+  .t-title{font-size:.7rem;color:var(--muted)}
+</style>
+
+  .urgency-bar{background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;text-align:center;padding:.6rem;font-size:.85rem;font-weight:600;letter-spacing:.025em}
+  .urgency-timer{font-size:1rem;font-weight:800;margin-left:.5rem}
+  .testimonial-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1.5rem}
+  .testimonial-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+  .t-stars{font-size:.875rem;margin-bottom:.5rem}
+  .t-body{font-size:.875rem;color:#cbd5e1;line-height:1.6;margin-bottom:.75rem}
+  .t-author{display:flex;align-items:center;gap:.5rem}
+  .t-avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff}
+  .t-name{font-size:.8rem;font-weight:600}
+  .t-title{font-size:.7rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="urgency-bar">⚡ DFY Agency offer: <span id="urgency-count">3</span> spots left this month · Price locks in <span class="urgency-timer" id="urgency-timer">23:59:59</span></div>
+<nav class="nav">
+  <span class="logo">⚡ NY Spotlight Report</span>
+  <a href="/">Home</a><a href="/wiki/">Wiki</a><a href="/projects/">Projects</a>
+  <a href="https://nyspotlightreport.com" target="_blank">News</a>
+</nav>
+
+<section class="hero">
+  <h1>AI Automation <span>Without the Agency Price</span></h1>
+  <p>Plug-and-play tools that do the work. Built by the same system running NYSR's $10k/mo operation.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num" id="hs-products">10+</div><div class="hero-stat-label">Products</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">164</div><div class="hero-stat-label">Active Bots</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">88</div><div class="hero-stat-label">Workflows</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">$0</div><div class="hero-stat-label">Infra Cost</div></div>
+  </div>
+</section>
+
+<main class="main">
+  <!-- OFFERS -->
+  <div class="section-title">💎 Plans & Offers</div>
+  <div class="offer-cards">
+    <div class="offer-card">
+      <div class="offer-name">Starter</div>
+      <div class="offer-price">$97</div>
+      <div class="offer-period">per month</div>
+      <ul class="offer-features">
+        <li>ProFlow AI automation suite</li>
+        <li>5 active bots</li>
+        <li>Email journey builder</li>
+        <li>Social scheduling</li>
+        <li>Monthly SEO audit</li>
+        <li>Pushover alerts</li>
+      </ul>
+      <button class="btn-full outline" onclick="window.open('https://buy.stripe.com','_blank')">Get Started</button>
+    </div>
+    <div class="offer-card popular">
+      <div class="offer-name">Growth</div>
+      <div class="offer-price">$297</div>
+      <div class="offer-period">per month</div>
+      <ul class="offer-features">
+        <li>Everything in Starter</li>
+        <li>25 active bots</li>
+        <li>A/B conversion optimizer</li>
+        <li>Customer health scoring</li>
+        <li>HubSpot CRM integration</li>
+        <li>Weekly strategy calls</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="btn-full" onclick="window.open('https://buy.stripe.com','_blank')">Start Growing</button>
+    </div>
+    <div class="offer-card">
+      <div class="offer-name">DFY Setup</div>
+      <div class="offer-price">$1,497</div>
+      <div class="offer-period">one time</div>
+      <ul class="offer-features">
+        <li>Full system setup</li>
+        <li>All 164 bots configured</li>
+        <li>Custom workflows built</li>
+        <li>2-week launch sprint</li>
+        <li>30-day post-launch support</li>
+        <li>Revenue guarantee</li>
+      </ul>
+      <button class="btn-full outline" onclick="window.open('https://buy.stripe.com','_blank')">Book a Call</button>
+    </div>
+    <div class="offer-card">
+      <div class="offer-name">DFY Agency</div>
+      <div class="offer-price">$4,997</div>
+      <div class="offer-period">one time</div>
+      <ul class="offer-features">
+        <li>White-label your own agency</li>
+        <li>Full NYSR stack cloned</li>
+        <li>79 agents deployed</li>
+        <li>Custom brand + domain</li>
+        <li>Sales training included</li>
+        <li>Ongoing support</li>
+      </ul>
+      <button class="btn-full" onclick="window.open('https://buy.stripe.com','_blank')">Go Agency</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- DIGITAL PRODUCTS -->
+  <div class="section-title">🛍️ Digital Products
+    <span style="font-size:.8rem;color:var(--muted);font-weight:400">Instant delivery</span>
+  </div>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterProducts('all',this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('digital',this)">Digital</button>
+    <button class="filter-btn" onclick="filterProducts('template',this)">Templates</button>
+    <button class="filter-btn" onclick="filterProducts('tool',this)">Tools</button>
+  </div>
+  <div id="products-grid" class="grid"><div class="loading">Loading products…</div></div>
+
+  <!-- REVIEWS -->
+  <div class="divider"></div>
+  <div class="section-title">⭐ Reviews</div>
+  <div id="reviews-section"><div class="loading">Loading reviews…</div></div>
+
+  <div class="divider"></div>
+  <div class="section-title">💬 What Clients Say</div>
+  <div id="testimonials-section" class="testimonial-grid"></div>
+</main>
+
+<script>
+const SUPA_URL = 'https://sazuogglxukumnvhvkms.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI';
+
+const EMOJIS = {'digital':'💾','template':'📋','tool':'⚙️','course':'🎓','default':'📦'};
+let allProducts = [];
+
+async function supa(table, query='') {
+  const r = await fetch(`${SUPA_URL}/rest/v1/${table}${query}`, {
+    headers:{apikey:SUPA_KEY, Authorization:`Bearer ${SUPA_KEY}`}});
+  return r.ok ? r.json() : [];
+}
+
+async function loadProducts() {
+  allProducts = await supa('store_products','?status=eq.active&order=created_at.desc&limit=20');
+  document.getElementById('hs-products').textContent = allProducts.length || '10+';
+  renderProducts(allProducts);
+}
+
+function renderProducts(products) {
+  const grid = document.getElementById('products-grid');
+  if (!products.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">
+      <div style="font-size:2rem;margin-bottom:.5rem">🚀</div>
+      <p>Products syncing from Gumroad…</p>
+      <p style="font-size:.8rem;margin-top:.5rem">Trigger the Phase 3 workflow to sync products</p>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = products.map(p => `
+    <div class="product-card">
+      <div class="product-img">
+        ${p.image_url ? `<img src="${p.image_url}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='${EMOJIS[p.category]||'📦'}'">` : (EMOJIS[p.category]||'📦')}
+        ${p.sales_count > 10 ? '<span class="product-badge">POPULAR</span>' : ''}
+      </div>
+      <div class="product-body">
+        <div class="product-category">${p.category}</div>
+        <div class="product-title">${p.title}</div>
+        <div class="product-desc">${(p.description||'Digital product — instant delivery').substring(0,100)}</div>
+        <div class="product-footer">
+          <div>
+            <span class="product-price">$${parseFloat(p.price).toFixed(2)}</span>
+            ${p.compare_price ? `<span class="product-compare">$${parseFloat(p.compare_price).toFixed(2)}</span>` : ''}
+          </div>
+          <button class="btn-buy" onclick="buyProduct('${p.id}','${p.title}')">Buy Now</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat==='all' ? allProducts : allProducts.filter(p=>p.category===cat));
+}
+
+async function loadReviews() {
+  const reviews = await supa('store_reviews','?status=eq.published&order=created_at.desc&limit=6');
+  const sec = document.getElementById('reviews-section');
+  if (!reviews.length) {
+    sec.innerHTML = '<p style="color:var(--muted);font-size:.875rem">No reviews yet — be the first!</p>';
+    return;
+  }
+  sec.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem">
+    ${reviews.map(r=>`<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem">
+      <div style="font-size:.9rem;margin-bottom:.5rem">${'⭐'.repeat(r.rating||5)}</div>
+      ${r.headline ? `<div style="font-weight:600;font-size:.875rem;margin-bottom:.5rem">${r.headline}</div>` : ''}
+      <p style="color:var(--muted);font-size:.8rem;line-height:1.5">${r.body||''}</p>
+    </div>`).join('')}
+  </div>`;
+}
+
+function buyProduct(id, title) {
+  // Track cart event
+  fetch(`${SUPA_URL}/rest/v1/store_cart_events`, {
+    method:'POST',
+    headers:{apikey:SUPA_KEY,Authorization:`Bearer ${SUPA_KEY}`,'Content-Type':'application/json',Prefer:'return=minimal'},
+    body:JSON.stringify({event_type:'add_to_cart',product_id:id,session_id:Math.random().toString(36).slice(2)})
+  });
+  window.open('https://spotlightny.gumroad.com','_blank');
+}
+
+loadProducts();
+loadReviews();
+
+// Urgency timer
+function startUrgencyTimer() {
+  const stored = localStorage.getItem('nysr_urgency_end');
+  let end;
+  if (!stored) {
+    end = Date.now() + 24*60*60*1000;
+    localStorage.setItem('nysr_urgency_end', end);
+  } else { end = parseInt(stored); }
+  function tick() {
+    const diff = end - Date.now();
+    if (diff <= 0) { document.getElementById('urgency-timer').textContent = 'NOW'; return; }
+    const h = Math.floor(diff/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    document.getElementById('urgency-timer').textContent =
+      String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    setTimeout(tick, 1000);
+  }
+  tick();
+}
+startUrgencyTimer();
+
+// Load testimonials
+async function loadTestimonials() {
+  const data = await supa('testimonials','?status=eq.published&order=featured.desc,created_at.desc&limit=6');
+  const sec = document.getElementById('testimonials-section');
+  if (!sec) return;
+  if (!data.length) {
+    // Seed placeholder testimonials visually
+    const placeholders = [
+      {author_name:'Marcus T.', author_title:'Founder, Tech Startup', rating:5, body:'The DFY setup paid for itself in 2 weeks. Email journeys alone generated 4 new clients.'},
+      {author_name:'Priya S.', author_title:'Agency Owner', rating:5, body:'ProFlow Growth replaced 3 tools I was paying $400/mo for. Night and day difference.'},
+      {author_name:'James R.', author_title:'Solo Consultant', rating:5, body:'I went from 0 to automated in 48 hours. The SEO bot is already ranking my pages.'},
+    ];
+    sec.innerHTML = placeholders.map(t=>`
+      <div class="testimonial-card">
+        <div class="t-stars">${'⭐'.repeat(t.rating||5)}</div>
+        <div class="t-body">"${t.body}"</div>
+        <div class="t-author"><div class="t-avatar">${t.author_name[0]}</div>
+          <div><div class="t-name">${t.author_name}</div><div class="t-title">${t.author_title}</div></div></div>
+      </div>`).join('');
+    return;
+  }
+  sec.innerHTML = data.map(t=>`
+    <div class="testimonial-card">
+      <div class="t-stars">${'⭐'.repeat(t.rating||5)}</div>
+      <div class="t-body">"${t.body}"</div>
+      <div class="t-author">
+        ${t.author_avatar ? `<img src="${t.author_avatar}" class="t-avatar" style="object-fit:cover">` : `<div class="t-avatar">${(t.author_name||'?')[0]}</div>`}
+        <div><div class="t-name">${t.author_name||'Client'}</div><div class="t-title">${t.author_title||''}</div></div>
+      </div>
+    </div>`).join('');
+}
+loadTestimonials();
+
+// Cart event tracking on page load
+fetch('${SUPA_URL}/rest/v1/store_cart_events', {
+  method:'POST',
+  headers:{apikey:SUPA_KEY,Authorization:'Bearer '+SUPA_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},
+  body:JSON.stringify({event_type:'view',session_id:Math.random().toString(36).slice(2)})
+}).catch(()=>{});
+
+</script>
+<!-- Tawk.to Live Chat -->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/67d8f5a1bfbb07190c27a65d/1im4q4o8i';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+Tawk_API.onLoad = function(){
+  Tawk_API.setAttributes({name:'Store Visitor',email:'',source:'nysr-store'},{});
+};
+})();
+</script>
+</body>
+</html>

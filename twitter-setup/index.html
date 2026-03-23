@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Twitter/X Setup — NYSR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,sans-serif;background:#0D1B2A;color:#fff;padding:32px 20px;max-width:560px;margin:0 auto;}
+h1{color:#C9A84C;font-size:18px;margin-bottom:6px;}
+p{color:#8fa8c0;font-size:13px;margin-bottom:20px;line-height:1.6;}
+.step{background:#111d2e;border:1px solid #1e3050;border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+.sn{background:#C9A84C;color:#0D1B2A;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-right:8px;}
+.step-row{display:flex;align-items:flex-start;}
+.step-text{font-size:13px;color:#ccc;line-height:1.6;}
+.btn{display:block;background:#C9A84C;color:#0D1B2A;padding:10px;border-radius:7px;text-decoration:none;font-weight:800;font-size:13px;text-align:center;margin-top:8px;}
+code{background:#060f1a;color:#C9A84C;padding:2px 6px;border-radius:3px;font-size:11px;}
+.keys-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;}
+.key-item{background:#060f1a;border:1px solid #1e3050;border-radius:6px;padding:8px 10px;}
+.key-name{font-size:11px;font-weight:700;color:#C9A84C;font-family:monospace;}
+.key-where{font-size:10px;color:#555;margin-top:2px;}
+</style>
+</head>
+<body>
+<h1>Twitter/X Setup — 10 Minutes</h1>
+<p>Free tier allows 1,500 tweets/month (50/day). More than enough for daily posting.</p>
+
+<div class="step">
+  <div class="step-row"><span class="sn">1</span><div class="step-text">Apply for a free developer account at developer.twitter.com. Instant approval for basic access.</div></div>
+  <a href="https://developer.twitter.com/en/portal/dashboard" class="btn" target="_blank">Twitter Developer Portal →</a>
+</div>
+<div class="step">
+  <div class="step-row"><span class="sn">2</span><div class="step-text">Create a new project + app. Under <strong>"Keys and Tokens"</strong>, generate all 4 credentials.</div></div>
+</div>
+<div class="step">
+  <div class="step-row"><span class="sn">3</span><div class="step-text">Add all 4 to GitHub Secrets:</div></div>
+  <div class="keys-grid">
+    <div class="key-item"><div class="key-name">TWITTER_API_KEY</div><div class="key-where">Consumer Keys section</div></div>
+    <div class="key-item"><div class="key-name">TWITTER_API_SECRET</div><div class="key-where">Consumer Keys section</div></div>
+    <div class="key-item"><div class="key-name">TWITTER_ACCESS_TOKEN</div><div class="key-where">Authentication Tokens</div></div>
+    <div class="key-item"><div class="key-name">TWITTER_ACCESS_SECRET</div><div class="key-where">Authentication Tokens</div></div>
+  </div>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn" target="_blank">Add Secrets →</a>
+</div>
+</body>
+</html>

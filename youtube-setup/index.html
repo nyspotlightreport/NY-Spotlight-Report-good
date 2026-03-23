@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube Activation — NYSR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,sans-serif;background:#0D1B2A;color:#fff;padding:40px 24px;max-width:600px;margin:0 auto;}
+h1{color:#C9A84C;font-size:20px;margin-bottom:8px;}
+p{color:#8fa8c0;font-size:14px;margin-bottom:24px;}
+.step{background:#111d2e;border:1px solid #1e3050;border-radius:10px;padding:16px 20px;margin-bottom:12px;}
+.step-num{background:#C9A84C;color:#0D1B2A;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-right:10px;}
+.step-text{font-size:13px;color:#ccc;line-height:1.6;}
+.btn{display:block;background:#C9A84C;color:#0D1B2A;padding:12px;border-radius:8px;text-decoration:none;font-weight:800;font-size:14px;text-align:center;margin-top:8px;}
+.done{background:#1a3320;color:#4ae8a0;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;float:right;}
+</style>
+</head>
+<body>
+<h1>YouTube Upload Activation</h1>
+<p>The YouTube Shorts bot has 7 scripts queued and ready. Complete these steps to start uploading.</p>
+
+<div class="step">
+  <span class="step-num">1</span>
+  <span class="step-text">Open Google Cloud Console → OAuth consent screen for project <strong>nysr-bots</strong></span>
+  <a href="https://console.cloud.google.com/auth/overview?project=nysr-bots" class="btn" target="_blank">Open Google Cloud Console →</a>
+</div>
+
+<div class="step">
+  <span class="step-num">2</span>
+  <span class="step-text">Click <strong>"CREATE"</strong> on the consent screen setup (steps 1 and 2 already done — just need the final Create click)</span>
+</div>
+
+<div class="step">
+  <span class="step-num">3</span>
+  <span class="step-text">Once created, go to <strong>APIs & Services → YouTube Data API v3 → Create Credentials → OAuth client ID</strong></span>
+</div>
+
+<div class="step">
+  <span class="step-num">4</span>
+  <span class="step-text">Add credentials to GitHub secrets: <code style="background:#0D1B2A;padding:2px 6px;border-radius:4px;color:#C9A84C;">YOUTUBE_CLIENT_ID</code> and <code style="background:#0D1B2A;padding:2px 6px;border-radius:4px;color:#C9A84C;">YOUTUBE_CLIENT_SECRET</code></span>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn" target="_blank">Add Secrets →</a>
+</div>
+
+<div class="step">
+  <span class="step-num">5</span>
+  <span class="step-text">Run the YouTube Shorts workflow manually — bot uploads all 7 queued scripts</span>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/youtube_shorts_generator.yml" class="btn" target="_blank">Trigger Upload →</a>
+</div>
+</body>
+</html>

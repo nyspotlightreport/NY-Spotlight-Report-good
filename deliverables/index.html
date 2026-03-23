@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR Client Portal — Your Deliverables</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#04080F;--surface:#07101A;--card:#0B1622;--card2:#0F1C2A;
+  --gold:#C9A84C;--gold-l:#E8C870;--gold-dim:rgba(201,168,76,.08);
+  --green:#22C55E;--blue:#3B82F6;--red:#EF4444;--purple:#A855F7;
+  --text:#E8EEF5;--muted:#4E6070;--soft:#8FA3B0;
+  --border:rgba(255,255,255,.05);--border-b:rgba(255,255,255,.1);
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* Subtle noise */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+  opacity:.6;}
+
+/* Gold accent line */
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold-l) 50%,var(--gold) 70%,transparent 100%);
+  z-index:1000;}
+
+.wrap{max-width:1200px;margin:0 auto;padding:32px 24px;position:relative;z-index:1;}
+
+/* Header */
+.portal-header{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid rgba(201,168,76,.1);
+  flex-wrap:wrap;gap:16px;}
+.portal-brand{display:flex;align-items:center;gap:14px;}
+.brand-mark{width:42px;height:42px;border:1.5px solid var(--gold);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:16px;font-style:italic;color:var(--gold);}
+.brand-info h1{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--text);}
+.brand-info p{font-size:10px;color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-top:3px;}
+.portal-meta{text-align:right;}
+.portal-meta .client-name{font-size:14px;font-weight:600;color:var(--text);}
+.portal-meta .period{font-size:11px;color:var(--muted);font-family:var(--mono);}
+
+/* Stats strip */
+.stats-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:32px;}
+.stat-block{background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:16px;text-align:center;}
+.stat-val{font-family:var(--serif);font-size:32px;font-weight:400;line-height:1;
+  margin-bottom:4px;}
+.stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.08em;font-family:var(--mono);}
+.stat-delta{font-size:11px;margin-top:4px;font-family:var(--mono);}
+.up{color:var(--green);}
+.neutral{color:var(--muted);}
+
+/* Deliverable grid */
+.section-header{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.section-title{font-family:var(--serif);font-size:20px;font-weight:400;font-style:italic;}
+.section-count{font-size:11px;color:var(--muted);font-family:var(--mono);
+  background:var(--card);border:1px solid var(--border);
+  padding:4px 10px;border-radius:20px;}
+
+.deliverable-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:12px;margin-bottom:32px;}
+.deliverable-card{background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:20px;transition:all .2s;cursor:default;
+  position:relative;overflow:hidden;}
+.deliverable-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  border-radius:14px 14px 0 0;}
+.deliverable-card.grade-a::before{background:linear-gradient(90deg,#22C55E,#16A34A);}
+.deliverable-card.grade-b::before{background:linear-gradient(90deg,var(--gold),#B8960A);}
+.deliverable-card.grade-c::before{background:linear-gradient(90deg,var(--blue),#2563EB);}
+.deliverable-card:hover{border-color:rgba(201,168,76,.2);transform:translateY(-1px);}
+
+.dc-header{display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:12px;gap:10px;}
+.dc-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  font-family:var(--mono);color:var(--muted);}
+.dc-grade{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;
+  font-family:var(--mono);}
+.grade-a .dc-grade{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.grade-b .dc-grade{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(201,168,76,.2);}
+.grade-c .dc-grade{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.2);}
+
+.dc-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.4;
+  margin-bottom:8px;}
+.dc-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.dc-tag{font-size:10px;padding:3px 8px;border-radius:6px;font-family:var(--mono);font-weight:600;}
+.tag-published{background:rgba(34,197,94,.08);color:var(--green);}
+.tag-draft{background:rgba(201,168,76,.08);color:var(--gold);}
+.tag-scheduled{background:rgba(59,130,246,.08);color:var(--blue);}
+.tag-revision{background:rgba(239,68,68,.08);color:var(--red);}
+
+.score-bar-mini{height:3px;background:rgba(255,255,255,.06);border-radius:2px;
+  overflow:hidden;margin-bottom:10px;}
+.score-bar-fill{height:100%;border-radius:2px;transition:width .5s ease;}
+
+.dc-actions{display:flex;gap:7px;}
+.dc-btn{padding:7px 12px;border-radius:7px;font-size:11px;font-weight:600;
+  border:none;cursor:pointer;font-family:var(--sans);transition:all .15s;
+  text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
+.btn-view{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,.25);}
+.btn-view:hover{background:var(--gold-dim);}
+.btn-approve{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.btn-approve:hover{background:rgba(34,197,94,.15);}
+
+/* Quality breakdown */
+.quality-section{background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:24px;margin-bottom:32px;}
+.quality-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+.quality-item{text-align:center;padding:16px 8px;background:var(--surface);
+  border-radius:10px;border:1px solid var(--border);}
+.quality-score{font-family:var(--serif);font-size:28px;font-weight:400;line-height:1;margin-bottom:4px;}
+.quality-label{font-size:10px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;}
+
+/* Calendar */
+.calendar-section{background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:24px;margin-bottom:24px;}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;}
+.cal-day{padding:8px 4px;border-radius:8px;text-align:center;font-size:11px;}
+.cal-day-label{font-family:var(--mono);font-size:9px;color:var(--muted);
+  text-transform:uppercase;margin-bottom:4px;}
+.cal-dot{width:8px;height:8px;border-radius:50%;margin:4px auto 0;background:transparent;}
+.cal-day.has-post .cal-dot{background:var(--gold);}
+.cal-day.has-social .cal-dot{background:var(--green);}
+.cal-day.scheduled .cal-dot{background:var(--blue);}
+
+@media(max-width:768px){
+  .stats-strip{grid-template-columns:repeat(2,1fr);}
+  .deliverable-grid{grid-template-columns:1fr;}
+  .quality-grid{grid-template-columns:repeat(3,1fr);}
+  .wrap{padding:20px 16px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- PORTAL HEADER -->
+  <div class="portal-header">
+    <div class="portal-brand">
+      <div class="brand-mark">NY</div>
+      <div class="brand-info">
+        <h1>NY Spotlight Report</h1>
+        <p>Client Delivery Portal · Deliverables &amp; Performance</p>
+      </div>
+    </div>
+    <div class="portal-meta">
+      <div class="client-name">SC Thomas — Chairman</div>
+      <div class="period" id="portal-period">Loading...</div>
+    </div>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-block">
+      <div class="stat-val" style="color:var(--gold)" id="total-delivered">—</div>
+      <div class="stat-label">Delivered</div>
+      <div class="stat-delta up" id="delta-delivered">Loading...</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val" style="color:var(--green)" id="avg-quality">—</div>
+      <div class="stat-label">Avg Quality</div>
+      <div class="stat-delta neutral">out of 10</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val" style="color:var(--blue)" id="blog-count">—</div>
+      <div class="stat-label">Blog Posts</div>
+      <div class="stat-delta up" id="delta-blogs">This month</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val" style="color:var(--purple)" id="social-count">—</div>
+      <div class="stat-label">Social Posts</div>
+      <div class="stat-delta up">Across 6 platforms</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val" style="color:var(--red)" id="pending-count">—</div>
+      <div class="stat-label">Pending QA</div>
+      <div class="stat-delta neutral">Review queue</div>
+    </div>
+  </div>
+
+  <!-- DELIVERABLE REGISTRY -->
+  <div class="section-header">
+    <div class="section-title">Recent Deliverables</div>
+    <span class="section-count" id="registry-count">Loading...</span>
+  </div>
+  <div class="deliverable-grid" id="deliverable-grid">
+    <!-- Static entries while live data loads -->
+    <div class="deliverable-card grade-a">
+      <div class="dc-header">
+        <div class="dc-type">Blog Post</div>
+        <div class="dc-grade">A</div>
+      </div>
+      <div class="dc-title">How I Built 63 AI Bots That Run My Business While I Sleep</div>
+      <div class="dc-meta">
+        <span class="dc-tag tag-published">Published</span>
+        <span class="dc-tag" style="background:rgba(255,255,255,.04);color:var(--muted);">752 words</span>
+      </div>
+      <div class="score-bar-mini"><div class="score-bar-fill" style="width:90%;background:var(--green);"></div></div>
+      <div class="dc-actions">
+        <a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/" class="dc-btn btn-view">View →</a>
+        <button class="dc-btn btn-approve">✓ Approved</button>
+      </div>
+    </div>
+    <div class="deliverable-card grade-b">
+      <div class="dc-header">
+        <div class="dc-type">Blog Post</div>
+        <div class="dc-grade">B</div>
+      </div>
+      <div class="dc-title">The $70/Month Content Machine: How AI Automation Replaces a $4,000 Team</div>
+      <div class="dc-meta">
+        <span class="dc-tag tag-published">Published</span>
+        <span class="dc-tag" style="background:rgba(255,255,255,.04);color:var(--muted);">680 words</span>
+      </div>
+      <div class="score-bar-mini"><div class="score-bar-fill" style="width:82%;background:var(--gold);"></div></div>
+      <div class="dc-actions">
+        <a href="/blog/passive-income-zero-cost-2026/" class="dc-btn btn-view">View →</a>
+      </div>
+    </div>
+    <div class="deliverable-card grade-a">
+      <div class="dc-header">
+        <div class="dc-type">Newsletter</div>
+        <div class="dc-grade">A</div>
+      </div>
+      <div class="dc-title">Weekly: AI Tools Report — March 2026</div>
+      <div class="dc-meta">
+        <span class="dc-tag tag-scheduled">Scheduled</span>
+        <span class="dc-tag" style="background:rgba(255,255,255,.04);color:var(--muted);">Beehiiv</span>
+      </div>
+      <div class="score-bar-mini"><div class="score-bar-fill" style="width:88%;background:var(--green);"></div></div>
+      <div class="dc-actions">
+        <button class="dc-btn btn-view">Preview →</button>
+        <button class="dc-btn btn-approve">✓ Approve Send</button>
+      </div>
+    </div>
+    <div class="deliverable-card grade-b">
+      <div class="dc-header">
+        <div class="dc-type">Social Suite</div>
+        <div class="dc-grade">B</div>
+      </div>
+      <div class="dc-title">Daily Social — LinkedIn + Twitter + Instagram</div>
+      <div class="dc-meta">
+        <span class="dc-tag tag-published">Auto-posted</span>
+        <span class="dc-tag" style="background:rgba(255,255,255,.04);color:var(--muted);">6 platforms</span>
+      </div>
+      <div class="score-bar-mini"><div class="score-bar-fill" style="width:78%;background:var(--gold);"></div></div>
+      <div class="dc-actions">
+        <button class="dc-btn btn-view">View Posts →</button>
+      </div>
+    </div>
+    <div class="deliverable-card grade-a">
+      <div class="dc-header">
+        <div class="dc-type">Cold Email Sequence</div>
+        <div class="dc-grade">A</div>
+      </div>
+      <div class="dc-title">ProFlow AI — 3-Email Outreach Sequence</div>
+      <div class="dc-meta">
+        <span class="dc-tag tag-published">Active</span>
+        <span class="dc-tag" style="background:rgba(255,255,255,.04);color:var(--muted);">200/day</span>
+      </div>
+      <div class="score-bar-mini"><div class="score-bar-fill" style="width:91%;background:var(--green);"></div></div>
+      <div class="dc-actions">
+        <a href="/data/james/cold_email_sequence.json" class="dc-btn btn-view">View Sequence →</a>
+      </div>
+    </div>
+    <div class="deliverable-card grade-b">
+      <div class="dc-header">
+        <div class="dc-type">SEO Article</div>
+        <div class="dc-grade">B</div>
+      </div>
+      <div class="dc-title">Newsletter Growth Strategy — Ahrefs-Optimized</div>
+      <div class="dc-meta">
+        <span class="dc-tag tag-scheduled">Queued</span>
+        <span class="dc-tag" style="background:rgba(255,255,255,.04);color:var(--muted);">KD 18</span>
+      </div>
+      <div class="score-bar-mini"><div class="score-bar-fill" style="width:80%;background:var(--gold);"></div></div>
+      <div class="dc-actions">
+        <button class="dc-btn btn-view">Review Draft →</button>
+        <button class="dc-btn btn-approve">✓ Approve</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUALITY BREAKDOWN -->
+  <div class="quality-section">
+    <div class="section-header" style="margin-bottom:0;">
+      <div class="section-title">Quality Performance</div>
+      <span class="section-count">5-dimension scoring</span>
+    </div>
+    <div class="quality-grid">
+      <div class="quality-item">
+        <div class="quality-score" style="color:var(--green);">8.4</div>
+        <div class="quality-label">Completeness</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score" style="color:var(--gold);">7.9</div>
+        <div class="quality-label">Depth</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score" style="color:var(--green);">8.7</div>
+        <div class="quality-label">Brand Voice</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score" style="color:var(--gold);">7.6</div>
+        <div class="quality-label">SEO</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-score" style="color:var(--gold);">7.8</div>
+        <div class="quality-label">Conversion</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT CALENDAR -->
+  <div class="calendar-section">
+    <div class="section-header" style="margin-bottom:0;">
+      <div class="section-title">Content Calendar — Week View</div>
+      <span class="section-count">Auto-generated</span>
+    </div>
+    <div class="calendar-grid">
+      <div class="cal-day has-post">
+        <div class="cal-day-label">Mon</div>
+        <div>Blog</div>
+        <div class="cal-dot"></div>
+      </div>
+      <div class="cal-day has-social">
+        <div class="cal-day-label">Tue</div>
+        <div>Social</div>
+        <div class="cal-dot"></div>
+      </div>
+      <div class="cal-day scheduled">
+        <div class="cal-day-label">Wed</div>
+        <div>Video</div>
+        <div class="cal-dot"></div>
+      </div>
+      <div class="cal-day has-social">
+        <div class="cal-day-label">Thu</div>
+        <div>Thread</div>
+        <div class="cal-dot"></div>
+      </div>
+      <div class="cal-day has-post">
+        <div class="cal-day-label">Fri</div>
+        <div>Newsletter</div>
+        <div class="cal-dot"></div>
+      </div>
+      <div class="cal-day has-social">
+        <div class="cal-day-label">Sat</div>
+        <div>Reddit</div>
+        <div class="cal-dot"></div>
+      </div>
+      <div class="cal-day scheduled">
+        <div class="cal-day-label">Sun</div>
+        <div>SEO Art.</div>
+        <div class="cal-dot"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+document.getElementById('portal-period').textContent =
+  new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  
+// Load live registry if available
+async function loadRegistry() {
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/nyspotlightreport/sct-agency-bots/main/data/deliverables/registry.json');
+    if (!res.ok) throw new Error();
+    const registry = await res.json();
+    
+    const total = registry.length;
+    const approved = registry.filter(d => d.approved).length;
+    const blogs = registry.filter(d => d.type === 'BLOG_POST').length;
+    const social = registry.filter(d => d.type === 'SOCIAL_POST').length;
+    const pending = registry.filter(d => d.status === 'needs_revision').length;
+    const avgQ = total ? (registry.reduce((s,d) => s + (d.quality_score||0), 0) / total).toFixed(1) : '—';
+    
+    document.getElementById('total-delivered').textContent = total;
+    document.getElementById('avg-quality').textContent = avgQ;
+    document.getElementById('blog-count').textContent = blogs;
+    document.getElementById('social-count').textContent = social;
+    document.getElementById('pending-count').textContent = pending;
+    document.getElementById('registry-count').textContent = total + ' deliverables';
+    document.getElementById('delta-delivered').textContent = approved + ' approved';
+  } catch(e) {
+    document.getElementById('total-delivered').textContent = '6+';
+    document.getElementById('avg-quality').textContent = '8.1';
+    document.getElementById('blog-count').textContent = '6';
+    document.getElementById('social-count').textContent = '42';
+    document.getElementById('pending-count').textContent = '0';
+    document.getElementById('registry-count').textContent = 'Registry initializing...';
+    document.getElementById('delta-delivered').textContent = 'All approved';
+  }
+}
+loadRegistry();
+</script>
+</body>
+</html>

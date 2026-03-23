@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LinkedIn Auth — NYSR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui;background:#0A0F1A;color:#E2E8F0;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.card{background:#0D1B2A;border:1px solid rgba(201,168,76,.3);border-radius:16px;
+  padding:36px;max-width:480px;width:100%;text-align:center;}
+.logo{font-size:48px;margin-bottom:16px;}
+h1{font-size:24px;font-weight:800;margin-bottom:8px;}
+p{font-size:14px;color:#64748B;line-height:1.6;margin-bottom:24px;}
+.btn{display:block;background:#0077B5;color:white;padding:14px 32px;
+  border-radius:10px;text-decoration:none;font-size:15px;font-weight:700;
+  transition:all .2s;}
+.btn:hover{background:#005885;transform:translateY(-1px);}
+.scopes{background:#111827;border:1px solid #1a2d42;border-radius:8px;
+  padding:14px;text-align:left;margin-bottom:20px;font-size:12px;color:#64748B;}
+.scope{padding:4px 0;}
+.scope::before{content:"✓ ";color:#22D3A0;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">💼</div>
+  <h1>Connect LinkedIn</h1>
+  <p>Grant NYSR Agency access to post content and read your profile on LinkedIn.</p>
+  
+  <div class="scopes">
+    <div class="scope">Post content (w_member_social)</div>
+    <div class="scope">Read profile (r_liteprofile)</div>
+    <div class="scope">Read email (r_emailaddress)</div>
+    <div class="scope">OpenID Connect (openid, profile, email)</div>
+  </div>
+  
+  <a id="authBtn" href="#" class="btn">Authorize with LinkedIn</a>
+  
+  <p style="margin-top:16px;font-size:11px;">
+    After clicking, log in with LinkedIn and click Allow.<br>
+    You'll be redirected back automatically.
+  </p>
+</div>
+
+<script>
+// Build the LinkedIn OAuth URL
+const params = new URLSearchParams({
+  response_type: "code",
+  client_id:     "78b8ect8u8qgbe",
+  redirect_uri:  "https://nyspotlightreport.com/api/linkedin-callback",
+  state:         "nysr_" + Math.random().toString(36).slice(2),
+  scope:         "openid profile email w_member_social r_liteprofile r_emailaddress"
+});
+document.getElementById("authBtn").href =
+  "https://www.linkedin.com/oauth/v2/authorization?" + params.toString();
+</script>
+</body>
+</html>

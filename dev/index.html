@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR — Engineering Department</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#020409;--s:#060910;--c:#0A0F1C;--c2:#0E1525;--br:rgba(255,255,255,.05);--br2:rgba(255,255,255,.1);--gold:#C9A84C;--green:#22D3A0;--blue:#3B82F6;--red:#EF4444;--amber:#F59E0B;--purple:#A855F7;--text:#E8EDF5;--muted:#475569;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(59,130,246,.03) 1px,transparent 1px);background-size:24px 24px;}
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);z-index:100;}
+nav{position:sticky;top:0;z-index:50;background:rgba(2,4,9,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'Syne',sans-serif;font-weight:900;font-size:16px;}.logo span{color:var(--blue);}
+.nav-links{display:flex;gap:20px;font-size:12px;}
+.nav-links a{color:var(--muted);text-decoration:none;}.nav-links a:hover,.nav-links a.active{color:var(--text);}
+.wrap{max-width:1400px;margin:0 auto;padding:24px;}
+.dept-hero{background:linear-gradient(135deg,rgba(59,130,246,.06),rgba(59,130,246,.02));border:1px solid rgba(59,130,246,.2);border-radius:16px;padding:28px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;}
+.dept-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:900;}
+.dept-subtitle{color:var(--muted);font-size:14px;margin-top:4px;}
+.dept-badge{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:var(--blue);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;font-family:'DM Mono',monospace;}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:24px;}
+.stat{background:var(--c);border:1px solid var(--br);border-radius:12px;padding:16px;}
+.stat-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Mono',monospace;margin-bottom:8px;}
+.stat-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:900;}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+.section-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:14px;}
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-bottom:28px;}
+.agent-card{background:var(--c);border:1px solid var(--br);border-radius:14px;padding:20px;transition:all .2s;}
+.agent-card:hover{border-color:rgba(59,130,246,.25);transform:translateY(-2px);}
+.agent-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.agent-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.ai-blue{background:rgba(59,130,246,.1);}
+.ai-green{background:rgba(34,211,160,.1);}
+.ai-purple{background:rgba(168,85,247,.1);}
+.ai-red{background:rgba(239,68,68,.1);}
+.ai-amber{background:rgba(245,158,11,.1);}
+.agent-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;}
+.agent-type{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Mono',monospace;}
+.agent-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+.agent-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.tag{background:var(--c2);border:1px solid var(--br2);color:var(--muted);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;font-family:'DM Mono',monospace;}
+.tag.blue{border-color:rgba(59,130,246,.2);color:var(--blue);}
+.run-btn{width:100%;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--blue);padding:8px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;margin-top:12px;font-family:'DM Mono',monospace;transition:all .2s;}
+.run-btn:hover{background:rgba(59,130,246,.15);}
+.workflow-card{background:var(--c);border:1px solid var(--br);border-radius:12px;padding:16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;}
+.wf-info .wf-name{font-size:14px;font-weight:600;}
+.wf-info .wf-schedule{font-size:11px;color:var(--muted);margin-top:2px;}
+.wf-trigger{background:var(--blue);color:#fff;border:none;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;}
+.feature-builder{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:24px;margin-bottom:24px;}
+.fb-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--gold);margin-bottom:8px;}
+.fb-input{width:100%;background:var(--c);border:1px solid var(--br2);color:var(--text);padding:12px 16px;border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:10px;}
+.fb-input:focus{border-color:rgba(201,168,76,.4);}
+.fb-btn{background:var(--gold);color:var(--bg);border:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Syne',sans-serif;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">NYSR <span>DEV</span></div>
+  <div class="nav-links">
+    <a href="/command/">← Command</a>
+    <a href="/crm/">CRM</a>
+    <a href="/sales/">Sales</a>
+    <a href="/dev/" class="active">Dev</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="dept-hero">
+    <div>
+      <div class="dept-title">🔧 Engineering Department</div>
+      <div class="dept-subtitle">Auto-debugging · AI code generation · Security audits · Performance monitoring · 5× expansion complete</div>
+    </div>
+    <div class="dept-badge">FULLY STAFFED ✓</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-lbl">Agents</div><div class="stat-val" style="color:var(--blue)">5</div><div class="stat-sub">Commander, Architect, Debugger...</div></div>
+    <div class="stat"><div class="stat-lbl">Bots</div><div class="stat-val" style="color:var(--blue)">8</div><div class="stat-sub">Docs, Tests, Perf, Changelog...</div></div>
+    <div class="stat"><div class="stat-lbl">Workflows</div><div class="stat-val">4</div><div class="stat-sub">Daily + Weekly + Feature + Debug</div></div>
+    <div class="stat"><div class="stat-lbl">Auto-Debug</div><div class="stat-val" style="color:var(--green)">On</div><div class="stat-sub">Fixes failures automatically</div></div>
+    <div class="stat"><div class="stat-lbl">Security</div><div class="stat-val" style="color:var(--amber)">Weekly</div><div class="stat-sub">Full pattern scan</div></div>
+    <div class="stat"><div class="stat-lbl">Pass Rate</div><div class="stat-val" id="passRate">—</div><div class="stat-sub">Last 50 workflow runs</div></div>
+  </div>
+
+  <!-- FEATURE BUILDER -->
+  <div class="feature-builder">
+    <div class="fb-title">⚡ Feature Builder — Describe a feature, AI builds it</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Type a feature in plain English. The Code Architect Agent will design, build, and deploy it automatically.</p>
+    <input class="fb-input" id="featureInput" placeholder="e.g. Build a bot that monitors Reddit for mentions of our keywords and posts them to Slack">
+    <button class="fb-btn" onclick="triggerFeatureBuild()">Build It →</button>
+  </div>
+
+  <div class="section-title">🤖 Engineering Agents</div>
+  <div class="agent-grid">
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-blue">🏗️</div><div><div class="agent-name">Dev Commander</div><div class="agent-type">AGENT · DIRECTOR</div></div></div><div class="agent-desc">Orchestrates full engineering dept. Monitors workflow health, deployment status, component counts. Daily engineering briefing via Pushover.</div><div class="agent-tags"><span class="tag blue">health check</span><span class="tag">workflow stats</span><span class="tag">netlify</span></div><button class="run-btn" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/dev_health_daily.yml')">▶ Run</button></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-green">✨</div><div><div class="agent-name">Code Architect</div><div class="agent-type">AGENT · BUILDER</div></div></div><div class="agent-desc">Generates complete, production-ready Python bots/agents from plain English requirements. Pushes directly to GitHub. Enterprise quality code.</div><div class="agent-tags"><span class="tag blue">code gen</span><span class="tag">auto-push</span><span class="tag">python</span></div><button class="run-btn" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/build_feature.yml')">▶ Build Feature</button></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-red">🐛</div><div><div class="agent-name">Auto Debugger</div><div class="agent-type">AGENT · DEVOPS</div></div></div><div class="agent-desc">Downloads workflow failure logs, parses root cause with Claude, generates fix, pushes to repo, re-triggers workflow. 70%+ confidence threshold.</div><div class="agent-tags"><span class="tag blue">root cause</span><span class="tag">auto-fix</span><span class="tag">re-trigger</span></div><button class="run-btn" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/dev_health_daily.yml')">▶ Debug Now</button></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-purple">🔌</div><div><div class="agent-name">API Builder</div><div class="agent-type">AGENT · BACKEND</div></div></div><div class="agent-desc">Scaffolds complete Netlify serverless functions from plain English. Supabase integration, CORS, validation, error handling all included.</div><div class="agent-tags"><span class="tag blue">netlify</span><span class="tag">serverless</span><span class="tag">supabase</span></div><button class="run-btn" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/build_feature.yml')">▶ Build API</button></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-amber">🔒</div><div><div class="agent-name">Security Auditor</div><div class="agent-type">AGENT · SECURITY</div></div></div><div class="agent-desc">8 security patterns. Scans all Python files for hardcoded secrets, SQL injection, shell injection, HTTP vs HTTPS, bare excepts. Weekly scan.</div><div class="agent-tags"><span class="tag blue">weekly scan</span><span class="tag">8 patterns</span><span class="tag">CRITICAL alerts</span></div><button class="run-btn" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/dev_weekly.yml')">▶ Scan Now</button></div>
+  </div>
+
+  <div class="section-title">⚙️ Engineering Bots</div>
+  <div class="agent-grid">
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-blue">📚</div><div><div class="agent-name">Doc Generator</div><div class="agent-type">BOT · DOCS</div></div></div><div class="agent-desc">Auto-generates markdown docs for all agents and bots. Publishes master docs/README.md weekly.</div><div class="agent-tags"><span class="tag">weekly</span><span class="tag">auto-docs</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-green">🧪</div><div><div class="agent-name">Test Generator</div><div class="agent-type">BOT · QA</div></div></div><div class="agent-desc">Creates pytest test files for every agent and bot. Unit tests, integration smoke tests, mock-based edge cases.</div><div class="agent-tags"><span class="tag">pytest</span><span class="tag">mocks</span><span class="tag">smoke tests</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-purple">⚡</div><div><div class="agent-name">Performance Monitor</div><div class="agent-type">BOT · MONITORING</div></div></div><div class="agent-desc">Checks 6 endpoints daily. Response time tracking, uptime alerts. Workflow pass rate monitoring. Pushover alert on degradation.</div><div class="agent-tags"><span class="tag blue">daily</span><span class="tag">6 endpoints</span><span class="tag">alerts</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-amber">📝</div><div><div class="agent-name">Changelog Bot</div><div class="agent-type">BOT · DOCS</div></div></div><div class="agent-desc">Auto-categorizes commits (feat/fix/refactor/docs). Generates weekly CHANGELOG.md. Tracks all engineering output.</div><div class="agent-tags"><span class="tag">weekly</span><span class="tag">git commits</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-red">📦</div><div><div class="agent-name">Dependency Updater</div><div class="agent-type">BOT · MAINTENANCE</div></div></div><div class="agent-desc">Checks npm + PyPI packages for updates and deprecations. Weekly scan against registry APIs.</div><div class="agent-tags"><span class="tag">npm</span><span class="tag">pypi</span><span class="tag">weekly</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-purple">🔧</div><div><div class="agent-name">Tech Debt Tracker</div><div class="agent-type">BOT · QUALITY</div></div></div><div class="agent-desc">Scans for TODOs, FIXMEs, long functions (50+ lines), bare excepts. Weekly debt report with severity levels.</div><div class="agent-tags"><span class="tag">TODO/FIXME</span><span class="tag">patterns</span><span class="tag">weekly</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-red">🚨</div><div><div class="agent-name">Error Aggregator</div><div class="agent-type">BOT · DEVOPS</div></div></div><div class="agent-desc">Collects errors from GitHub Actions + Netlify. Groups similar errors, tracks frequency. Feeds Auto Debugger.</div><div class="agent-tags"><span class="tag blue">daily</span><span class="tag">github</span><span class="tag">netlify</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon ai-green">🏗️</div><div><div class="agent-name">Feature Builder</div><div class="agent-type">BOT · BUILDER</div></div></div><div class="agent-desc">Plain English → working code. Reads FEATURE_REQUEST env or GitHub issues labeled "build-me". Builds up to 3 components per run.</div><div class="agent-tags"><span class="tag blue">on-demand</span><span class="tag">issues</span><span class="tag">auto-push</span></div></div>
+  </div>
+
+  <div class="section-title">⚡ Workflows</div>
+  <div class="workflow-card"><div class="wf-info"><div class="wf-name">🔧 Dev Daily Health Check</div><div class="wf-schedule">Runs: 7am daily · Jobs: Commander, Performance, Error Aggregation, Auto Debugger</div></div><button class="wf-trigger" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/dev_health_daily.yml')">Run →</button></div>
+  <div class="workflow-card"><div class="wf-info"><div class="wf-name">🔧 Dev Weekly Review</div><div class="wf-schedule">Runs: Monday 6am · Jobs: Security, Tech Debt, Changelog, Docs, Dependencies</div></div><button class="wf-trigger" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/dev_weekly.yml')">Run →</button></div>
+  <div class="workflow-card"><div class="wf-info"><div class="wf-name">🏗️ Build Feature — On Demand</div><div class="wf-schedule">Manual trigger · Input: feature description + type (bot/agent/api)</div></div><button class="wf-trigger" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/build_feature.yml')">Build →</button></div>
+
+</div>
+
+<script>
+function triggerFeatureBuild() {
+  const req = document.getElementById("featureInput").value.trim();
+  if (!req) return alert("Enter a feature description first");
+  const url = `https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/build_feature.yml`;
+  window.open(url);
+}
+</script>
+</body>
+</html>

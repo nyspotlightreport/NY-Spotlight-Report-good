@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free AI Agency ROI Audit | NY Spotlight Report</title>
+<meta name="description" content="Discover exactly how much revenue your business is leaving on the table from manual processes. Free 5-minute assessment.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#060a0f;color:#e2e8f0;line-height:1.6}
+.container{max-width:680px;margin:0 auto;padding:40px 20px}
+.badge{display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);color:#C9A84C;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.08em;margin-bottom:20px}
+h1{font-size:clamp(28px,5vw,42px);font-weight:700;line-height:1.15;color:#f8fafc;margin-bottom:12px}
+.sub{font-size:17px;color:#94a3b8;margin-bottom:36px}
+.step{display:none}.step.active{display:block}
+.question{margin-bottom:28px}
+.question label{display:block;font-size:15px;font-weight:500;color:#f1f5f9;margin-bottom:10px}
+.options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.opt{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;font-size:14px;color:#94a3b8;text-align:center}
+.opt:hover,.opt.selected{border-color:#C9A84C;background:rgba(201,168,76,.08);color:#f1f5f9}
+.btn{background:#C9A84C;color:#060a0f;border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;width:100%;margin-top:20px}
+.progress{height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-bottom:30px}
+.progress-fill{height:4px;background:#C9A84C;border-radius:2px;transition:width .3s}
+.result{text-align:center}
+.result-num{font-size:52px;font-weight:700;color:#C9A84C;margin:20px 0 4px}
+.result-label{font-size:14px;color:#64748b;margin-bottom:24px}
+.result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+.result-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:18px;text-align:center}
+.rc-num{font-size:26px;font-weight:700;color:#f1f5f9}
+.rc-label{font-size:12px;color:#64748b;margin-top:4px}
+.rec-box{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:24px;margin:24px 0;text-align:left}
+.rec-box h3{color:#C9A84C;font-size:16px;margin-bottom:8px}
+.rec-box p{font-size:14px;color:#94a3b8;line-height:1.6}
+input[type=email],input[type=text]{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:12px 14px;color:#e2e8f0;font-size:15px;outline:none;margin-bottom:12px}
+input:focus{border-color:rgba(201,168,76,.5)}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="badge">FREE ROI ASSESSMENT</div>
+<h1>How Much Is Manual Work Costing You?</h1>
+<p class="sub">5 questions. Personalized numbers. Your AI automation roadmap — free.</p>
+<div class="progress"><div class="progress-fill" id="prog" style="width:10%"></div></div>
+
+<div class="step active" id="s0">
+<div class="question">
+  <label>What best describes your business?</label>
+  <div class="options">
+    <div class="opt" onclick="select(this,'type','solo')">Solo operator / Freelancer</div>
+    <div class="opt" onclick="select(this,'type','small')">Small business (2-10 people)</div>
+    <div class="opt" onclick="select(this,'type','agency')">Agency (10-50 people)</div>
+    <div class="opt" onclick="select(this,'type','enterprise')">Enterprise (50+ people)</div>
+  </div>
+</div>
+<button class="btn" onclick="next(1)">Continue →</button>
+</div>
+
+<div class="step" id="s1">
+<div class="question">
+  <label>How many hours per week does your team spend on manual marketing/ops tasks?</label>
+  <div class="options">
+    <div class="opt" onclick="select(this,'hours',5)">Under 5 hours</div>
+    <div class="opt" onclick="select(this,'hours',15)">5-15 hours</div>
+    <div class="opt" onclick="select(this,'hours',30)">15-30 hours</div>
+    <div class="opt" onclick="select(this,'hours',50)">40+ hours</div>
+  </div>
+</div>
+<button class="btn" onclick="next(2)">Continue →</button>
+</div>
+
+<div class="step" id="s2">
+<div class="question">
+  <label>What's your approximate monthly revenue?</label>
+  <div class="options">
+    <div class="opt" onclick="select(this,'revenue',5000)">Under $10k/mo</div>
+    <div class="opt" onclick="select(this,'revenue',25000)">$10k-$50k/mo</div>
+    <div class="opt" onclick="select(this,'revenue',100000)">$50k-$200k/mo</div>
+    <div class="opt" onclick="select(this,'revenue',500000)">$200k+/mo</div>
+  </div>
+</div>
+<button class="btn" onclick="next(3)">Continue →</button>
+</div>
+
+<div class="step" id="s3">
+<div class="question">
+  <label>What's your biggest manual time drain right now?</label>
+  <div class="options">
+    <div class="opt" onclick="select(this,'pain','email')">Email & follow-up</div>
+    <div class="opt" onclick="select(this,'pain','social')">Social media</div>
+    <div class="opt" onclick="select(this,'pain','leads')">Lead generation</div>
+    <div class="opt" onclick="select(this,'pain','reporting')">Reporting & analytics</div>
+  </div>
+</div>
+<button class="btn" onclick="next(4)">Continue →</button>
+</div>
+
+<div class="step" id="s4">
+<div class="question">
+  <label>Get your personalized ROI report — free</label>
+  <input type="text" id="fname" placeholder="First name" />
+  <input type="email" id="femail" placeholder="Work email address" />
+</div>
+<button class="btn" onclick="calcROI()">Show My Numbers →</button>
+</div>
+
+<div class="step" id="result">
+<div class="result">
+  <div style="font-size:14px;color:#64748b;margin-bottom:8px">Your estimated annual waste</div>
+  <div class="result-num" id="annual-waste">$0</div>
+  <div class="result-label">in time + missed revenue opportunities</div>
+  <div class="result-grid">
+    <div class="result-card"><div class="rc-num" id="hrs-week">0</div><div class="rc-label">hours/week wasted</div></div>
+    <div class="result-card"><div class="rc-num" id="roi-ratio">0x</div><div class="rc-label">ROI on ProFlow AI</div></div>
+    <div class="result-card"><div class="rc-num" id="monthly-cost">$0</div><div class="rc-label">monthly cost of status quo</div></div>
+    <div class="result-card"><div class="rc-num" id="payback">0 days</div><div class="rc-label">payback period</div></div>
+  </div>
+  <div class="rec-box">
+    <h3 id="rec-title">Recommended: ProFlow AI</h3>
+    <p id="rec-desc">Based on your answers, here's exactly what will fix your biggest bottleneck.</p>
+  </div>
+  <button class="btn" onclick="window.location='/store/'">Get Started Now →</button>
+  <p style="font-size:12px;color:#475569;margin-top:12px">Check your email — full report sent to your inbox</p>
+</div>
+</div>
+
+</div>
+<script>
+const answers = {};
+function select(el, key, val) {
+  document.querySelectorAll('.opt').forEach(o => { if(o.parentElement === el.parentElement) o.classList.remove('selected'); });
+  el.classList.add('selected');
+  answers[key] = val;
+}
+function next(step) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('s'+step).classList.add('active');
+  document.getElementById('prog').style.width = ((step+1)/6*100)+'%';
+}
+async function calcROI() {
+  const name = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  if (!name || !email) { alert('Please enter your name and email'); return; }
+
+  const hrs = answers.hours || 15;
+  const rev = answers.revenue || 25000;
+  const hourlyRate = Math.round(rev / (40*4));
+  const annualWaste = Math.round(hrs * hourlyRate * 52);
+  const oppCost = Math.round(annualWaste * 0.3);
+  const totalWaste = annualWaste + oppCost;
+  const proflowCost = 97*12;
+  const roi = Math.round(totalWaste / proflowCost);
+
+  const rec = totalWaste > 50000 ? {key:'dfy_setup',name:'DFY Setup $1,497',desc:'At your revenue level, we build the entire system for you. Live in 14 days.'}
+    : totalWaste > 20000 ? {key:'proflow_growth',name:'ProFlow Growth $297/mo',desc:'Full stack automation. Email, social, SEO, leads, BI dashboard — all running in 24 hours.'}
+    : {key:'proflow_ai',name:'ProFlow AI $97/mo',desc:'Complete automation starter. Everything manual gets automated. Live in 24 hours.'};
+
+  document.getElementById('annual-waste').textContent = '$'+totalWaste.toLocaleString();
+  document.getElementById('hrs-week').textContent = hrs;
+  document.getElementById('roi-ratio').textContent = roi+'x';
+  document.getElementById('monthly-cost').textContent = '$'+Math.round(totalWaste/12).toLocaleString();
+  document.getElementById('payback').textContent = Math.round(proflowCost/totalWaste*365)+' days';
+  document.getElementById('rec-title').textContent = 'Recommended: '+rec.name;
+  document.getElementById('rec-desc').textContent = rec.desc;
+
+  const SUPA = 'https://sazuogglxukumnvhvkms.supabase.co';
+  const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI';
+  await fetch(SUPA+'/rest/v1/contacts', {method:'POST',
+    headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({name, email, stage:'WARM', score:65, source:'lead_magnet',
+      journey_key:'lead_magnet_to_paid', tags:['lead-magnet','roi-audited'],
+      notes:'Lead magnet: annual waste=$'+totalWaste+', recommended='+rec.key})
+  }).catch(()=>{});
+  await fetch(SUPA+'/rest/v1/lead_magnets', {method:'POST',
+    headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({hours_wasted:hrs, dollar_waste:totalWaste, recommended_product:rec.key})
+  }).catch(()=>{});
+
+  next(5);
+  document.getElementById('prog').style.width = '100%';
+}
+</script>
+</body>
+</html>

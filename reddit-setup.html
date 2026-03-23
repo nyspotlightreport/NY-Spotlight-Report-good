@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Reddit Setup</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0D1117;color:#e2e8f0;font-family:monospace;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .box{background:#161B22;border:2px solid #FF4500;border-radius:12px;padding:32px;max-width:480px;width:100%}
+  h2{color:#FF4500;margin-bottom:6px;font-size:20px}
+  .sub{color:#8B96A3;font-size:12px;margin-bottom:24px}
+  .warn{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:14px;margin-bottom:20px;font-size:13px;line-height:1.8;color:#C9A84C}
+  .btn{display:block;background:#FF4500;color:#fff;padding:14px 20px;border-radius:8px;font-size:15px;font-weight:bold;text-decoration:none;text-align:center;margin-bottom:10px}
+  .btn2{display:block;background:#1a1a2e;color:#FF4500;border:1px solid #FF4500;padding:12px 20px;border-radius:8px;font-size:13px;text-decoration:none;text-align:center}
+  label{font-size:12px;color:#8B96A3;display:block;margin:14px 0 4px}
+  input{width:100%;background:#0D1117;border:1px solid rgba(255,69,0,.3);border-radius:6px;padding:9px 12px;color:#e2e8f0;font-size:12px}
+  .save-btn{width:100%;background:#22D3A0;color:#0D1117;border:none;padding:13px;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;margin-top:16px}
+  .saved{display:none;background:rgba(34,211,160,.1);border:1px solid #22D3A0;border-radius:8px;padding:12px;text-align:center;color:#22D3A0;margin-top:12px;font-size:13px}
+</style>
+</head><body>
+<div class="box">
+  <h2>Reddit App Setup</h2>
+  <p class="sub">Chrome + extensions blocks the old Reddit form. Use this instead.</p>
+
+  <div class="warn">
+    ⚠️ The old reddit.com/prefs/apps form is broken in Chrome with extensions.<br>
+    Use the <strong>new Reddit</strong> link below — different page, works every time.
+  </div>
+
+  <a class="btn" href="https://www.reddit.com/prefs/apps/" target="_blank">
+    Open Reddit App Page (New) →
+  </a>
+  <a class="btn2" href="https://www.reddit.com/prefs/apps/" target="_blank" 
+     onclick="this.href='https://www.reddit.com/prefs/apps/?v=new'">
+    Or try: reddit.com/prefs/apps in Incognito →
+  </a>
+
+  <p style="font-size:11px;color:#8B96A3;margin:16px 0 8px;">
+    Once created: your <strong>Client ID</strong> is the short string under "personal use script".<br>
+    Secret is labeled "secret". Paste both below:
+  </p>
+
+  <label>Client ID</label>
+  <input id="rid" type="text" placeholder="e.g. abc123XYZ789" />
+  <label>Client Secret</label>  
+  <input id="rsec" type="password" placeholder="your client secret" />
+  <label>Reddit Username</label>
+  <input id="ruser" type="text" placeholder="PreferenceFresh7566" />
+  <label>Reddit Password</label>
+  <input id="rpass" type="password" placeholder="your Reddit password" />
+
+  <button class="save-btn" onclick="save()">Save All → Activate Reddit Bots</button>
+  <div class="saved" id="done">✅ Saved! Reddit bots activate on next workflow run.</div>
+</div>
+<script>
+async function save() {
+  const id=document.getElementById('rid').value.trim(),
+        sec=document.getElementById('rsec').value.trim(),
+        user=document.getElementById('ruser').value.trim(),
+        pass=document.getElementById('rpass').value.trim();
+  if(!id||!sec||!user||!pass){alert('Fill in all 4 fields');return;}
+  document.querySelector('.save-btn').textContent='Saving...';
+  await fetch('/api/save-secret',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({secrets:{
+      REDDIT_CLIENT_ID:id,
+      REDDIT_CLIENT_SECRET:sec,
+      REDDIT_USERNAME:user,
+      REDDIT_PASSWORD:pass
+    }})
+  });
+  document.querySelector('.save-btn').style.display='none';
+  document.getElementById('done').style.display='block';
+}
+</script>
+</body></html>

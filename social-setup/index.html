@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Social Media Credentials — NYSR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,sans-serif;background:#0D1B2A;color:#fff;padding:32px 20px;max-width:680px;margin:0 auto;}
+h1{color:#C9A84C;font-size:19px;margin-bottom:6px;}
+.sub{color:#8fa8c0;font-size:13px;margin-bottom:28px;line-height:1.6;}
+.status-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:28px;}
+.stat{background:#111d2e;border:1px solid #1e3050;border-radius:8px;padding:12px;text-align:center;}
+.stat-n{font-size:22px;font-weight:800;color:#C9A84C;}
+.stat-l{font-size:10px;color:#8fa8c0;margin-top:2px;text-transform:uppercase;}
+.platform{background:#111d2e;border:1.5px solid #1e3050;border-radius:12px;padding:16px 18px;margin-bottom:12px;}
+.platform.live{border-color:#27500A;}
+.platform.broken{border-color:#7a1a1a;}
+.platform.missing{border-color:#2a1a0f;}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.icon{font-size:20px;flex-shrink:0;}
+.pname{font-size:14px;font-weight:700;flex:1;}
+.status-pill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.pill-live{background:#1a3320;color:#4ae8a0;}
+.pill-broken{background:#2a0a0a;color:#e24b4a;}
+.pill-missing{background:#2a1a0f;color:#ff9900;}
+.platform p{font-size:12px;color:#8fa8c0;line-height:1.6;margin-bottom:10px;}
+.platform .fix{font-size:11px;color:#C9A84C;font-weight:600;margin-bottom:8px;}
+.btn{display:inline-block;padding:7px 14px;border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;margin-right:6px;margin-top:4px;}
+.btn-go{background:#C9A84C;color:#0D1B2A;}
+.btn-sec{background:#1e3050;color:#C9A84C;border:1px solid #2a4060;}
+code{background:#0D1B2A;color:#C9A84C;padding:2px 6px;border-radius:3px;font-size:11px;}
+</style>
+</head>
+<body>
+<h1>Social Media — Credentials Dashboard</h1>
+<p class="sub">Fix these in order of impact. Each platform unlocks automated daily posting forever after.</p>
+
+<div class="status-bar">
+  <div class="stat"><div class="stat-n">2</div><div class="stat-l">Confirmed Live</div></div>
+  <div class="stat"><div class="stat-n">3</div><div class="stat-l">Need 1 Key</div></div>
+  <div class="stat"><div class="stat-n">3</div><div class="stat-l">Not Connected</div></div>
+</div>
+
+<!-- PINTEREST - LIVE -->
+<div class="platform live">
+  <div class="ph"><div class="icon">📌</div><div class="pname">Pinterest</div><span class="status-pill pill-live">LIVE</span></div>
+  <p>Token confirmed. Daily pins posting. Pinterest drives compounding SEO-like traffic — pins from months ago still get views.</p>
+</div>
+
+<!-- MEDIUM - LIVE -->
+<div class="platform live">
+  <div class="ph"><div class="icon">✍️</div><div class="pname">Medium</div><span class="status-pill pill-live">LIVE</span></div>
+  <p>Integration token working. Articles syndicating to Medium's 100M+ readers automatically each week.</p>
+</div>
+
+<!-- PUBLER - BROKEN -->
+<div class="platform broken">
+  <div class="ph"><div class="icon">📅</div><div class="pname">Publer (Scheduler)</div><span class="status-pill pill-broken">KEY INVALID</span></div>
+  <p>API key returning 403 "Invalid API key or not active." All scheduled posts to Instagram, Facebook, Twitter via Publer have been failing silently. <strong>Replaced with direct native APIs below.</strong></p>
+  <div class="fix">Fix: Get new API key from publer.com → Settings → API Keys</div>
+  <a href="https://app.publer.com/settings/api" class="btn btn-go" target="_blank">Get New Publer Key →</a>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn btn-sec" target="_blank">Add PUBLER_API_KEY</a>
+</div>
+
+<!-- TWITTER/X - MISSING -->
+<div class="platform missing">
+  <div class="ph"><div class="icon">🐦</div><div class="pname">Twitter / X</div><span class="status-pill pill-missing">NEEDS KEYS</span></div>
+  <p>Twitter API v2 requires 4 credentials. Apply for free developer account at developer.twitter.com. Approval is instant for basic posting.</p>
+  <div class="fix">Get from: developer.twitter.com → Projects & Apps → User authentication settings</div>
+  <a href="https://developer.twitter.com/en/portal/dashboard" class="btn btn-go" target="_blank">Get Twitter Keys →</a>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn btn-sec" target="_blank">Add Secrets</a>
+  <div style="margin-top:8px;font-size:11px;color:#555;">
+    Add: <code>TWITTER_API_KEY</code> · <code>TWITTER_API_SECRET</code> · <code>TWITTER_ACCESS_TOKEN</code> · <code>TWITTER_ACCESS_SECRET</code>
+  </div>
+</div>
+
+<!-- LINKEDIN - NEEDS REFRESH -->
+<div class="platform missing">
+  <div class="ph"><div class="icon">💼</div><div class="pname">LinkedIn</div><span class="status-pill pill-missing">TOKEN NEEDED</span></div>
+  <p>LinkedIn OAuth app credentials exist but an access token (from the user auth flow) is needed. LinkedIn tokens last 60 days — requires periodic renewal.</p>
+  <div class="fix">Quick method: LinkedIn Marketing API → generate personal access token</div>
+  <a href="https://www.linkedin.com/developers/apps" class="btn btn-go" target="_blank">LinkedIn Developer Apps →</a>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn btn-sec" target="_blank">Add LINKEDIN_ACCESS_TOKEN</a>
+</div>
+
+<!-- INSTAGRAM - MISSING -->
+<div class="platform missing">
+  <div class="ph"><div class="icon">📷</div><div class="pname">Instagram</div><span class="status-pill pill-missing">NEEDS SETUP</span></div>
+  <p>Requires a Facebook Business account + Instagram Business account linked. Then get a Page Access Token via Meta for Developers. One-time setup, then fully automated.</p>
+  <div class="fix">Requires: Instagram Business account + Facebook Page linked + Meta Developer App</div>
+  <a href="https://developers.facebook.com/apps/" class="btn btn-go" target="_blank">Meta for Developers →</a>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn btn-sec" target="_blank">Add Secrets</a>
+  <div style="margin-top:8px;font-size:11px;color:#555;">
+    Add: <code>INSTAGRAM_PAGE_TOKEN</code> · <code>INSTAGRAM_USER_ID</code> · <code>FB_PAGE_TOKEN</code> · <code>FB_PAGE_ID</code>
+  </div>
+</div>
+
+<!-- YOUTUBE - ALMOST READY -->
+<div class="platform missing">
+  <div class="ph"><div class="icon">🎬</div><div class="pname">YouTube</div><span class="status-pill pill-missing">OAUTH NEEDED</span></div>
+  <p>7 Shorts scripts are queued and ready. Just needs the final OAuth consent screen click in Google Cloud.</p>
+  <div class="fix">Complete OAuth consent screen → then 1-click workflow upload</div>
+  <a href="/youtube-setup/" class="btn btn-go">Complete Setup →</a>
+</div>
+
+<div style="background:#1a3320;border-radius:10px;padding:14px 16px;margin-top:20px;">
+  <strong style="color:#4ae8a0;font-size:13px;">Once all connected:</strong>
+  <p style="font-size:12px;color:#5a9a6a;margin-top:6px;line-height:1.6;">
+    6 platforms × daily posts = 180+ posts/month fully automated.<br>
+    Claude writes platform-native content for each. No copy-pasting. No templates.<br>
+    Estimated organic reach: 10,000-50,000 people/month by month 3.
+  </p>
+</div>
+</body>
+</html>

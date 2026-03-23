@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR Revenue Dashboard — Chairman View</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#060a0f;color:#e2e8f0;line-height:1.6}
+.container{max-width:960px;margin:0 auto;padding:40px 20px}
+h1{font-size:26px;font-weight:700;color:#f8fafc;margin-bottom:6px}
+.subtitle{font-size:14px;color:#64748b;margin-bottom:32px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:32px}
+.kpi{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:18px}
+.kpi-num{font-size:28px;font-weight:700;color:#C9A84C}
+.kpi-label{font-size:12px;color:#64748b;margin-top:4px}
+.section{margin-bottom:32px}
+.section-title{font-size:13px;font-weight:600;letter-spacing:.08em;color:#64748b;text-transform:uppercase;margin-bottom:14px}
+.pillar-row{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px}
+.pillar-name{font-size:14px;font-weight:500;color:#f1f5f9}
+.pillar-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px}
+.building{background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.2)}
+.active{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.2)}
+.pillar-mrr{font-size:16px;font-weight:700;color:#C9A84C}
+.proj-table{width:100%;border-collapse:collapse}
+.proj-table th{text-align:left;font-size:12px;color:#64748b;font-weight:500;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.proj-table td{font-size:13px;color:#94a3b8;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04)}
+.proj-table td:first-child{color:#f1f5f9}
+.proj-table td:last-child{color:#C9A84C;font-weight:600}
+.close-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.close-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px}
+.close-name{font-size:13px;font-weight:600;color:#f1f5f9;margin-bottom:4px}
+.close-rate{font-size:20px;font-weight:700;color:#22c55e}
+.close-cycle{font-size:11px;color:#64748b}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>NYSR Revenue Dashboard</h1>
+  <p class="subtitle" id="last-updated">Loading...</p>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-num" id="mrr">$0</div><div class="kpi-label">Current MRR</div></div>
+    <div class="kpi"><div class="kpi-num" id="today-rev">$0</div><div class="kpi-label">Revenue Today</div></div>
+    <div class="kpi"><div class="kpi-num" id="hot-leads">0</div><div class="kpi-label">Hot Leads</div></div>
+    <div class="kpi"><div class="kpi-num" id="active-clients">0</div><div class="kpi-label">Active Clients</div></div>
+    <div class="kpi"><div class="kpi-num" id="sequences">0</div><div class="kpi-label">Active Sequences</div></div>
+    <div class="kpi"><div class="kpi-num">7</div><div class="kpi-label">Revenue Pillars</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">7 Revenue Pillars</div>
+    <div class="pillar-row"><span class="pillar-name">🏛️ Retainer Revenue</span><span class="pillar-status building">Building</span><span class="pillar-mrr">Target $37.5K/mo</span></div>
+    <div class="pillar-row"><span class="pillar-name">⚙️ White-Label SaaS</span><span class="pillar-status building">Building</span><span class="pillar-mrr">Target $15K/mo</span></div>
+    <div class="pillar-row"><span class="pillar-name">📈 Performance Fees</span><span class="pillar-status building">Building</span><span class="pillar-mrr">Target $10K/mo</span></div>
+    <div class="pillar-row"><span class="pillar-name">⚖️ Legal + Healthcare</span><span class="pillar-status building">Building</span><span class="pillar-mrr">Target $25K/mo</span></div>
+    <div class="pillar-row"><span class="pillar-name">🔗 Affiliate Income</span><span class="pillar-status building">Building</span><span class="pillar-mrr">Target $5K/mo</span></div>
+    <div class="pillar-row"><span class="pillar-name">📦 Digital Products</span><span class="pillar-status active">Active</span><span class="pillar-mrr">Target $3K/mo</span></div>
+    <div class="pillar-row"><span class="pillar-name">🎯 Outbound Machine</span><span class="pillar-status building">Building</span><span class="pillar-mrr">Target $20K/mo</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Year-1 Revenue Projections</div>
+    <table class="proj-table">
+      <tr><th>Month</th><th>Retainer</th><th>White-Label SaaS</th><th>Affiliate</th><th>Performance</th><th>Total MRR</th></tr>
+      <tr><td>Month 1</td><td>$8,000</td><td>$1,500</td><td>$300</td><td>$500</td><td>$10,300</td></tr>
+      <tr><td>Month 2</td><td>$18,000</td><td>$3,000</td><td>$600</td><td>$1,000</td><td>$22,600</td></tr>
+      <tr><td>Month 3</td><td>$27,000</td><td>$5,000</td><td>$1,200</td><td>$2,000</td><td>$35,200</td></tr>
+      <tr><td>Month 6</td><td>$45,000</td><td>$10,000</td><td>$4,000</td><td>$5,000</td><td>$64,000</td></tr>
+      <tr><td>Month 9</td><td>$65,000</td><td>$15,000</td><td>$7,000</td><td>$8,000</td><td>$95,000</td></tr>
+      <tr><td>Month 12</td><td>$85,000</td><td>$22,000</td><td>$12,000</td><td>$12,000</td><td>$131,000</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Fast Close Channels — Live Close Rates</div>
+    <div class="close-grid">
+      <div class="close-card"><div class="close-name">Client Referrals</div><div class="close-rate">50–70%</div><div class="close-cycle">3–10 day cycle</div></div>
+      <div class="close-card"><div class="close-name">Client Upsells</div><div class="close-rate">60–80%</div><div class="close-cycle">Same day</div></div>
+      <div class="close-card"><div class="close-name">Dead Lead Reactivation</div><div class="close-rate">10–20%</div><div class="close-cycle">1–7 days</div></div>
+      <div class="close-card"><div class="close-name">Tripwire $750</div><div class="close-rate">40–70%</div><div class="close-cycle">Same day</div></div>
+      <div class="close-card"><div class="close-name">Free Audit Inbound</div><div class="close-rate">35–55%</div><div class="close-cycle">7–14 days</div></div>
+      <div class="close-card"><div class="close-name">Performance Offer $0</div><div class="close-rate">55–75%</div><div class="close-cycle">1–5 days</div></div>
+      <div class="close-card"><div class="close-name">Strategic Partner</div><div class="close-rate">40–60%</div><div class="close-cycle">5–14 days</div></div>
+      <div class="close-card"><div class="close-name">Webinar Pilot $997</div><div class="close-rate">5–15%</div><div class="close-cycle">48–72hrs</div></div>
+    </div>
+  </div>
+</div>
+<script>
+const SUPA = 'https://sazuogglxukumnvhvkms.supabase.co';
+const KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI';
+
+async function loadMetrics() {
+  const today = new Date().toISOString().split('T')[0];
+
+  const [contacts, revenue, sequences] = await Promise.all([
+    fetch(SUPA+'/rest/v1/contacts?select=stage',{headers:{'apikey':KEY,'Authorization':'Bearer '+KEY}}).then(r=>r.json()).catch(()=>[]),
+    fetch(SUPA+'/rest/v1/revenue_daily?date=eq.'+today+'&select=amount',{headers:{'apikey':KEY,'Authorization':'Bearer '+KEY}}).then(r=>r.json()).catch(()=>[]),
+    fetch(SUPA+'/rest/v1/outreach_sequences?status=eq.active&select=id',{headers:{'apikey':KEY,'Authorization':'Bearer '+KEY}}).then(r=>r.json()).catch(()=>[])
+  ]);
+
+  const won   = contacts.filter(c=>c.stage==='CLOSED_WON').length;
+  const hot   = contacts.filter(c=>['HOT','DEMO','PROPOSAL'].includes(c.stage)).length;
+  const mrr   = won * 297; // rough estimate
+  const todayRev = revenue.reduce((s,r)=>s+parseFloat(r.amount||0),0);
+
+  document.getElementById('mrr').textContent = '$'+mrr.toLocaleString();
+  document.getElementById('today-rev').textContent = '$'+todayRev.toFixed(2);
+  document.getElementById('hot-leads').textContent = hot;
+  document.getElementById('active-clients').textContent = won;
+  document.getElementById('sequences').textContent = sequences.length;
+  document.getElementById('last-updated').textContent = 'Last updated: '+new Date().toLocaleString('en-US',{timeZone:'America/New_York'});
+}
+loadMetrics();
+</script>
+</body>
+</html>

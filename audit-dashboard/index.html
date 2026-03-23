@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR — Full System Audit Dashboard</title>
+<meta http-equiv="refresh" content="60">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#060a0f;color:#e2e8f0;padding:32px 20px}
+.container{max-width:1100px;margin:0 auto}
+h1{font-size:22px;font-weight:700;color:#f8fafc;margin-bottom:6px}
+.meta{font-size:13px;color:#64748b;margin-bottom:28px}
+.score-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:32px}
+.score-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;text-align:center}
+.score-num{font-size:32px;font-weight:700}
+.score-label{font-size:12px;color:#64748b;margin-top:4px}
+.green{color:#22c55e}.yellow{color:#f59e0b}.red{color:#ef4444}.gold{color:#C9A84C}
+.engines-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:28px}
+.engine-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px}
+.engine-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.engine-name{font-size:14px;font-weight:600;color:#f1f5f9}
+.engine-status{font-size:11px;font-weight:600;padding:3px 9px;border-radius:10px}
+.active-e{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.2)}
+.blocked-e{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
+.engine-metrics{display:flex;gap:16px;margin-bottom:8px}
+.em{text-align:center}
+.em-n{font-size:18px;font-weight:700;color:#C9A84C}
+.em-l{font-size:11px;color:#64748b}
+.engine-gap{font-size:12px;color:#f59e0b;margin-top:6px}
+.section-title{font-size:12px;font-weight:600;letter-spacing:.08em;color:#64748b;text-transform:uppercase;margin-bottom:12px}
+.audit-row{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:12px 16px;margin-bottom:6px;display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px}
+.audit-name{font-size:13px;font-weight:500;color:#f1f5f9}
+.audit-category{font-size:11px;color:#64748b}
+.health-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);width:80px;position:relative}
+.health-fill{height:6px;border-radius:3px;position:absolute;top:0;left:0}
+.synergy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-bottom:28px}
+.syn-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px}
+.syn-a{font-size:13px;font-weight:500;color:#C9A84C}
+.syn-arrow{font-size:12px;color:#64748b;margin:2px 0}
+.syn-b{font-size:13px;font-weight:500;color:#60a5fa}
+.syn-gap{font-size:11px;color:#f59e0b;margin-top:6px}
+.syn-active{border-left:3px solid rgba(34,197,94,.4)}
+.syn-inactive{border-left:3px solid rgba(239,68,68,.3)}
+.opp-row{background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.15);border-radius:8px;padding:12px 16px;margin-bottom:6px}
+.opp-title{font-size:13px;font-weight:500;color:#fcd34d;margin-bottom:4px}
+.opp-meta{font-size:12px;color:#64748b}
+.badge-p1{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+.badge-p2{background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.2);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>NYSR Full System Audit</h1>
+  <p class="meta" id="ts">Loading...</p>
+
+  <div class="score-bar">
+    <div class="score-card"><div class="score-num green" id="healthy_count">—</div><div class="score-label">Healthy</div></div>
+    <div class="score-card"><div class="score-num yellow" id="degraded_count">—</div><div class="score-label">Degraded</div></div>
+    <div class="score-card"><div class="score-num red" id="critical_count">—</div><div class="score-label">Critical Gaps</div></div>
+    <div class="score-card"><div class="score-num gold" id="overall_score">—</div><div class="score-label">Overall Health</div></div>
+    <div class="score-card"><div class="score-num green" id="engine_count">7</div><div class="score-label">Closing Engines</div></div>
+    <div class="score-card"><div class="score-num gold" id="synergy_count">—</div><div class="score-label">Active Synergies</div></div>
+  </div>
+
+  <div class="section-title" style="margin-bottom:14px">7 Parallel Closing Engines</div>
+  <div class="engines-grid" id="engines"></div>
+
+  <div class="section-title" style="margin-bottom:14px">Component Audit — All Departments</div>
+  <div id="audit_rows"></div>
+
+  <div class="section-title" style="margin:24px 0 14px">Active Synergy Map</div>
+  <div class="synergy-grid" id="synergy_cards"></div>
+
+  <div class="section-title" style="margin:24px 0 14px">Missed Opportunities & Growth Gaps</div>
+  <div id="opp_rows"></div>
+</div>
+
+<script>
+const SUPA = 'https://sazuogglxukumnvhvkms.supabase.co';
+const KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI';
+const h = {'apikey':KEY,'Authorization':'Bearer '+KEY};
+
+async function q(path){ return fetch(SUPA+'/rest/v1/'+path,{headers:h}).then(r=>r.json()).catch(()=>[]); }
+
+async function load() {
+  document.getElementById('ts').textContent = 'Last updated: '+new Date().toLocaleString('en-US',{timeZone:'America/New_York'});
+
+  const [engines, audit, synergy, opps] = await Promise.all([
+    q('closing_engines?select=*&order=weekly_net_max.desc'),
+    q('system_audit_log?select=*&order=health_score.asc&limit=30'),
+    q('component_synergy?select=*&order=strength.desc&limit=20'),
+    q('missed_opportunities?select=*&order=priority.asc&limit=10')
+  ]);
+
+  // Engines
+  const engDiv = document.getElementById('engines');
+  (engines||[]).forEach(e=>{
+    const blocked = (e.engine_key==='reps_1099'&&true) || false;
+    engDiv.innerHTML += `<div class="engine-card">
+      <div class="engine-header">
+        <span class="engine-name">${e.engine_name}</span>
+        <span class="engine-status ${blocked?'blocked-e':'active-e'}">${blocked?'Needs Reps':'Active'}</span>
+      </div>
+      <div class="engine-metrics">
+        <div class="em"><div class="em-n">${e.weekly_leads||0}</div><div class="em-l">leads/wk</div></div>
+        <div class="em"><div class="em-n">${e.close_rate_pct||0}%</div><div class="em-l">close rate</div></div>
+        <div class="em"><div class="em-n">$${((e.weekly_net_min||0)/1000).toFixed(0)}K-$${((e.weekly_net_max||0)/1000).toFixed(0)}K</div><div class="em-l">weekly net</div></div>
+      </div>
+      <div style="font-size:12px;color:#64748b">${(e.notes||'').slice(0,80)}</div>
+    </div>`;
+  });
+
+  // Audit
+  const auditDiv = document.getElementById('audit_rows');
+  let healthy=0, degraded=0, critical=0, total_score=0;
+  (audit||[]).forEach(a=>{
+    const score = a.health_score||0;
+    total_score += score;
+    const color = score>=85?'#22c55e':score>=60?'#f59e0b':'#ef4444';
+    if(score>=85) healthy++; else if(score>=60) degraded++; else critical++;
+    auditDiv.innerHTML += `<div class="audit-row">
+      <div><div class="audit-name">${a.component}</div><div class="audit-category">${a.category} — ${a.component_type}</div></div>
+      <div class="health-bar"><div class="health-fill" style="width:${score}%;background:${color}"></div></div>
+      <div style="font-size:13px;font-weight:600;color:${color}">${score}</div>
+    </div>`;
+  });
+  document.getElementById('healthy_count').textContent = healthy;
+  document.getElementById('degraded_count').textContent = degraded;
+  document.getElementById('critical_count').textContent = critical;
+  const avg = audit.length ? Math.round(total_score/audit.length) : 0;
+  document.getElementById('overall_score').textContent = avg+'/100';
+
+  // Synergy
+  const synDiv = document.getElementById('synergy_cards');
+  let activeSyn = 0;
+  (synergy||[]).slice(0,12).forEach(s=>{
+    if(s.currently_active) activeSyn++;
+    synDiv.innerHTML += `<div class="syn-card ${s.currently_active?'syn-active':'syn-inactive'}">
+      <div class="syn-a">${s.component_a.replace(/_/g,' ')}</div>
+      <div class="syn-arrow">↓ ${s.synergy_type} (${s.strength}/5)</div>
+      <div class="syn-b">${s.component_b.replace(/_/g,' ')}</div>
+      ${s.gap ? '<div class="syn-gap">Gap: '+s.gap+'</div>' : ''}
+      <div style="font-size:11px;color:#64748b;margin-top:4px">${(s.revenue_upside||'').slice(0,60)}</div>
+    </div>`;
+  });
+  document.getElementById('synergy_count').textContent = activeSyn;
+
+  // Opportunities
+  const oppDiv = document.getElementById('opp_rows');
+  (opps||[]).forEach(o=>{
+    const p = o.priority<=2 ? '<span class="badge-p1">P'+o.priority+' CRITICAL</span>' : '<span class="badge-p2">P'+o.priority+'</span>';
+    oppDiv.innerHTML += `<div class="opp-row">
+      <div class="opp-title">${p} ${o.opportunity}</div>
+      <div class="opp-meta">Revenue: ${o.revenue_potential} | Effort: ${o.effort_to_build}</div>
+    </div>`;
+  });
+}
+load();
+</script>
+</body>
+</html>

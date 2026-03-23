@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Studio Setup — Connect All Platforms</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#04070D;--card:#0C1422;--border:rgba(255,255,255,.06);--gold:#C9A84C;--green:#22D3A0;--amber:#F59E0B;--red:#EF4444;--text:#E2E8F0;--muted:#64748B;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding:32px 24px;max-width:720px;margin:0 auto;}
+h1{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:4px;}
+.sub{font-size:13px;color:var(--muted);margin-bottom:28px;font-family:'DM Mono',monospace;}
+
+.progress-bar{height:6px;background:rgba(255,255,255,.06);border-radius:3px;margin-bottom:24px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .5s;}
+
+.section-title{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin:24px 0 10px;font-family:'DM Mono',monospace;}
+
+.platform{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:10px;transition:border .2s;}
+.platform.live{border-color:rgba(34,211,160,.2);}
+.platform.partial{border-color:rgba(245,158,11,.2);}
+.platform.todo{border-color:rgba(239,68,68,.15);}
+.ph{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.pi{font-size:22px;}
+.pn{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;flex:1;}
+.pill{font-size:10px;font-weight:700;padding:3px 9px;border-radius:10px;font-family:'DM Mono',monospace;letter-spacing:.04em;}
+.pill-live{background:rgba(34,211,160,.1);color:var(--green);border:1px solid rgba(34,211,160,.2);}
+.pill-partial{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2);}
+.pill-todo{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.15);}
+.platform p{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.steps{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.step-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#94A3B8;}
+.step-n{background:rgba(201,168,76,.15);color:var(--gold);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0;margin-top:1px;font-family:'DM Mono',monospace;}
+.keys-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+code{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.15);color:var(--gold);padding:3px 8px;border-radius:5px;font-size:11px;font-family:'DM Mono',monospace;cursor:pointer;}
+code:hover{background:rgba(201,168,76,.15);}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+.btn{padding:8px 16px;border-radius:7px;font-size:12px;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-block;}
+.btn-go{background:var(--gold);color:#04070D;}
+.btn-sec{background:rgba(201,168,76,.1);color:var(--gold);border:1px solid rgba(201,168,76,.2);}
+.btn-go:hover{background:#DFB95C;}
+.time-badge{font-size:10px;color:var(--muted);margin-left:auto;font-family:'DM Mono',monospace;}
+.impact{font-size:11px;color:var(--green);margin-bottom:10px;font-weight:600;}
+</style>
+</head>
+<body>
+<h1>Social Studio Setup</h1>
+<div class="sub">CONNECT PLATFORMS · SECRETS GO TO GITHUB ACTIONS</div>
+
+<div class="progress-bar"><div class="progress-fill" id="prog" style="width:20%"></div></div>
+<p style="font-size:12px;color:var(--muted);margin-bottom:20px;">2 of 10 platforms connected. Complete the queue below to unlock full studio capability.</p>
+
+<div class="section-title">✅ Live — No Action Needed</div>
+
+<div class="platform live" id="medium">
+  <div class="ph"><div class="pi">✍️</div><div class="pn">Medium</div><span class="pill pill-live">LIVE</span></div>
+  <p>Integration token active. Articles syndicating to 100M+ readers weekly.</p>
+</div>
+
+<div class="platform live" id="beehiiv">
+  <div class="ph"><div class="pi">📧</div><div class="pn">Beehiiv</div><span class="pill pill-live">LIVE</span></div>
+  <p>API key + publication ID active. Newsletter sequences running automatically.</p>
+</div>
+
+<div class="section-title">⚡ Priority Queue — 1 Action Each</div>
+
+<div class="platform partial" id="pinterest">
+  <div class="ph"><div class="pi">📌</div><div class="pn">Pinterest</div><span class="pill pill-partial">TOKEN EXISTS</span><span class="time-badge">5 min</span></div>
+  <div class="impact">→ Pins compound like SEO. Traffic from 2 months ago still coming in.</div>
+  <p>Token is in secrets but account has no boards. Fixed v3 auto-creates 5 niche boards on next run. If still failing, regenerate token with correct scopes.</p>
+  <div class="steps">
+    <div class="step-row"><span class="step-n">1</span>developers.pinterest.com → My Apps → Regenerate token</div>
+    <div class="step-row"><span class="step-n">2</span>Scopes: boards:read boards:write pins:read pins:write</div>
+    <div class="step-row"><span class="step-n">3</span>Replace PINTEREST_ACCESS_TOKEN in GitHub Secrets</div>
+  </div>
+  <div class="keys-row"><code onclick="copy(this)">PINTEREST_ACCESS_TOKEN</code></div>
+  <div class="btn-row">
+    <a href="https://developers.pinterest.com/apps/" class="btn btn-go" target="_blank">Pinterest Developers →</a>
+    <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn btn-sec" target="_blank">Add Secret</a>
+  </div>
+</div>
+
+<div class="platform partial" id="linkedin">
+  <div class="ph"><div class="pi">💼</div><div class="pn">LinkedIn</div><span class="pill pill-partial">APP EXISTS</span><span class="time-badge">5 min</span></div>
+  <div class="impact">→ 3,000-8,000 impressions per post. B2B gold for DFY agency leads.</div>
+  <p>Client ID + Secret are in secrets. Need an OAuth access token from the user auth flow — different from app credentials.</p>
+  <div class="steps">
+    <div class="step-row"><span class="step-n">1</span>linkedin.com/developers/apps → your app → Auth → OAuth 2.0 tools</div>
+    <div class="step-row"><span class="step-n">2</span>Request access token — scopes: w_member_social + r_liteprofile</div>
+    <div class="step-row"><span class="step-n">3</span>Add as LINKEDIN_ACCESS_TOKEN (token lasts 60 days)</div>
+  </div>
+  <div class="keys-row"><code onclick="copy(this)">LINKEDIN_ACCESS_TOKEN</code></div>
+  <div class="btn-row">
+    <a href="https://www.linkedin.com/developers/apps" class="btn btn-go" target="_blank">LinkedIn Developer Apps →</a>
+    <a href="/linkedin-auth/" class="btn btn-sec">Detailed Guide</a>
+    <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn btn-sec" target="_blank">Add Secret</a>
+  </div>
+</div>
+
+<div class="platform partial" id="youtube">
+  <div class="ph"><div class="pi">🎬</div><div class="pn">YouTube</div><span class="pill pill-partial">7 QUEUED</span><span class="time-badge">5 min</span></div>
+  <div class="impact">→ 7 voiced Shorts ready to upload. Each Short = permanent search traffic.</div>
+  <p>YouTube API key exists. Need OAuth consent screen finalized to upload videos.</p>
+  <div class="steps">
+    <div class="step-row"><span class="step-n">1</span>console.cloud.google.com/auth/overview?project=nysr-bots</div>
+    <div class="step-row"><span class="step-n">2</span>Click CREATE — steps 1+2 already done, just confirm step 3</div>
+    <div class="step-row"><span class="step-n">3</span>Create OAuth credentials → add YOUTUBE_CLIENT_ID + YOUTUBE_CLIENT_SECRET</div>
+  </div>
+  <div class="keys-row"><code onclick="copy(this)">YOUTUBE_CLIENT_ID</code><code onclick="copy(this)">YOUTUBE_CLIENT_SECRET</code></div>
+  <div class="btn-row">
+    <a href="https://console.cloud.google.com/auth/overview?project=nysr-bots" class="btn btn-go" target="_blank">Google Cloud Console →</a>
+    <a href="/youtube-setup/" class="btn btn-sec">Detailed Guide</a>
+  </div>
+</div>
+
+<div class="platform todo" id="twitter">
+  <div class="ph"><div class="pi">🐦</div><div class="pn">Twitter / X</div><span class="pill pill-todo">NOT CONNECTED</span><span class="time-badge">10 min</span></div>
+  <div class="impact">→ Daily threads = compounding followers. One viral thread = 5k+ site visitors.</div>
+  <p>Need a free developer account. Instant approval for basic tier (1,500 tweets/month).</p>
+  <div class="steps">
+    <div class="step-row"><span class="step-n">1</span>developer.twitter.com → sign in → Create Project + App</div>
+    <div class="step-row"><span class="step-n">2</span>Keys and Tokens → generate all 4 credentials</div>
+    <div class="step-row"><span class="step-n">3</span>User Auth Settings → enable OAuth 1.0a → Read+Write</div>
+  </div>
+  <div class="keys-row">
+    <code onclick="copy(this)">TWITTER_API_KEY</code><code onclick="copy(this)">TWITTER_API_SECRET</code>
+    <code onclick="copy(this)">TWITTER_ACCESS_TOKEN</code><code onclick="copy(this)">TWITTER_ACCESS_SECRET</code>
+  </div>
+  <div class="btn-row">
+    <a href="https://developer.twitter.com/en/portal/dashboard" class="btn btn-go" target="_blank">Twitter Developer Portal →</a>
+    <a href="/twitter-setup/" class="btn btn-sec">Detailed Guide</a>
+    <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn btn-sec" target="_blank">Add Secrets</a>
+  </div>
+</div>
+
+<div class="platform todo" id="instagram">
+  <div class="ph"><div class="pi">📷</div><div class="pn">Instagram + Facebook</div><span class="pill pill-todo">NOT CONNECTED</span><span class="time-badge">20 min</span></div>
+  <div class="impact">→ Both platforms in one setup. 2B+ Instagram users. Facebook page reaches existing audience.</div>
+  <p>Requires: Instagram Business account + Facebook Page + Meta Developer App. One setup unlocks both.</p>
+  <div class="steps">
+    <div class="step-row"><span class="step-n">1</span>developers.facebook.com → Create App → Business type</div>
+    <div class="step-row"><span class="step-n">2</span>Add Instagram Basic Display product → get IG User Token</div>
+    <div class="step-row"><span class="step-n">3</span>Add Pages API product → get Page Access Token</div>
+    <div class="step-row"><span class="step-n">4</span>Get your Instagram User ID from the API explorer</div>
+  </div>
+  <div class="keys-row">
+    <code onclick="copy(this)">INSTAGRAM_PAGE_TOKEN</code><code onclick="copy(this)">INSTAGRAM_USER_ID</code>
+    <code onclick="copy(this)">FB_PAGE_TOKEN</code><code onclick="copy(this)">FB_PAGE_ID</code>
+  </div>
+  <div class="btn-row">
+    <a href="https://developers.facebook.com/apps/" class="btn btn-go" target="_blank">Meta for Developers →</a>
+    <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn btn-sec" target="_blank">Add Secrets</a>
+  </div>
+</div>
+
+<div class="platform todo" id="tiktok">
+  <div class="ph"><div class="pi">🎵</div><div class="pn">TikTok</div><span class="pill pill-todo">NOT CONNECTED</span><span class="time-badge">15 min</span></div>
+  <div class="impact">→ Same Shorts scripts repurposed. 1B users. Algorithm pushes new accounts hard in first 30 days.</div>
+  <p>TikTok Developer account needed. Content is already generating via the Shorts bot — just needs the posting connection.</p>
+  <div class="steps">
+    <div class="step-row"><span class="step-n">1</span>developers.tiktok.com → Create App → Content Posting API</div>
+    <div class="step-row"><span class="step-n">2</span>Generate access token with video:upload scope</div>
+    <div class="step-row"><span class="step-n">3</span>Add TIKTOK_ACCESS_TOKEN</div>
+  </div>
+  <div class="keys-row"><code onclick="copy(this)">TIKTOK_ACCESS_TOKEN</code></div>
+  <div class="btn-row">
+    <a href="https://developers.tiktok.com/" class="btn btn-go" target="_blank">TikTok Developers →</a>
+    <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn btn-sec" target="_blank">Add Secret</a>
+  </div>
+</div>
+
+<div class="section-title">🔑 Add Secrets Here</div>
+<div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:14px 16px;margin-bottom:20px;">
+  <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:8px;">GitHub Secrets → one per platform credential</div>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" 
+     style="background:var(--gold);color:#04070D;padding:10px 20px;border-radius:7px;font-size:13px;font-weight:700;text-decoration:none;display:inline-block;">
+    Add New Secret →
+  </a>
+  <div style="font-size:11px;color:var(--muted);margin-top:8px;">Paste secret name exactly as shown above → paste value → Save. Takes 10 seconds per secret.</div>
+</div>
+
+<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
+  <div style="font-size:12px;font-weight:700;margin-bottom:6px;">After connecting each platform:</div>
+  <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+    The 🎬 Social Media Studio workflow runs daily at 7:30am.<br>
+    Trigger it manually anytime from <a href="https://github.com/nyspotlightreport/sct-agency-bots/actions" style="color:var(--gold);">GitHub Actions →</a><br>
+    All platforms with valid credentials will post automatically.
+  </div>
+</div>
+
+<script>
+function copy(el) {
+  navigator.clipboard.writeText(el.textContent);
+  const orig = el.textContent;
+  el.textContent = '✓ Copied';
+  setTimeout(()=>el.textContent=orig, 1500);
+}
+</script>
+</body>
+</html>

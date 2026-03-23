@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Etsy Setup — NYSR</title>
+<style>
+  body{font-family:-apple-system,sans-serif;max-width:680px;margin:60px auto;padding:20px;color:#111;line-height:1.6;}
+  h1{color:#0D1B2A;border-bottom:3px solid #C9A84C;padding-bottom:12px;}
+  .step{background:#f8f8f6;border-radius:10px;padding:16px 20px;margin:12px 0;}
+  .step h3{margin:0 0 8px;color:#0D1B2A;font-size:14px;}
+  code{background:#e8e8e4;padding:3px 7px;border-radius:4px;font-size:13px;}
+  .btn{display:inline-block;background:#F1641E;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;margin:6px 0;}
+  .btn-gh{display:inline-block;background:#0D1B2A;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;margin:6px 6px 6px 0;}
+  .done{background:#EAF3DE;border-radius:8px;padding:12px 16px;color:#173404;font-size:13px;margin-top:12px;}
+</style>
+</head>
+<body>
+<h1>Etsy Auto-Lister Setup (one-time, 8 min)</h1>
+<p>Once done, bot creates all 10 listings automatically. 92M buyers.</p>
+
+<div class="step">
+  <h3>Step 1 — Create Etsy Developer App</h3>
+  <a href="https://www.etsy.com/developers/register" class="btn" target="_blank">Go to Etsy Developers</a>
+  <p style="margin-top:8px;font-size:13px;">App name: "NYSR Store Bot" · Callback URL: https://nyspotlightreport.com</p>
+  <p style="font-size:13px;">Copy your <strong>API Key (Keystring)</strong> and <strong>Shop ID</strong> (from etsy.com/shop/YourShopName → Settings → Info & Appearance → scroll to Shop ID)</p>
+</div>
+
+<div class="step">
+  <h3>Step 2 — Add to GitHub Secrets</h3>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn-gh" target="_blank">Add ETSY_API_KEY</a>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" class="btn-gh" target="_blank">Add ETSY_SHOP_ID</a>
+</div>
+
+<div class="step">
+  <h3>Step 3 — Run the Bot (1 click)</h3>
+  <a href="https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/etsy_auto_lister.yml" class="btn" target="_blank">Run Etsy Auto-Lister</a>
+  <p style="font-size:13px;margin-top:8px;">Click "Run workflow" → Done. All 10 listings created as drafts.</p>
+  <p style="font-size:13px;">Then upload PDF files in Etsy dashboard and publish each one.</p>
+</div>
+
+<div class="done">After setup: Etsy bot runs automatically. 10 products on 92M-buyer marketplace. $0 monthly cost.</div>
+</body>
+</html>

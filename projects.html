@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NYSR Agency project management dashboard — track projects, tasks, milestones, and team velocity in real time.">
+<meta property="og:title" content="Project Management — NYSR Agency">
+<link rel="canonical" href="https://nyspotlightreport.com/projects/">
+<title>Project Management — NYSR Agency</title>
+<style>
+  :root{--bg:#0a0a0f;--surface:#13131a;--border:#1e1e2e;--accent:#7c3aed;--accent2:#06b6d4;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh}
+  .nav{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;gap:1rem}
+  .nav a{color:var(--muted);text-decoration:none;font-size:.875rem}
+  .nav a:hover{color:var(--text)}
+  .logo{color:var(--accent);font-weight:700;font-size:1.1rem;margin-right:auto}
+  .main{padding:2rem;max-width:1400px;margin:0 auto}
+  .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem}
+  h1{font-size:1.75rem;font-weight:700}
+  .badge{background:var(--accent);color:#fff;padding:.25rem .75rem;border-radius:99px;font-size:.75rem;font-weight:600}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+  .stat-num{font-size:2rem;font-weight:700;color:var(--accent)}
+  .stat-label{color:var(--muted);font-size:.875rem;margin-top:.25rem}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+  .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+  .card-title{font-weight:600;font-size:1rem}
+  .project-item{display:flex;align-items:center;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+  .project-item:last-child{border-bottom:none}
+  .priority{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .p-critical{background:var(--red)}
+  .p-high{background:var(--yellow)}
+  .p-medium{background:var(--accent2)}
+  .p-low{background:var(--muted)}
+  .project-name{flex:1;font-size:.9rem;font-weight:500}
+  .project-status{font-size:.75rem;padding:.2rem .6rem;border-radius:6px;font-weight:500}
+  .s-active{background:#10b98120;color:var(--green)}
+  .s-paused{background:#f59e0b20;color:var(--yellow)}
+  .s-completed{background:#7c3aed20;color:var(--accent)}
+  .task-item{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border)}
+  .task-item:last-child{border-bottom:none}
+  .task-check{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;cursor:pointer}
+  .task-check.done{background:var(--green);border-color:var(--green)}
+  .task-title{flex:1;font-size:.875rem}
+  .task-title.done{text-decoration:line-through;color:var(--muted)}
+  .tag{background:var(--border);color:var(--muted);font-size:.7rem;padding:.15rem .5rem;border-radius:4px}
+  .kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem}
+  .col{background:var(--bg);border-radius:10px;padding:1rem}
+  .col-header{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+  .col-count{background:var(--surface);color:var(--text);width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem}
+  .kanban-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.75rem;margin-bottom:.5rem;font-size:.8rem;cursor:grab}
+  .kanban-card:hover{border-color:var(--accent)}
+  .btn{background:var(--accent);color:#fff;border:none;padding:.6rem 1.2rem;border-radius:8px;font-size:.875rem;font-weight:500;cursor:pointer}
+  .btn:hover{opacity:.9}
+  .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);padding:.5rem 1rem;border-radius:8px;font-size:.8rem;cursor:pointer}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+  .milestone{display:flex;align-items:center;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+  .milestone:last-child{border-bottom:none}
+  .ms-icon{font-size:1.2rem}
+  .ms-info{flex:1}
+  .ms-title{font-size:.875rem;font-weight:500}
+  .ms-date{font-size:.75rem;color:var(--muted)}
+  .ms-impact{font-size:.75rem;color:var(--green);font-weight:500}
+  .loading{color:var(--muted);font-size:.875rem;text-align:center;padding:2rem}
+  @media(max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.kanban{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <span class="logo">⚡ NYSR Agency</span>
+  <a href="/">Home</a>
+  <a href="/command/">Command</a>
+  <a href="/wiki/">Wiki</a>
+  <a href="/sales/">Sales</a>
+  <a href="/store/">Store</a>
+  <a href="/dev/">Dev</a>
+</nav>
+<main class="main">
+  <div class="header">
+    <div>
+      <h1>Project Management</h1>
+      <p style="color:var(--muted);font-size:.875rem;margin-top:.25rem">Phase 2 — Closes Jira/Confluence gap · $2k–5k MRR unlock</p>
+    </div>
+    <div style="display:flex;gap:.75rem">
+      <button class="btn-outline" onclick="refreshData()">🔄 Refresh</button>
+      <button class="btn" onclick="newProject()">+ New Project</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="s-active">—</div><div class="stat-label">Active Projects</div></div>
+    <div class="stat"><div class="stat-num" id="s-tasks">—</div><div class="stat-label">Open Tasks</div></div>
+    <div class="stat"><div class="stat-num" id="s-blocked" style="color:var(--red)">—</div><div class="stat-label">Blocked</div></div>
+    <div class="stat"><div class="stat-num" id="s-done" style="color:var(--green)">—</div><div class="stat-label">Completed This Week</div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🗂️ Projects</span>
+        <span class="badge">Phase 2</span>
+      </div>
+      <div id="projects-list"><div class="loading">Loading projects…</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🎯 Milestones</span>
+        <span style="color:var(--muted);font-size:.8rem">Revenue-linked</span>
+      </div>
+      <div id="milestones-list"><div class="loading">Loading milestones…</div></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1.5rem">
+    <div class="card-header">
+      <span class="card-title">📋 Task Board</span>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn-outline" onclick="filterTasks('all')">All</button>
+        <button class="btn-outline" onclick="filterTasks('high')">High Priority</button>
+        <button class="btn-outline" onclick="filterTasks('blocked')">Blocked</button>
+      </div>
+    </div>
+    <div class="kanban">
+      <div class="col">
+        <div class="col-header">📥 Todo <span class="col-count" id="c-todo">0</span></div>
+        <div id="col-todo"></div>
+      </div>
+      <div class="col">
+        <div class="col-header">⚡ In Progress <span class="col-count" id="c-progress">0</span></div>
+        <div id="col-progress"></div>
+      </div>
+      <div class="col">
+        <div class="col-header">👁️ Review <span class="col-count" id="c-review">0</span></div>
+        <div id="col-review"></div>
+      </div>
+      <div class="col">
+        <div class="col-header">✅ Done <span class="col-count" id="c-done">0</span></div>
+        <div id="col-done"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+const SUPA_URL = 'https://sazuogglxukumnvhvkms.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI';
+
+async function supa(table, query='') {
+  const r = await fetch(`${SUPA_URL}/rest/v1/${table}${query}`, {
+    headers: { apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}` }
+  });
+  return r.ok ? r.json() : [];
+}
+
+async function loadProjects() {
+  const projects = await supa('projects', '?select=*&order=priority.desc,created_at.desc&limit=20');
+  document.getElementById('s-active').textContent = projects.filter(p => p.status === 'active').length;
+  const list = document.getElementById('projects-list');
+  if (!projects.length) { list.innerHTML = '<div class="loading">No projects yet</div>'; return; }
+  list.innerHTML = projects.map(p => `
+    <div class="project-item">
+      <div class="priority p-${p.priority}"></div>
+      <span class="project-name">${p.name}</span>
+      <span class="project-status s-${p.status}">${p.status}</span>
+    </div>`).join('');
+}
+
+async function loadMilestones() {
+  const ms = await supa('milestones', '?select=*&status=neq.hit&order=target_date.asc&limit=8');
+  const list = document.getElementById('milestones-list');
+  if (!ms.length) { list.innerHTML = '<div class="loading">No milestones yet</div>'; return; }
+  list.innerHTML = ms.map(m => `
+    <div class="milestone">
+      <span class="ms-icon">${m.status === 'hit' ? '✅' : '🎯'}</span>
+      <div class="ms-info">
+        <div class="ms-title">${m.title}</div>
+        <div class="ms-date">${m.target_date || 'TBD'}</div>
+      </div>
+      <span class="ms-impact">${m.revenue_impact || ''}</span>
+    </div>`).join('');
+}
+
+async function loadTasks() {
+  const tasks = await supa('tasks', '?select=*&order=priority.desc,created_at.desc&limit=50');
+  const todo = tasks.filter(t => t.status === 'todo');
+  const prog = tasks.filter(t => t.status === 'in_progress');
+  const rev  = tasks.filter(t => t.status === 'review');
+  const done = tasks.filter(t => t.status === 'done');
+  const blocked = tasks.filter(t => t.status === 'blocked');
+  document.getElementById('s-tasks').textContent = todo.length + prog.length;
+  document.getElementById('s-blocked').textContent = blocked.length;
+  const week = new Date(Date.now() - 7*24*60*60*1000).toISOString();
+  document.getElementById('s-done').textContent = done.filter(t => t.completed_at > week).length;
+  document.getElementById('c-todo').textContent = todo.length;
+  document.getElementById('c-progress').textContent = prog.length;
+  document.getElementById('c-review').textContent = rev.length;
+  document.getElementById('c-done').textContent = done.length;
+  const card = t => `<div class="kanban-card" title="${t.description || ''}">
+    <div style="display:flex;align-items:center;gap:.5rem">
+      <div class="priority p-${t.priority}" style="width:6px;height:6px;border-radius:50%;flex-shrink:0"></div>
+      ${t.title.substring(0,50)}${t.title.length > 50 ? '…' : ''}
+    </div>
+  </div>`;
+  document.getElementById('col-todo').innerHTML = todo.slice(0,8).map(card).join('') + (blocked.length ? `<div style="margin-top:.5rem;opacity:.6;font-size:.75rem;color:var(--red)">🚨 ${blocked.length} blocked</div>` : '');
+  document.getElementById('col-progress').innerHTML = prog.slice(0,8).map(card).join('');
+  document.getElementById('col-review').innerHTML = rev.slice(0,8).map(card).join('');
+  document.getElementById('col-done').innerHTML = done.slice(0,8).map(card).join('');
+}
+
+function refreshData() { loadProjects(); loadMilestones(); loadTasks(); }
+function newProject() { alert('New project creation — connect to agency backend or use GitHub issue labeled "FEATURE_REQUEST"'); }
+function filterTasks(f) { refreshData(); }
+
+refreshData();
+setInterval(refreshData, 60000);
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Live Demo — AI Automation for NY Businesses | NYSR</title>
+<meta name="description" content="See exactly how NY businesses are saving 20+ hours/week with AI automation. Free live demo + $997 pilot offer for attendees only.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#060a0f;color:#e2e8f0;line-height:1.6}
+.container{max-width:640px;margin:0 auto;padding:60px 20px}
+.badge{display:inline-block;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);color:#f87171;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.08em;margin-bottom:20px}
+h1{font-size:clamp(26px,5vw,40px);font-weight:700;color:#f8fafc;line-height:1.15;margin-bottom:12px}
+.sub{font-size:16px;color:#94a3b8;margin-bottom:32px}
+.offer-box{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:20px;margin-bottom:32px;font-size:14px;color:#fca5a5}
+.what-youll-learn{margin-bottom:32px}
+.what-youll-learn h3{font-size:16px;font-weight:600;color:#f1f5f9;margin-bottom:12px}
+.learn-item{display:flex;gap:10px;margin-bottom:10px;font-size:14px;color:#94a3b8}
+.check{color:#22c55e;font-weight:700;flex-shrink:0}
+.form-section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:28px;margin-bottom:24px}
+.form-section h3{font-size:18px;font-weight:600;color:#f1f5f9;margin-bottom:20px}
+input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:12px 14px;color:#e2e8f0;font-size:15px;outline:none;margin-bottom:12px}
+input:focus{border-color:rgba(201,168,76,.5)}
+.register-btn{width:100%;background:#C9A84C;color:#060a0f;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer}
+.guarantee{font-size:12px;color:#64748b;text-align:center;padding-top:12px}
+.host{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+.host-avatar{width:56px;height:56px;border-radius:50%;background:rgba(201,168,76,.15);border:2px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#C9A84C;flex-shrink:0}
+.host-name{font-size:15px;font-weight:600;color:#f1f5f9}
+.host-title{font-size:13px;color:#64748b}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="badge">🔴 LIVE DEMO — LIMITED SPOTS</div>
+  <h1>How NY Businesses Are Saving 20+ Hours/Week with AI — Live Demo</h1>
+  <p class="sub">Free 45-minute session. We show you the exact system live. No fluff. Just the real automation stack NYSR uses for clients.</p>
+
+  <div class="offer-box">
+    ⚡ Attendees only: $997 pilot offer (normally $1,497) — exclusively for live registrants. Available during the session only.
+  </div>
+
+  <div class="host">
+    <div class="host-avatar">SC</div>
+    <div>
+      <div class="host-name">S.C. Thomas</div>
+      <div class="host-title">Chairman, NY Spotlight Report | AI Agency Automation Expert</div>
+    </div>
+  </div>
+
+  <div class="what-youll-learn">
+    <h3>What you'll see in 45 minutes:</h3>
+    <div class="learn-item"><span class="check">✓</span><span>Live demo of an AI lead follow-up system capturing leads in 60 seconds</span></div>
+    <div class="learn-item"><span class="check">✓</span><span>The exact email sequence that books 8-15% of cold contacts on autopilot</span></div>
+    <div class="learn-item"><span class="check">✓</span><span>How to calculate exactly how much manual work is costing your business</span></div>
+    <div class="learn-item"><span class="check">✓</span><span>The 3 automations every NY business should have running by next week</span></div>
+    <div class="learn-item"><span class="check">✓</span><span>Live Q&A — ask anything about AI automation for your specific situation</span></div>
+  </div>
+
+  <div class="form-section">
+    <h3>Reserve Your Spot (Free)</h3>
+    <input type="text" id="wname" placeholder="Your name" />
+    <input type="email" id="wemail" placeholder="Work email" />
+    <input type="text" id="wbiz" placeholder="Your business type (e.g., law firm, medical practice, agency)" />
+    <button class="register-btn" onclick="registerWebinar()">Claim My Free Spot →</button>
+    <div class="guarantee">Free to attend. Recording available to registrants who can't make it live.</div>
+  </div>
+</div>
+<script>
+async function registerWebinar() {
+  const name  = document.getElementById('wname').value.trim();
+  const email = document.getElementById('wemail').value.trim();
+  const biz   = document.getElementById('wbiz').value.trim();
+  if (!name || !email) { alert('Please enter your name and email'); return; }
+
+  const SUPA = 'https://sazuogglxukumnvhvkms.supabase.co';
+  const KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI';
+
+  await fetch(SUPA+'/rest/v1/contacts', { method:'POST',
+    headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body: JSON.stringify({ name, email, stage:'WARM', score:75, source:'webinar_registration',
+      journey_key:'webinar_to_dfy', tags:['webinar-registrant','live-webinar'],
+      notes:`Webinar registrant — business type: ${biz}` })
+  }).catch(()=>{});
+
+  document.querySelector('.form-section').innerHTML = `
+    <div style="text-align:center;padding:20px">
+      <div style="font-size:40px;margin-bottom:16px">✅</div>
+      <h3 style="color:#22c55e;margin-bottom:8px">You're registered!</h3>
+      <p style="font-size:14px;color:#94a3b8">Check your email for the join link. See you live.</p>
+      <p style="font-size:13px;color:#C9A84C;margin-top:16px">Remember: $997 pilot offer available during the live session only.</p>
+    </div>`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR Intelligence — Proactive PR Command</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#02050A;--surface:#060C16;--card:#09111F;
+  --border:rgba(255,255,255,.04);--border-b:rgba(255,255,255,.09);
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,.08);
+  --green:#22D3A0;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;--purple:#A855F7;
+  --text:#E2E8F0;--muted:#475569;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* Animated scan line */
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,.4),transparent);
+  animation:scan 4s linear infinite;z-index:999;pointer-events:none;}
+@keyframes scan{0%{top:0}100%{top:100vh}}
+
+.wrap{max-width:1400px;margin:0 auto;padding:28px 24px;}
+
+/* Header */
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:12px;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.logo-block{width:40px;height:40px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:900;font-size:12px;color:#02050A;flex-shrink:0;}
+.title-block h1{font-family:'Syne',sans-serif;font-size:18px;font-weight:900;letter-spacing:-.5px;}
+.title-block p{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:.06em;margin-top:2px;}
+.header-right{display:flex;gap:8px;align-items:center;}
+.alert-badge{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;font-family:'DM Mono',monospace;}
+.alert-green{background:rgba(34,211,160,.08);border:1px solid rgba(34,211,160,.2);color:var(--green);}
+.alert-yellow{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:var(--amber);}
+.alert-red{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--red);}
+.pulse{width:6px;height:6px;border-radius:50%;animation:pulse 1.5s infinite;}
+.pulse-g{background:var(--green);}
+.pulse-y{background:var(--amber);}
+.pulse-r{background:var(--red);}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Rep Score — the centerpiece */
+.rep-score-block{background:var(--card);border:1px solid var(--border-b);border-radius:18px;padding:32px;margin-bottom:20px;display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
+.score-circle{position:relative;width:140px;height:140px;flex-shrink:0;}
+.score-svg{transform:rotate(-90deg);}
+.score-bg{fill:none;stroke:rgba(255,255,255,.05);stroke-width:8;}
+.score-fill{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s ease;}
+.score-number{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-val{font-family:'Syne',sans-serif;font-size:38px;font-weight:900;line-height:1;}
+.score-label{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.06em;}
+.score-details{flex:1;min-width:200px;}
+.score-details h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;}
+.score-details .trend{font-size:12px;color:var(--muted);margin-bottom:16px;font-family:'DM Mono',monospace;}
+.score-bars{display:flex;flex-direction:column;gap:8px;}
+.score-bar-row{display:flex;align-items:center;gap:10px;}
+.sb-label{font-size:11px;color:var(--muted);width:90px;flex-shrink:0;}
+.sb-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.sb-fill{height:100%;border-radius:2px;transition:width .8s ease;}
+.sb-val{font-size:11px;font-weight:700;font-family:'DM Mono',monospace;width:35px;text-align:right;flex-shrink:0;}
+
+/* Crisis prediction */
+.crisis-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px;}
+.crisis-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.crisis-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
+.crisis-prob{font-family:'DM Mono',monospace;font-size:28px;font-weight:700;}
+.signals{display:flex;flex-direction:column;gap:6px;}
+.signal-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--border);}
+.signal-icon{font-size:14px;flex-shrink:0;}
+.signal-text{font-size:12px;flex:1;}
+.signal-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;font-family:'DM Mono',monospace;}
+.sig-clear{background:rgba(34,211,160,.08);color:var(--green);}
+.sig-watch{background:rgba(245,158,11,.08);color:var(--amber);}
+.sig-alert{background:rgba(239,68,68,.08);color:var(--red);}
+
+/* 3-col grid */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
+@media(max-width:900px){.grid-3{grid-template-columns:1fr;}}
+
+.intel-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;}
+.ic-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.ic-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;}
+.ic-count{font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;font-family:'DM Mono',monospace;}
+.ic-rows{display:flex;flex-direction:column;gap:6px;}
+.ic-row{padding:8px 10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);}
+.ic-row-title{font-size:11px;color:var(--text);line-height:1.4;margin-bottom:4px;}
+.ic-row-meta{font-size:10px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.ic-row-action{font-size:10px;color:var(--gold);font-weight:600;margin-top:4px;}
+
+/* Timeline / Schedule */
+.timeline{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:20px;}
+.timeline h3{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:14px;}
+.timeline-rows{display:flex;flex-direction:column;gap:0;}
+.tl-row{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);}
+.tl-row:last-child{border:none;}
+.tl-time{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);width:70px;flex-shrink:0;padding-top:1px;}
+.tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.tl-content{flex:1;}
+.tl-name{font-size:12px;font-weight:600;color:var(--text);}
+.tl-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4;}
+
+/* Manual trigger */
+.trigger-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.trig-btn{padding:9px 18px;border-radius:8px;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.trig-primary{background:var(--gold);color:#02050A;}
+.trig-outline{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,.3);}
+.trig-primary:hover,.trig-outline:hover{transform:translateY(-1px);}
+
+/* Status indicator */
+.status-strip{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+.status-item{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);padding:7px 14px;border-radius:20px;font-size:11px;}
+.status-dot{width:7px;height:7px;border-radius:50%;}
+.dot-active{background:var(--green);}
+.dot-warn{background:var(--amber);}
+.dot-off{background:#334155;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="logo-block">NY</div>
+      <div class="title-block">
+        <h1>Proactive Intelligence</h1>
+        <p>FIXER DIVISION · REAL-TIME THREAT MONITORING · CRISIS PREDICTION</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="alert-badge alert-green"><span class="pulse pulse-g"></span>ALL CLEAR</div>
+      <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;" id="last-update">Last scan: --</div>
+    </div>
+  </div>
+
+  <!-- MANUAL TRIGGERS -->
+  <div class="trigger-row">
+    <button class="trig-btn trig-primary" onclick="runScan()">⚡ Run Full Intel Scan Now</button>
+    <button class="trig-btn trig-outline" onclick="runThreat()">🛡️ Threat Feed</button>
+    <button class="trig-btn trig-outline" onclick="runJournalist()">📰 Journalist Tracker</button>
+    <button class="trig-btn trig-outline" onclick="runRepScore()">📊 Rep Score Only</button>
+    <button class="trig-btn trig-outline" onclick="window.location='/fixer/'">← Fixer Command</button>
+  </div>
+
+  <!-- MONITORING STATUS -->
+  <div class="status-strip">
+    <div class="status-item"><div class="status-dot dot-active"></div>NewsAPI (every 4h)</div>
+    <div class="status-item"><div class="status-dot dot-active"></div>Reddit scan (every 6h)</div>
+    <div class="status-item"><div class="status-dot dot-active"></div>HackerNews (every 4h)</div>
+    <div class="status-item"><div class="status-dot dot-active"></div>Google News RSS (every 4h)</div>
+    <div class="status-item"><div class="status-dot dot-active"></div>Ahrefs SERP watch (daily)</div>
+    <div class="status-item"><div class="status-dot dot-active"></div>Competitor monitor (weekly)</div>
+    <div class="status-item"><div class="status-dot dot-warn"></div>Twitter API (needs keys)</div>
+    <div class="status-item"><div class="status-dot dot-off"></div>Brandwatch (not connected)</div>
+  </div>
+
+  <!-- REPUTATION SCORE -->
+  <div class="rep-score-block">
+    <div class="score-circle">
+      <svg class="score-svg" width="140" height="140" viewBox="0 0 140 140">
+        <circle class="score-bg" cx="70" cy="70" r="58"/>
+        <circle class="score-fill" id="score-arc" cx="70" cy="70" r="58"
+          stroke="#22D3A0"
+          stroke-dasharray="364.4"
+          stroke-dashoffset="109.3"/>
+      </svg>
+      <div class="score-number">
+        <div class="score-val" id="rep-score-val" style="color:#22D3A0">70</div>
+        <div class="score-label">REP SCORE</div>
+      </div>
+    </div>
+
+    <div class="score-details">
+      <h2 id="rep-status">Monitoring Active</h2>
+      <div class="trend" id="rep-trend">Trend: stable · Last scan: loading...</div>
+      <div class="score-bars">
+        <div class="score-bar-row">
+          <span class="sb-label">Brand mentions</span>
+          <div class="sb-track"><div class="sb-fill" id="bar-mentions" style="width:0%;background:var(--gold)"></div></div>
+          <span class="sb-val" id="val-mentions">—</span>
+        </div>
+        <div class="score-bar-row">
+          <span class="sb-label">Positive %</span>
+          <div class="sb-track"><div class="sb-fill" id="bar-pos" style="width:0%;background:var(--green)"></div></div>
+          <span class="sb-val" id="val-pos">—</span>
+        </div>
+        <div class="score-bar-row">
+          <span class="sb-label">Threat level</span>
+          <div class="sb-track"><div class="sb-fill" id="bar-threat" style="width:0%;background:var(--red)"></div></div>
+          <span class="sb-val" id="val-threat">—</span>
+        </div>
+        <div class="score-bar-row">
+          <span class="sb-label">Opportunities</span>
+          <div class="sb-track"><div class="sb-fill" id="bar-opp" style="width:0%;background:var(--blue)"></div></div>
+          <span class="sb-val" id="val-opp">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRISIS PREDICTION -->
+  <div class="crisis-block">
+    <div class="crisis-header">
+      <div class="crisis-title">Crisis Prediction Model</div>
+      <div><span class="crisis-prob" style="color:var(--green)" id="crisis-prob">5%</span><span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;margin-left:6px;">probability</span></div>
+    </div>
+    <div class="signals" id="signals-list">
+      <div class="signal-row"><span class="signal-icon">📊</span><div class="signal-text">Mention velocity — Normal volume (threshold: 3x baseline)</div><span class="signal-status sig-clear">CLEAR</span></div>
+      <div class="signal-row"><span class="signal-icon">📉</span><div class="signal-text">Sentiment shift — Positive ratio normal (threshold: 25% negative)</div><span class="signal-status sig-clear">CLEAR</span></div>
+      <div class="signal-row"><span class="signal-icon">📰</span><div class="signal-text">High-DA source — No high-authority negative coverage detected</div><span class="signal-status sig-clear">CLEAR</span></div>
+      <div class="signal-row"><span class="signal-icon">🔄</span><div class="signal-text">Coordinated pattern — No unusual posting clusters detected</div><span class="signal-status sig-clear">CLEAR</span></div>
+      <div class="signal-row"><span class="signal-icon">⚔️</span><div class="signal-text">Competitor activity — Baseline competitor content levels</div><span class="signal-status sig-clear">CLEAR</span></div>
+    </div>
+  </div>
+
+  <!-- 3-COL INTEL -->
+  <div class="grid-3">
+    <div class="intel-card">
+      <div class="ic-header">
+        <div class="ic-title">Brand Mentions</div>
+        <span class="ic-count" style="background:rgba(201,168,76,.08);color:var(--gold)">0 today</span>
+      </div>
+      <div class="ic-rows" id="mentions-list">
+        <div style="font-size:11px;color:var(--muted);padding:12px 0;text-align:center;">Run scan to populate</div>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="ic-header">
+        <div class="ic-title">Journalist Pitch Windows</div>
+        <span class="ic-count" style="background:rgba(59,130,246,.08);color:var(--blue)">10 tracked</span>
+      </div>
+      <div class="ic-rows">
+        <div class="ic-row">
+          <div class="ic-row-title">Karissa Bell — Engadget</div>
+          <div class="ic-row-meta"><span>AI tools beat</span></div>
+          <div class="ic-row-action">Pitch: AI content automation angle</div>
+        </div>
+        <div class="ic-row">
+          <div class="ic-row-title">Zack Friedman — Forbes</div>
+          <div class="ic-row-meta"><span>Personal finance beat</span></div>
+          <div class="ic-row-action">Pitch: Passive income system story</div>
+        </div>
+        <div class="ic-row">
+          <div class="ic-row-title">Chris Guillebeau — Side Hustle School</div>
+          <div class="ic-row-meta"><span>Side hustle beat</span></div>
+          <div class="ic-row-action">Pitch: Podcast guest — 63 bots story</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="intel-card">
+      <div class="ic-header">
+        <div class="ic-title">Threat Intelligence</div>
+        <span class="ic-count" style="background:rgba(168,85,247,.08);color:var(--purple)">5 categories</span>
+      </div>
+      <div class="ic-rows">
+        <div class="ic-row">
+          <div class="ic-row-title">FTC AI Disclosure Rules</div>
+          <div class="ic-row-meta"><span style="color:var(--amber)">Monitor</span><span>Regulatory</span></div>
+          <div class="ic-row-action">→ Add AI disclosure to all content now</div>
+        </div>
+        <div class="ic-row">
+          <div class="ic-row-title">Google Spam Algorithm Updates</div>
+          <div class="ic-row-meta"><span style="color:var(--amber)">Monitor</span><span>Platform</span></div>
+          <div class="ic-row-action">→ Ensure content adds unique human value</div>
+        </div>
+        <div class="ic-row">
+          <div class="ic-row-title">CAN-SPAM / Cold Email Enforcement</div>
+          <div class="ic-row-meta"><span style="color:var(--green)">Low risk</span><span>Legal</span></div>
+          <div class="ic-row-action">→ Unsubscribe in every email ✓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONITORING SCHEDULE -->
+  <div class="timeline">
+    <h3>Active Monitoring Schedule</h3>
+    <div class="timeline-rows">
+      <div class="tl-row">
+        <div class="tl-time">Every 15m</div>
+        <div class="tl-dot" style="background:var(--green)"></div>
+        <div class="tl-content"><div class="tl-name">Uptime Monitor</div><div class="tl-desc">Site + API health check — alerts if down</div></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time">Every 4h</div>
+        <div class="tl-dot" style="background:var(--green)"></div>
+        <div class="tl-content"><div class="tl-name">Reputation Intelligence Engine</div><div class="tl-desc">News + Reddit + HN mentions → sentiment score → crisis probability → alert if needed</div></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time">Every 6h</div>
+        <div class="tl-dot" style="background:var(--green)"></div>
+        <div class="tl-content"><div class="tl-name">Reddit Brand Monitor</div><div class="tl-desc">Scans relevant subreddits for brand + competitor mentions</div></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time">Daily 7am</div>
+        <div class="tl-dot" style="background:var(--gold)"></div>
+        <div class="tl-content"><div class="tl-name">Threat Intelligence Feed</div><div class="tl-desc">Industry regulatory, platform changes, competitor crises — early warning</div></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time">Daily 8am</div>
+        <div class="tl-dot" style="background:var(--gold)"></div>
+        <div class="tl-content"><div class="tl-name">Journalist Tracker</div><div class="tl-desc">Identifies pitch windows — who published what this week + optimal pitch timing</div></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time">Mon/Thu</div>
+        <div class="tl-dot" style="background:var(--blue)"></div>
+        <div class="tl-content"><div class="tl-name">SERP Watchdog (Ahrefs)</div><div class="tl-desc">Checks page 1 rankings — detects new negative content appearing in results</div></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time">Monday</div>
+        <div class="tl-dot" style="background:var(--purple)"></div>
+        <div class="tl-content"><div class="tl-name">Competitor Intelligence</div><div class="tl-desc">What competitors published this week — opportunities + threats in their moves</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Load latest intelligence report from API
+async function loadLatestReport() {
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/nyspotlightreport/sct-agency-bots/main/data/intelligence/latest_report.json');
+    if (!res.ok) return;
+    const report = await res.json();
+    
+    const rep = report.reputation || {};
+    const pred = report.crisis_prediction || {};
+    
+    // Update rep score
+    const score = rep.score || 70;
+    document.getElementById('rep-score-val').textContent = score;
+    const colors = {green:'#22D3A0',yellow:'#F59E0B',orange:'#F97316',red:'#EF4444',critical:'#EF4444'};
+    const color = colors[rep.threat_level] || '#22D3A0';
+    document.getElementById('rep-score-val').style.color = color;
+    document.getElementById('score-arc').style.stroke = color;
+    document.getElementById('score-arc').style.strokeDashoffset = 364.4 - (364.4 * score/100);
+    
+    document.getElementById('rep-status').textContent = 
+      score >= 75 ? 'Reputation Healthy' : score >= 60 ? 'Monitor Closely' : score >= 40 ? 'Alert: Action Needed' : 'Crisis Response Active';
+    document.getElementById('rep-trend').textContent = 
+      `Trend: ${rep.trend || 'stable'} · ${rep.total_mentions || 0} mentions · ${rep.positive_pct || 0}% positive`;
+    
+    // Update bars
+    const m = Math.min(100, (rep.total_mentions||0) * 5);
+    document.getElementById('bar-mentions').style.width = m+'%';
+    document.getElementById('val-mentions').textContent = rep.total_mentions || 0;
+    document.getElementById('bar-pos').style.width = (rep.positive_pct||70)+'%';
+    document.getElementById('val-pos').textContent = (rep.positive_pct||70)+'%';
+    const threatPct = Math.min(100, (rep.max_threat_score||0)*10);
+    document.getElementById('bar-threat').style.width = threatPct+'%';
+    document.getElementById('val-threat').textContent = rep.max_threat_score||0;
+    document.getElementById('bar-opp').style.width = Math.min(100,(report.opportunities||[]).length*15)+'%';
+    document.getElementById('val-opp').textContent = (report.opportunities||[]).length;
+    
+    // Crisis probability
+    const prob = pred.probability || 5;
+    document.getElementById('crisis-prob').textContent = prob+'%';
+    document.getElementById('crisis-prob').style.color = prob < 20 ? '#22D3A0' : prob < 50 ? '#F59E0B' : '#EF4444';
+    
+    // Alert badge
+    const badge = document.querySelector('.alert-badge');
+    if (rep.threat_level === 'green') {
+      badge.className = 'alert-badge alert-green'; badge.innerHTML = '<span class="pulse pulse-g"></span>ALL CLEAR';
+    } else if (rep.threat_level === 'yellow') {
+      badge.className = 'alert-badge alert-yellow'; badge.innerHTML = '<span class="pulse pulse-y"></span>MONITORING';
+    } else {
+      badge.className = 'alert-badge alert-red'; badge.innerHTML = '<span class="pulse pulse-r"></span>THREAT DETECTED';
+    }
+    
+    document.getElementById('last-update').textContent = `Last scan: ${new Date(report.timestamp).toLocaleTimeString()}`;
+    
+  } catch(e) {
+    document.getElementById('last-update').textContent = 'No data yet — run scan';
+  }
+}
+
+function runScan() {
+  alert('Triggering full intelligence scan.
+
+Go to GitHub Actions → "🔍 Proactive Intelligence (4h)" → Run workflow
+
+Results will appear here within 5 minutes.');
+}
+function runThreat()     { alert('Go to GitHub Actions → "🛡️ Threat Intelligence Feed" → Run workflow'); }
+function runJournalist() { alert('Go to GitHub Actions → "📰 Journalist Tracker (Daily)" → Run workflow'); }
+function runRepScore()   { alert('Go to GitHub Actions → "🔍 Proactive Intelligence (4h)" → Run workflow'); }
+
+// Auto-refresh every 5 minutes
+loadLatestReport();
+setInterval(loadLatestReport, 5*60*1000);
+</script>
+</body>
+</html>

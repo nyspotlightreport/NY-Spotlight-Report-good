@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR Email Intelligence — Priya Sharma</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#060a0f;color:#e2e8f0;padding:28px 20px}
+.page{max-width:1000px;margin:0 auto}
+h1{font-size:20px;font-weight:700;color:#f8fafc;margin-bottom:4px}
+.sub{font-size:13px;color:#64748b;margin-bottom:24px}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:24px}
+.kpi{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:14px}
+.kpi-num{font-size:26px;font-weight:700;color:#C9A84C}
+.kpi-label{font-size:11px;color:#64748b;margin-top:3px}
+.kpi.green .kpi-num{color:#22c55e}
+.kpi.red .kpi-num{color:#ef4444}
+.section-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#64748b;text-transform:uppercase;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px}
+th{text-align:left;padding:8px 10px;color:#64748b;font-weight:500;border-bottom:1px solid rgba(255,255,255,.06)}
+td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04);color:#e2e8f0;vertical-align:top}
+tr:hover td{background:rgba(255,255,255,.02)}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:8px}
+.cat-REVENUE{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.2)}
+.cat-URGENT{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
+.cat-LEGAL{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
+.cat-CLIENT{background:rgba(99,102,241,.1);color:#818cf8;border:1px solid rgba(99,102,241,.2)}
+.cat-IMPORTANT{background:rgba(201,168,76,.1);color:#C9A84C;border:1px solid rgba(201,168,76,.2)}
+.cat-NEWSLETTER{background:rgba(148,163,184,.08);color:#94a3b8;border:1px solid rgba(148,163,184,.15)}
+.cat-ROUTINE{background:rgba(148,163,184,.06);color:#64748b;border:1px solid rgba(148,163,184,.1)}
+.cat-GITHUB{background:rgba(148,163,184,.06);color:#64748b;border:1px solid rgba(148,163,184,.1)}
+.cat-SPAM{background:rgba(239,68,68,.06);color:#94a3b8;border:1px solid rgba(239,68,68,.1)}
+.cat-AUTO{background:rgba(148,163,184,.06);color:#64748b;border:1px solid rgba(148,163,184,.1)}
+.forwarded{color:#22c55e;font-size:11px}
+.killed{color:#94a3b8;font-size:11px}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filter-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#94a3b8;padding:5px 14px;border-radius:16px;font-size:12px;cursor:pointer}
+.filter-btn.active,.filter-btn:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:#C9A84C}
+.loading{color:#64748b;font-size:14px;padding:20px 0}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>📬 Email Intelligence — Priya Sharma</h1>
+  <p class="sub">Chief Email Intelligence Officer · Every email handled automatically</p>
+
+  <div class="kpi-row" id="kpis">
+    <div class="kpi"><div class="kpi-num" id="k-total">—</div><div class="kpi-label">Processed Today</div></div>
+    <div class="kpi green"><div class="kpi-num" id="k-revenue">—</div><div class="kpi-label">Revenue Emails</div></div>
+    <div class="kpi red"><div class="kpi-num" id="k-urgent">—</div><div class="kpi-label">Urgent</div></div>
+    <div class="kpi"><div class="kpi-num" id="k-fwd">—</div><div class="kpi-label">Forwarded to Priority</div></div>
+    <div class="kpi"><div class="kpi-num" id="k-killed">—</div><div class="kpi-label">Newsletters Killed</div></div>
+  </div>
+
+  <div class="section-title">Recent Emails</div>
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filter('ALL')">All</button>
+    <button class="filter-btn" onclick="filter('REVENUE')">💰 Revenue</button>
+    <button class="filter-btn" onclick="filter('URGENT')">🚨 Urgent</button>
+    <button class="filter-btn" onclick="filter('CLIENT')">👤 Client</button>
+    <button class="filter-btn" onclick="filter('NEWSLETTER')">🗑️ Killed</button>
+    <button class="filter-btn" onclick="filter('GITHUB')">⚙️ GitHub</button>
+  </div>
+
+  <table id="email-table">
+    <thead><tr><th>Category</th><th>From</th><th>Subject</th><th>AI Summary</th><th>Action</th><th>Time</th></tr></thead>
+    <tbody id="email-rows"><tr><td colspan="6" class="loading">Loading...</td></tr></tbody>
+  </table>
+</div>
+
+<script>
+const SUPA_URL = 'https://sazuogglxukumnvhvkms.supabase.co';
+// Note: dashboard reads via server-side API to avoid exposing keys
+let allEmails = [];
+let currentFilter = 'ALL';
+
+async function loadData() {
+  try {
+    const r = await fetch('/api/email-dashboard');
+    const d = await r.json();
+    if (d.emails) {
+      allEmails = d.emails;
+      renderStats(d.stats);
+      renderTable(allEmails);
+    }
+  } catch(e) {
+    document.getElementById('email-rows').innerHTML = '<tr><td colspan="6" class="loading">Connect Gmail to activate Priya. Run gmail_setup workflow first.</td></tr>';
+  }
+}
+
+function renderStats(stats) {
+  if (!stats) return;
+  document.getElementById('k-total').textContent   = stats.total || 0;
+  document.getElementById('k-revenue').textContent = stats.revenue || 0;
+  document.getElementById('k-urgent').textContent  = stats.urgent || 0;
+  document.getElementById('k-fwd').textContent     = stats.forwarded || 0;
+  document.getElementById('k-killed').textContent  = stats.killed || 0;
+}
+
+function renderTable(emails) {
+  const filtered = currentFilter === 'ALL' ? emails : emails.filter(e => e.category === currentFilter);
+  const tbody = document.getElementById('email-rows');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="loading">No emails in this category.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = filtered.slice(0,50).map(e => {
+    const cat  = e.category || 'ROUTINE';
+    const fwd  = e.forwarded ? '<span class="forwarded">→ forwarded</span>' : '';
+    const kill = ['NEWSLETTER','AUTO','SPAM'].includes(cat) ? '<span class="killed">archived</span>' : '';
+    const ts   = e.processed_at ? new Date(e.processed_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
+    return `<tr>
+      <td><span class="badge cat-${cat}">${cat}</span></td>
+      <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${e.from_email||''}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(e.subject||'').slice(0,60)}</td>
+      <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#94a3b8">${(e.ai_summary||'').slice(0,80)}</td>
+      <td>${fwd}${kill}</td>
+      <td style="color:#64748b;white-space:nowrap">${ts}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filter(cat) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderTable(allEmails);
+}
+
+loadData();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>

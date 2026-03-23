@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR — Sales Department</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#020409;--s:#060910;--c:#0A0F1C;--c2:#0E1525;--br:rgba(255,255,255,.05);--br2:rgba(255,255,255,.1);--gold:#C9A84C;--green:#22D3A0;--blue:#3B82F6;--red:#EF4444;--amber:#F59E0B;--purple:#A855F7;--text:#E8EDF5;--muted:#475569;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(201,168,76,.04) 1px,transparent 1px);background-size:28px 28px;}
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:100;}
+nav{position:sticky;top:0;z-index:50;background:rgba(2,4,9,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'Syne',sans-serif;font-weight:900;font-size:16px;}.logo span{color:var(--gold);}
+.nav-links{display:flex;gap:20px;font-size:12px;}
+.nav-links a{color:var(--muted);text-decoration:none;transition:color .2s;}.nav-links a:hover,.nav-links a.active{color:var(--text);}
+.wrap{max-width:1400px;margin:0 auto;padding:24px;}
+.dept-hero{background:linear-gradient(135deg,rgba(34,211,160,.06),rgba(34,211,160,.02));border:1px solid rgba(34,211,160,.2);border-radius:16px;padding:28px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;}
+.dept-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:900;}
+.dept-subtitle{color:var(--muted);font-size:14px;margin-top:4px;}
+.dept-badge{background:rgba(34,211,160,.1);border:1px solid rgba(34,211,160,.2);color:var(--green);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;font-family:'DM Mono',monospace;}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:24px;}
+.stat{background:var(--c);border:1px solid var(--br);border-radius:12px;padding:16px;}
+.stat-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Mono',monospace;margin-bottom:8px;}
+.stat-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:900;line-height:1;}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+.section-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:14px;}
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-bottom:28px;}
+.agent-card{background:var(--c);border:1px solid var(--br);border-radius:14px;padding:20px;transition:all .2s;cursor:pointer;}
+.agent-card:hover{border-color:rgba(34,211,160,.25);transform:translateY(-2px);}
+.agent-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.agent-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.agent-icon.green{background:rgba(34,211,160,.1);}
+.agent-icon.gold{background:rgba(201,168,76,.1);}
+.agent-icon.blue{background:rgba(59,130,246,.1);}
+.agent-icon.purple{background:rgba(168,85,247,.1);}
+.agent-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;}
+.agent-type{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Mono',monospace;}
+.agent-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:14px;}
+.agent-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.tag{background:var(--c2);border:1px solid var(--br2);color:var(--muted);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;font-family:'DM Mono',monospace;}
+.tag.green{border-color:rgba(34,211,160,.2);color:var(--green);}
+.run-btn{width:100%;background:rgba(34,211,160,.08);border:1px solid rgba(34,211,160,.2);color:var(--green);padding:8px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;margin-top:12px;font-family:'DM Mono',monospace;transition:all .2s;}
+.run-btn:hover{background:rgba(34,211,160,.15);}
+.workflow-card{background:var(--c);border:1px solid var(--br);border-radius:12px;padding:16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;}
+.wf-info .wf-name{font-size:14px;font-weight:600;}
+.wf-info .wf-schedule{font-size:11px;color:var(--muted);margin-top:2px;}
+.wf-trigger{background:var(--gold);color:var(--bg);border:none;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Mono',monospace;}
+.offer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:24px;}
+.offer-card{background:var(--c);border:1px solid var(--br);border-radius:12px;padding:18px;}
+.offer-price{font-family:'Syne',sans-serif;font-size:24px;font-weight:900;color:var(--gold);}
+.offer-name{font-size:13px;font-weight:600;margin-top:4px;}
+.offer-for{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5;}
+.stripe-link{display:block;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:var(--gold);text-align:center;padding:7px;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;margin-top:10px;font-family:'DM Mono',monospace;}
+@media(max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}.dept-hero{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">NYSR <span>SALES</span></div>
+  <div class="nav-links">
+    <a href="/command/">← Command</a>
+    <a href="/crm/">CRM</a>
+    <a href="/sales/" class="active">Sales</a>
+    <a href="/dev/">Dev</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="dept-hero">
+    <div>
+      <div class="dept-title">💰 Sales Department</div>
+      <div class="dept-subtitle">Multi-channel outreach · AI proposals · Revenue intelligence · 4× expansion complete</div>
+    </div>
+    <div class="dept-badge">FULLY STAFFED ✓</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-lbl">Agents</div><div class="stat-val" style="color:var(--green)">3</div><div class="stat-sub">Commander, Outreach, Proposals</div></div>
+    <div class="stat"><div class="stat-lbl">Bots</div><div class="stat-val" style="color:var(--gold)">8</div><div class="stat-sub">Follow-up, Closing, Referral...</div></div>
+    <div class="stat"><div class="stat-lbl">Workflows</div><div class="stat-val">2</div><div class="stat-sub">Daily + Weekly</div></div>
+    <div class="stat"><div class="stat-lbl">Daily Touches</div><div class="stat-val" style="color:var(--gold)">200</div><div class="stat-sub">Apollo email limit</div></div>
+    <div class="stat"><div class="stat-lbl">Sequence Length</div><div class="stat-val">7</div><div class="stat-sub">Touch points over 21 days</div></div>
+    <div class="stat"><div class="stat-lbl">Target MRR</div><div class="stat-val" style="color:var(--green)">$10k</div><div class="stat-sub">Monthly target</div></div>
+  </div>
+
+  <div class="section-title">🤖 Sales Agents</div>
+  <div class="agent-grid">
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon green">🎯</div><div><div class="agent-name">Sales Commander</div><div class="agent-type">AGENT · DIRECTOR</div></div></div><div class="agent-desc">Orchestrates the entire sales dept. Daily briefings, pipeline auto-advancement, hot deal identification, outreach queue building.</div><div class="agent-tags"><span class="tag green">daily brief</span><span class="tag">auto-advance</span><span class="tag">hot deals</span><span class="tag">pushover</span></div><button class="run-btn" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/sales_daily.yml')">▶ Run Now</button></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon gold">📧</div><div><div class="agent-name">Cold Outreach Agent</div><div class="agent-type">AGENT · OUTREACH</div></div></div><div class="agent-desc">Generates 7-touch multi-channel sequences (email + LinkedIn). AI-personalized first lines. Selects best offer per contact. Saves sequences to Supabase.</div><div class="agent-tags"><span class="tag green">apollo</span><span class="tag">7-touch</span><span class="tag">ICP matching</span><span class="tag">linkedin</span></div><button class="run-btn" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/sales_daily.yml')">▶ Run Now</button></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon blue">📄</div><div><div class="agent-name">Proposal Agent</div><div class="agent-type">AGENT · CLOSING</div></div></div><div class="agent-desc">Auto-generates branded HTML proposals with ROI calculator, custom executive summary, pricing box, and Stripe payment link. Personalized per contact.</div><div class="agent-tags"><span class="tag green">auto-generate</span><span class="tag">ROI calc</span><span class="tag">stripe link</span><span class="tag">HTML</span></div><button class="run-btn" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/sales_daily.yml')">▶ Run Now</button></div>
+  </div>
+
+  <div class="section-title">⚙️ Sales Bots</div>
+  <div class="agent-grid">
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon green">🔁</div><div><div class="agent-name">Follow-Up Bot</div><div class="agent-type">BOT · NURTURE</div></div></div><div class="agent-desc">Never lets a hot lead go cold. Monitors sequence progress, sends AI-written follow-ups at the right time. Stage-aware timing rules.</div><div class="agent-tags"><span class="tag">7-day cadence</span><span class="tag">auto-follow-up</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon gold">💬</div><div><div class="agent-name">Objection Handler</div><div class="agent-type">BOT · CLOSING</div></div></div><div class="agent-desc">6 objection types. Reframe engine. 3 response variants per objection (short/medium/full). Generates complete sales cheatsheet.</div><div class="agent-tags"><span class="tag">price</span><span class="tag">timing</span><span class="tag">competitor</span><span class="tag">authority</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon blue">📋</div><div><div class="agent-name">Contract Generator</div><div class="agent-type">BOT · LEGAL</div></div></div><div class="agent-desc">Generates legally sound NY-jurisdiction service agreements. SaaS subscription + DFY one-time templates. Ready to sign.</div><div class="agent-tags"><span class="tag">NY law</span><span class="tag">Net 15</span><span class="tag">HTML</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon purple">📊</div><div><div class="agent-name">Win/Loss Analyzer</div><div class="agent-type">BOT · INTELLIGENCE</div></div></div><div class="agent-desc">Weekly analysis of closed deals. Pattern recognition, conversion rates, ICP performance. Pushover weekly brief with 3 action items.</div><div class="agent-tags"><span class="tag">weekly</span><span class="tag">patterns</span><span class="tag">ROI</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon gold">🧪</div><div><div class="agent-name">A/B Test Engine</div><div class="agent-type">BOT · OPTIMIZATION</div></div></div><div class="agent-desc">Tests subject lines, openers, CTAs. Tracks winner statistically. Auto-updates winning variants for future outreach.</div><div class="agent-tags"><span class="tag">6 elements</span><span class="tag">stat tracking</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon green">💎</div><div><div class="agent-name">Upsell Engine</div><div class="agent-type">BOT · REVENUE</div></div></div><div class="agent-desc">Finds upgrade opportunities from won clients. Maps upgrade paths between all packages. Generates personalized upsell emails.</div><div class="agent-tags"><span class="tag">upgrade paths</span><span class="tag">existing clients</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon blue">📅</div><div><div class="agent-name">Appointment Setter</div><div class="agent-type">BOT · BOOKING</div></div></div><div class="agent-desc">Sends personalized Calendly links to qualified leads. 15/30/45 min call types. Follows up until call is booked.</div><div class="agent-tags"><span class="tag">calendly</span><span class="tag">qualified leads</span></div></div>
+    <div class="agent-card"><div class="agent-header"><div class="agent-icon gold">🤝</div><div><div class="agent-name">Referral Engine</div><div class="agent-type">BOT · GROWTH</div></div></div><div class="agent-desc">Asks for referrals at the right time (30 days post-close). $200 credit offer. Tracks who was asked and when.</div><div class="agent-tags"><span class="tag">$200 credit</span><span class="tag">30-day trigger</span></div></div>
+  </div>
+
+  <div class="section-title">💼 Active Offers</div>
+  <div class="offer-grid">
+    <div class="offer-card"><div class="offer-price">$97<span style="font-size:14px;color:var(--muted)">/mo</span></div><div class="offer-name">ProFlow AI Starter</div><div class="offer-for">For: Content managers, marketers, creators<br>Hook: Cuts content production 80%</div><a href="https://nyspotlightreport.com/pricing/" class="stripe-link">Stripe Payment Link →</a></div>
+    <div class="offer-card"><div class="offer-price">$297<span style="font-size:14px;color:var(--muted)">/mo</span></div><div class="offer-name">ProFlow AI Growth</div><div class="offer-for">For: Agency owners, CMOs, digital directors<br>Hook: Automates 90% of agency workflow</div><a href="https://nyspotlightreport.com/pricing/" class="stripe-link">Stripe Payment Link →</a></div>
+    <div class="offer-card"><div class="offer-price">$1,497<span style="font-size:14px;color:var(--muted)"> one-time</span></div><div class="offer-name">DFY Bot Setup</div><div class="offer-for">For: Founders, CEOs, small business owners<br>Hook: We build it, you don't touch code</div><a href="https://nyspotlightreport.com/pricing/" class="stripe-link">Stripe Payment Link →</a></div>
+    <div class="offer-card" style="border-color:rgba(201,168,76,.2)"><div class="offer-price" style="color:var(--green)">$4,997<span style="font-size:14px;color:var(--muted)"> one-time</span></div><div class="offer-name">DFY Agency Complete</div><div class="offer-for">For: Agency owners needing full AI system<br>Hook: 20+ agents, full sales automation</div><a href="https://nyspotlightreport.com/pricing/" class="stripe-link" style="border-color:rgba(201,168,76,.3);color:var(--gold)">Flagship Offer →</a></div>
+  </div>
+
+  <div class="section-title">⚡ Workflows</div>
+  <div class="workflow-card"><div class="wf-info"><div class="wf-name">💰 Sales Daily Operations</div><div class="wf-schedule">Runs: 8am daily · Jobs: Commander, Outreach, Follow-Up, Proposals, A/B Test</div></div><button class="wf-trigger" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/sales_daily.yml')">Run →</button></div>
+  <div class="workflow-card"><div class="wf-info"><div class="wf-name">💰 Sales Weekly Revenue Intelligence</div><div class="wf-schedule">Runs: Monday 9am · Jobs: Win/Loss, Upsell, Referrals, Appointments</div></div><button class="wf-trigger" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/sales_weekly.yml')">Run →</button></div>
+
+</div>
+
+<script>
+document.querySelectorAll(".wf-trigger").forEach(btn => {
+  btn.addEventListener("click", e => {e.stopPropagation();});
+});
+</script>
+</body>
+</html>

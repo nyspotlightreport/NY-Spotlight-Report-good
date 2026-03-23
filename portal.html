@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Portal — NYSR Agency</title>
+<meta name="description" content="NYSR Agency client portal. Track your tickets, deliverables, and project status.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://nyspotlightreport.com/portal/">
+<style>
+  :root{--bg:#0a0a0f;--surface:#13131a;--border:#1e1e2e;--accent:#7c3aed;--accent2:#06b6d4;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;--text:#e2e8f0;--muted:#64748b}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+  .nav{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;gap:1rem}
+  .logo{color:var(--accent);font-weight:700;font-size:1.1rem;margin-right:auto}
+  .nav a{color:var(--muted);text-decoration:none;font-size:.875rem}.nav a:hover{color:var(--text)}
+  /* LOGIN */
+  .login-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem}
+  .login-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2.5rem;width:100%;max-width:420px;text-align:center}
+  .login-logo{font-size:2.5rem;margin-bottom:1rem}
+  .login-title{font-size:1.5rem;font-weight:700;margin-bottom:.5rem}
+  .login-sub{color:var(--muted);font-size:.875rem;margin-bottom:2rem}
+  .input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:.75rem 1rem;border-radius:10px;font-size:.9rem;outline:none;margin-bottom:1rem}
+  .input:focus{border-color:var(--accent)}
+  .btn{width:100%;background:var(--accent);color:#fff;border:none;padding:.875rem;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+  .btn:hover{opacity:.85}.btn:disabled{opacity:.5;cursor:not-allowed}
+  .msg{font-size:.85rem;margin-top:.75rem;padding:.6rem 1rem;border-radius:8px}
+  .msg.success{background:#10b98120;color:var(--green)}
+  .msg.error{background:#ef444420;color:var(--red)}
+  /* DASHBOARD */
+  .dash{display:none;flex:1;padding:2rem;max-width:1300px;margin:0 auto;width:100%}
+  .dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem}
+  .dash-title{font-size:1.5rem;font-weight:700}
+  .dash-user{font-size:.875rem;color:var(--muted)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+  .stat-num{font-size:2rem;font-weight:700;color:var(--accent)}
+  .stat-label{color:var(--muted);font-size:.8rem;margin-top:.25rem}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
+  .card-title{font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+  .ticket-row{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.875rem}
+  .ticket-row:last-child{border-bottom:none}
+  .ticket-num{color:var(--muted);font-size:.75rem;flex-shrink:0;width:3rem}
+  .ticket-title{flex:1}
+  .badge{padding:.2rem .6rem;border-radius:6px;font-size:.7rem;font-weight:600;flex-shrink:0}
+  .b-open{background:#7c3aed20;color:var(--accent)}
+  .b-in_progress{background:#06b6d420;color:var(--accent2)}
+  .b-resolved{background:#10b98120;color:var(--green)}
+  .b-closed{background:var(--border);color:var(--muted)}
+  .b-critical{background:#ef444420;color:var(--red)}
+  .b-high{background:#f59e0b20;color:var(--yellow)}
+  .b-medium{background:#06b6d420;color:var(--accent2)}
+  .b-low{background:var(--border);color:var(--muted)}
+  .sla-warn{color:var(--red);font-size:.7rem}
+  .deliverable-row{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.875rem}
+  .deliverable-row:last-child{border-bottom:none}
+  .del-icon{font-size:1.2rem;flex-shrink:0}
+  .del-info{flex:1}
+  .del-title{font-weight:500}
+  .del-status{font-size:.75rem;color:var(--muted)}
+  .invoice-row{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.875rem}
+  .invoice-row:last-child{border-bottom:none}
+  .inv-amount{font-weight:700;flex-shrink:0}
+  .inv-status{font-size:.7rem;padding:.2rem .5rem;border-radius:4px}
+  .s-paid{background:#10b98120;color:var(--green)}
+  .s-pending{background:#f59e0b20;color:var(--yellow)}
+  .s-overdue{background:#ef444420;color:var(--red)}
+  .new-ticket-form{display:none;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1.5rem}
+  .form-row{margin-bottom:1rem}
+  .form-label{font-size:.8rem;color:var(--muted);margin-bottom:.35rem;display:block}
+  .form-input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:.6rem .9rem;border-radius:8px;font-size:.875rem;outline:none}
+  .form-input:focus{border-color:var(--accent)}
+  .form-textarea{min-height:100px;resize:vertical}
+  .form-select{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:.6rem .9rem;border-radius:8px;font-size:.875rem;outline:none;appearance:none}
+  .btn-sm{background:var(--accent);color:#fff;border:none;padding:.6rem 1.25rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer}
+  .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);padding:.6rem 1.25rem;border-radius:8px;font-size:.8rem;cursor:pointer}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+  .empty{color:var(--muted);font-size:.875rem;text-align:center;padding:1.5rem}
+  @media(max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <span class="logo">⚡ NYSR Agency Portal</span>
+  <a href="https://nyspotlightreport.com">Main Site</a>
+  <a href="https://nyspotlightreport.com/wiki/">Knowledge Base</a>
+  <a id="logout-btn" href="#" onclick="logout()" style="display:none;color:var(--muted)">Logout</a>
+</nav>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-section">
+  <div class="login-card">
+    <div class="login-logo">🔐</div>
+    <div class="login-title">Client Portal</div>
+    <div class="login-sub">Enter your email to receive a magic link</div>
+    <input class="input" type="email" id="login-email" placeholder="your@email.com" onkeydown="if(event.key==='Enter')requestMagicLink()">
+    <button class="btn" id="login-btn" onclick="requestMagicLink()">Send Magic Link ✨</button>
+    <div id="login-msg"></div>
+    <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+      <div style="font-size:.75rem;color:var(--muted)">Not a client yet?</div>
+      <a href="https://nyspotlightreport.com/store/" style="color:var(--accent);font-size:.8rem;text-decoration:none">View plans → nyspotlightreport.com/store/</a>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash" id="dashboard">
+  <div class="dash-header">
+    <div>
+      <div class="dash-title">Welcome back, <span id="user-name">—</span> 👋</div>
+      <div class="dash-user"><span id="user-plan-badge"></span> plan · <span id="user-company"></span></div>
+    </div>
+    <div style="display:flex;gap:.75rem">
+      <button class="btn-outline" onclick="toggleNewTicket()">+ New Ticket</button>
+      <button class="btn-sm" onclick="loadDashboard()">🔄 Refresh</button>
+    </div>
+  </div>
+
+  <!-- New Ticket Form -->
+  <div class="new-ticket-form" id="new-ticket-form">
+    <div style="font-weight:600;margin-bottom:1rem">📝 Submit Support Ticket</div>
+    <div class="form-row">
+      <label class="form-label">Title *</label>
+      <input class="form-input" id="t-title" placeholder="Brief description of your issue">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Description</label>
+      <textarea class="form-input form-textarea" id="t-desc" placeholder="Details, steps to reproduce, expected vs actual behavior…"></textarea>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div class="form-row">
+        <label class="form-label">Priority</label>
+        <select class="form-select" id="t-priority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+          <option value="critical">Critical</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Category</label>
+        <select class="form-select" id="t-category">
+          <option value="general">General</option>
+          <option value="bug">Bug</option>
+          <option value="feature">Feature Request</option>
+          <option value="billing">Billing</option>
+          <option value="onboarding">Onboarding</option>
+          <option value="integration">Integration</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:.75rem">
+      <button class="btn-sm" onclick="submitTicket()">Submit Ticket</button>
+      <button class="btn-outline" onclick="toggleNewTicket()">Cancel</button>
+    </div>
+    <div id="ticket-submit-msg" style="margin-top:.75rem"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="s-open">—</div><div class="stat-label">Open Tickets</div></div>
+    <div class="stat"><div class="stat-num" id="s-progress" style="color:var(--accent2)">—</div><div class="stat-label">In Progress</div></div>
+    <div class="stat"><div class="stat-num" id="s-resolved" style="color:var(--green)">—</div><div class="stat-label">Resolved</div></div>
+    <div class="stat"><div class="stat-num" id="s-deliverables" style="color:var(--yellow)">—</div><div class="stat-label">Deliverables</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">🎫 Support Tickets</div>
+      <div id="tickets-list"><div class="empty">Loading tickets…</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.5rem">
+      <div class="card">
+        <div class="card-title">📦 Deliverables</div>
+        <div id="deliverables-list"><div class="empty">Loading deliverables…</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">💳 Invoices</div>
+        <div id="invoices-list"><div class="empty">Loading invoices…</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const EDGE_URL = 'https://sazuogglxukumnvhvkms.supabase.co/functions/v1/portal-auth';
+let SESSION_TOKEN = null;
+
+async function portalApi(action, body={}) {
+  const r = await fetch(`${EDGE_URL}?action=${action}`, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({...body, token: SESSION_TOKEN})
+  });
+  return r.json();
+}
+
+async function requestMagicLink() {
+  const email = document.getElementById('login-email').value.trim();
+  if (!email) return;
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    const data = await fetch(`${EDGE_URL}?action=request_magic_link`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email})
+    }).then(r=>r.json());
+    const msg = document.getElementById('login-msg');
+    if (data.success) {
+      msg.className='msg success';
+      msg.textContent='✅ Magic link sent! Check your email. (In dev mode, link: ' + data.portal_url?.slice(-20) + ')';
+      // Dev shortcut — if we got the portal_url back, extract token and login
+      if (data.portal_url) {
+        const t = new URL(data.portal_url).searchParams.get('token');
+        if (t) { SESSION_TOKEN = t; localStorage.setItem('nysr_portal_token', t); await showDashboard(); }
+      }
+    } else {
+      msg.className='msg error'; msg.textContent='Error: '+(data.error||'Try again');
+      btn.disabled=false; btn.textContent='Send Magic Link ✨';
+    }
+  } catch(e) {
+    document.getElementById('login-msg').className='msg error';
+    document.getElementById('login-msg').textContent='Connection error. Try again.';
+    btn.disabled=false; btn.textContent='Send Magic Link ✨';
+  }
+}
+
+async function showDashboard() {
+  const data = await portalApi('verify_session');
+  if (!data.valid) { logout(); return; }
+  const user = data.user;
+  document.getElementById('user-name').textContent = user.name || user.email;
+  document.getElementById('user-company').textContent = user.company || '';
+  document.getElementById('user-plan-badge').innerHTML = `<span style="background:var(--accent);color:#fff;padding:.15rem .5rem;border-radius:4px;font-size:.7rem;font-weight:600">${(user.plan||'starter').toUpperCase()}</span>`;
+  document.getElementById('login-section').style.display='none';
+  document.getElementById('dashboard').style.display='flex';
+  document.getElementById('logout-btn').style.display='inline';
+  await loadDashboard();
+}
+
+async function loadDashboard() {
+  const data = await portalApi('get_portal_data');
+  if (data.error) { logout(); return; }
+  const {tickets=[], deliverables=[], invoices=[]} = data;
+  document.getElementById('s-open').textContent = tickets.filter(t=>t.status==='open').length;
+  document.getElementById('s-progress').textContent = tickets.filter(t=>t.status==='in_progress').length;
+  document.getElementById('s-resolved').textContent = tickets.filter(t=>['resolved','closed'].includes(t.status)).length;
+  document.getElementById('s-deliverables').textContent = deliverables.length;
+
+  // Tickets
+  const tl = document.getElementById('tickets-list');
+  tl.innerHTML = tickets.length ? tickets.map(t=>`
+    <div class="ticket-row">
+      <span class="ticket-num">#${t.ticket_number||'—'}</span>
+      <span class="ticket-title">${t.title.substring(0,45)}${t.title.length>45?'…':''} ${t.sla_breached?'<span class="sla-warn">⚠️ SLA</span>':''}</span>
+      <span class="badge b-${t.priority}">${t.priority}</span>
+      <span class="badge b-${t.status}">${t.status.replace('_',' ')}</span>
+    </div>`).join('') : '<div class="empty">No tickets yet. Submit one above!</div>';
+
+  // Deliverables
+  const dl = document.getElementById('deliverables-list');
+  const delIcons = {delivered:'✅',pending:'⏳',approved:'🎉',revision:'🔄'};
+  dl.innerHTML = deliverables.length ? deliverables.map(d=>`
+    <div class="deliverable-row">
+      <span class="del-icon">${delIcons[d.status]||'📦'}</span>
+      <div class="del-info">
+        <div class="del-title">${d.title}</div>
+        <div class="del-status">${d.status} ${d.due_date?'· Due '+d.due_date:''}</div>
+      </div>
+      ${d.file_url?`<a href="${d.file_url}" target="_blank" style="color:var(--accent);font-size:.75rem">View →</a>`:''}
+    </div>`).join('') : '<div class="empty">No deliverables yet.</div>';
+
+  // Invoices
+  const il = document.getElementById('invoices-list');
+  il.innerHTML = invoices.length ? invoices.map(i=>`
+    <div class="invoice-row">
+      <span class="inv-amount">$${parseFloat(i.amount).toFixed(2)}</span>
+      <span style="flex:1;font-size:.8rem;color:var(--muted)">${(i.created_at||'').substring(0,10)}</span>
+      <span class="inv-status s-${i.status}">${i.status}</span>
+      ${i.pdf_url?`<a href="${i.pdf_url}" target="_blank" style="color:var(--accent);font-size:.75rem">PDF</a>`:''}
+    </div>`).join('') : '<div class="empty">No invoices yet.</div>';
+}
+
+async function submitTicket() {
+  const title = document.getElementById('t-title').value.trim();
+  if (!title) return;
+  const msg = document.getElementById('ticket-submit-msg');
+  msg.textContent = '⏳ Submitting…';
+  const data = await portalApi('submit_ticket', {
+    title, description: document.getElementById('t-desc').value,
+    priority: document.getElementById('t-priority').value,
+    category: document.getElementById('t-category').value
+  });
+  if (data.success) {
+    msg.style.color='var(--green)';
+    msg.textContent=`✅ Ticket #${data.ticket_number} submitted! Our AI is already reviewing it.`;
+    document.getElementById('t-title').value='';
+    document.getElementById('t-desc').value='';
+    setTimeout(()=>{ toggleNewTicket(); loadDashboard(); }, 2000);
+  } else {
+    msg.style.color='var(--red)';
+    msg.textContent='Error: '+(data.error||'Try again');
+  }
+}
+
+function toggleNewTicket() {
+  const f = document.getElementById('new-ticket-form');
+  f.style.display = f.style.display==='block' ? 'none' : 'block';
+}
+
+function logout() {
+  SESSION_TOKEN=null;
+  localStorage.removeItem('nysr_portal_token');
+  document.getElementById('login-section').style.display='flex';
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('logout-btn').style.display='none';
+}
+
+// Handle CSAT score from URL
+const params = new URLSearchParams(location.search);
+const csatScore = params.get('score');
+const csatId = params.get('csat');
+if (csatScore && csatId) {
+  // Record satisfaction
+  fetch(`https://sazuogglxukumnvhvkms.supabase.co/rest/v1/satisfaction_surveys?id=eq.${csatId}`, {
+    method:'PATCH',
+    headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI',
+     Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI`,
+     'Content-Type':'application/json',Prefer:'return=minimal'},
+    body:JSON.stringify({score:parseInt(csatScore),responded_at:new Date().toISOString()})
+  });
+  document.body.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0a0f;color:#e2e8f0;font-family:Inter,sans-serif;text-align:center">
+    <div><div style="font-size:3rem">${'⭐'.repeat(parseInt(csatScore))}</div><h2 style="margin:1rem 0">Thanks for your feedback!</h2>
+    <p style="color:#64748b">Rating: ${csatScore}/5</p><a href="/portal/" style="color:#7c3aed;text-decoration:none;margin-top:1rem;display:block">Back to Portal →</a></div></div>`;
+} else {
+  // Check stored session on load
+  const stored = localStorage.getItem('nysr_portal_token') || params.get('token');
+  if (stored) {
+    SESSION_TOKEN = stored;
+    localStorage.setItem('nysr_portal_token', stored);
+    showDashboard();
+  }
+}
+</script>
+</body>
+</html>

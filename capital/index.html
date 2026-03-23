@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR Capital Command Center</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--gold:#C9A84C;--dark:#0D1B2A;--mid:#111d2e;--border:#1e3050;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#080f1a;color:#fff;padding:24px;}
+h1{font-size:17px;color:var(--gold);font-weight:700;margin-bottom:4px;}
+.sub{color:#8fa8c0;font-size:13px;margin-bottom:28px;}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
+.stat{background:var(--mid);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.stat-n{font-size:26px;font-weight:700;color:var(--gold);}
+.stat-l{font-size:11px;color:#8fa8c0;margin-top:3px;text-transform:uppercase;letter-spacing:.04em;}
+.tier-label{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin:20px 0 10px;}
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;margin-bottom:24px;}
+.inv{background:var(--mid);border:1.5px solid var(--border);border-radius:12px;padding:16px 18px;position:relative;}
+.inv.priority{border-color:var(--gold);}
+.inv-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.inv-name{font-size:14px;font-weight:700;color:#fff;}
+.inv-cost{font-size:12px;color:var(--gold);font-weight:700;margin-top:2px;}
+.inv-roi{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;}
+.inv-desc{font-size:12px;color:#8fa8c0;line-height:1.6;margin-bottom:12px;}
+.inv-impact{font-size:11px;color:#4ae8a0;margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.payback{font-size:11px;color:#aaa;margin-bottom:10px;}
+.inv-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.btn{padding:8px 10px;border-radius:6px;font-size:11px;font-weight:700;text-align:center;text-decoration:none;border:none;cursor:pointer;display:block;}
+.btn-go{background:var(--gold);color:var(--dark);}
+.btn-setup{background:#1e3050;color:#C9A84C;border:1px solid #2a4060;}
+.btn-activated{background:#1a3320;color:#4ae8a0;grid-column:1/-1;cursor:default;}
+.total-bar{background:var(--mid);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+.total-label{font-size:13px;color:#8fa8c0;}
+.total-num{font-size:22px;font-weight:700;color:var(--gold);}
+input[type=checkbox]{width:14px;height:14px;accent-color:var(--gold);}
+.selected-total{font-size:12px;color:#8fa8c0;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<h1>NYSR Capital Command Center</h1>
+<p class="sub">Select investments → Each links directly to signup + triggers the automation setup. Every investment has pre-built integration waiting.</p>
+
+<div class="summary">
+  <div class="stat"><div class="stat-n">$0</div><div class="stat-l">Current MRR</div></div>
+  <div class="stat"><div class="stat-n" id="sel-cost">$0</div><div class="stat-l">Selected Investment/mo</div></div>
+  <div class="stat"><div class="stat-n" id="sel-roi">$0</div><div class="stat-l">Projected ROI/mo</div></div>
+  <div class="stat"><div class="stat-n" id="sel-mult">0x</div><div class="stat-l">ROI Multiple</div></div>
+</div>
+
+<div class="tier-label">⚡ Tier 1 — Highest ROI, Activate First (under $300/mo total)</div>
+<div class="inv-grid" id="tier1"></div>
+
+<div class="tier-label">🚀 Tier 2 — Paid Traffic Engine ($500-800/mo, biggest revenue jump)</div>
+<div class="inv-grid" id="tier2"></div>
+
+<div class="tier-label">⚙️ Tier 3 — Infrastructure & Scaling ($100-200/mo, multiplies everything)</div>
+<div class="inv-grid" id="tier3"></div>
+
+<div class="total-bar">
+  <div>
+    <div class="total-label">Full stack investment</div>
+    <div class="selected-total" id="selected-summary">Select investments above to see totals</div>
+  </div>
+  <div style="text-align:right;">
+    <div class="total-label">Projected net gain</div>
+    <div class="total-num" id="net-gain">$0/mo</div>
+  </div>
+</div>
+
+<script>
+const INVESTMENTS = {
+  tier1: [
+    {id:"apollo_pro",  name:"Apollo.io Pro",      cost:99,  roi:990,  payback:10,
+     desc:"Unlocks 10,000 verified email exports/month. Right now we're capped at 50. 200x outreach volume = 200x pipeline. One sale at $297 covers 3 months.",
+     impact:"200x outreach volume instantly",
+     signup:"https://app.apollo.io/#/settings/billing",
+     setup:"Add APOLLO_PRO_KEY secret → Sales Agent auto-scales to 200 emails/day",
+     priority:true},
+    {id:"ahrefs",      name:"Ahrefs Starter",      cost:99,  roi:800,  payback:15,
+     desc:"Real keyword data fed to Content Agent. Every blog post targets actual search volume. Without this, we're guessing keywords. With this, every post has a ranking path.",
+     impact:"SEO traffic 3-5x better targeting",
+     signup:"https://ahrefs.com/pricing",
+     setup:"Add AHREFS_API_KEY → Content Agent uses real keyword data daily",
+     priority:true},
+    {id:"elevenlabs",  name:"ElevenLabs Creator",  cost:22,  roi:200,  payback:14,
+     desc:"Converts all YouTube Shorts scripts to real voiceover. Voiceover = 3x watch time vs silence = YouTube pushes the video more = free traffic. $22/mo for a dedicated voice.",
+     impact:"YouTube Shorts 3x watch time → algorithm boost",
+     signup:"https://elevenlabs.io/pricing",
+     setup:"Add ELEVENLABS_API_KEY → YouTube Shorts bot auto-voices all scripts",
+     priority:true},
+    {id:"beehiiv_grow",name:"Beehiiv Grow",        cost:99,  roi:500,  payback:24,
+     desc:"Unlocks: paid subscriptions on newsletter ($5-20/mo per reader), referral program (subscribers refer others), boosts (get featured to other newsletters). One paid sub program = $500-2,000/mo at 10k subscribers.",
+     impact:"Unlocks newsletter paid subscriptions + referral growth",
+     signup:"https://www.beehiiv.com/pricing",
+     setup:"Upgrade → Enable paid tier → Referral bot activates automatically",
+     priority:false},
+  ],
+  tier2: [
+    {id:"meta_ads",    name:"Meta Ads (Facebook/IG)", cost:500, roi:2000, payback:30,
+     desc:"We have the landing pages, the lead magnet, and the Beehiiv sequence — the entire funnel is built. Ads just add traffic. CPL $8-15. At $500/mo: 33-62 leads/month → email sequence → ProFlow sale ($97-497). One sale pays for a week of ads.",
+     impact:"33-62 qualified leads/month into existing funnel",
+     signup:"https://business.facebook.com/adsmanager",
+     setup:"Ad creative + copy + audience JSON pre-built → paste and launch",
+     priority:true},
+    {id:"linkedin_ads",name:"LinkedIn Ads",          cost:300, roi:900,  payback:45,
+     desc:"B2B gold. DFY agency at $997-2,997/mo — one LinkedIn lead who converts pays for 45 days of ads. Target: founders, agency owners, coaches with 11-50 employees. CPL $15-25 but quality is 10x higher.",
+     impact:"Direct B2B decision-maker pipeline for $997-2,997 packages",
+     signup:"https://www.linkedin.com/campaignmanager/",
+     setup:"Pre-built audience + ad copy → 3-click campaign launch",
+     priority:true},
+  ],
+  tier3: [
+    {id:"publer_agency",name:"Publer Agency",      cost:99,  roi:500,  payback:24,
+     desc:"Current plan limits social accounts. Agency plan = unlimited accounts. We can run social media for 10 ProFlow clients from one dashboard. Required to scale the DFY service.",
+     impact:"Scale DFY social media to 10 client accounts",
+     signup:"https://publer.com/pricing",
+     setup:"Add PUBLER_AGENCY_KEY → Social poster bot handles all client accounts",
+     priority:false},
+    {id:"zapier",       name:"Zapier Starter",     cost:20,  roi:150,  payback:16,
+     desc:"1,000 automated tasks/month connecting every platform without code. Key use: New Stripe customer → HubSpot contact → Welcome email → Slack notification. All instant.",
+     impact:"Full CRM automation on every new sale",
+     signup:"https://zapier.com/pricing",
+     setup:"Add ZAPIER_WEBHOOK_URL → 5 pre-built Zaps activate instantly",
+     priority:false},
+    {id:"do_4gb",       name:"DigitalOcean 4GB VPS", cost:18, roi:80,   payback:60,
+     desc:"Upgrade existing $6 VPS to 4GB RAM. Doubles passive income capacity — run 2 more bandwidth apps (EarnApp reinstall + another Honeygain node). Direct passive income increase.",
+     impact:"+$10-20/mo passive bandwidth income",
+     signup:"https://cloud.digitalocean.com/droplets/559766198/resize",
+     setup:"1-click resize in DO dashboard → passive income bots scale automatically",
+     priority:false},
+  ]
+};
+
+const selected = new Set();
+
+function renderInvestment(inv, tierId) {
+  return `<div class="inv${inv.priority?' priority':''}" id="inv_${inv.id}">
+    <div class="inv-head">
+      <div>
+        <div class="inv-name">${inv.name}</div>
+        <div class="inv-cost">$${inv.cost}/mo</div>
+      </div>
+      <div class="inv-roi">${Math.round(inv.roi/inv.cost)}x ROI</div>
+    </div>
+    <div class="inv-desc">${inv.desc}</div>
+    <div class="inv-impact">✦ ${inv.impact}</div>
+    <div class="payback">💰 Pays back in ~${inv.payback} days · Projected: $${inv.roi}/mo</div>
+    <div class="inv-actions" id="actions_${inv.id}">
+      <a href="${inv.signup}" class="btn btn-go" target="_blank" onclick="markActive('${inv.id}','${inv.setup}','${inv.cost}','${inv.roi}')">Sign Up & Activate →</a>
+      <button class="btn btn-setup" onclick="showSetup('${inv.id}','${inv.setup}')">⚙️ See Setup Steps</button>
+    </div>
+  </div>`;
+}
+
+function markActive(id, setup, cost, roi) {
+  selected.add(id);
+  updateTotals();
+}
+
+function showSetup(id, setup) {
+  alert('After signup, do this one thing:
+
+' + setup);
+}
+
+function updateTotals() {
+  let totalCost=0, totalRoi=0;
+  const all = [...INVESTMENTS.tier1,...INVESTMENTS.tier2,...INVESTMENTS.tier3];
+  all.forEach(inv => {
+    if(selected.has(inv.id)) { totalCost+=inv.cost; totalRoi+=inv.roi; }
+  });
+  document.getElementById('sel-cost').textContent = '$'+totalCost.toLocaleString();
+  document.getElementById('sel-roi').textContent = '$'+totalRoi.toLocaleString();
+  document.getElementById('sel-mult').textContent = totalCost>0 ? (totalRoi/totalCost).toFixed(1)+'x' : '0x';
+  const net = totalRoi-totalCost;
+  document.getElementById('net-gain').textContent = '$'+net.toLocaleString()+'/mo';
+  document.getElementById('selected-summary').textContent = selected.size+' investments selected · $'+totalCost+'/mo spend · $'+net+'/mo projected net gain';
+}
+
+// Render all tiers
+['tier1','tier2','tier3'].forEach(tier => {
+  document.getElementById(tier).innerHTML = INVESTMENTS[tier].map(inv => renderInvestment(inv, tier)).join('');
+});
+</script>
+</body>
+</html>

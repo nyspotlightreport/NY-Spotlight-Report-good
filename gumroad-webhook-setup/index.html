@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gumroad Webhook Setup — NY Spotlight Report</title>
+<style>
+  body{font-family:-apple-system,sans-serif;max-width:680px;margin:60px auto;padding:20px;color:#111;}
+  h1{color:#0D1B2A;border-bottom:3px solid #C9A84C;padding-bottom:12px;}
+  .step{background:#f8f8f6;border-radius:10px;padding:20px;margin:16px 0;}
+  .step h3{margin:0 0 10px;color:#0D1B2A;}
+  code{background:#e8e8e4;padding:4px 8px;border-radius:4px;font-size:13px;word-break:break-all;}
+  .url{background:#EAF3DE;border:1px solid #c0dd97;border-radius:6px;padding:12px;margin:8px 0;font-family:monospace;font-size:13px;}
+  .done{color:#3B6D11;font-weight:600;}
+</style>
+</head>
+<body>
+<h1>Gumroad Webhook Setup (One-Time, 2 Minutes)</h1>
+<p>This sets up automatic PDF delivery to every buyer — no manual work ever again.</p>
+
+<div class="step">
+  <h3>Step 1 — Go to Gumroad Settings → Integrations</h3>
+  <p>Open: <a href="https://app.gumroad.com/settings/integrations" target="_blank">app.gumroad.com/settings/integrations</a></p>
+</div>
+
+<div class="step">
+  <h3>Step 2 — Add Ping URL (Webhook)</h3>
+  <p>Scroll to "Ping" section. Paste this URL:</p>
+  <div class="url">https://nyspotlightreport.com/.netlify/functions/gumroad-delivery</div>
+  <p>Click Save. Done.</p>
+</div>
+
+<div class="step">
+  <h3>Step 3 — Test It</h3>
+  <p>Buy any of your own products for $0 (set price to $0 temporarily, test, set back). 
+  You'll receive the download email within 10 seconds.</p>
+</div>
+
+<p class="done">✅ After this is set: every buyer automatically receives their PDF download link via email. Forever. No more manual uploads needed.</p>
+</body>
+</html>

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /downloads/
+Disallow: /kdp-upload/
+Disallow: /activate/
+Disallow: /capital/
+
+Sitemap: https://nyspotlightreport.com/sitemap.xml

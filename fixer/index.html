@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR Fixer — PR Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#02050A;--surface:#070D18;--card:#0A1220;
+  --border:rgba(255,255,255,.05);--border-b:rgba(255,255,255,.1);
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,.1);--gold-glow:rgba(201,168,76,.05);
+  --green:#22D3A0;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;
+  --text:#E2E8F0;--muted:#475569;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* Grid noise */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(201,168,76,.015) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(201,168,76,.015) 1px,transparent 1px);
+  background-size:40px 40px;}
+
+/* Ambient */
+.amb{position:fixed;top:-30%;left:10%;width:80%;height:60%;
+  background:radial-gradient(ellipse,rgba(201,168,76,.03) 0%,transparent 70%);
+  pointer-events:none;z-index:0;}
+
+/* Main layout */
+.wrap{max-width:1300px;margin:0 auto;padding:32px 28px;position:relative;z-index:1;}
+
+/* Header */
+.header{margin-bottom:40px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.header-left h1{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:900;letter-spacing:-1.5px;line-height:1.1;}
+.header-left h1 em{font-style:normal;color:var(--gold);}
+.header-left p{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.05em;}
+.header-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.badge{font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;font-family:'DM Mono',monospace;letter-spacing:.05em;}
+.badge-classified{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2);}
+.badge-live{background:rgba(34,211,160,.1);color:var(--green);border:1px solid rgba(34,211,160,.2);}
+.btn-launch{background:var(--gold);color:var(--bg);padding:10px 24px;border-radius:8px;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* Capability grid */
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:32px;}
+.cap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:all .2s;cursor:default;}
+.cap:hover{border-color:rgba(201,168,76,.3);transform:translateY(-1px);}
+.cap-icon{font-size:28px;margin-bottom:12px;}
+.cap-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;margin-bottom:6px;color:var(--text);}
+.cap-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.cap-timeline{font-size:10px;font-weight:700;font-family:'DM Mono',monospace;padding:4px 10px;background:var(--gold-dim);color:var(--gold);border-radius:10px;display:inline-block;}
+
+/* Campaign launcher */
+.launcher{background:var(--card);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:28px;margin-bottom:28px;}
+.launcher h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:6px;}
+.launcher p{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.form-group label{display:block;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;font-family:'DM Mono',monospace;}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;background:var(--surface);border:1px solid var(--border-b);
+  border-radius:8px;padding:10px 14px;color:var(--text);font-size:13px;
+  font-family:'DM Sans',sans-serif;outline:none;transition:border .15s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);}
+.form-group textarea{resize:vertical;min-height:80px;}
+.form-full{grid-column:1/-1;}
+.btn-full{width:100%;background:var(--gold);color:var(--bg);padding:13px;border-radius:10px;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.02em;transition:all .2s;}
+.btn-full:hover{background:#DFB95C;transform:translateY(-1px);}
+
+/* SERP tracker */
+.serp-tracker{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:24px;}
+.serp-tracker h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:16px;}
+.serp-grid{display:flex;flex-direction:column;gap:6px;}
+.serp-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);}
+.serp-pos{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;width:30px;text-align:center;flex-shrink:0;}
+.serp-pos.owned{color:var(--green);}
+.serp-pos.neutral{color:var(--muted);}
+.serp-pos.negative{color:var(--red);}
+.serp-platform{font-size:12px;color:var(--text);flex:1;}
+.serp-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;font-family:'DM Mono',monospace;}
+.status-owned{background:rgba(34,211,160,.1);color:var(--green);}
+.status-target{background:rgba(201,168,76,.1);color:var(--gold);}
+.status-hostile{background:rgba(239,68,68,.1);color:var(--red);}
+
+/* PR Pipeline */
+.pipeline{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:24px;}
+.pipeline h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:14px;}
+.pipe-row{display:flex;align-items:center;gap:12px;padding:10px;background:var(--surface);border-radius:8px;border:1px solid var(--border);margin-bottom:8px;}
+.pipe-type{font-size:18px;flex-shrink:0;}
+.pipe-info{flex:1;}
+.pipe-outlet{font-size:12px;font-weight:700;color:var(--text);}
+.pipe-reach{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;}
+.pipe-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;font-family:'DM Mono',monospace;}
+
+/* Platform DA bars */
+.platform-das{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:24px;}
+.da-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+.da-header{display:flex;justify-content:space-between;margin-bottom:8px;}
+.da-name{font-size:12px;font-weight:700;font-family:'Syne',sans-serif;}
+.da-val{font-size:12px;font-weight:700;font-family:'DM Mono',monospace;color:var(--gold);}
+.da-bar-wrap{height:4px;background:var(--surface);border-radius:2px;overflow:hidden;}
+.da-bar{height:100%;background:var(--gold);border-radius:2px;}
+
+/* Output area */
+.output{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;min-height:120px;font-family:'DM Mono',monospace;font-size:11px;color:#64748B;line-height:1.8;white-space:pre-wrap;}
+
+@media(max-width:768px){.form-grid{grid-template-columns:1fr;}.wrap{padding:20px 16px;}}
+</style>
+</head>
+<body>
+<div class="amb"></div>
+<div class="wrap">
+
+  <div class="header">
+    <div class="header-left">
+      <h1>NYSR <em>Fixer</em> — PR Command</h1>
+      <p>ELITE REPUTATION MANAGEMENT · SERP DOMINATION · NARRATIVE CONTROL · BRAND ACCELERATION</p>
+    </div>
+    <div class="header-right">
+      <span class="badge badge-classified">⚑ INTERNAL ONLY</span>
+      <span class="badge badge-live">● OPERATIONAL</span>
+    </div>
+  </div>
+
+  <!-- CAPABILITIES -->
+  <div class="cap-grid">
+    <div class="cap">
+      <div class="cap-icon">🎯</div>
+      <div class="cap-title">SERP Domination</div>
+      <div class="cap-desc">Own 7-10 of the top 10 Google results for any name or keyword. Simultaneously publish to 15 authority platforms (DA 75-100). Push unwanted results to page 2+.</div>
+      <span class="cap-timeline">Page 1 control: 14-30 days</span>
+    </div>
+    <div class="cap">
+      <div class="cap-icon">📖</div>
+      <div class="cap-title">Narrative Control</div>
+      <div class="cap-desc">Shape how any person or brand is perceived. Deploy a coordinated content campaign across 10+ platforms. The most-read story becomes the accepted story.</div>
+      <span class="cap-timeline">Narrative shift: 30-60 days</span>
+    </div>
+    <div class="cap">
+      <div class="cap-icon">🚀</div>
+      <div class="cap-title">Brand Acceleration</div>
+      <div class="cap-desc">30-day protocol: unknown → recognized. LinkedIn, Twitter, YouTube, Medium, Press, Podcast — all activated in sequence. Google Knowledge Panel triggered by day 60.</div>
+      <span class="cap-timeline">Recognized name: 30 days</span>
+    </div>
+    <div class="cap">
+      <div class="cap-icon">🛡️</div>
+      <div class="cap-title">Crisis Response</div>
+      <div class="cap-desc">Counter negative coverage by flooding search results with authoritative positive content. Content volume + DA authority = displacement. Works on any DA level.</div>
+      <span class="cap-timeline">Negative displaced: 2-16 weeks</span>
+    </div>
+    <div class="cap">
+      <div class="cap-icon">📰</div>
+      <div class="cap-title">Press Placement Engine</div>
+      <div class="cap-desc">30 target outlets. Podcast, newsletter, and press tiers. Claude writes each pitch tailored to the specific outlet. 15-25% response rate. 2-3 placements/month.</div>
+      <span class="cap-timeline">First placement: 7-21 days</span>
+    </div>
+    <div class="cap">
+      <div class="cap-icon">📊</div>
+      <div class="cap-title">SERP Monitoring</div>
+      <div class="cap-desc">Weekly Ahrefs tracking for all target keywords. Alerts when rankings change. Identifies new negative content before it gains authority. Auto-responds with content.</div>
+      <span class="cap-timeline">Weekly reporting</span>
+    </div>
+  </div>
+
+  <!-- CAMPAIGN LAUNCHER -->
+  <div class="launcher">
+    <h2>Launch a Campaign</h2>
+    <p>Select a campaign type, enter your target, and the system generates the full content suite and deployment plan.</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Campaign Type</label>
+        <select id="campaign-type" onchange="updateForm()">
+          <option value="serp">SERP Domination — Own page 1 for a keyword/name</option>
+          <option value="brand">Brand Acceleration — Unknown → recognized in 30 days</option>
+          <option value="narrative">Narrative Control — Shape how a topic is perceived</option>
+          <option value="crisis">Crisis Response — Counter negative coverage</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Target Name / Keyword</label>
+        <input type="text" id="target" placeholder="e.g. S.C. Thomas or ProFlow AI" value="S.C. Thomas">
+      </div>
+      <div class="form-group">
+        <label>Goal / Context</label>
+        <input type="text" id="goal" placeholder="e.g. Establish as #1 AI automation expert">
+      </div>
+      <div class="form-group">
+        <label>Urgency</label>
+        <select id="urgency">
+          <option value="normal">Normal — 2-week deployment</option>
+          <option value="urgent">Urgent — 72-hour deployment</option>
+          <option value="emergency">Emergency — 24-hour deployment</option>
+        </select>
+      </div>
+      <div class="form-group form-full">
+        <label>Key Facts / Proof Points (comma-separated)</label>
+        <input type="text" id="facts" placeholder="e.g. Built 63 AI bots, Replaced $4,000/month team, 160 units running">
+      </div>
+    </div>
+    <button class="btn-full" onclick="launchCampaign()">⚡ Generate Campaign Assets</button>
+    <div id="output" class="output" style="margin-top:16px;display:none;"></div>
+  </div>
+
+  <!-- SERP TRACKER (SC Thomas current) -->
+  <div class="serp-tracker">
+    <h3>SERP Status: "S.C. Thomas" — Current + Target</h3>
+    <div class="serp-grid">
+      <div class="serp-row"><span class="serp-pos owned">#1</span><div class="serp-platform">nyspotlightreport.com (owned website)</div><span class="serp-status status-owned">OWNED</span></div>
+      <div class="serp-row"><span class="serp-pos owned">#2</span><div class="serp-platform">LinkedIn profile (DA 99) — needs optimization</div><span class="serp-status status-target">TARGET</span></div>
+      <div class="serp-row"><span class="serp-pos neutral">#3</span><div class="serp-platform">Medium profile + articles (DA 95) — needs activation</div><span class="serp-status status-target">TARGET</span></div>
+      <div class="serp-row"><span class="serp-pos neutral">#4</span><div class="serp-platform">Twitter/X profile (DA 94) — needs setup</div><span class="serp-status status-target">TARGET</span></div>
+      <div class="serp-row"><span class="serp-pos neutral">#5</span><div class="serp-platform">YouTube channel (DA 100) — 7 scripts queued</div><span class="serp-status status-target">TARGET</span></div>
+      <div class="serp-row"><span class="serp-pos neutral">#6</span><div class="serp-platform">Press release / news pickup (EINPresswire)</div><span class="serp-status status-target">TARGET</span></div>
+      <div class="serp-row"><span class="serp-pos neutral">#7</span><div class="serp-platform">Quora answers (DA 92)</div><span class="serp-status status-target">TARGET</span></div>
+      <div class="serp-row"><span class="serp-pos neutral">#8</span><div class="serp-platform">Crunchbase profile (DA 91)</div><span class="serp-status status-target">TARGET</span></div>
+      <div class="serp-row"><span class="serp-pos neutral">#9</span><div class="serp-platform">Podcast episode guest appearance</div><span class="serp-status status-target">TARGET</span></div>
+      <div class="serp-row"><span class="serp-pos neutral">#10</span><div class="serp-platform">Wikipedia (notability pending — need 2+ press clips)</div><span class="serp-status status-target">TARGET</span></div>
+    </div>
+  </div>
+
+  <!-- PLATFORM DA REFERENCE -->
+  <div style="margin-bottom:16px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Authority Platforms — Domain Authority Scores</div>
+  <div class="platform-das">
+    <div class="da-item"><div class="da-header"><span class="da-name">YouTube</span><span class="da-val">DA 100</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:100%"></div></div></div>
+    <div class="da-item"><div class="da-header"><span class="da-name">LinkedIn</span><span class="da-val">DA 99</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:99%"></div></div></div>
+    <div class="da-item"><div class="da-header"><span class="da-name">Wikipedia</span><span class="da-val">DA 95</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:95%"></div></div></div>
+    <div class="da-item"><div class="da-header"><span class="da-name">Medium</span><span class="da-val">DA 95</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:95%"></div></div></div>
+    <div class="da-item"><div class="da-header"><span class="da-name">Twitter/X</span><span class="da-val">DA 94</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:94%"></div></div></div>
+    <div class="da-item"><div class="da-header"><span class="da-name">Quora</span><span class="da-val">DA 92</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:92%"></div></div></div>
+    <div class="da-item"><div class="da-header"><span class="da-name">Crunchbase</span><span class="da-val">DA 91</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:91%"></div></div></div>
+    <div class="da-item"><div class="da-header"><span class="da-name">Google Sites</span><span class="da-val">DA 94</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:94%"></div></div></div>
+    <div class="da-item"><div class="da-header"><span class="da-name">Substack</span><span class="da-val">DA 91</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:91%"></div></div></div>
+    <div class="da-item"><div class="da-header"><span class="da-name">PR Newswire</span><span class="da-val">DA 92</span></div><div class="da-bar-wrap"><div class="da-bar" style="width:92%"></div></div></div>
+  </div>
+
+</div>
+
+<script>
+function updateForm() {
+  const type = document.getElementById('campaign-type').value;
+  const goal = document.getElementById('goal');
+  const goals = {
+    serp: 'Own top 10 Google results for this name',
+    brand: 'Establish as recognized authority in niche within 30 days',
+    narrative: 'Shape public perception and search narrative',
+    crisis: 'Displace negative coverage with positive authority content'
+  };
+  goal.placeholder = goals[type] || '';
+}
+
+async function launchCampaign() {
+  const type   = document.getElementById('campaign-type').value;
+  const target = document.getElementById('target').value;
+  const goal   = document.getElementById('goal').value;
+  const urgency= document.getElementById('urgency').value;
+  const facts  = document.getElementById('facts').value;
+  
+  const output = document.getElementById('output');
+  output.style.display = 'block';
+  output.textContent = `GENERATING ${type.toUpperCase()} CAMPAIGN...
+
+Target: ${target}
+Goal: ${goal}
+Urgency: ${urgency}
+
+`;
+  
+  // REAL Claude AI campaign generation
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 2000,
+        messages: [{ role: "user", content: `You are Marcus Kane, Chief Media Officer for NYSR. Generate a complete ${type.toUpperCase()} campaign plan for: "${target}".
+Goal: ${goal}
+Key Facts: ${facts}
+Urgency: ${urgency}
+
+Generate a DETAILED, ACTIONABLE campaign plan with:
+1. Exact content to create (titles, headlines, copy)
+2. Platform-specific deployment schedule (day by day)
+3. SEO keywords to target
+4. Expected results timeline
+5. Specific action items for each day
+
+Be extremely specific with real content suggestions, not generic advice. Include actual draft headlines and angles.` }]
+      })
+    });
+    const data = await response.json();
+    const plan = data.content?.[0]?.text || 'API response empty — check Anthropic key';
+    output.textContent += plan;
+    output.textContent += '\n\n✅ Campaign generated by Claude AI — Marcus Kane, CMO';
+  } catch(err) {
+    // Fallback to local templates if API fails
+    const plans = {serp:generateSERPPlan(target),brand:generateBrandPlan(target),narrative:generateNarrativePlan(target,goal),crisis:generateCrisisPlan(target)};
+    output.textContent += plans[type] || 'Campaign type not found';
+    output.textContent += '\n\n⚠️ Generated from local templates (API unavailable). Add ANTHROPIC key to enable Claude AI generation.';
+  }
+}
+
+function generateSERPPlan(target) {
+  return `SERP DOMINATION PLAN — ${target}
+${'─'.repeat(50)}
+
+PHASE 1 (Days 1-3): Immediate deployment
+  → Publish Medium article: "${target}: The Definitive Guide"
+  → Optimize LinkedIn headline + summary for "${target}" keyword
+  → Create YouTube video: "${target} | AI Entrepreneur | Full Story"
+  → Submit EINPresswire press release
+
+PHASE 2 (Days 4-10): Authority building
+  → Publish 3 Quora answers mentioning ${target}
+  → Create Crunchbase profile with full bio
+  → Google Sites personal page (ranks fast for names)
+  → Podcast pitch batch: 5 shows this week
+
+PHASE 3 (Days 11-30): SERP lockdown
+  → 2nd press release (different angle)
+  → Substack newsletter launch
+  → Wikipedia notability prep (need 2 press clips first)
+  → Monitor weekly — expect 7/10 controlled by day 30
+
+KEYWORDS TO TARGET:
+  "${target}" | "${target} entrepreneur" | "${target} AI" | "${target} NY Spotlight"
+
+EXPECTED RESULTS:
+  Day 7:  3-4 results on page 1
+  Day 30: 7-9 results on page 1
+  Day 90: Full page 1 + Wikipedia
+`;
+}
+
+function generateBrandPlan(target) {
+  return `BRAND ACCELERATION PLAN — ${target}
+${'─'.repeat(50)}
+
+WEEK 1 — Digital Footprint
+  Day 1: LinkedIn fully optimized — headline, summary, featured section
+  Day 2: Twitter/X profile + first viral thread
+  Day 3: Medium — publish "The System I Built to Replace My Team"
+  Day 5: Quora — 10 expert answers in passive income / AI niche
+  Day 7: YouTube — first video "How I Built 63 AI Bots"
+
+WEEK 2 — Authority
+  Day 8: Crunchbase + AngelList profiles
+  Day 10: First press release on EINPresswire (free)
+  Day 12: Guest post pitch to Starter Story
+  Day 14: Product Hunt prep + submission
+
+WEEK 3 — Infiltration
+  Day 15: Reddit — 5 value posts in r/passive_income, r/entrepreneur
+  Day 18: Twitter — reply to 50 niche influencers
+  Day 20: Podcast pitch wave — 10 shows
+  Day 21: Newsletter swap with aligned creator
+
+WEEK 4 — Amplification
+  Day 25: Second press release — different angle
+  Day 28: First podcast recording live
+  Day 30: Google Knowledge Panel check + trigger sequence
+
+MILESTONES:
+  Day 7:  10+ Google results for name
+  Day 30: Page 1 control + 2 podcast bookings
+  Day 60: Google Knowledge Panel + press mentions
+  Day 90: Recognized name in niche with authority backlinks
+`;
+}
+
+function generateNarrativePlan(target, goal) {
+  return `NARRATIVE CONTROL PLAN — ${target}
+${'─'.repeat(50)}
+
+NARRATIVE GOAL: ${goal}
+
+MASTER MESSAGE:
+"${target} is the AI entrepreneur who documented every step
+of building a fully automated content business."
+
+CONTENT BLITZ (5 pieces, deploy simultaneously):
+  1. Medium: "The Real Story of ${target}" — authority piece
+  2. LinkedIn: Long-form article — 800 words, professional angle
+  3. YouTube: "Who Is ${target}?" — personal brand video
+  4. Quora: Answer "Who are the best AI entrepreneurs in 2026?"
+  5. Press Release: "${target} Launches AI Content Platform"
+
+FRAMING:
+  AVOID: Defensive or reactive language
+  USE: Proactive, achievement-focused, specific numbers
+  ANCHOR: Every piece links back to nyspotlightreport.com
+
+MEASURING SUCCESS:
+  Track: Google Alerts for "${target}" mentions
+  Track: Sentiment of page 1 results
+  Track: Direct traffic from brand searches
+`;
+}
+
+function generateCrisisPlan(target) {
+  return `CRISIS RESPONSE PLAN — ${target}
+${'─'.repeat(50)}
+
+STRATEGY: Volume displacement — never engage negative content
+Rule: 10x positive content = negative pushed to page 2
+
+IMMEDIATE (24h):
+  1. Identify all negative URLs + their DA scores
+  2. Publish Medium article at same keyword — higher DA wins
+  3. Post LinkedIn article — ranks immediately for name search
+
+WEEK 1:
+  4. YouTube video with optimized title
+  5. Press release with positive angle
+  6. Quora answer targeting same long-tail keywords
+
+WEEK 2-4:
+  7. 3 guest posts on blogs DA 40+
+  8. 2 podcast appearances (episodes rank permanently)
+  9. Wikipedia article (if 2+ press clips exist)
+
+MONITOR WEEKLY:
+  - Negative DA 10-30: Displaced in 2-4 weeks
+  - Negative DA 30-60: Displaced in 4-8 weeks  
+  - Negative DA 60+:   Displaced in 8-16 weeks
+  - If negative gains traction: escalate to press placement
+`;
+}
+</script>
+</body>
+</html>

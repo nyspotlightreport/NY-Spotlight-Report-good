@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payment Successful — NYSR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,sans-serif;background:#060a0f;color:#e2e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.card{max-width:520px;width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(34,197,94,.2);border-radius:16px;padding:48px;text-align:center}
+.icon{font-size:64px;margin-bottom:20px}
+h1{font-size:28px;font-weight:800;color:#22c55e;margin-bottom:10px}
+.sub{font-size:16px;color:#94a3b8;line-height:1.6;margin-bottom:32px}
+.next{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-bottom:12px;text-align:left}
+.next-title{font-size:13px;font-weight:600;color:#C9A84C;margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase}
+.next-text{font-size:14px;color:#94a3b8}
+.back-btn{display:inline-block;margin-top:24px;background:#C9A84C;color:#060a0f;padding:12px 28px;border-radius:9px;font-weight:700;text-decoration:none;font-size:15px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">✅</div>
+  <h1>Payment Successful!</h1>
+  <p class="sub">Your account is being set up right now. You'll receive an email within the next few minutes with your access details and next steps.</p>
+
+  <div class="next">
+    <div class="next-title">What happens next</div>
+    <div class="next-text">Our system is configuring your AI automation stack. Within 24 hours, your content engine will be live.</div>
+  </div>
+  <div class="next">
+    <div class="next-title">Check your email</div>
+    <div class="next-text">An onboarding email is on its way. Check spam if you don't see it in 10 minutes.</div>
+  </div>
+  <div class="next">
+    <div class="next-title">Questions?</div>
+    <div class="next-text">Email nyspotlightreport@gmail.com — we respond within 4 hours.</div>
+  </div>
+
+  <a href="/store/" class="back-btn">Back to Store →</a>
+</div>
+<script>
+// Confirm the session server-side
+const params = new URLSearchParams(window.location.search);
+const sessionId = params.get('session_id');
+if (sessionId) {
+  fetch('/.netlify/functions/stripe-webhook', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'checkout.session.completed', data: { object: { id: sessionId } } })
+  }).catch(() => {});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ProFlow Live Demo — Hear It. See It. Believe It.</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--sand:#f7f5f0;--ink:#141413;--warm:#3d3929;--accent:#c9a84c;--muted:#8a8578;--border:rgba(0,0,0,.08);--card:#fff;--serif:'Instrument Serif',Georgia,serif;--sans:'Outfit','Helvetica Neue',sans-serif}
+body{font-family:var(--sans);background:var(--sand);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,245,240,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 clamp(24px,5vw,80px);height:64px;display:flex;align-items:center;justify-content:space-between}
+.nl{font-family:var(--serif);font-size:18px}.nl i{color:var(--accent);font-style:italic}
+.nr{display:flex;align-items:center;gap:28px}.nr a{font-size:13px;color:var(--muted);font-weight:500}.nr a:hover{color:var(--ink)}
+.nc{background:var(--ink)!important;color:var(--sand)!important;padding:10px 24px;border-radius:100px;font-weight:600!important;font-size:13px!important}
+.sec{padding:60px clamp(24px,5vw,80px);max-width:1100px;margin:0 auto}
+.tag{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#a08536;margin-bottom:12px}
+h1{font-family:var(--serif);font-size:clamp(36px,5vw,56px);font-weight:400;line-height:1.1;margin-bottom:20px}h1 i{font-style:italic;color:var(--warm)}
+h2{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:400;line-height:1.1;margin-bottom:12px}
+.sub{font-size:16px;color:var(--muted);max-width:520px;line-height:1.7;font-weight:300;margin-bottom:36px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:768px){.g2,.g3{grid-template-columns:1fr}.nr a:not(.nc){display:none}}
+.play-btn{width:48px;height:48px;background:var(--accent);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;transition:all .2s;flex-shrink:0}.play-btn:hover{transform:scale(1.05);background:#b8963f}
+.playing{animation:pulse-ring 1.5s infinite}
+@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}70%{box-shadow:0 0 0 12px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+.wave-bar{width:3px;background:var(--accent);border-radius:2px;animation:wave .8s ease-in-out infinite alternate}
+@keyframes wave{0%{height:4px}100%{height:20px}}
+</style>
+</head>
+<body>
+<nav><a href="/" class="nl">NY Spotlight <i>Report</i></a><div class="nr"><a href="/">Home</a><a href="/results/">See The Work</a><a href="/showcase/">Live Demo</a><a href="/proflow/" class="nc">Get Started</a></div></nav>
+
+<section class="sec" style="padding-top:140px;text-align:center">
+  <p class="tag">Live interactive demo — these are real, click play</p>
+  <h1>Don't read about it.<br><i>Hear it. Watch it. Try it.</i></h1>
+  <p class="sub" style="margin:0 auto 40px">Every demo below uses real AI voice synthesis. Click play — your speakers will produce actual spoken audio. This is the exact quality your customers experience.</p>
+</section>
+
+<!-- ═══ REAL VOICE DEMOS ═══ -->
+<section class="sec">
+  <p class="tag">AI voice — real audio, click play to hear</p>
+  <h2>Natural voice that speaks<br>through your speakers. Now.</h2>
+  <p class="sub">These use real speech synthesis. Click play and listen — this voice reads content to your audience, hosts podcasts, and makes sales calls.</p>
+  <div class="g2">
+    <div class="card" style="padding:28px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="width:40px;height:40px;background:rgba(201,168,76,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">🎙️</div>
+        <div><div style="font-size:14px;font-weight:600">Podcast intro</div><div style="font-size:12px;color:var(--muted)">Click play to hear real AI voice</div></div>
+      </div>
+      <div style="background:#faf9f6;border-radius:12px;padding:16px;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="play-btn" id="pod-btn" onclick="speakText('podcast')">▶</button>
+          <div id="pod-waves" style="display:none;flex:1;height:28px;display:flex;align-items:center;gap:2px;justify-content:center"></div>
+          <div id="pod-bar" style="flex:1;height:6px;background:#e8e5de;border-radius:3px;overflow:hidden"><div id="pod-progress" style="width:0%;height:100%;background:var(--accent);border-radius:3px;transition:width .5s linear"></div></div>
+          <span id="pod-status" style="font-size:11px;color:var(--muted);min-width:60px;text-align:right">Ready</span>
+        </div>
+      </div>
+      <p id="pod-transcript" style="font-size:13px;color:var(--muted);line-height:1.6"></p>
+    </div>
+    <div class="card" style="padding:28px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="width:40px;height:40px;background:rgba(201,168,76,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">📞</div>
+        <div><div style="font-size:14px;font-weight:600">Sales call opener</div><div style="font-size:12px;color:var(--muted)">Click play to hear AI sales agent</div></div>
+      </div>
+      <div style="background:#faf9f6;border-radius:12px;padding:16px;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="play-btn" id="sales-btn" onclick="speakText('sales')">▶</button>
+          <div style="flex:1;height:6px;background:#e8e5de;border-radius:3px;overflow:hidden"><div id="sales-progress" style="width:0%;height:100%;background:var(--accent);border-radius:3px;transition:width .5s linear"></div></div>
+          <span id="sales-status" style="font-size:11px;color:var(--muted);min-width:60px;text-align:right">Ready</span>
+        </div>
+      </div>
+      <p id="sales-transcript" style="font-size:13px;color:var(--muted);line-height:1.6"></p>
+    </div>
+  </div>
+  <div style="margin-top:20px" class="g2">
+    <div class="card" style="padding:28px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="width:40px;height:40px;background:rgba(29,158,117,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">🏢</div>
+        <div><div style="font-size:14px;font-weight:600">AI receptionist</div><div style="font-size:12px;color:var(--muted)">Answers your phone 24/7</div></div>
+      </div>
+      <div style="background:#faf9f6;border-radius:12px;padding:16px;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="play-btn" id="recep-btn" onclick="speakText('receptionist')" style="background:#1D9E75">▶</button>
+          <div style="flex:1;height:6px;background:#e8e5de;border-radius:3px;overflow:hidden"><div id="recep-progress" style="width:0%;height:100%;background:#1D9E75;border-radius:3px;transition:width .5s linear"></div></div>
+          <span id="recep-status" style="font-size:11px;color:var(--muted);min-width:60px;text-align:right">Ready</span>
+        </div>
+      </div>
+      <p id="recep-transcript" style="font-size:13px;color:var(--muted);line-height:1.6"></p>
+    </div>
+    <div class="card" style="padding:28px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="width:40px;height:40px;background:rgba(168,85,247,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">📢</div>
+        <div><div style="font-size:14px;font-weight:600">Ad narration</div><div style="font-size:12px;color:var(--muted)">Radio/podcast ad voice</div></div>
+      </div>
+      <div style="background:#faf9f6;border-radius:12px;padding:16px;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="play-btn" id="ad-btn" onclick="speakText('ad')" style="background:#a855f7">▶</button>
+          <div style="flex:1;height:6px;background:#e8e5de;border-radius:3px;overflow:hidden"><div id="ad-progress" style="width:0%;height:100%;background:#a855f7;border-radius:3px;transition:width .5s linear"></div></div>
+          <span id="ad-status" style="font-size:11px;color:var(--muted);min-width:60px;text-align:right">Ready</span>
+        </div>
+      </div>
+      <p id="ad-transcript" style="font-size:13px;color:var(--muted);line-height:1.6"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REAL ANIMATED VIDEO CONTENT ═══ -->
+<section class="sec">
+  <p class="tag">Video content — real animations that play</p>
+  <h2>Short-form video with<br>motion, text, and voice.</h2>
+  <p class="sub">Click play — real animated video with synchronized voiceover plays instantly. This is what gets posted to TikTok, YouTube Shorts, and Instagram Reels.</p>
+  <div class="g3">
+    <div class="card" style="padding:0">
+      <div style="position:relative;aspect-ratio:9/16;max-height:440px;overflow:hidden;cursor:pointer" onclick="playVideo(1)">
+        <canvas id="vid1" style="width:100%;height:100%"></canvas>
+        <div id="vid1-overlay" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:opacity .3s">
+          <div style="width:56px;height:56px;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;border:2px solid rgba(255,255,255,.3)">▶</div>
+        </div>
+        <div style="position:absolute;top:12px;left:12px;font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.4);padding:3px 8px;border-radius:4px">YouTube Short</div>
+      </div>
+      <div style="padding:14px 16px"><div style="font-size:13px;font-weight:600">"5 Marketing Lies"</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Animated text + voiceover · 0:47</div></div>
+    </div>
+    <div class="card" style="padding:0">
+      <div style="position:relative;aspect-ratio:9/16;max-height:440px;overflow:hidden;cursor:pointer" onclick="playVideo(2)">
+        <canvas id="vid2" style="width:100%;height:100%"></canvas>
+        <div id="vid2-overlay" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:opacity .3s">
+          <div style="width:56px;height:56px;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;border:2px solid rgba(255,255,255,.3)">▶</div>
+        </div>
+        <div style="position:absolute;top:12px;left:12px;font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.4);padding:3px 8px;border-radius:4px">TikTok</div>
+      </div>
+      <div style="padding:14px 16px"><div style="font-size:13px;font-weight:600">"$4K Team vs $97 AI"</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Kinetic text + voice · 0:32</div></div>
+    </div>
+    <div class="card" style="padding:0">
+      <div style="position:relative;aspect-ratio:9/16;max-height:440px;overflow:hidden;cursor:pointer" onclick="playVideo(3)">
+        <canvas id="vid3" style="width:100%;height:100%"></canvas>
+        <div id="vid3-overlay" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:opacity .3s">
+          <div style="width:56px;height:56px;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;border:2px solid rgba(255,255,255,.3)">▶</div>
+        </div>
+        <div style="position:absolute;top:12px;left:12px;font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.4);padding:3px 8px;border-radius:4px">Instagram Reel</div>
+      </div>
+      <div style="padding:14px 16px"><div style="font-size:13px;font-weight:600">"I Replaced My Content Team"</div><div style="font-size:11px;color:var(--muted);margin-top:2px">Story format + narration · 0:58</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LIVE CALL SIMULATION ═══ -->
+<section class="sec">
+  <p class="tag">Live AI call simulation — click to experience</p>
+  <h2>Inbound receptionist and<br>outbound sales. Live.</h2>
+  <p class="sub">Click start — watch the AI conduct a real sales conversation with voice and transcript. This is your 24/7 phone agent.</p>
+  <div class="g2">
+    <div class="card" style="padding:0">
+      <div style="background:var(--ink);padding:20px;text-align:center">
+        <div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Outbound sales</div>
+        <div style="font-size:16px;color:#fff;font-weight:600">ProFlow AI → Agency Owner</div>
+      </div>
+      <div style="padding:20px">
+        <div id="out-log" style="min-height:220px;max-height:280px;overflow-y:auto;margin-bottom:14px;font-size:13px;line-height:1.8">
+          <div style="text-align:center;padding:60px 0;color:#c4c0b8">Click below to hear the AI make a sales call</div>
+        </div>
+        <button id="out-btn" onclick="startLiveCall('outbound')" style="width:100%;padding:14px;background:var(--accent);color:var(--ink);border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Start outbound call →</button>
+      </div>
+    </div>
+    <div class="card" style="padding:0">
+      <div style="background:linear-gradient(135deg,#1D9E75,#16805e);padding:20px;text-align:center">
+        <div style="font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Inbound receptionist</div>
+        <div style="font-size:16px;color:#fff;font-weight:600">Caller → Your AI Receptionist</div>
+      </div>
+      <div style="padding:20px">
+        <div id="in-log" style="min-height:220px;max-height:280px;overflow-y:auto;margin-bottom:14px;font-size:13px;line-height:1.8">
+          <div style="text-align:center;padding:60px 0;color:#c4c0b8">Click below to hear your AI receptionist</div>
+        </div>
+        <button id="in-btn" onclick="startLiveCall('inbound')" style="width:100%;padding:14px;background:#1D9E75;color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Answer incoming call →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div style="background:var(--ink);border-radius:20px;padding:64px;text-align:center;margin:40px clamp(24px,5vw,80px) 80px;max-width:1100px;margin-left:auto;margin-right:auto">
+  <h2 style="font-family:var(--serif);font-size:clamp(28px,4vw,44px);color:var(--sand);margin-bottom:16px;line-height:1.1">Heard enough?<br>Let's build yours.</h2>
+  <p style="color:rgba(247,245,240,.6);font-size:16px;margin-bottom:32px;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto">Voice agents, video content, social media, blogs, newsletters — all running 24/7 for your business. Setup in 48 hours.</p>
+  <a href="/proflow/" style="background:var(--accent);color:var(--ink);padding:16px 40px;border-radius:100px;font-size:14px;font-weight:700;display:inline-block">Start with ProFlow — $97/mo →</a>
+</div>
+<footer style="padding:40px clamp(24px,5vw,80px);max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)">
+  <p style="font-size:12px;color:var(--muted)">© 2026 NY Spotlight Report. Built in New York.</p>
+  <div><a href="/" style="font-size:12px;color:var(--muted);margin-left:24px">Home</a><a href="/results/" style="font-size:12px;color:var(--muted);margin-left:24px">See The Work</a><a href="/proflow/" style="font-size:12px;color:var(--muted);margin-left:24px">ProFlow AI</a></div>
+</footer>
+
+<script>
+// ═══ VOICE SCRIPTS ═══
+const SCRIPTS = {
+  podcast: {
+    text: "Welcome to this week's Agency Growth Insights. I'm your host, and today we're breaking down the three content strategies that generated over fifty thousand dollars in pipeline last quarter. If you're an agency owner who's tired of the content hamster wheel, this episode is for you. Let's dive in.",
+    rate: 0.92, pitch: 1.0, voice: 'male'
+  },
+  sales: {
+    text: "Hi Sarah, this is Michael from ProFlow. I noticed your agency has been doing some incredible work, but your blog hasn't been updated since January. We help agencies like yours publish daily content, completely automated, without hiring a single writer. We've had agencies triple their organic traffic in sixty days. Would you have fifteen minutes this week to see a quick demo?",
+    rate: 0.95, pitch: 1.05, voice: 'male'
+  },
+  receptionist: {
+    text: "Thank you for calling ProFlow, where we build content engines that run themselves. My name is Emma and I'd be happy to help you today. Are you calling about our content automation services, or would you like to schedule a demo with our team? I can also connect you with your dedicated account manager if you're an existing client.",
+    rate: 0.9, pitch: 1.15, voice: 'female'
+  },
+  ad: {
+    text: "Tired of paying thousands for content that doesn't convert? ProFlow builds AI-powered content engines that publish daily blogs, social media, and newsletters, all on autopilot. Agencies are saving over four thousand dollars a month and tripling their organic traffic. Visit ny spotlight report dot com and start your free trial today. ProFlow. Content that runs itself.",
+    rate: 0.88, pitch: 1.0, voice: 'male'
+  }
+};
+
+// ═══ REAL VOICE ENGINE (Web Speech API) ═══
+let currentSpeech = null;
+function getVoice(type) {
+  const voices = speechSynthesis.getVoices();
+  if (type === 'female') {
+    return voices.find(v => /samantha|zira|female|karen|victoria|fiona/i.test(v.name)) || voices.find(v => /google.*us.*female/i.test(v.name)) || voices[0];
+  }
+  return voices.find(v => /david|daniel|male|james|alex|tom/i.test(v.name) && !/female/i.test(v.name)) || voices.find(v => /google.*us/i.test(v.name)) || voices[0];
+}
+
+function speakText(id) {
+  if (currentSpeech) { speechSynthesis.cancel(); currentSpeech = null; }
+  const script = SCRIPTS[id];
+  const btn = document.getElementById(id+'-btn');
+  const progress = document.getElementById(id+'-progress');
+  const status = document.getElementById(id+'-status');
+  const transcript = document.getElementById(id+'-transcript');
+  const utter = new SpeechSynthesisUtterance(script.text);
+  utter.rate = script.rate;
+  utter.pitch = script.pitch;
+  utter.voice = getVoice(script.voice);
+  btn.innerHTML = '⏸'; btn.classList.add('playing');
+  status.textContent = 'Speaking...'; status.style.color = '#1D9E75';
+  transcript.innerHTML = '';
+  const words = script.text.split(' ');
+  let wordIndex = 0;
+  currentSpeech = id;
+  utter.onboundary = function(e) {
+    if (e.name === 'word') {
+      wordIndex++;
+      const pct = Math.round((wordIndex / words.length) * 100);
+      progress.style.width = pct + '%';
+      const highlighted = words.map((w, i) => i < wordIndex ? `<span style="color:var(--ink)">${w}</span>` : `<span style="color:#c4c0b8">${w}</span>`).join(' ');
+      transcript.innerHTML = highlighted;
+    }
+  };
+  utter.onend = function() {
+    btn.innerHTML = '▶'; btn.classList.remove('playing');
+    status.textContent = 'Complete'; status.style.color = 'var(--accent)';
+    progress.style.width = '100%';
+    transcript.innerHTML = `<span style="color:var(--ink)">${script.text}</span>`;
+    currentSpeech = null;
+  };
+  utter.onerror = function() {
+    btn.innerHTML = '▶'; btn.classList.remove('playing');
+    status.textContent = 'Error'; currentSpeech = null;
+  };
+  speechSynthesis.speak(utter);
+}
+// Pre-load voices
+speechSynthesis.getVoices();
+if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+
+// ═══ REAL ANIMATED VIDEO ENGINE ═══
+const VIDEO_SCRIPTS = {
+  1: { bg: '#0a0a1a', accent: '#c9a84c', slides: [
+    {text:'5 Marketing Lies', sub:'Nobody Talks About', dur:3000},
+    {text:'Lie #1', sub:'"Post every day or you\'re invisible"', dur:3000},
+    {text:'Truth:', sub:'One great post beats 7 mediocre ones', dur:3000},
+    {text:'Lie #2', sub:'"You need to be on every platform"', dur:3000},
+    {text:'Truth:', sub:'Dominate 2 platforms first', dur:3000},
+    {text:'Lie #3', sub:'"AI content doesn\'t convert"', dur:3000},
+    {text:'Truth:', sub:'Our clients tripled their traffic', dur:3000},
+    {text:'ProFlow AI', sub:'$97/mo — Content that converts', dur:4000}
+  ]},
+  2: { bg: '#0d0d0d', accent: '#ff4444', slides: [
+    {text:'Your Content Team', sub:'$4,000/month', dur:2500},
+    {text:'3 writers', sub:'$2,400/month', dur:2500},
+    {text:'1 social manager', sub:'$1,500/month', dur:2500},
+    {text:'Tools & software', sub:'$300/month', dur:2500},
+    {text:'vs.', sub:'', dur:1500},
+    {text:'ProFlow AI', sub:'$97/month', dur:2500},
+    {text:'Same output.', sub:'97% less cost.', dur:3000},
+    {text:'nyspotlightreport.com', sub:'Start free trial →', dur:3000}
+  ]},
+  3: { bg: '#1a0a2e', accent: '#a855f7', slides: [
+    {text:'I fired my', sub:'entire content team', dur:3000},
+    {text:'And replaced them', sub:'with an AI system', dur:3000},
+    {text:'Day 1:', sub:'3 blog posts published', dur:2500},
+    {text:'Day 7:', sub:'21 social posts scheduled', dur:2500},
+    {text:'Day 30:', sub:'Traffic up 180%', dur:2500},
+    {text:'Day 60:', sub:'47 new inbound leads', dur:2500},
+    {text:'Total cost:', sub:'$297/month', dur:3000},
+    {text:'ProFlow AI', sub:'Content that runs itself', dur:3500}
+  ]}
+};
+
+function playVideo(num) {
+  const canvas = document.getElementById('vid'+num);
+  const overlay = document.getElementById('vid'+num+'-overlay');
+  const script = VIDEO_SCRIPTS[num];
+  canvas.width = 270; canvas.height = 480;
+  const ctx = canvas.getContext('2d');
+  overlay.style.opacity = '0'; overlay.style.pointerEvents = 'none';
+  let slideIdx = 0; let startTime = Date.now(); let slideStart = Date.now();
+  // Also speak the first slide
+  const allText = script.slides.map(s => s.text + '. ' + s.sub).join('. ');
+  const utter = new SpeechSynthesisUtterance(allText);
+  utter.rate = 0.85; utter.pitch = 1.0;
+  utter.voice = getVoice('male');
+  speechSynthesis.cancel(); speechSynthesis.speak(utter);
+  function render() {
+    const now = Date.now();
+    const slide = script.slides[slideIdx];
+    if (!slide) { overlay.style.opacity = '1'; overlay.style.pointerEvents = 'auto'; return; }
+    const elapsed = now - slideStart;
+    const progress = Math.min(elapsed / slide.dur, 1);
+    // Background
+    ctx.fillStyle = script.bg; ctx.fillRect(0, 0, 270, 480);
+    // Animated accent bar
+    const barW = 270 * progress;
+    ctx.fillStyle = script.accent; ctx.globalAlpha = 0.3;
+    ctx.fillRect(0, 470, barW, 10);
+    ctx.globalAlpha = 1;
+    // Slide counter
+    ctx.fillStyle = 'rgba(255,255,255,0.3)'; ctx.font = '11px Outfit, sans-serif';
+    ctx.textAlign = 'center'; ctx.fillText((slideIdx+1)+'/'+script.slides.length, 135, 30);
+    // Main text with fade-in
+    const fadeIn = Math.min(elapsed / 400, 1);
+    const yOffset = (1 - fadeIn) * 20;
+    ctx.globalAlpha = fadeIn;
+    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 28px Outfit, sans-serif';
+    ctx.textAlign = 'center';
+    wrapText(ctx, slide.text, 135, 200 - yOffset, 240, 34);
+    // Sub text
+    if (slide.sub) {
+      ctx.fillStyle = script.accent; ctx.font = '16px Outfit, sans-serif';
+      wrapText(ctx, slide.sub, 135, 260 - yOffset, 230, 22);
+    }
+    ctx.globalAlpha = 1;
+    // Decorative particles
+    for (let i = 0; i < 5; i++) {
+      const px = (Math.sin(now/1000 + i*1.3) + 1) * 135;
+      const py = (Math.cos(now/800 + i*0.9) + 1) * 240;
+      ctx.fillStyle = script.accent; ctx.globalAlpha = 0.15;
+      ctx.beginPath(); ctx.arc(px, py, 3 + Math.sin(now/500+i)*2, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (elapsed >= slide.dur) { slideIdx++; slideStart = Date.now(); }
+    requestAnimationFrame(render);
+  }
+  render();
+}
+function wrapText(ctx, text, x, y, maxW, lineH) {
+  const words = text.split(' '); let line = '';
+  for (const word of words) {
+    const test = line + word + ' ';
+    if (ctx.measureText(test).width > maxW && line) { ctx.fillText(line.trim(), x, y); y += lineH; line = word + ' '; }
+    else line = test;
+  }
+  ctx.fillText(line.trim(), x, y);
+}
+// Init canvases with poster frames
+document.addEventListener('DOMContentLoaded', () => {
+  [1,2,3].forEach(n => {
+    const c = document.getElementById('vid'+n);
+    if (!c) return; c.width = 270; c.height = 480;
+    const ctx = c.getContext('2d'); const s = VIDEO_SCRIPTS[n];
+    ctx.fillStyle = s.bg; ctx.fillRect(0,0,270,480);
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 24px Outfit, sans-serif'; ctx.textAlign = 'center';
+    wrapText(ctx, s.slides[0].text, 135, 200, 240, 30);
+    ctx.fillStyle = s.accent; ctx.font = '15px Outfit, sans-serif';
+    wrapText(ctx, s.slides[0].sub, 135, 250, 230, 22);
+  });
+});
+
+// ═══ LIVE CALL SIMULATION ENGINE ═══
+const CALL_SCRIPTS = {
+  outbound: [
+    {speaker:'AI', text:"Hi, is this Sarah? This is Michael from ProFlow at NY Spotlight Report.", delay:500},
+    {speaker:'Lead', text:"Yes, this is Sarah. What's this about?", delay:2500},
+    {speaker:'AI', text:"Great to connect, Sarah. I was looking at your agency's website and noticed your blog hasn't been updated since January. I work with agencies that want to publish daily content without the overhead of hiring writers.", delay:2000},
+    {speaker:'Lead', text:"We've tried content services before. They never match our voice.", delay:3000},
+    {speaker:'AI', text:"That's actually the most common concern we hear. Our system is calibrated specifically to your brand voice and industry. We had an agency in Austin go from posting twice a month to daily, and their clients couldn't tell it wasn't written by their team. Traffic tripled in sixty days.", delay:2000},
+    {speaker:'Lead', text:"Interesting. What does something like that cost?", delay:3500},
+    {speaker:'AI', text:"Our Growth plan is two ninety-seven a month. That includes daily blog posts, six-platform social media, weekly newsletters, and a monthly strategy session. Most agencies are paying four to five thousand for a freelance team doing half that volume.", delay:2000},
+    {speaker:'Lead', text:"That's significantly less. Can I see a demo?", delay:3000},
+    {speaker:'AI', text:"Absolutely. I can set up a fifteen-minute walkthrough this week. Would Thursday at two PM work for you?", delay:1500},
+    {speaker:'Lead', text:"Thursday works. Send me a calendar invite.", delay:2500},
+    {speaker:'AI', text:"Perfect, Sarah. I'll send that right over. You'll also get a sample content audit of your site before the call. Looking forward to it.", delay:1500}
+  ],
+  inbound: [
+    {speaker:'AI', text:"Thank you for calling ProFlow by NY Spotlight Report. My name is Emma, how can I help you today?", delay:500},
+    {speaker:'Caller', text:"Hi, I saw your website and I'm interested in the content automation. Can you tell me more?", delay:3000},
+    {speaker:'AI', text:"Of course! ProFlow is an AI-powered content engine that handles your daily blog posts, social media across six platforms, and weekly newsletters, all automated and calibrated to your brand voice. What type of business are you running?", delay:2000},
+    {speaker:'Caller', text:"I run a digital marketing agency. We have about twelve clients.", delay:3000},
+    {speaker:'AI', text:"Perfect, we work with a lot of agencies. Many of our clients use ProFlow to scale their content delivery without hiring additional writers. Our Agency plan at four ninety-seven a month includes everything plus white-label capability, so your clients see your branding, not ours.", delay:2000},
+    {speaker:'Caller', text:"White label? So my clients wouldn't know it's AI?", delay:3000},
+    {speaker:'AI', text:"Exactly. The content is published under your brand, through your channels, in your voice. Your clients see a professional content operation. You can also access a dedicated dashboard to manage all twelve client accounts from one place.", delay:2000},
+    {speaker:'Caller', text:"That sounds great. How do I get started?", delay:3000},
+    {speaker:'AI', text:"I can set you up with a free trial right now, or connect you with our team lead Sean for a personal walkthrough. Which would you prefer?", delay:1500},
+    {speaker:'Caller', text:"Let me do the trial first.", delay:2500},
+    {speaker:'AI', text:"Wonderful. I'll send a setup link to your email. You'll have your first content batch within forty-eight hours. Is there anything else I can help with today?", delay:1500}
+  ]
+};
+
+function startLiveCall(type) {
+  const log = document.getElementById(type === 'outbound' ? 'out-log' : 'in-log');
+  const btn = document.getElementById(type === 'outbound' ? 'out-btn' : 'in-btn');
+  const script = CALL_SCRIPTS[type];
+  log.innerHTML = '<div style="display:flex;align-items:center;gap:8px;color:#1D9E75;font-size:12px"><div class="wave-bar" style="animation-delay:0s"></div><div class="wave-bar" style="animation-delay:.2s"></div><div class="wave-bar" style="animation-delay:.4s"></div><div class="wave-bar" style="animation-delay:.6s"></div><div class="wave-bar" style="animation-delay:.8s"></div> Call connected...</div>';
+  btn.disabled = true; btn.style.opacity = '0.5'; btn.textContent = 'Call in progress...';
+  let i = 0;
+  function nextLine() {
+    if (i >= script.length) {
+      log.innerHTML += '<div style="text-align:center;margin-top:16px;padding:12px;background:rgba(29,158,117,.08);border-radius:8px;color:#1D9E75;font-size:12px;font-weight:600">Call completed — Meeting booked</div>';
+      btn.disabled = false; btn.style.opacity = '1'; btn.textContent = 'Replay call →';
+      return;
+    }
+    const line = script[i];
+    const isAI = line.speaker === 'AI';
+    const color = isAI ? 'var(--accent)' : 'var(--muted)';
+    const bgColor = isAI ? 'rgba(201,168,76,.05)' : 'transparent';
+    const el = document.createElement('div');
+    el.style.cssText = `padding:8px 12px;border-radius:8px;background:${bgColor};margin-bottom:6px`;
+    el.innerHTML = `<span style="font-size:11px;font-weight:600;color:${color}">${line.speaker}:</span> <span id="call-text-${type}-${i}" style="color:var(--ink)"></span>`;
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+    // Type out the text character by character
+    const textEl = document.getElementById(`call-text-${type}-${i}`);
+    let charIdx = 0;
+    const typeInterval = setInterval(() => {
+      if (charIdx < line.text.length) { textEl.textContent += line.text[charIdx]; charIdx++; log.scrollTop = log.scrollHeight; }
+      else { clearInterval(typeInterval); }
+    }, 25);
+    // Speak the AI lines
+    if (isAI) {
+      const utter = new SpeechSynthesisUtterance(line.text);
+      utter.rate = 0.92; utter.pitch = type === 'inbound' ? 1.15 : 1.0;
+      utter.voice = getVoice(type === 'inbound' ? 'female' : 'male');
+      speechSynthesis.cancel(); speechSynthesis.speak(utter);
+    }
+    i++;
+    setTimeout(nextLine, line.delay + line.text.length * 25 + 800);
+  }
+  setTimeout(nextLine, 1000);
+}
+</script>
+</body></html>

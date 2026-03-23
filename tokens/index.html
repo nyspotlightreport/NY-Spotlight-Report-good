@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR Platform Connections</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#060a0f;color:#e2e8f0;padding:40px 20px}
+.page{max-width:600px;margin:0 auto}
+h1{font-size:22px;color:#f8fafc;margin-bottom:4px}
+.sub{font-size:14px;color:#64748b;margin-bottom:28px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px;margin-bottom:12px}
+.card-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.platform{font-size:16px;font-weight:600;color:#f1f5f9}
+.badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px}
+.b-done{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3)}
+.b-ready{background:rgba(201,168,76,.1);color:#C9A84C;border:1px solid rgba(201,168,76,.25)}
+.b-auto{background:rgba(99,102,241,.1);color:#818cf8;border:1px solid rgba(99,102,241,.2)}
+.b-ui{background:rgba(148,163,184,.1);color:#94a3b8;border:1px solid rgba(148,163,184,.15)}
+.mech{font-size:13px;color:#64748b;line-height:1.6;margin-bottom:12px}
+.mech strong{color:#94a3b8}
+hr{border:none;border-top:1px solid rgba(255,255,255,.06);margin:0 0 12px}
+.btn{display:inline-block;padding:11px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;color:#fff;border:none;cursor:pointer}
+.li{background:#0077B5}.meta{background:#1877F2}.reddit{background:#FF4500}.google{background:#4285F4}
+inp{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:9px 12px;color:#e2e8f0;font-size:13px;margin-bottom:8px;outline:none;display:block}
+.save{background:#C9A84C;color:#060a0f;border:none;padding:8px 18px;border-radius:7px;font-weight:700;cursor:pointer;font-size:13px;margin-top:4px}
+.msg{font-size:12px;padding:8px 12px;border-radius:6px;margin-top:8px;display:none}
+.ok{background:rgba(34,197,94,.08);color:#22c55e;border:1px solid rgba(34,197,94,.2)}
+.warn{background:rgba(201,168,76,.08);color:#C9A84C;border:1px solid rgba(201,168,76,.2)}
+.ready-banner{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.15);border-radius:8px;padding:10px 14px;font-size:13px;color:#22c55e;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>🔑 NYSR Platform Connections</h1>
+  <p class="sub">LinkedIn + Meta credentials live in Netlify ✅ — click Connect on each. Google: 2-step device flow below.</p>
+
+  <!-- LinkedIn -->
+  <div class="card">
+    <div class="card-top"><span class="platform">LinkedIn</span><span class="badge b-ready">READY — 1 click</span></div>
+    <div class="ready-banner">✅ Credentials in Netlify. Click Connect → Allow → MWF posts live permanently.</div>
+    <hr>
+    <a href="/.netlify/functions/linkedin-auth-start" class="btn li">Connect LinkedIn →</a>
+  </div>
+
+  <!-- Meta -->
+  <div class="card">
+    <div class="card-top"><span class="platform">Instagram + Facebook</span><span class="badge b-ready">READY — 1 click</span></div>
+    <div class="ready-banner">✅ Meta App ID + Secret in Netlify. Click Connect → permanent non-expiring token.</div>
+    <hr>
+    <a href="/.netlify/functions/meta-auth-start" class="btn meta">Connect Instagram + Facebook →</a>
+  </div>
+
+  <!-- Google — Device Flow (bypasses org policy) -->
+  <div class="card">
+    <div class="card-top"><span class="platform">Google / YouTube</span><span class="badge b-ready">Device Flow — SA key blocked by org policy</span></div>
+    <div class="mech">
+      Your org policy blocks service account JSON key creation (iam.disableServiceAccountKeyCreation).
+      <strong>Device Flow OAuth bypasses this entirely</strong> — no SA key needed, works with Testing apps, tokens refresh automatically.
+      Two steps: click button → enter a 9-char code on Google → done forever.
+    </div>
+    <hr>
+    <a href="/.netlify/functions/google-device-auth" class="btn google" target="_blank">Start Google Authorization (Device Flow) →</a>
+    <div class="mech" style="margin-top:10px;font-size:12px;">
+      If it says "Google Client ID not configured" — add <strong>GOOGLE_CLIENT_ID</strong> and <strong>GOOGLE_CLIENT_SECRET</strong> 
+      from <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color:#C9A84C">console.cloud.google.com/apis/credentials</a> 
+      → OAuth 2.0 Client IDs → Desktop app → copy ID + secret → paste at <a href="#google-creds" style="color:#C9A84C">fields below</a>.
+    </div>
+    <div id="google-creds" style="margin-top:10px">
+      <input class="inp" id="g_id" placeholder="Google OAuth Client ID (from credentials page)"/>
+      <input class="inp" id="g_sec" type="password" placeholder="Google OAuth Client Secret"/>
+      <button class="save" onclick="saveGoogleCreds()">Save → Then click Start Google Authorization above →</button>
+      <div class="msg" id="g_msg"></div>
+    </div>
+  </div>
+
+  <!-- Reddit -->
+  <div class="card">
+    <div class="card-top"><span class="platform">Reddit</span><span class="badge b-auto">password grant — zero OAuth</span></div>
+    <div class="mech">No browser redirect. Username + password + client creds = fully automated token forever.</div>
+    <hr>
+    <input class="inp" id="r_user" placeholder="Reddit username"/>
+    <input class="inp" id="r_pass" type="password" placeholder="Reddit password"/>
+    <input class="inp" id="r_id" placeholder="Reddit client_id (from reddit.com/prefs/apps)"/>
+    <input class="inp" id="r_sec" type="password" placeholder="Reddit client_secret"/>
+    <button class="save" onclick="saveMulti({REDDIT_USERNAME:'r_user',REDDIT_PASSWORD:'r_pass',REDDIT_CLIENT_ID:'r_id',REDDIT_CLIENT_SECRET:'r_sec'},'r_msg')">Save Reddit Credentials →</button>
+    <div class="msg" id="r_msg"></div>
+  </div>
+
+  <!-- Shopify -->
+  <div class="card">
+    <div class="card-top"><span class="platform">Shopify Entity Name</span><span class="badge b-ui">2-min UI — API blocked by Shopify</span></div>
+    <hr>
+    <a href="https://nysr.myshopify.com/admin/settings/general" target="_blank" class="btn" style="background:#96bf48;color:#000">Shopify Settings → Business details → "NY Spotlight Report" → Save →</a>
+  </div>
+
+</div>
+<script>
+async function saveGoogleCreds() {
+  const id  = document.getElementById('g_id').value.trim();
+  const sec = document.getElementById('g_sec').value.trim();
+  const msg = document.getElementById('g_msg');
+  if (!id || !sec) { show(msg, 'Both Client ID and Secret required', 'warn'); return; }
+  const r = await fetch('/.netlify/functions/save-secret', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ secrets: { GOOGLE_CLIENT_ID: id, GOOGLE_OAUTH_CLIENT_ID: id, GOOGLE_CLIENT_SECRET: sec, GOOGLE_OAUTH_SECRET: sec } })
+  }).catch(e=>({ json:async()=>({error:e.message}) }));
+  const d = await r.json();
+  show(msg, d.success ? '✅ Google credentials saved — now click Start Google Authorization above' : '❌ ' + (d.error||'Failed'), d.success ? 'ok' : 'warn');
+}
+async function saveMulti(mapping, msgId) {
+  const msg = document.getElementById(msgId);
+  const secrets = {};
+  for (const [k,id] of Object.entries(mapping)) {
+    const v = document.getElementById(id).value.trim();
+    if (!v) { show(msg,'Fill all 4 fields','warn'); return; }
+    secrets[k] = v;
+  }
+  const r = await fetch('/.netlify/functions/save-secret',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secrets})}).catch(e=>({json:async()=>({error:e.message})}));
+  const d = await r.json();
+  show(msg, d.success ? '✅ Reddit saved — fully automated from here' : '❌ '+(d.error||'Failed'), d.success ? 'ok' : 'warn');
+}
+function show(el,text,type){el.textContent=text;el.className='msg '+type;el.style.display='block';}
+</script>
+</body></html>

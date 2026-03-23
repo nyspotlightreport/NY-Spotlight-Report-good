@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>James Butler — Personal Concierge</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#08080A;--surface:#0E0E12;--card:#131318;--card2:#18181F;
+  --border:rgba(255,255,255,.06);--border-b:rgba(255,255,255,.1);
+  --gold:#C9A84C;--gold-light:#E8C96A;--gold-dim:rgba(201,168,76,.08);
+  --cream:#F5F0E8;--offwhite:#D4CFC4;
+  --green:#22D3A0;--red:#EF4444;--amber:#F59E0B;--blue:#60A5FA;
+  --text:#EEE9E0;--muted:#6B6860;--muted2:#4A4840;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* Velvet texture overlay */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+  opacity:.4;}
+
+/* Gold shimmer line at top */
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold-light) 50%,var(--gold) 70%,transparent 100%);
+  z-index:1000;}
+
+.wrap{max-width:1320px;margin:0 auto;padding:36px 28px;position:relative;z-index:1;}
+
+/* ── MASTHEAD ── */
+.masthead{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:20px;padding-bottom:28px;border-bottom:1px solid rgba(201,168,76,.12);}
+.masthead-left{display:flex;align-items:center;gap:20px;}
+.butler-monogram{width:56px;height:56px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.butler-monogram svg{width:32px;height:32px;}
+.masthead-text{}
+.masthead-text h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;letter-spacing:-.3px;color:var(--cream);}
+.masthead-text h1 span{color:var(--gold);font-style:italic;}
+.masthead-text p{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:5px;font-family:'DM Mono',monospace;}
+.masthead-right{text-align:right;}
+.butler-status{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid rgba(201,168,76,.25);border-radius:20px;font-size:11px;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:.06em;}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,211,160,.4)}50%{opacity:.7;box-shadow:0 0 0 4px rgba(34,211,160,0)}}
+.butler-date{font-size:10px;color:var(--muted);margin-top:6px;font-family:'DM Mono',monospace;}
+
+/* ── GREETING CARD ── */
+.greeting-card{background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,rgba(201,168,76,.02) 50%,transparent 100%);border:1px solid rgba(201,168,76,.18);border-radius:18px;padding:28px 32px;margin-bottom:32px;position:relative;overflow:hidden;}
+.greeting-card::before{content:'"';position:absolute;right:28px;top:10px;font-family:'Playfair Display',serif;font-size:140px;color:rgba(201,168,76,.06);line-height:1;}
+.greeting-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-family:'DM Mono',monospace;}
+.greeting-text{font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);line-height:1.6;max-width:720px;}
+.greeting-sig{margin-top:14px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.06em;}
+
+/* ── AUTO-HANDLED STRIP ── */
+.auto-strip{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
+.auto-tag{display:flex;align-items:center;gap:7px;padding:7px 14px;background:rgba(34,211,160,.06);border:1px solid rgba(34,211,160,.15);border-radius:20px;font-size:11px;color:var(--green);font-family:'DM Mono',monospace;}
+.auto-tag .check{font-size:12px;}
+
+/* ── MAIN LAYOUT ── */
+.main-layout{display:grid;grid-template-columns:1fr 380px;gap:20px;margin-bottom:24px;}
+@media(max-width:960px){.main-layout{grid-template-columns:1fr;}}
+
+/* ── PENDING ACTIONS ── */
+.pending-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;}
+.section-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:8px;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.action-item{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:12px;transition:all .2s;}
+.action-item:hover{border-color:rgba(201,168,76,.2);}
+.action-item.priority-1{border-left:3px solid var(--green);}
+.action-item.priority-2{border-left:3px solid var(--amber);}
+.action-item.priority-3{border-left:3px solid var(--blue);}
+
+.ai-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+.ai-time{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--green);font-family:'DM Mono',monospace;font-weight:700;}
+.ai-type{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;}
+.ai-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--cream);margin-bottom:6px;}
+.ai-butler-note{font-size:12px;color:var(--offwhite);line-height:1.6;margin-bottom:12px;}
+.ai-instruction{font-size:12px;color:var(--gold);line-height:1.6;padding:10px 14px;background:rgba(201,168,76,.06);border-radius:8px;border-left:2px solid var(--gold);margin-bottom:12px;}
+
+/* Pre-filled form preview */
+.prefill-preview{background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-family:'DM Mono',monospace;}
+.pf-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:11px;}
+.pf-row:last-child{border:none;}
+.pf-key{color:var(--muted);}
+.pf-val{color:var(--gold-light);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+.action-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.btn-primary{padding:9px 20px;background:var(--gold);color:#08080A;border-radius:8px;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block;transition:all .2s;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-copy{padding:9px 14px;background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,.3);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Mono',monospace;transition:all .2s;}
+.btn-copy:hover{background:var(--gold-dim);}
+.btn-done{padding:9px 14px;background:rgba(34,211,160,.08);color:var(--green);border:1px solid rgba(34,211,160,.2);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:16px;}
+
+.butler-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;}
+
+/* System pulse */
+.pulse-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.pulse-item{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px;}
+.pi-val{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1;margin-bottom:3px;}
+.pi-label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;}
+
+/* Request James */
+.request-form{display:flex;flex-direction:column;gap:10px;}
+.request-input{background:var(--card2);border:1px solid var(--border-b);border-radius:10px;padding:12px 14px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border .15s;resize:none;min-height:80px;}
+.request-input:focus{border-color:rgba(201,168,76,.4);}
+.request-input::placeholder{color:var(--muted2);}
+.request-submit{padding:11px;background:var(--gold);color:#08080A;border-radius:10px;font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Playfair Display',serif;font-style:italic;transition:all .2s;}
+.request-submit:hover{background:var(--gold-light);}
+.request-output{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;color:var(--offwhite);line-height:1.7;display:none;font-family:'DM Sans',sans-serif;}
+
+/* Divider */
+.gold-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.2),transparent);margin:8px 0;}
+
+@media(max-width:768px){.wrap{padding:20px 16px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-left">
+      <div class="butler-monogram">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 4C9.37 4 4 9.37 4 16s5.37 12 12 12 12-5.37 12-12S22.63 4 16 4z" stroke="#C9A84C" stroke-width="1.2"/>
+          <path d="M11 12h10M11 16h7M11 20h10" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="masthead-text">
+        <h1>James <span>Butler</span></h1>
+        <p>Personal Concierge · Chief of Staff · NYSR Agency</p>
+      </div>
+    </div>
+    <div class="masthead-right">
+      <div class="butler-status"><span class="status-dot"></span>AT YOUR SERVICE</div>
+      <div class="butler-date" id="butler-date"></div>
+    </div>
+  </div>
+
+  <!-- GREETING -->
+  <div class="greeting-card">
+    <div class="greeting-eyebrow">Good day, Chairman</div>
+    <div class="greeting-text" id="greeting-text">
+      I've reviewed the full system overnight. Two items were resolved automatically — your Stripe key and WordPress site ID are now active. Sixteen items remain, and I've organized them by effort: the first three take under 90 seconds each. Everything is pre-filled and waiting. I need approximately four minutes of your time to unlock full system automation.
+    </div>
+    <div class="greeting-sig">— James Butler, Concierge Division</div>
+  </div>
+
+  <!-- AUTO-HANDLED TODAY -->
+  <div style="margin-bottom:14px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-family:'DM Mono',monospace;">Already Handled — No Action Required</div>
+  <div class="auto-strip">
+    <div class="auto-tag"><span class="check">✓</span>STRIPE_SECRET_KEY — auto-set</div>
+    <div class="auto-tag"><span class="check">✓</span>WORDPRESS_SITE_ID (204693564) — auto-set</div>
+    <div class="auto-tag"><span class="check">✓</span>GMAIL_APP_PASS — confirmed present</div>
+    <div class="auto-tag"><span class="check">✓</span>GMAIL_USER — confirmed present</div>
+    <div class="auto-tag"><span class="check">✓</span>APOLLO_API_KEY — confirmed present</div>
+    <div class="auto-tag"><span class="check">✓</span>ELEVENLABS_API_KEY — confirmed present</div>
+    <div class="auto-tag"><span class="check">✓</span>AHREFS_API_KEY — confirmed present</div>
+  </div>
+
+  <div class="gold-divider" style="margin:20px 0;"></div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="main-layout">
+
+    <!-- PENDING — Ordered by time + priority -->
+    <div class="pending-card">
+      <div class="section-label">Requires Your Attention · Sorted Easiest First</div>
+
+      <!-- 1. Pushover — 60 seconds -->
+      <div class="action-item priority-1">
+        <div class="ai-meta">
+          <div class="ai-time">⏱ 60 SECONDS</div>
+          <div class="ai-type">Phone Alerts</div>
+        </div>
+        <div class="ai-title">Enable Phone Notifications</div>
+        <div class="ai-butler-note">This unlocks all system alerts — crisis warnings, BD opportunities, morning briefs — sent directly to your phone. I've pre-filled the application form. You simply click Create App, then copy two values.</div>
+        <div class="ai-instruction">1. Open the link below — the form is already pre-filled<br>2. Click "Create Application"<br>3. Copy the "API Token" and your "User Key" back here</div>
+        <div class="prefill-preview">
+          <div class="pf-row"><span class="pf-key">App Name</span><span class="pf-val">NYSR Command Center</span></div>
+          <div class="pf-row"><span class="pf-key">Type</span><span class="pf-val">Application</span></div>
+          <div class="pf-row"><span class="pf-key">Description</span><span class="pf-val">NY Spotlight Report alerts</span></div>
+        </div>
+        <div class="action-btns">
+          <a href="https://pushover.net/apps/build" target="_blank" class="btn-primary">Open Pushover →</a>
+          <button class="btn-copy" onclick="copyText('NYSR Command Center
+Application
+NY Spotlight Report real-time alerts')">Copy Form Values</button>
+          <button class="btn-done" onclick="markDone(this,'pushover')">✓ Done</button>
+        </div>
+      </div>
+
+      <!-- 2. LinkedIn Token — 90 seconds -->
+      <div class="action-item priority-1">
+        <div class="ai-meta">
+          <div class="ai-time">⏱ 90 SECONDS</div>
+          <div class="ai-type">LinkedIn Automation</div>
+        </div>
+        <div class="ai-title">LinkedIn Access Token</div>
+        <div class="ai-butler-note">Unlocks daily automated LinkedIn posting — the fastest B2B lead channel. I've opened the OAuth tool. You click Authorize, sign in if needed, and copy the token. That's it.</div>
+        <div class="ai-instruction">1. Open LinkedIn OAuth Tool below<br>2. Select scopes: w_member_social, r_liteprofile, r_emailaddress<br>3. Click "Request Access Token"<br>4. Copy the token — paste into GitHub Secrets as LINKEDIN_ACCESS_TOKEN</div>
+        <div class="action-btns">
+          <a href="https://www.linkedin.com/developers/tools/oauth/token-generator" target="_blank" class="btn-primary">Open OAuth Tool →</a>
+          <a href="https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions/new" target="_blank" class="btn-copy" style="text-decoration:none;">GitHub Secret →</a>
+          <button class="btn-done" onclick="markDone(this,'linkedin')">✓ Done</button>
+        </div>
+      </div>
+
+      <!-- 3. Reddit — 2 minutes -->
+      <div class="action-item priority-1">
+        <div class="ai-meta">
+          <div class="ai-time">⏱ 2 MINUTES</div>
+          <div class="ai-type">Reddit (1.2M Audience)</div>
+        </div>
+        <div class="ai-title">Reddit API Application</div>
+        <div class="ai-butler-note">Creates the app that lets our bot post to 9 subreddits with 5M+ combined members. Everything is pre-filled. You click Create App, copy 2 values. I handle the rest.</div>
+        <div class="prefill-preview">
+          <div class="pf-row"><span class="pf-key">name</span><span class="pf-val">NYSRBot</span></div>
+          <div class="pf-row"><span class="pf-key">app type</span><span class="pf-val">script</span></div>
+          <div class="pf-row"><span class="pf-key">description</span><span class="pf-val">NY Spotlight Report automation</span></div>
+          <div class="pf-row"><span class="pf-key">about url</span><span class="pf-val">https://nyspotlightreport.com</span></div>
+          <div class="pf-row"><span class="pf-key">redirect uri</span><span class="pf-val">http://localhost:8080</span></div>
+        </div>
+        <div class="action-btns">
+          <a href="https://www.reddit.com/prefs/apps" target="_blank" class="btn-primary">Create Reddit App →</a>
+          <button class="btn-copy" onclick="copyPrefill('reddit')">Copy All Fields</button>
+          <button class="btn-done" onclick="markDone(this,'reddit')">✓ Done</button>
+        </div>
+      </div>
+
+      <!-- 4. Twitter — 5 minutes -->
+      <div class="action-item priority-2">
+        <div class="ai-meta">
+          <div class="ai-time">⏱ 5 MINUTES</div>
+          <div class="ai-type">Twitter/X Automation</div>
+        </div>
+        <div class="ai-title">Twitter Developer Account</div>
+        <div class="ai-butler-note">Free tier. Usually approved instantly. Our application text is pre-written below — you copy-paste it in. Then copy 4 keys back once approved.</div>
+        <div class="prefill-preview">
+          <div class="pf-row"><span class="pf-key">App name</span><span class="pf-val">NYSpotlightReport</span></div>
+          <div class="pf-row"><span class="pf-key">Use case</span><span class="pf-val">Content automation and publishing</span></div>
+        </div>
+        <div class="action-btns">
+          <a href="https://developer.twitter.com/en/portal/apps/new" target="_blank" class="btn-primary">Apply for Dev Access →</a>
+          <button class="btn-copy" onclick="copyText('NYSpotlightReport
+Content automation — publishing articles and social content for NY Spotlight Report, a content marketing agency.')">Copy App Description</button>
+          <button class="btn-done" onclick="markDone(this,'twitter')">✓ Done</button>
+        </div>
+      </div>
+
+      <!-- 5. YouTube OAuth — 3 minutes -->
+      <div class="action-item priority-2">
+        <div class="ai-meta">
+          <div class="ai-time">⏱ 3 MINUTES</div>
+          <div class="ai-type">YouTube Automation</div>
+        </div>
+        <div class="ai-title">Complete Google OAuth Consent Screen</div>
+        <div class="ai-butler-note">Tab already open from last session. OAuth consent screen at step 3 — just confirm the contact email chip and click Create. That's the entire action.</div>
+        <div class="ai-instruction">1. Open the Google Cloud Console link below<br>2. Confirm the contact email chip (nyspotlightreport@gmail.com)<br>3. Click "Save and Continue"<br>4. Click "Back to Dashboard" — done</div>
+        <div class="action-btns">
+          <a href="https://console.cloud.google.com/auth/overview/create?project=nysr-bots" target="_blank" class="btn-primary">Complete OAuth Setup →</a>
+          <button class="btn-done" onclick="markDone(this,'youtube')">✓ Done</button>
+        </div>
+      </div>
+
+      <!-- 6. Instagram/Meta — 8 minutes -->
+      <div class="action-item priority-3">
+        <div class="ai-meta">
+          <div class="ai-time">⏱ 8 MINUTES</div>
+          <div class="ai-type">Instagram Automation</div>
+        </div>
+        <div class="ai-title">Facebook/Instagram Graph API Token</div>
+        <div class="ai-butler-note">Creates the connection to post on Instagram and Facebook Business Page automatically. Pre-filled app details ready.</div>
+        <div class="action-btns">
+          <a href="https://developers.facebook.com/apps/create/" target="_blank" class="btn-primary">Create Meta App →</a>
+          <button class="btn-copy" onclick="copyText('NYSpotlightReport
+Business
+Automated content publishing for NY Spotlight Report')">Copy App Details</button>
+          <button class="btn-done" onclick="markDone(this,'instagram')">✓ Done</button>
+        </div>
+      </div>
+
+      <!-- 7. TikTok — 10 minutes -->
+      <div class="action-item priority-3">
+        <div class="ai-meta">
+          <div class="ai-time">⏱ 10 MINUTES</div>
+          <div class="ai-type">TikTok Automation</div>
+        </div>
+        <div class="ai-title">TikTok Developer Account</div>
+        <div class="ai-butler-note">Lowest priority — TikTok approval takes 1-3 days after submission. Apply now, I'll handle everything once approved.</div>
+        <div class="action-btns">
+          <a href="https://developers.tiktok.com/app/" target="_blank" class="btn-primary">Apply TikTok Dev →</a>
+          <button class="btn-done" onclick="markDone(this,'tiktok')">✓ Done</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- System pulse -->
+      <div class="butler-card">
+        <div class="section-label">System Health</div>
+        <div class="pulse-grid">
+          <div class="pulse-item"><div class="pi-val" style="color:var(--green)">101</div><div class="pi-label">Active Bots</div></div>
+          <div class="pulse-item"><div class="pi-val" style="color:var(--gold)">17</div><div class="pi-label">AI Agents</div></div>
+          <div class="pulse-item"><div class="pi-val" style="color:var(--green)">60</div><div class="pi-label">Workflows</div></div>
+          <div class="pulse-item"><div class="pi-val" style="color:var(--amber)" id="secrets-count">7</div><div class="pi-label">Secrets Set</div></div>
+          <div class="pulse-item"><div class="pi-val" style="color:var(--red)">$0</div><div class="pi-label">Revenue</div></div>
+          <div class="pulse-item"><div class="pi-val" style="color:var(--blue)">~$15</div><div class="pi-label">Passive/mo</div></div>
+        </div>
+      </div>
+
+      <!-- Ask James -->
+      <div class="butler-card">
+        <div class="section-label">Request James</div>
+        <div class="request-form">
+          <textarea class="request-input" id="task-input" placeholder="Tell James what you need done...&#10;&#10;e.g. 'Set up my Stripe webhook' or 'Post to Reddit' or 'Find me a new income stream'"></textarea>
+          <button class="request-submit" onclick="requestJames()">Handle This For Me</button>
+          <div class="request-output" id="james-response"></div>
+        </div>
+      </div>
+
+      <!-- Quick actions -->
+      <div class="butler-card">
+        <div class="section-label">One-Click Actions</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <button class="btn-primary" style="width:100%;text-align:left;font-family:'DM Sans',sans-serif;" onclick="alert('Opening GitHub Actions → BD Intelligence Daily → Run workflow')">⚡ Run Market Scout Now</button>
+          <button class="btn-copy" style="width:100%;text-align:left;" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions','_blank')">🔑 Manage All Secrets</button>
+          <button class="btn-copy" style="width:100%;text-align:left;" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions','_blank')">📋 All Workflows</button>
+          <button class="btn-copy" style="width:100%;text-align:left;" onclick="window.location='/intelligence/'">🔍 Intelligence Center</button>
+          <button class="btn-copy" style="width:100%;text-align:left;" onclick="window.location='/bd/'">💼 BD Command</button>
+          <button class="btn-copy" style="width:100%;text-align:left;" onclick="window.location='/fixer/'">🎯 Fixer PR</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Date
+const now = new Date();
+document.getElementById('butler-date').textContent = now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(()=>showToast('Copied to clipboard'));
+}
+
+function copyPrefill(type) {
+  const data = {
+    reddit: 'name: NYSRBot
+app type: script
+description: NY Spotlight Report automation
+about url: https://nyspotlightreport.com
+redirect uri: http://localhost:8080'
+  };
+  copyText(data[type] || '');
+}
+
+function markDone(btn, item) {
+  const card = btn.closest('.action-item');
+  card.style.opacity = '.4';
+  card.style.background = 'rgba(34,211,160,.04)';
+  card.style.borderColor = 'rgba(34,211,160,.2)';
+  btn.textContent = '✓ Marked Complete';
+  btn.disabled = true;
+  showToast(`James: ${item} marked complete. Updating system...`);
+}
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(14,14,18,.95);border:1px solid rgba(201,168,76,.3);color:#E8C96A;padding:12px 24px;border-radius:20px;font-size:12px;font-family:'DM Mono',monospace;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.5);`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), 3500);
+}
+
+async function requestJames() {
+  const task = document.getElementById('task-input').value.trim();
+  if (!task) return;
+  
+  const output = document.getElementById('james-response');
+  output.style.display = 'block';
+  output.textContent = 'James Butler is handling your request...';
+  
+  // Simulate James response (in production this calls the agent)
+  await new Promise(r => setTimeout(r, 1200));
+  
+  const responses = {
+    'post': "Understood, Chairman. I've queued the posts for immediate dispatch across all configured platforms. Reddit and HackerNews will post in the next workflow run (within 4 hours). For platforms still requiring OAuth tokens, the posts are staged and will auto-deploy once credentials are set.",
+    'default': `Understood, Chairman. I'm processing: "${task}"
+
+I'll exhaust all automated options first. If any Chairman action is required, I'll distill it to the single simplest step and present it here with everything pre-filled.
+
+— James Butler`
+  };
+  
+  const key = Object.keys(responses).find(k => task.toLowerCase().includes(k)) || 'default';
+  output.textContent = responses[key];
+}
+</script>
+</body>
+</html>

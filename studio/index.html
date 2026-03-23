@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR Social Studio — Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #04070D;
+  --surface:  #080E1A;
+  --card:     #0C1422;
+  --border:   rgba(255,255,255,0.06);
+  --border-b: rgba(255,255,255,0.12);
+  --gold:     #C9A84C;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-glow:rgba(201,168,76,0.08);
+  --green:    #22D3A0;
+  --amber:    #F59E0B;
+  --red:      #EF4444;
+  --blue:     #3B82F6;
+  --text:     #E2E8F0;
+  --muted:    #64748B;
+  --dim:      #1E293B;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* Ambient glow */
+.ambient {
+  position: fixed; top: -20%; left: 20%; width: 60%; height: 50%;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed; left: 0; top: 0; bottom: 0; width: 64px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 20px 0; gap: 6px; z-index: 50;
+}
+.sidebar-logo {
+  width: 36px; height: 36px; background: var(--gold);
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 13px; color: #04070D; margin-bottom: 16px;
+  flex-shrink: 0;
+}
+.nav-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; cursor: pointer; transition: all .2s;
+  color: var(--muted); position: relative;
+}
+.nav-icon:hover, .nav-icon.active { background: var(--gold-dim); color: var(--gold); }
+.nav-icon .tooltip {
+  position: absolute; left: 52px; top: 50%; transform: translateY(-50%);
+  background: var(--card); border: 1px solid var(--border-b);
+  color: var(--text); font-size: 11px; font-weight: 600;
+  padding: 4px 10px; border-radius: 6px; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity .15s;
+}
+.nav-icon:hover .tooltip { opacity: 1; }
+
+/* ── MAIN ── */
+.main { margin-left: 64px; padding: 24px 28px; position: relative; z-index: 1; }
+
+/* ── TOPBAR ── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 28px;
+}
+.topbar-left h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+  color: var(--text);
+}
+.topbar-left .sub {
+  font-size: 12px; color: var(--muted); margin-top: 2px;
+  font-family: 'DM Mono', monospace;
+}
+.topbar-right { display: flex; gap: 10px; align-items: center; }
+.live-badge {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(34,211,160,0.1); border: 1px solid rgba(34,211,160,0.25);
+  color: var(--green); padding: 6px 14px; border-radius: 20px;
+  font-size: 11px; font-weight: 700; font-family: 'DM Mono', monospace;
+  letter-spacing: .04em;
+}
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 1.5s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.btn-primary {
+  background: var(--gold); color: #04070D; padding: 8px 20px;
+  border-radius: 8px; font-size: 12px; font-weight: 700;
+  border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all .2s; text-decoration: none; display: inline-block;
+}
+.btn-primary:hover { background: #DFB95C; transform: translateY(-1px); }
+
+/* ── METRIC STRIP ── */
+.metrics-strip {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px;
+  margin-bottom: 24px;
+}
+.metric {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  transition: border .2s;
+}
+.metric:hover { border-color: var(--border-b); }
+.metric-val {
+  font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800;
+  line-height: 1; margin-bottom: 4px;
+}
+.metric-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.metric-delta { font-size: 10px; margin-top: 4px; font-family: 'DM Mono', monospace; }
+.up { color: var(--green); }
+.warn { color: var(--amber); }
+.err { color: var(--red); }
+
+/* ── GRID ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.grid-full { margin-bottom: 16px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px;
+  transition: border .2s;
+}
+.card:hover { border-color: var(--border-b); }
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+  color: var(--text); letter-spacing: .01em;
+}
+.card-badge {
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 10px;
+  font-family: 'DM Mono', monospace; letter-spacing: .04em;
+}
+.badge-live { background: rgba(34,211,160,0.12); color: var(--green); border: 1px solid rgba(34,211,160,0.2); }
+.badge-warn { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+.badge-error { background: rgba(239,68,68,0.12); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+.badge-gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+
+/* ── PLATFORM GRID ── */
+.platform-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;
+}
+.platform-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  transition: all .2s; cursor: pointer;
+}
+.platform-card:hover { border-color: var(--border-b); transform: translateY(-1px); }
+.platform-card.live { border-color: rgba(34,211,160,0.2); }
+.platform-card.partial { border-color: rgba(245,158,11,0.2); }
+.platform-card.offline { border-color: rgba(239,68,68,0.15); }
+.pc-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.pc-icon { font-size: 22px; }
+.pc-name { font-size: 13px; font-weight: 700; font-family: 'Syne', sans-serif; }
+.pc-handle { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; }
+.pc-stats { display: flex; gap: 12px; }
+.pc-stat { font-size: 10px; color: var(--muted); }
+.pc-stat strong { display: block; font-size: 14px; font-weight: 700; color: var(--text); font-family: 'Syne', sans-serif; line-height: 1; margin-bottom: 1px; }
+.pc-status { margin-top: 10px; font-size: 10px; font-weight: 700; font-family: 'DM Mono', monospace; padding: 4px 8px; border-radius: 6px; display: inline-block; }
+.status-live { background: rgba(34,211,160,0.1); color: var(--green); }
+.status-partial { background: rgba(245,158,11,0.1); color: var(--amber); }
+.status-offline { background: rgba(239,68,68,0.1); color: var(--red); }
+.status-fix { text-decoration: none; }
+
+/* ── CONTENT PIPELINE ── */
+.pipeline { display: flex; flex-direction: column; gap: 8px; }
+.pipeline-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 8px;
+  transition: border .15s;
+}
+.pipeline-item:hover { border-color: var(--border-b); }
+.pi-platform { font-size: 16px; flex-shrink: 0; }
+.pi-content { flex: 1; min-width: 0; }
+.pi-title { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pi-meta { font-size: 10px; color: var(--muted); margin-top: 2px; font-family: 'DM Mono', monospace; }
+.pi-status { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; font-family: 'DM Mono', monospace; flex-shrink: 0; }
+
+/* ── CONTENT TYPES ── */
+.content-types { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.ct-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+}
+.ct-icon { font-size: 20px; margin-bottom: 8px; }
+.ct-name { font-size: 12px; font-weight: 700; font-family: 'Syne', sans-serif; margin-bottom: 4px; }
+.ct-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
+.ct-count { font-size: 18px; font-weight: 800; color: var(--gold); font-family: 'Syne', sans-serif; margin-top: 8px; }
+
+/* ── SETUP CHECKLIST ── */
+.checklist { display: flex; flex-direction: column; gap: 8px; }
+.check-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+  background: var(--surface); border-radius: 8px; border: 1px solid var(--border);
+}
+.check-icon { font-size: 14px; flex-shrink: 0; width: 20px; text-align: center; }
+.check-text { flex: 1; font-size: 12px; color: var(--text); }
+.check-action {
+  font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 6px;
+  text-decoration: none; font-family: 'DM Mono', monospace;
+  background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,168,76,0.25);
+  white-space: nowrap;
+}
+.check-done { font-size: 10px; color: var(--green); font-weight: 700; font-family: 'DM Mono', monospace; }
+
+/* ── CALENDAR STRIP ── */
+.calendar-strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
+.cal-day {
+  flex-shrink: 0; width: 120px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 10px; padding: 12px;
+}
+.cal-day.today { border-color: rgba(201,168,76,0.4); background: var(--gold-glow); }
+.cal-date { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; margin-bottom: 6px; }
+.cal-posts { display: flex; flex-direction: column; gap: 4px; }
+.cal-post { font-size: 10px; color: var(--text); display: flex; gap: 5px; align-items: flex-start; line-height: 1.3; }
+.cal-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+
+/* ── ANALYTICS BARS ── */
+.analytics-rows { display: flex; flex-direction: column; gap: 10px; }
+.analytics-row { display: flex; align-items: center; gap: 12px; }
+.ar-label { font-size: 12px; color: var(--muted); width: 90px; flex-shrink: 0; }
+.ar-bar-wrap { flex: 1; height: 6px; background: var(--dim); border-radius: 3px; overflow: hidden; }
+.ar-bar { height: 100%; border-radius: 3px; transition: width 1s ease; }
+.ar-val { font-size: 11px; font-weight: 700; font-family: 'DM Mono', monospace; width: 50px; text-align: right; flex-shrink: 0; }
+
+/* ── ACTION BUTTONS ── */
+.action-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.action-btn {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px; text-align: center;
+  cursor: pointer; transition: all .2s; text-decoration: none;
+  display: block;
+}
+.action-btn:hover { border-color: var(--gold); background: var(--gold-glow); }
+.ab-icon { font-size: 22px; margin-bottom: 6px; }
+.ab-label { font-size: 11px; font-weight: 700; color: var(--text); font-family: 'Syne', sans-serif; }
+
+/* ── SERVICE OFFER ── */
+.service-tiers { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.tier {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+}
+.tier.featured { border-color: var(--gold); background: var(--gold-glow); }
+.tier-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+.tier-price { font-size: 22px; font-weight: 800; color: var(--gold); font-family: 'Syne', sans-serif; line-height: 1; margin: 8px 0; }
+.tier-price sub { font-size: 12px; font-weight: 400; color: var(--muted); }
+.tier-features { list-style: none; }
+.tier-features li { font-size: 11px; color: var(--muted); padding: 3px 0; display: flex; gap: 6px; }
+.tier-features li::before { content: "✓"; color: var(--green); font-weight: 700; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+
+@media (max-width:1024px) {
+  .metrics-strip { grid-template-columns: repeat(3,1fr); }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+@media (max-width:768px) {
+  .main { margin-left: 0; padding: 16px; }
+  .sidebar { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">NY</div>
+  <div class="nav-icon active" onclick="showSection('overview')">
+    <span>📊</span><div class="tooltip">Overview</div>
+  </div>
+  <div class="nav-icon" onclick="showSection('platforms')">
+    <span>📱</span><div class="tooltip">Platforms</div>
+  </div>
+  <div class="nav-icon" onclick="showSection('content')">
+    <span>✍️</span><div class="tooltip">Content</div>
+  </div>
+  <div class="nav-icon" onclick="showSection('calendar')">
+    <span>📅</span><div class="tooltip">Calendar</div>
+  </div>
+  <div class="nav-icon" onclick="showSection('analytics')">
+    <span>📈</span><div class="tooltip">Analytics</div>
+  </div>
+  <div class="nav-icon" onclick="showSection('clients')">
+    <span>🤝</span><div class="tooltip">Clients</div>
+  </div>
+  <div class="nav-icon" onclick="showSection('setup')">
+    <span>⚙️</span><div class="tooltip">Setup</div>
+  </div>
+  <div style="flex:1"></div>
+  <div class="nav-icon" onclick="window.location='/'">
+    <span>🏠</span><div class="tooltip">Main Site</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Social Media Studio</h1>
+      <div class="sub">NY SPOTLIGHT REPORT · CONTENT INTELLIGENCE SYSTEM · v3.0</div>
+    </div>
+    <div class="topbar-right">
+      <div class="live-badge"><div class="live-dot"></div>SYSTEM LIVE</div>
+      <a href="/studio/generate/" class="btn-primary">+ Create Content</a>
+    </div>
+  </div>
+
+  <!-- SECTION: OVERVIEW -->
+  <div id="overview" class="section-content">
+
+    <!-- METRICS -->
+    <div class="metrics-strip">
+      <div class="metric">
+        <div class="metric-val" style="color:var(--gold)">2</div>
+        <div class="metric-label">Live Platforms</div>
+        <div class="metric-delta warn">⚠ 8 pending setup</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">0</div>
+        <div class="metric-label">Posts Today</div>
+        <div class="metric-delta warn">⚠ Credentials needed</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val" style="color:var(--green)">160</div>
+        <div class="metric-label">System Units</div>
+        <div class="metric-delta up">↑ bots + agents + wf</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">240+</div>
+        <div class="metric-label">Posts/Month (full)</div>
+        <div class="metric-delta" style="color:var(--muted)">when fully live</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val" style="color:var(--gold)">10</div>
+        <div class="metric-label">Content Pillars</div>
+        <div class="metric-delta up">All active</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">$997</div>
+        <div class="metric-label">SMM Service Price</div>
+        <div class="metric-delta up">✓ Offerings live</div>
+      </div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="grid-2">
+
+      <!-- PLATFORM STATUS -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Platform Status</div>
+          <a href="/studio/setup/" class="card-badge badge-warn">2 LIVE · 8 NEED SETUP</a>
+        </div>
+        <div class="platform-grid">
+          <div class="platform-card live">
+            <div class="pc-top"><div class="pc-icon">✍️</div><div><div class="pc-name">Medium</div><div class="pc-handle">@nyspotlightreport</div></div></div>
+            <div class="pc-stats"><div class="pc-stat"><strong>—</strong>followers</div><div class="pc-stat"><strong>1</strong>post/wk</div></div>
+            <div class="pc-status status-live">● LIVE</div>
+          </div>
+          <div class="platform-card live">
+            <div class="pc-top"><div class="pc-icon">📧</div><div><div class="pc-name">Beehiiv</div><div class="pc-handle">Newsletter</div></div></div>
+            <div class="pc-stats"><div class="pc-stat"><strong>—</strong>subs</div><div class="pc-stat"><strong>1</strong>per wk</div></div>
+            <div class="pc-status status-live">● LIVE</div>
+          </div>
+          <div class="platform-card partial">
+            <div class="pc-top"><div class="pc-icon">📌</div><div><div class="pc-name">Pinterest</div><div class="pc-handle">@nysr</div></div></div>
+            <div class="pc-stats"><div class="pc-stat"><strong>5</strong>boards</div><div class="pc-stat"><strong>1</strong>pin/day</div></div>
+            <a href="/studio/setup/#pinterest" class="pc-status status-partial">⚠ Fix boards</a>
+          </div>
+          <div class="platform-card partial">
+            <div class="pc-top"><div class="pc-icon">💼</div><div><div class="pc-name">LinkedIn</div><div class="pc-handle">@scthomas</div></div></div>
+            <div class="pc-stats"><div class="pc-stat"><strong>—</strong>connects</div><div class="pc-stat"><strong>0</strong>/day</div></div>
+            <a href="/linkedin-auth/" class="pc-status status-partial">⚠ 5 min fix</a>
+          </div>
+          <div class="platform-card partial">
+            <div class="pc-top"><div class="pc-icon">🎬</div><div><div class="pc-name">YouTube</div><div class="pc-handle">NYSR</div></div></div>
+            <div class="pc-stats"><div class="pc-stat"><strong>7</strong>queued</div><div class="pc-stat"><strong>0</strong>live</div></div>
+            <a href="/youtube-setup/" class="pc-status status-partial">⚠ OAuth needed</a>
+          </div>
+          <div class="platform-card offline">
+            <div class="pc-top"><div class="pc-icon">🐦</div><div><div class="pc-name">Twitter/X</div><div class="pc-handle">—</div></div></div>
+            <div class="pc-stats"><div class="pc-stat"><strong>—</strong>followers</div><div class="pc-stat"><strong>0</strong>/day</div></div>
+            <a href="/twitter-setup/" class="pc-status status-offline">× 10 min setup</a>
+          </div>
+          <div class="platform-card offline">
+            <div class="pc-top"><div class="pc-icon">📷</div><div><div class="pc-name">Instagram</div><div class="pc-handle">—</div></div></div>
+            <div class="pc-stats"><div class="pc-stat"><strong>—</strong>followers</div><div class="pc-stat"><strong>0</strong>/day</div></div>
+            <a href="/studio/setup/#instagram" class="pc-status status-offline">× 20 min setup</a>
+          </div>
+          <div class="platform-card offline">
+            <div class="pc-top"><div class="pc-icon">🎵</div><div><div class="pc-name">TikTok</div><div class="pc-handle">—</div></div></div>
+            <div class="pc-stats"><div class="pc-stat"><strong>—</strong>followers</div><div class="pc-stat"><strong>0</strong>/day</div></div>
+            <a href="/studio/setup/#tiktok" class="pc-status status-offline">× 15 min setup</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENT PIPELINE -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Today's Content Pipeline</div>
+          <span class="card-badge badge-gold">AUTO-GENERATING</span>
+        </div>
+        <div class="pipeline">
+          <div class="pipeline-item">
+            <div class="pi-platform">📝</div>
+            <div class="pi-content">
+              <div class="pi-title">Blog: "25 Zero-Cost Passive Income Streams That Work in 2026"</div>
+              <div class="pi-meta">SEO post · nyspotlightreport.com/blog/ · 6am daily</div>
+            </div>
+            <div class="pi-status" style="background:rgba(34,211,160,0.1);color:var(--green)">LIVE</div>
+          </div>
+          <div class="pipeline-item">
+            <div class="pi-platform">📧</div>
+            <div class="pi-content">
+              <div class="pi-title">Newsletter: Weekly passive income insights edition</div>
+              <div class="pi-meta">Beehiiv · Tue 9am · ~400 words</div>
+            </div>
+            <div class="pi-status" style="background:rgba(34,211,160,0.1);color:var(--green)">LIVE</div>
+          </div>
+          <div class="pipeline-item">
+            <div class="pi-platform">📌</div>
+            <div class="pi-content">
+              <div class="pi-title">Pin: "Passive income ideas that cost $0 to start"</div>
+              <div class="pi-meta">Pinterest · Daily · "Passive Income Ideas 2026" board</div>
+            </div>
+            <div class="pi-status" style="background:rgba(245,158,11,0.1);color:var(--amber)">FIXING</div>
+          </div>
+          <div class="pipeline-item">
+            <div class="pi-platform">🎬</div>
+            <div class="pi-content">
+              <div class="pi-title">Short: "I earn $80/month doing literally nothing"</div>
+              <div class="pi-meta">YouTube · 7 scripts queued · Needs OAuth</div>
+            </div>
+            <div class="pi-status" style="background:rgba(245,158,11,0.1);color:var(--amber)">QUEUED</div>
+          </div>
+          <div class="pipeline-item">
+            <div class="pi-platform">💼</div>
+            <div class="pi-content">
+              <div class="pi-title">LinkedIn: "Most entrepreneurs get content marketing wrong"</div>
+              <div class="pi-meta">LinkedIn · Claude-written · Needs access token</div>
+            </div>
+            <div class="pi-status" style="background:rgba(239,68,68,0.1);color:var(--red)">BLOCKED</div>
+          </div>
+          <div class="pipeline-item">
+            <div class="pi-platform">✍️</div>
+            <div class="pi-content">
+              <div class="pi-title">Medium: "How I Automated My Entire Content Operation"</div>
+              <div class="pi-meta">Medium · Syndicated from blog · Weekly</div>
+            </div>
+            <div class="pi-status" style="background:rgba(34,211,160,0.1);color:var(--green)">LIVE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT TYPES + ACTIONS -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Content Production Capability</div>
+          <span class="card-badge badge-gold">12 FORMATS</span>
+        </div>
+        <div class="content-types">
+          <div class="ct-item">
+            <div class="ct-icon">📰</div>
+            <div class="ct-name">SEO Blog Posts</div>
+            <div class="ct-desc">1,800 words, keyword-targeted, published daily</div>
+            <div class="ct-count">365/yr</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">📧</div>
+            <div class="ct-name">Newsletters</div>
+            <div class="ct-desc">400-600 words, curated insights, weekly send</div>
+            <div class="ct-count">52/yr</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">🧵</div>
+            <div class="ct-name">Twitter Threads</div>
+            <div class="ct-desc">8-12 tweet threads, viral hooks, daily</div>
+            <div class="ct-count">365/yr</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">💼</div>
+            <div class="ct-name">LinkedIn Posts</div>
+            <div class="ct-desc">Professional insights, B2B focus, daily</div>
+            <div class="ct-count">365/yr</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">🎬</div>
+            <div class="ct-name">YouTube Shorts</div>
+            <div class="ct-desc">60-sec scripts + voiceover + auto-upload</div>
+            <div class="ct-count">30/mo</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">📷</div>
+            <div class="ct-name">Instagram Captions</div>
+            <div class="ct-desc">Hook + value + 20 hashtags, daily</div>
+            <div class="ct-count">365/yr</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">📌</div>
+            <div class="ct-name">Pinterest Pins</div>
+            <div class="ct-desc">SEO-rich pins, 5 boards, daily posting</div>
+            <div class="ct-count">30/mo</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">🎵</div>
+            <div class="ct-name">TikTok Scripts</div>
+            <div class="ct-desc">15-60s scripts, trending audio strategy</div>
+            <div class="ct-count">30/mo</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">✍️</div>
+            <div class="ct-name">Medium Articles</div>
+            <div class="ct-desc">Repurposed blog → Medium audience</div>
+            <div class="ct-count">52/yr</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Quick Actions</div>
+        </div>
+        <div class="action-grid" style="margin-bottom:16px">
+          <a href="/studio/generate/" class="action-btn">
+            <div class="ab-icon">✨</div>
+            <div class="ab-label">Generate Content</div>
+          </a>
+          <a href="/studio/calendar/" class="action-btn">
+            <div class="ab-icon">📅</div>
+            <div class="ab-label">View Calendar</div>
+          </a>
+          <a href="/studio/analytics/" class="action-btn">
+            <div class="ab-icon">📊</div>
+            <div class="ab-label">Analytics</div>
+          </a>
+          <a href="/studio/setup/" class="action-btn">
+            <div class="ab-icon">⚙️</div>
+            <div class="ab-label">Connect Platforms</div>
+          </a>
+          <a href="/agency/" class="action-btn">
+            <div class="ab-icon">🤝</div>
+            <div class="ab-label">Client Portal</div>
+          </a>
+          <a href="/studio/brand/" class="action-btn">
+            <div class="ab-icon">🎨</div>
+            <div class="ab-label">Brand Kit</div>
+          </a>
+        </div>
+
+        <!-- SMM SERVICE TIERS -->
+        <div class="card-header">
+          <div class="card-title">SMM Service — What We Offer Clients</div>
+          <span class="card-badge badge-live">SELLABLE NOW</span>
+        </div>
+        <div class="service-tiers">
+          <div class="tier">
+            <div class="tier-name">Starter</div>
+            <div class="tier-price">$497<sub>/mo</sub></div>
+            <ul class="tier-features">
+              <li>3 platforms</li>
+              <li>Daily posting</li>
+              <li>Monthly report</li>
+              <li>Blog + newsletter</li>
+            </ul>
+          </div>
+          <div class="tier featured">
+            <div class="tier-name">Growth</div>
+            <div class="tier-price">$997<sub>/mo</sub></div>
+            <ul class="tier-features">
+              <li>6 platforms</li>
+              <li>Daily + stories</li>
+              <li>Weekly reports</li>
+              <li>YouTube Shorts</li>
+              <li>Engagement replies</li>
+            </ul>
+          </div>
+          <div class="tier">
+            <div class="tier-name">Agency</div>
+            <div class="tier-price">$2,497<sub>/mo</sub></div>
+            <ul class="tier-features">
+              <li>All platforms</li>
+              <li>Full studio access</li>
+              <li>White label</li>
+              <li>Priority support</li>
+              <li>Custom strategy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETUP PRIORITY -->
+    <div class="card grid-full">
+      <div class="card-header">
+        <div class="card-title">Priority Setup Queue — Complete in order</div>
+        <span class="card-badge badge-warn">4 ACTIONS = 6 MORE PLATFORMS LIVE</span>
+      </div>
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-icon">1️⃣</div>
+          <div class="check-text"><strong>LinkedIn Access Token</strong> — App credentials exist, just need the OAuth user token. 5 minutes.</div>
+          <a href="/linkedin-auth/" class="check-action">Fix Now →</a>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">2️⃣</div>
+          <div class="check-text"><strong>YouTube OAuth</strong> — 7 Shorts scripts queued and ready. One consent screen click away.</div>
+          <a href="/youtube-setup/" class="check-action">Fix Now →</a>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">3️⃣</div>
+          <div class="check-text"><strong>Reddit Developer App</strong> — 4 credentials, 1.2M subscriber communities waiting. 2 minutes.</div>
+          <a href="https://reddit.com/prefs/apps" class="check-action" target="_blank">Create App →</a>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">4️⃣</div>
+          <div class="check-text"><strong>Twitter/X Developer Account</strong> — Free instant approval. Daily thread strategy ready to launch.</div>
+          <a href="/twitter-setup/" class="check-action">Fix Now →</a>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">5️⃣</div>
+          <div class="check-text"><strong>Instagram via Meta for Developers</strong> — Requires Facebook Business + Instagram Business linked account.</div>
+          <a href="https://developers.facebook.com/apps/" class="check-action" target="_blank">Setup Meta →</a>
+        </div>
+        <div class="check-item">
+          <div class="check-icon">✅</div>
+          <div class="check-text"><strong>Medium + Beehiiv</strong> — Both live. Content syndicating automatically.</div>
+          <span class="check-done">COMPLETE</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /overview -->
+
+</main>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section-content').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.nav-icon').forEach(n => n.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) el.style.display = 'block';
+  event.currentTarget.classList.add('active');
+}
+
+// Animate metric bars on load
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.ar-bar').forEach(bar => {
+      bar.style.width = bar.dataset.width || '0%';
+    });
+  }, 300);
+});
+</script>
+</body>
+</html>

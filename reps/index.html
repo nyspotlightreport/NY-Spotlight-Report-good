@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR Sales Rep Portal</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#060a0f;color:#e2e8f0;min-height:100vh}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:36px;max-width:380px;width:100%;text-align:center}
+.logo{font-size:13px;font-weight:600;letter-spacing:.1em;color:#64748b;text-transform:uppercase;margin-bottom:8px}
+h1{font-size:22px;font-weight:700;color:#f8fafc;margin-bottom:6px}
+.sub{font-size:14px;color:#64748b;margin-bottom:28px}
+input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:11px 14px;color:#e2e8f0;font-size:14px;outline:none;margin-bottom:10px}
+input:focus{border-color:rgba(201,168,76,.5)}
+.btn{width:100%;background:#C9A84C;color:#060a0f;border:none;padding:12px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer}
+.error{font-size:13px;color:#ef4444;margin-top:8px;display:none}
+.portal{display:none;padding:32px 20px;max-width:900px;margin:0 auto}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:12px}
+.welcome{font-size:20px;font-weight:600;color:#f8fafc}
+.rep-code{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:#C9A84C;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:32px}
+.kpi{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:18px}
+.kpi-num{font-size:28px;font-weight:700;color:#C9A84C}
+.kpi-label{font-size:12px;color:#64748b;margin-top:4px}
+.section{margin-bottom:28px}
+.section-title{font-size:12px;font-weight:600;letter-spacing:.08em;color:#64748b;text-transform:uppercase;margin-bottom:14px}
+.offer-row{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:8px}
+.offer-name{font-size:14px;font-weight:500;color:#f1f5f9}
+.offer-price{font-size:13px;color:#64748b}
+.offer-comm{font-size:16px;font-weight:700;color:#22c55e}
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.resource{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px;text-align:center}
+.resource a{color:#C9A84C;text-decoration:none;font-size:14px;font-weight:500}
+.checkout-box{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:20px;margin-bottom:20px}
+.checkout-url{font-size:13px;color:#22c55e;word-break:break-all;margin-top:8px;font-family:monospace}
+</style>
+</head>
+<body>
+
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <div class="logo">NY Spotlight Report</div>
+    <h1>Rep Portal</h1>
+    <p class="sub">Sign in with your access code</p>
+    <input id="code" placeholder="Access code (e.g. AB12CD34)" maxlength="8"/>
+    <button class="btn" onclick="login()">Sign In →</button>
+    <div class="error" id="loginErr">Invalid code. Contact your NYSR account manager.</div>
+  </div>
+</div>
+
+<div class="portal" id="portal">
+  <div class="header">
+    <div>
+      <div class="welcome" id="repName">Welcome back</div>
+      <div style="font-size:13px;color:#64748b;margin-top:4px" id="repEmail"></div>
+    </div>
+    <span class="rep-code" id="repCodeBadge">Loading...</span>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-num" id="totalCloses">0</div><div class="kpi-label">Total Closes</div></div>
+    <div class="kpi"><div class="kpi-num" id="activeClients">0</div><div class="kpi-label">Active Clients</div></div>
+    <div class="kpi"><div class="kpi-num" id="monthlyComm">$0</div><div class="kpi-label">Monthly Commission</div></div>
+    <div class="kpi"><div class="kpi-num" id="totalEarned">$0</div><div class="kpi-label">Total Earned</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Your Unique Checkout Link</div>
+    <div class="checkout-box">
+      <div style="font-size:14px;color:#94a3b8">Share this link. Every sale attributed to you automatically.</div>
+      <div class="checkout-url" id="checkoutUrl">Loading...</div>
+      <button onclick="copyLink()" style="margin-top:10px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:#22c55e;padding:6px 16px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">Copy Link</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Commission Structure</div>
+    <div class="offer-row"><div><div class="offer-name">ProFlow AI</div><div class="offer-price">$97/mo</div></div><div class="offer-comm">$40/mo recurring</div></div>
+    <div class="offer-row"><div><div class="offer-name">ProFlow Growth</div><div class="offer-price">$297/mo</div></div><div class="offer-comm">$100/mo recurring</div></div>
+    <div class="offer-row"><div><div class="offer-name">DFY Setup</div><div class="offer-price">$1,497 one-time</div></div><div class="offer-comm">$500 flat</div></div>
+    <div class="offer-row"><div><div class="offer-name">DFY Agency Monthly</div><div class="offer-price">$997/mo</div></div><div class="offer-comm">$300/mo recurring</div></div>
+    <div class="offer-row"><div><div class="offer-name">Enterprise</div><div class="offer-price">$4,997</div></div><div class="offer-comm">$1,500 flat</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Sales Resources</div>
+    <div class="resource-grid">
+      <div class="resource"><a href="/downloads/nysr-sales-deck.pdf" target="_blank">📊 Sales Deck PDF</a></div>
+      <div class="resource"><a href="/downloads/nysr-cold-email-templates.pdf" target="_blank">📧 3-Email Sequence</a></div>
+      <div class="resource"><a href="/downloads/nysr-objection-scripts.pdf" target="_blank">💬 Objection Scripts</a></div>
+      <div class="resource"><a href="https://loom.com" target="_blank">🎥 Product Demo Loom</a></div>
+      <div class="resource"><a href="/store/" target="_blank">🛒 Live Store</a></div>
+      <div class="resource"><a href="mailto:nyspotlightreport@gmail.com">📨 Contact NYSR</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// All DB calls go through our server-side Netlify function — no credentials in frontend
+async function login() {
+  const code = document.getElementById('code').value.trim().toUpperCase();
+  if (!code) return;
+
+  try {
+    const r = await fetch('/.netlify/functions/rep-portal-auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_code: code })
+    });
+    const data = await r.json();
+
+    if (!data.success || !data.rep) {
+      document.getElementById('loginErr').style.display = 'block';
+      return;
+    }
+
+    const rep = data.rep;
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('portal').style.display = 'block';
+    document.getElementById('repName').textContent    = 'Welcome, ' + rep.first_name;
+    document.getElementById('repEmail').textContent   = rep.email;
+    document.getElementById('repCodeBadge').textContent = rep.rep_code || 'Pending';
+    document.getElementById('checkoutUrl').textContent  = rep.unique_checkout_url || ('https://nyspotlightreport.com/store/?rep=' + rep.rep_code);
+    document.getElementById('totalCloses').textContent  = rep.total_closes || 0;
+    document.getElementById('activeClients').textContent= rep.active_clients || 0;
+    document.getElementById('monthlyComm').textContent  = '$' + ((rep.monthly_recurring||0).toLocaleString());
+    document.getElementById('totalEarned').textContent  = '$' + ((rep.total_commission||0).toLocaleString());
+    window._checkoutUrl = rep.unique_checkout_url;
+  } catch(e) {
+    document.getElementById('loginErr').textContent = 'Connection error. Try again.';
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+
+function copyLink() {
+  const url = window._checkoutUrl || document.getElementById('checkoutUrl').textContent;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = event.target;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = 'Copy Link', 2000);
+  });
+}
+
+document.getElementById('code').addEventListener('keypress', e => { if(e.key==='Enter') login(); });
+</script>
+</body>
+</html>

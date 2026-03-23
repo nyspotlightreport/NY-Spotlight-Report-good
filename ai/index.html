@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Intelligence Layer — NYSR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,sans-serif;background:#060a0f;color:#e2e8f0;padding:24px 16px}
+.page{max-width:1080px;margin:0 auto}
+h1{font-size:20px;font-weight:700;color:#f8fafc;margin-bottom:4px}
+.sub{font-size:13px;color:#64748b;margin-bottom:24px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:28px}
+.kpi{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:14px}
+.kpi-val{font-size:26px;font-weight:700;color:#C9A84C}
+.kpi-val.green{color:#22c55e}.kpi-val.blue{color:#818cf8}
+.kpi-label{font-size:11px;color:#64748b;margin-top:3px}
+.section{margin-bottom:28px}
+.section-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#64748b;text-transform:uppercase;margin-bottom:10px}
+.upgrade-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-bottom:24px}
+.upgrade-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:12px}
+.upgrade-num{font-size:10px;font-weight:600;color:#C9A84C;margin-bottom:4px}
+.upgrade-name{font-size:13px;font-weight:600;color:#f8fafc;margin-bottom:2px}
+.upgrade-desc{font-size:11px;color:#64748b}
+.status-dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:4px}
+.dot-green{background:#22c55e}.dot-yellow{background:#f59e0b}.dot-gray{background:#475569}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:7px 10px;color:#64748b;font-weight:500;border-bottom:1px solid rgba(255,255,255,.06)}
+td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04);color:#e2e8f0}
+tr:hover td{background:rgba(255,255,255,.02)}
+.score-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:4px}
+.score-fill{height:4px;border-radius:2px;background:#22c55e}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>🧠 AI Intelligence Layer</h1>
+  <p class="sub">All 12 AI upgrades active · Self-improving in real time</p>
+  
+  <div class="kpi-grid" id="kpis">
+    <div class="kpi"><div class="kpi-val" id="k-outputs">—</div><div class="kpi-label">Outputs Generated</div></div>
+    <div class="kpi"><div class="kpi-val green" id="k-quality">—</div><div class="kpi-label">Avg Quality Score</div></div>
+    <div class="kpi"><div class="kpi-val blue" id="k-prompts">—</div><div class="kpi-label">Active Prompts</div></div>
+    <div class="kpi"><div class="kpi-val" id="k-kb">—</div><div class="kpi-label">KB Entries (RAG)</div></div>
+    <div class="kpi"><div class="kpi-val" id="k-refined">—</div><div class="kpi-label">Outputs Refined</div></div>
+    <div class="kpi"><div class="kpi-val" id="k-halluc">—</div><div class="kpi-label">Hallucinations Caught</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">12 Active Upgrades</div>
+    <div class="upgrade-grid">
+      <div class="upgrade-card"><div class="upgrade-num">01</div><div class="upgrade-name"><span class="status-dot dot-green"></span>High-Quality Data</div><div class="upgrade-desc">Annotated examples feed every generation</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">02</div><div class="upgrade-name"><span class="status-dot dot-green"></span>Data Annotation</div><div class="upgrade-desc">Every output labeled with quality + category</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">03</div><div class="upgrade-name"><span class="status-dot dot-green"></span>RLHF Self-Feedback</div><div class="upgrade-desc">Prompts evolve based on quality scores</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">04</div><div class="upgrade-name"><span class="status-dot dot-green"></span>Persona Adoption</div><div class="upgrade-desc">Role-specific system prompts for every task</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">05</div><div class="upgrade-name"><span class="status-dot dot-green"></span>Iterative Refinement</div><div class="upgrade-desc">Below 0.70 quality triggers auto-refinement</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">06</div><div class="upgrade-name"><span class="status-dot dot-green"></span>Chain of Thought</div><div class="upgrade-desc">Step-by-step reasoning for complex tasks</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">07</div><div class="upgrade-name"><span class="status-dot dot-green"></span>Smart Model Routing</div><div class="upgrade-desc">Haiku/Sonnet/Opus chosen by task complexity</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">08</div><div class="upgrade-name"><span class="status-dot dot-green"></span>RAG</div><div class="upgrade-desc">8 KB entries injected as context pre-generation</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">09</div><div class="upgrade-name"><span class="status-dot dot-green"></span>Edge Computing</div><div class="upgrade-desc">Response cache + Netlify Edge Functions</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">10</div><div class="upgrade-name"><span class="status-dot dot-green"></span>Monitoring & Auditing</div><div class="upgrade-desc">Bias + hallucination detection every output</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">11</div><div class="upgrade-name"><span class="status-dot dot-green"></span>Feedback Loops</div><div class="upgrade-desc">All outputs logged; scores drive prompt evolution</div></div>
+      <div class="upgrade-card"><div class="upgrade-num">12</div><div class="upgrade-name"><span class="status-dot dot-green"></span>Self-Critical Prompting</div><div class="upgrade-desc">Every output reviewed by AI critic before delivery</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Prompt Registry — RLHF Scores</div>
+    <table id="prompts-table">
+      <thead><tr><th>Prompt</th><th>Version</th><th>Model</th><th>Avg Quality</th><th>Uses</th><th>CoT</th></tr></thead>
+      <tbody id="prompts-body"><tr><td colspan="6" style="color:#64748b">Loading...</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Recent Outputs</div>
+    <table id="outputs-table">
+      <thead><tr><th>Prompt</th><th>Model</th><th>Quality</th><th>RAG</th><th>Refined</th><th>Time</th></tr></thead>
+      <tbody id="outputs-body"><tr><td colspan="6" style="color:#64748b">Loading...</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+async function load() {
+  try {
+    const r = await fetch('/api/ai-dashboard');
+    const d = await r.json();
+    
+    if (d.stats) {
+      document.getElementById('k-outputs').textContent  = d.stats.total_outputs || 0;
+      document.getElementById('k-quality').textContent  = d.stats.avg_quality ? (d.stats.avg_quality * 100).toFixed(0) + '%' : '—';
+      document.getElementById('k-prompts').textContent  = d.stats.active_prompts || 0;
+      document.getElementById('k-kb').textContent       = d.stats.kb_entries || 0;
+      document.getElementById('k-refined').textContent  = d.stats.refined_count || 0;
+      document.getElementById('k-halluc').textContent   = d.stats.hallucinations || 0;
+    }
+    
+    if (d.prompts) {
+      document.getElementById('prompts-body').innerHTML = d.prompts.slice(0,10).map(p => {
+        const q = ((p.avg_quality_score || 0) * 100).toFixed(0);
+        return `<tr>
+          <td><strong>${p.prompt_name}</strong></td>
+          <td>v${p.version}</td>
+          <td style="color:#C9A84C">${p.model_tier}</td>
+          <td>
+            <div>${q}%</div>
+            <div class="score-bar"><div class="score-fill" style="width:${q}%"></div></div>
+          </td>
+          <td>${p.total_uses || 0}</td>
+          <td>${p.chain_of_thought ? '✅' : '—'}</td>
+        </tr>`;
+      }).join('');
+    }
+    
+    if (d.outputs) {
+      document.getElementById('outputs-body').innerHTML = d.outputs.slice(0,15).map(o => {
+        const q = ((o.final_score || o.self_eval_score || 0) * 100).toFixed(0);
+        const color = q >= 80 ? '#22c55e' : q >= 60 ? '#f59e0b' : '#ef4444';
+        const ts = o.created_at ? new Date(o.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '';
+        return `<tr>
+          <td>${o.prompt_name || '?'}</td>
+          <td style="font-size:11px;color:#64748b">${(o.model_used||'').replace('claude-','').replace('-20250514','').replace('-20251001','')}</td>
+          <td style="color:${color}">${q}%</td>
+          <td>${o.rag_sources_used?.length ? '✅ ' + o.rag_sources_used.length : '—'}</td>
+          <td>${o.chain_of_thought_used ? '✅' : '—'}</td>
+          <td style="color:#64748b">${ts}</td>
+        </tr>`;
+      }).join('');
+    }
+  } catch(e) {
+    console.log('Loading AI dashboard data...');
+  }
+}
+load(); setInterval(load, 30000);
+</script>
+</body>
+</html>

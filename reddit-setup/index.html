@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reddit App Setup — NYSR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui;background:#0A0F1A;color:#E2E8F0;padding:32px;max-width:700px;margin:0 auto;}
+h1{font-size:24px;font-weight:800;margin-bottom:8px;color:#FF6314;}
+p{font-size:14px;color:#64748B;line-height:1.6;margin-bottom:20px;}
+.step{background:#0D1B2A;border:1px solid #1a2d42;border-radius:12px;padding:20px;margin-bottom:14px;}
+.step-num{display:inline-flex;width:28px;height:28px;background:rgba(201,168,76,.1);
+  border:1px solid rgba(201,168,76,.3);border-radius:50%;align-items:center;justify-content:center;
+  color:#C9A84C;font-weight:700;font-size:13px;margin-right:10px;flex-shrink:0;vertical-align:middle;}
+.step-title{font-weight:700;font-size:14px;display:inline;vertical-align:middle;}
+.step-body{font-size:13px;color:#94A3B8;margin-top:10px;line-height:1.7;}
+code{background:#111827;padding:2px 6px;border-radius:4px;font-family:monospace;color:#C9A84C;font-size:12px;}
+.btn{display:inline-block;background:#FF6314;color:white;padding:12px 28px;border-radius:10px;
+  text-decoration:none;font-size:14px;font-weight:700;margin-top:12px;transition:all .2s;}
+.btn:hover{background:#E8550D;}
+.copy-field{background:#111827;border:1px solid #1a2d42;border-radius:8px;padding:10px 14px;
+  font-family:monospace;font-size:12px;color:#C9A84C;cursor:pointer;width:100%;text-align:left;
+  display:block;margin-top:6px;border:none;outline:none;}
+.copy-field:hover{background:#1a2d42;}
+input[type="text"]{background:#111827;border:1px solid #1a2d42;border-radius:8px;
+  padding:10px 14px;color:#E2E8F0;font-size:13px;width:100%;outline:none;
+  font-family:system-ui;margin-top:6px;transition:border .15s;}
+input[type="text"]:focus{border-color:#C9A84C;}
+label{font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.06em;}
+.save-btn{background:#C9A84C;color:#0A0F1A;border:none;padding:12px 32px;border-radius:10px;
+  font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-top:8px;transition:all .2s;}
+.save-btn:hover{background:#E8C96A;}
+.success{background:rgba(34,211,160,.1);border:1px solid rgba(34,211,160,.3);border-radius:8px;
+  padding:14px;color:#22D3A0;font-size:13px;display:none;margin-top:12px;}
+</style>
+</head>
+<body>
+<h1>🤖 Reddit App Setup</h1>
+<p>Create a Reddit API app in 3 steps. The credentials will be saved directly to GitHub Secrets.</p>
+
+<div class="step">
+  <span class="step-num">1</span>
+  <span class="step-title">Open Reddit App Creation</span>
+  <div class="step-body">
+    Click the button below. You'll land on Reddit's app creation page already logged in.<br>
+    Create a <strong>script</strong> type app with these exact values:
+    <br><br>
+    <strong>Name:</strong> <button class="copy-field" onclick="copy(this,'NYSRBot')">NYSRBot</button>
+    <strong>Type:</strong> script<br>
+    <strong>Description:</strong> <button class="copy-field" onclick="copy(this,'NY Spotlight Report automation bot')">NY Spotlight Report automation bot</button>
+    <strong>About URL:</strong> <button class="copy-field" onclick="copy(this,'https://nyspotlightreport.com')">https://nyspotlightreport.com</button>
+    <strong>Redirect URI:</strong> <button class="copy-field" onclick="copy(this,'http://localhost:8080')">http://localhost:8080</button>
+    <a href="https://www.reddit.com/prefs/apps" target="_blank" class="btn">Open Reddit Apps →</a>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-num">2</span>
+  <span class="step-title">Copy Your Credentials</span>
+  <div class="step-body">
+    After creating the app, copy the Client ID (shown below the app name) and Secret.
+    <br><br>
+    <label>Client ID (short string under app name)</label>
+    <input type="text" id="redditId" placeholder="e.g. aBcDeFgHiJ1234">
+    
+    <label style="margin-top:12px;display:block;">Client Secret</label>
+    <input type="text" id="redditSecret" placeholder="e.g. xYz123_AbCdEfGhIjKlMnOpQrStUvWxYz">
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-num">3</span>
+  <span class="step-title">Save to GitHub Secrets</span>
+  <div class="step-body">
+    Paste your credentials above, then click save. They'll be stored as GitHub Actions secrets instantly.
+    <button class="save-btn" onclick="saveRedditCreds()">💾 Save Reddit Credentials</button>
+    <div class="success" id="successMsg">✅ Saved! REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET are now in GitHub Secrets.</div>
+  </div>
+</div>
+
+<script>
+function copy(el, text) {
+  navigator.clipboard.writeText(text).catch(()=>{});
+  const orig = el.textContent;
+  el.textContent = "Copied!";
+  setTimeout(()=>el.textContent=orig, 1500);
+}
+
+async function saveRedditCreds() {
+  const id     = document.getElementById('redditId').value.trim();
+  const secret = document.getElementById('redditSecret').value.trim();
+  if (!id || !secret) { alert('Please enter both Client ID and Secret'); return; }
+  
+  // Send to our Netlify function to save as secrets
+  try {
+    const res = await fetch('/api/save-secret', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        secrets: {
+          REDDIT_CLIENT_ID: id,
+          REDDIT_CLIENT_SECRET: secret
+        }
+      })
+    });
+    
+    if (res.ok) {
+      document.getElementById('successMsg').style.display = 'block';
+    } else {
+      // Fallback: direct GitHub link
+      alert('Auto-save unavailable. Copy values and go to: https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions');
+      window.open('https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions');
+    }
+  } catch(e) {
+    // Fallback
+    window.open('https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions');
+  }
+}
+</script>
+</body>
+</html>

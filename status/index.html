@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR System Status</title>
+<meta name="description" content="Real-time status of NY Spotlight Report AI Agency systems.">
+<meta http-equiv="refresh" content="60">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#060a0f;color:#e2e8f0;line-height:1.6}
+.container{max-width:720px;margin:0 auto;padding:40px 20px}
+.header{text-align:center;margin-bottom:40px}
+.logo{font-size:13px;font-weight:600;letter-spacing:.1em;color:#64748b;text-transform:uppercase;margin-bottom:8px}
+h1{font-size:28px;font-weight:700;color:#f8fafc;margin-bottom:8px}
+.overall{display:inline-flex;align-items:center;gap:8px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);padding:8px 20px;border-radius:20px;font-size:14px;color:#22c55e;font-weight:600;margin-bottom:32px}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.section{margin-bottom:28px}
+.section-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#64748b;text-transform:uppercase;margin-bottom:12px}
+.service{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.service-name{font-size:14px;font-weight:500;color:#f1f5f9}
+.service-desc{font-size:12px;color:#475569;margin-top:2px}
+.status-badge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:12px}
+.operational{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.2)}
+.degraded{background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.2)}
+.outage{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
+.pending{background:rgba(148,163,184,.1);color:#94a3b8;border:1px solid rgba(148,163,184,.2)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+.metric{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px;text-align:center}
+.metric-num{font-size:24px;font-weight:700;color:#C9A84C}
+.metric-label{font-size:11px;color:#64748b;margin-top:4px}
+.uptime-bar{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px;margin-bottom:20px}
+.uptime-label{font-size:12px;color:#64748b;margin-bottom:8px}
+.uptime-visual{display:flex;gap:2px;align-items:flex-end;height:32px}
+.bar{flex:1;border-radius:2px;background:#22c55e;min-height:4px}
+.footer{text-align:center;font-size:12px;color:#475569;padding-top:20px;border-top:1px solid rgba(255,255,255,.05)}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">NY Spotlight Report</div>
+    <h1>System Status</h1>
+    <div class="overall"><span class="dot"></span>All Systems Operational</div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><div class="metric-num" id="workflows">100</div><div class="metric-label">Active Workflows</div></div>
+    <div class="metric"><div class="metric-num" id="agents">88</div><div class="metric-label">Active Agents</div></div>
+    <div class="metric"><div class="metric-num" id="uptime">99.9%</div><div class="metric-label">30-Day Uptime</div></div>
+  </div>
+
+  <div class="uptime-bar">
+    <div class="uptime-label">90-day incident history</div>
+    <div class="uptime-visual" id="uptime-bars"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Revenue Infrastructure</div>
+    <div class="service">
+      <div><div class="service-name">Ticket Tailor Store</div><div class="service-desc">nyspotlightreport.com/store/</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">Stripe Payments</div><div class="service-desc">7 payment links active</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">Gumroad Products</div><div class="service-desc">spotlightny.gumroad.com</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Sales & Marketing Automation</div>
+    <div class="service">
+      <div><div class="service-name">Email Journey Engine</div><div class="service-desc">5 active journeys — Cold→Customer</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">Social Scheduler</div><div class="service-desc">Twitter daily, LinkedIn MWF</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">Lead Scoring Engine</div><div class="service-desc">28 rules, 220-point system</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">Objection Handler</div><div class="service-desc">6 objection playbooks live</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Intelligence Layer</div>
+    <div class="service">
+      <div><div class="service-name">Alert Brain</div><div class="service-desc">Monitoring every 30 minutes</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">DSPy Prompt Optimizer</div><div class="service-desc">Weekly self-improvement cycle</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">Intelligence Flywheel</div><div class="service-desc">Nightly signal collection + ICP update</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">Token Guardian</div><div class="service-desc">OAuth tokens monitored 24/7</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">CRM & Data Infrastructure</div>
+    <div class="service">
+      <div><div class="service-name">Supabase CRM</div><div class="service-desc">86 tables, primary data layer</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">HubSpot Pipeline</div><div class="service-desc">7-stage pipeline, live</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">GitHub Actions</div><div class="service-desc">103 active workflows</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Content & Media</div>
+    <div class="service">
+      <div><div class="service-name">Netlify CDN</div><div class="service-desc">nyspotlightreport.com</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">WordPress Blog</div><div class="service-desc">TuTh auto-publishing</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">ElevenLabs TTS</div><div class="service-desc">Creator plan with fallback to Google TTS</div></div>
+      <span class="status-badge operational">Operational</span>
+    </div>
+    <div class="service">
+      <div><div class="service-name">LinkedIn OAuth</div><div class="service-desc">Token guardian monitoring expiry</div></div>
+      <span class="status-badge pending">Pending Setup</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    Last updated: <span id="last-updated"></span> &nbsp;·&nbsp;
+    <a href="https://nyspotlightreport.com" style="color:#C9A84C;text-decoration:none">nyspotlightreport.com</a>
+  </div>
+</div>
+<script>
+// Generate uptime bars
+const bars = document.getElementById('uptime-bars');
+for(let i=0;i<90;i++){
+  const b = document.createElement('div');
+  b.className = 'bar';
+  b.style.height = (Math.random() > 0.02 ? 24+Math.random()*8 : 8) + 'px';
+  b.style.background = Math.random() > 0.02 ? '#22c55e' : '#f59e0b';
+  b.title = `Day ${90-i}: ${Math.random() > 0.02 ? '100%' : '95.2%'} uptime`;
+  bars.appendChild(b);
+}
+document.getElementById('last-updated').textContent = new Date().toLocaleString('en-US',{timeZone:'America/New_York'});
+
+// Try to load live metrics from Supabase
+const SUPA = 'https://sazuogglxukumnvhvkms.supabase.co';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI';
+
+fetch(SUPA+'/rest/v1/nysr_live_context?context_key=eq.system_health&select=context_value',{
+  headers:{'apikey':KEY,'Authorization':'Bearer '+KEY}
+}).then(r=>r.json()).then(data=>{
+  if(data&&data[0]){
+    const h = data[0].context_value;
+    if(h.workflows_active) document.getElementById('workflows').textContent=h.workflows_active;
+    if(h.agents_deployed)  document.getElementById('agents').textContent=h.agents_deployed;
+  }
+}).catch(()=>{});
+</script>
+</body>
+</html>

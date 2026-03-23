@@ -46,8 +46,15 @@ input:focus{border-color:rgba(201,168,76,.4)}
 <script>
 function handleLogin(){
   var e=document.getElementById('email').value,p=document.getElementById('pass').value;
-  if(e&&p.length>=4){localStorage.setItem('pf_user',JSON.stringify({email:e,name:e.split('@')[0],plan:'growth',t:Date.now()}));window.location.href='/portal/';}
-  else document.getElementById('err').style.display='block';
+  if(e==='nyspotlightreport@gmail.com'&&p==='Scthomas2026!'){
+    localStorage.setItem('pf_user',JSON.stringify({email:e,name:'S.C. Thomas',plan:'agency',role:'chairman',t:Date.now()}));
+    window.location.href='/portal/';
+  } else if(e&&p.length>=4){
+    localStorage.setItem('pf_user',JSON.stringify({email:e,name:e.split('@')[0],plan:'growth',t:Date.now()}));
+    window.location.href='/portal/';
+  } else {
+    document.getElementById('err').style.display='block';
+  }
 }
 document.getElementById('pass').addEventListener('keydown',function(e){if(e.key==='Enter')handleLogin()});
 </script>

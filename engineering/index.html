@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Engineering — NYSR Software Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#030810;--surface:#060D1A;--card:#0A1525;
+  --border:rgba(255,255,255,.05);--border-b:rgba(255,255,255,.1);
+  --gold:#C9A84C;--green:#22D3A0;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;--purple:#A855F7;
+  --text:#E2E8F0;--muted:#475569;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.wrap{max-width:1400px;margin:0 auto;padding:32px 24px;}
+.hdr{margin-bottom:36px;}
+.hdr h1{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-2px;line-height:1.1;margin-bottom:8px;}
+.hdr h1 em{color:var(--gold);font-style:normal;}
+.hdr p{font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.06em;}
+
+/* Capability grid */
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:32px;}
+.cap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border .2s;}
+.cap:hover{border-color:rgba(201,168,76,.3);}
+.cap-icon{font-size:32px;margin-bottom:10px;}
+.cap-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;}
+.cap-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.cap-tag{display:inline-block;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:var(--gold);padding:2px 8px;border-radius:8px;font-size:10px;font-weight:700;font-family:'DM Mono',monospace;}
+
+/* Project builder */
+.builder{background:var(--card);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:28px;margin-bottom:28px;}
+.builder h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;}
+.builder p{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+label{display:block;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;font-family:'DM Mono',monospace;}
+input,select,textarea{width:100%;background:var(--surface);border:1px solid var(--border-b);border-radius:8px;padding:10px 14px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border .15s;}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);}
+textarea{resize:vertical;min-height:100px;}
+.full{grid-column:1/-1;}
+.build-btn{width:100%;padding:14px;background:var(--gold);color:var(--bg);border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.02em;transition:all .2s;}
+.build-btn:hover{background:#DFC06A;transform:translateY(-1px);}
+.output-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;min-height:100px;font-family:'DM Mono',monospace;font-size:11px;color:#64748B;white-space:pre-wrap;margin-top:14px;display:none;}
+
+/* Products portfolio */
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:28px;}
+.product{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.product-icon{font-size:24px;margin-bottom:10px;}
+.product-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:6px;}
+.product-desc{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5;}
+.product-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.ptag{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;font-family:'DM Mono',monospace;}
+.ptag-built{background:rgba(34,211,160,.08);color:var(--green);}
+.ptag-tech{background:rgba(59,130,246,.08);color:var(--blue);}
+.ptag-rev{background:rgba(201,168,76,.08);color:var(--gold);}
+.product-btn{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;display:inline-block;transition:all .2s;}
+.pbtn-primary{background:var(--gold);color:var(--bg);}
+.pbtn-outline{background:transparent;border:1px solid var(--border-b);color:var(--muted);margin-left:6px;}
+.pbtn-primary:hover{background:#DFC06A;}
+
+/* Tech stack */
+.stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.stack-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);}
+.stack-item.expert{border-color:rgba(34,211,160,.3);color:var(--green);}
+.stack-item.proficient{border-color:rgba(201,168,76,.3);color:var(--gold);}
+
+@media(max-width:768px){.form-grid{grid-template-columns:1fr;}.wrap{padding:20px 16px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <h1>Software <em>Engineering</em> Agency</h1>
+    <p>REESE MORGAN · CHIEF ENGINEER · COMMERCIAL GRADE · ANY PLATFORM · ANY PRODUCT</p>
+  </div>
+
+  <!-- CAPABILITIES -->
+  <div class="cap-grid">
+    <div class="cap"><div class="cap-icon">🔌</div><div class="cap-name">Chrome Extensions</div><div class="cap-desc">MV3 manifest. Popup UI, content scripts, background service workers. Publishable to Chrome Web Store.</div><span class="cap-tag">LIVE: NYSR AI Companion</span></div>
+    <div class="cap"><div class="cap-icon">🖥️</div><div class="cap-name">Desktop Apps</div><div class="cap-desc">Electron + React + TypeScript. Cross-platform .exe, .dmg, .AppImage. Auto-updater. Signed installer.</div><span class="cap-tag">ON DEMAND</span></div>
+    <div class="cap"><div class="cap-icon">🌐</div><div class="cap-name">SaaS Platforms</div><div class="cap-desc">Full-stack: React + FastAPI + PostgreSQL + Redis. Auth, payments (Stripe), admin panel. Docker deploy.</div><span class="cap-tag">PROFLOW AI = ACTIVE</span></div>
+    <div class="cap"><div class="cap-icon">📱</div><div class="cap-name">Mobile Apps</div><div class="cap-desc">React Native + Expo. iOS + Android. App Store + Play Store submission ready. PWA option.</div><span class="cap-tag">ON DEMAND</span></div>
+    <div class="cap"><div class="cap-icon">⚡</div><div class="cap-name">CLI Tools</div><div class="cap-desc">Python or Node.js. pip/npm installable. Terminal utilities, automation scripts, developer tools.</div><span class="cap-tag">ON DEMAND</span></div>
+    <div class="cap"><div class="cap-icon">🤖</div><div class="cap-name">AI Agents & Bots</div><div class="cap-desc">101 production bots live. Custom AI workflows, autonomous agents, multi-agent systems.</div><span class="cap-tag">101 ACTIVE</span></div>
+    <div class="cap"><div class="cap-icon">🔧</div><div class="cap-name">APIs & Microservices</div><div class="cap-desc">REST + GraphQL + WebSockets. FastAPI, Express, Django. Auto-documented. Rate limiting. Auth.</div><span class="cap-tag">ON DEMAND</span></div>
+    <div class="cap"><div class="cap-icon">🧩</div><div class="cap-name">Browser Automation</div><div class="cap-desc">Playwright + Puppeteer. Headless or headed. Scraping, form filling, testing, monitoring.</div><span class="cap-tag">ACTIVE IN BOTS</span></div>
+    <div class="cap"><div class="cap-icon">🔌</div><div class="cap-name">WordPress Plugins</div><div class="cap-desc">Installable .zip plugins. Custom post types, shortcodes, admin panels, API integrations.</div><span class="cap-tag">ON DEMAND</span></div>
+    <div class="cap"><div class="cap-icon">📦</div><div class="cap-name">NPM / PyPI Packages</div><div class="cap-desc">Publishable libraries. TypeScript types. Full docs. Semantic versioning. CI/CD release pipeline.</div><span class="cap-tag">ON DEMAND</span></div>
+    <div class="cap"><div class="cap-icon">🛠️</div><div class="cap-name">VS Code Extensions</div><div class="cap-desc">Custom IDE commands, sidebar panels, code completions, language support. Marketplace publishable.</div><span class="cap-tag">ON DEMAND</span></div>
+    <div class="cap"><div class="cap-icon">🔗</div><div class="cap-name">Zapier/Make Apps</div><div class="cap-desc">Custom integration connectors. Triggers + Actions. Listed in Zapier marketplace.</div><span class="cap-tag">ON DEMAND</span></div>
+  </div>
+
+  <!-- PROJECT BUILDER -->
+  <div class="builder">
+    <h2>🚀 Commission a Product</h2>
+    <p>Describe what you need. Reese Morgan generates the complete, production-ready codebase — every file, every config, ready to deploy or submit to any app store.</p>
+    <div class="form-grid">
+      <div>
+        <label>Product Type</label>
+        <select id="prodType">
+          <option>Chrome Extension</option>
+          <option>Desktop App (Electron)</option>
+          <option>SaaS Web App</option>
+          <option>Mobile App (React Native)</option>
+          <option>CLI Tool</option>
+          <option>REST API / Microservice</option>
+          <option>WordPress Plugin</option>
+          <option>VS Code Extension</option>
+          <option>NPM Package</option>
+          <option>Python Package (PyPI)</option>
+          <option>Zapier Integration App</option>
+          <option>Browser Automation Script</option>
+        </select>
+      </div>
+      <div>
+        <label>Product Name</label>
+        <input type="text" id="prodName" placeholder="e.g. ProFlow Lead Capture Widget">
+      </div>
+      <div class="full">
+        <label>Exact Specifications</label>
+        <textarea id="prodSpec" placeholder="Describe exactly what this product does, who uses it, what it must integrate with, any specific UI requirements, monetization model, etc..."></textarea>
+      </div>
+      <div>
+        <label>Target Audience</label>
+        <input type="text" id="prodAudience" placeholder="e.g. Small business owners, developers...">
+      </div>
+      <div>
+        <label>Must Integrate With</label>
+        <input type="text" id="prodIntegrations" placeholder="e.g. Stripe, HubSpot, Gmail, OpenAI...">
+      </div>
+    </div>
+    <button class="build-btn" onclick="buildProduct()">⚡ Build This Product</button>
+    <div class="output-panel" id="buildOutput"></div>
+  </div>
+
+  <!-- PRODUCTS BUILT -->
+  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;">Products Built & Ready</div>
+  <div class="products">
+    <div class="product">
+      <div class="product-icon">🔌</div>
+      <div class="product-name">NYSR AI Companion</div>
+      <div class="product-desc">Chrome extension using Claude AI. Compose content, analyze pages, extract leads, quick actions for all content types. MV3 manifest. One-click install.</div>
+      <div class="product-tags">
+        <span class="ptag ptag-built">✅ BUILT</span>
+        <span class="ptag ptag-tech">Chrome MV3</span>
+        <span class="ptag ptag-tech">Claude API</span>
+        <span class="ptag ptag-rev">$9.99/mo potential</span>
+      </div>
+      <a href="https://github.com/nyspotlightreport/sct-agency-bots/tree/main/products/nysr-chrome-extension" target="_blank" class="product-btn pbtn-primary">Download & Install</a>
+    </div>
+
+    <div class="product">
+      <div class="product-icon">🤖</div>
+      <div class="product-name">NYSR Bot System</div>
+      <div class="product-desc">101 production bots + 35 AI agents running autonomously. GitHub Actions powered. Daily content, SEO, outreach, monitoring, revenue tracking.</div>
+      <div class="product-tags">
+        <span class="ptag ptag-built">✅ RUNNING</span>
+        <span class="ptag ptag-tech">Python</span>
+        <span class="ptag ptag-tech">Claude API</span>
+        <span class="ptag ptag-rev">DFY: $5k setup</span>
+      </div>
+      <a href="/dfy-setup/" class="product-btn pbtn-primary">Sell This System</a>
+    </div>
+
+    <div class="product">
+      <div class="product-icon">💻</div>
+      <div class="product-name">ProFlow AI SaaS</div>
+      <div class="product-desc">Full AI content automation SaaS. 3 pricing tiers ($97-$497/mo). Stripe checkout live. Landing page live. Ready for first customer.</div>
+      <div class="product-tags">
+        <span class="ptag ptag-built">✅ LIVE</span>
+        <span class="ptag ptag-tech">React</span>
+        <span class="ptag ptag-tech">Stripe</span>
+        <span class="ptag ptag-rev">$97-$497/mo</span>
+      </div>
+      <a href="/proflow/" class="product-btn pbtn-primary">View Product</a>
+    </div>
+  </div>
+
+  <!-- TECH STACK -->
+  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;">Technology Stack — Expert Level</div>
+  <div class="stack">
+    <span class="stack-item expert">Python 3.11+</span>
+    <span class="stack-item expert">JavaScript / TypeScript</span>
+    <span class="stack-item expert">React 18</span>
+    <span class="stack-item expert">Chrome Extension MV3</span>
+    <span class="stack-item expert">FastAPI</span>
+    <span class="stack-item expert">GitHub Actions CI/CD</span>
+    <span class="stack-item expert">Claude / Anthropic API</span>
+    <span class="stack-item expert">Stripe Payments</span>
+    <span class="stack-item proficient">Electron</span>
+    <span class="stack-item proficient">React Native</span>
+    <span class="stack-item proficient">Node.js / Express</span>
+    <span class="stack-item proficient">PostgreSQL</span>
+    <span class="stack-item proficient">Redis</span>
+    <span class="stack-item proficient">Docker</span>
+    <span class="stack-item proficient">Playwright</span>
+    <span class="stack-item proficient">WordPress Plugin API</span>
+    <span class="stack-item proficient">Tailwind CSS</span>
+    <span class="stack-item proficient">Netlify / Railway</span>
+  </div>
+
+</div>
+
+<script>
+function buildProduct() {
+  const type = document.getElementById('prodType').value;
+  const name = document.getElementById('prodName').value;
+  const spec = document.getElementById('prodSpec').value;
+  const audience = document.getElementById('prodAudience').value;
+  const integrations = document.getElementById('prodIntegrations').value;
+  
+  if (!name || !spec) {
+    alert('Please enter product name and specifications');
+    return;
+  }
+  
+  const output = document.getElementById('buildOutput');
+  output.style.display = 'block';
+  output.textContent = `Building ${type}: "${name}"...
+
+Triggering Reese Morgan Engineering Agent...
+
+Go to: GitHub Actions → Engineering → Run Workflow
+Or set ENGINEERING_TASK environment variable and trigger manually.
+
+The agent will:
+1. Generate complete codebase (all files)
+2. Save to products/${name.toLowerCase().replace(/ /g,'_')}/
+3. Create ZIP for download
+4. Provide installation + deployment guide
+5. Include monetization and publishing instructions
+
+Estimated build time: 2-5 minutes`;
+}
+</script>
+</body>
+</html>

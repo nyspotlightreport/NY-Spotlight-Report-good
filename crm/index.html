@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR CRM — Pipeline Command</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#020409;--s:#060910;--c:#0A0F1C;--c2:#0E1525;
+  --br:rgba(255,255,255,.05);--br2:rgba(255,255,255,.1);
+  --gold:#C9A84C;--green:#22D3A0;--blue:#3B82F6;
+  --red:#EF4444;--amber:#F59E0B;--purple:#A855F7;
+  --text:#E8EDF5;--muted:#475569;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(rgba(201,168,76,.04) 1px,transparent 1px);background-size:28px 28px;}
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:100;}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(2,4,9,.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--br);padding:0 28px;height:60px;
+  display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:900;font-size:16px;}
+.nav-logo span{color:var(--gold);}
+.nav-right{display:flex;gap:16px;align-items:center;font-size:12px;color:var(--muted);}
+.live-badge{display:flex;align-items:center;gap:5px;background:rgba(34,211,160,.08);
+  border:1px solid rgba(34,211,160,.2);color:var(--green);padding:4px 10px;border-radius:8px;font-size:11px;font-weight:700;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.wrap{max-width:1400px;margin:0 auto;padding:24px;}
+
+/* STAT GRID */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:24px;}
+.stat{background:var(--c);border:1px solid var(--br);border-radius:12px;padding:16px;}
+.stat.gold{border-color:rgba(201,168,76,.3);}
+.stat-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Mono',monospace;margin-bottom:8px;}
+.stat-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:900;line-height:1;}
+.stat-val.gold{color:var(--gold);}
+.stat-val.green{color:var(--green);}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+
+/* KANBAN PIPELINE */
+.pipeline-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.pipeline-hdr h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;}
+.pipeline{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:28px;overflow-x:auto;}
+.stage-col{background:var(--c);border:1px solid var(--br);border-radius:12px;padding:12px;min-width:140px;}
+.stage-name{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;font-family:'DM Mono',monospace;margin-bottom:8px;}
+.stage-count{font-family:'Syne',sans-serif;font-size:22px;font-weight:900;line-height:1;}
+.stage-value{font-size:11px;color:var(--muted);margin-top:2px;}
+.stage-bar{height:3px;border-radius:2px;margin-top:8px;}
+.card-mini{background:var(--c2);border:1px solid var(--br2);border-radius:8px;padding:8px;margin-top:8px;cursor:pointer;transition:border .15s;}
+.card-mini:hover{border-color:rgba(201,168,76,.3);}
+.card-name{font-size:12px;font-weight:600;margin-bottom:2px;}
+.card-co{font-size:10px;color:var(--muted);}
+.card-score{display:inline-block;padding:1px 6px;border-radius:4px;font-size:9px;font-weight:700;font-family:'DM Mono',monospace;float:right;}
+.grade-A{background:rgba(34,211,160,.1);color:var(--green);}
+.grade-B{background:rgba(59,130,246,.1);color:var(--blue);}
+.grade-C{background:rgba(245,158,11,.1);color:var(--amber);}
+.grade-D{background:rgba(100,116,139,.1);color:var(--muted);}
+
+/* CONTACT TABLE */
+.table-wrap{background:var(--c);border:1px solid var(--br);border-radius:14px;overflow:hidden;margin-bottom:24px;}
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{background:var(--c2);padding:10px 14px;font-size:10px;font-weight:700;
+  color:var(--muted);text-align:left;letter-spacing:.06em;text-transform:uppercase;
+  font-family:'DM Mono',monospace;border-bottom:1px solid var(--br2);}
+.tbl td{padding:10px 14px;border-bottom:1px solid var(--br);font-size:12px;}
+.tbl tr:last-child td{border:none;}
+.tbl tr:hover td{background:var(--c2);cursor:pointer;}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;font-family:'DM Mono',monospace;}
+.stage-LEAD{background:rgba(100,116,139,.1);color:var(--muted);}
+.stage-PROSPECT{background:rgba(59,130,246,.1);color:var(--blue);}
+.stage-QUALIFIED{background:rgba(168,85,247,.1);color:var(--purple);}
+.stage-PROPOSAL{background:rgba(245,158,11,.1);color:var(--amber);}
+.stage-NEGOTIATION{background:rgba(239,68,68,.1);color:var(--red);}
+.stage-CLOSED_WON{background:rgba(34,211,160,.1);color:var(--green);}
+
+/* ACTIONS */
+.action-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:24px;}
+.action-card{background:var(--c);border:1px solid var(--br);border-radius:12px;padding:18px;cursor:pointer;transition:all .2s;}
+.action-card:hover{border-color:rgba(201,168,76,.3);transform:translateY(-2px);}
+.ac-icon{font-size:24px;margin-bottom:10px;}
+.ac-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px;}
+.ac-desc{font-size:12px;color:var(--muted);}
+
+/* SETUP BANNER */
+.setup-banner{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02));
+  border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:20px;margin-bottom:24px;}
+.setup-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);margin-bottom:10px;}
+.setup-steps{display:flex;flex-direction:column;gap:8px;}
+.setup-step{display:flex;align-items:center;gap:10px;font-size:13px;}
+.step-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.step-done{background:rgba(34,211,160,.1);color:var(--green);}
+.step-todo{background:rgba(201,168,76,.1);color:var(--gold);}
+.step-link{color:var(--gold);text-decoration:none;}
+.step-link:hover{text-decoration:underline;}
+
+@media(max-width:900px){.pipeline{grid-template-columns:repeat(3,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">NYSR <span>CRM</span></div>
+  <div class="nav-right">
+    <span id="clock"></span>
+    <div class="live-badge"><div class="dot"></div> Pipeline Live</div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- SETUP GUIDE -->
+  <div class="setup-banner">
+    <div class="setup-title">⚡ Phase 1 Setup — Complete these to activate the full CRM</div>
+    <div class="setup-steps">
+      <div class="setup-step"><div class="step-icon step-done">✓</div> <span>CRM Core Agent built and deployed (crm_core_agent.py)</span></div>
+      <div class="setup-step"><div class="step-icon step-done">✓</div> <span>Deal Pipeline Bot built (deal_pipeline_bot.py)</span></div>
+      <div class="setup-step"><div class="step-icon step-done">✓</div> <span>HubSpot Fixer Bot built (hubspot_fixer_bot.py)</span></div>
+      <div class="setup-step"><div class="step-icon step-done">✓</div> <span>Supabase schema SQL ready (database/schema.sql)</span></div>
+      <div class="setup-step"><div class="step-icon step-todo">→</div>
+        <span>Create free Supabase project → <a href="https://app.supabase.com" target="_blank" class="step-link">app.supabase.com</a> → copy URL + anon key → add as SUPABASE_URL and SUPABASE_KEY secrets</span></div>
+      <div class="setup-step"><div class="step-icon step-todo">→</div>
+        <span>Run the schema: paste <a href="https://github.com/nyspotlightreport/sct-agency-bots/blob/main/database/schema.sql" target="_blank" class="step-link">database/schema.sql</a> in Supabase SQL Editor</span></div>
+      <div class="setup-step"><div class="step-icon step-todo">→</div>
+        <span>Run HubSpot fixer workflow to set up pipeline stages and custom scoring properties</span></div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat gold"><div class="stat-lbl">Pipeline Value</div><div class="stat-val gold" id="pipelineValue">$0</div><div class="stat-sub">Weighted estimate</div></div>
+    <div class="stat"><div class="stat-lbl">Total Contacts</div><div class="stat-val" id="totalContacts">—</div><div class="stat-sub">Across all stages</div></div>
+    <div class="stat"><div class="stat-lbl">A-Grade Leads</div><div class="stat-val green" id="aGradeCount">—</div><div class="stat-sub">Score 75+</div></div>
+    <div class="stat"><div class="stat-lbl">30d Forecast</div><div class="stat-val" id="forecast30d">$0</div><div class="stat-sub">Expected revenue</div></div>
+    <div class="stat"><div class="stat-lbl">Closed Won</div><div class="stat-val green" id="closedWon">0</div><div class="stat-sub">All time</div></div>
+    <div class="stat"><div class="stat-lbl">Stuck Deals</div><div class="stat-val" id="stuckCount" style="color:var(--amber)">—</div><div class="stat-sub">7+ days no movement</div></div>
+  </div>
+
+  <!-- PIPELINE KANBAN -->
+  <div class="pipeline-hdr">
+    <h2>🎯 Sales Pipeline</h2>
+    <button onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/crm_daily.yml')" style="background:var(--gold);color:var(--bg);border:none;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Run CRM Sync →</button>
+  </div>
+  <div class="pipeline" id="pipelineKanban">
+    <div class="stage-col"><div class="stage-name">Lead</div><div class="stage-count" style="color:var(--muted)">—</div><div class="stage-value">Identified</div><div class="stage-bar" style="background:var(--muted);opacity:.3"></div></div>
+    <div class="stage-col"><div class="stage-name">Prospect</div><div class="stage-count" style="color:var(--blue)">—</div><div class="stage-value">First contact</div><div class="stage-bar" style="background:var(--blue)"></div></div>
+    <div class="stage-col"><div class="stage-name">Qualified</div><div class="stage-count" style="color:var(--purple)">—</div><div class="stage-value">BANT confirmed</div><div class="stage-bar" style="background:var(--purple)"></div></div>
+    <div class="stage-col"><div class="stage-name">Proposal</div><div class="stage-count" style="color:var(--amber)">—</div><div class="stage-value">Offer sent</div><div class="stage-bar" style="background:var(--amber)"></div></div>
+    <div class="stage-col"><div class="stage-name">Negotiation</div><div class="stage-count" style="color:var(--red)">—</div><div class="stage-value">In discussion</div><div class="stage-bar" style="background:var(--red)"></div></div>
+    <div class="stage-col"><div class="stage-name">Won 🏆</div><div class="stage-count" style="color:var(--green)">—</div><div class="stage-value">Signed</div><div class="stage-bar" style="background:var(--green)"></div></div>
+    <div class="stage-col"><div class="stage-name">Lost</div><div class="stage-count" style="color:var(--muted)">—</div><div class="stage-value">Dead</div><div class="stage-bar" style="background:var(--muted);opacity:.3"></div></div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="action-grid">
+    <div class="action-card" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/crm_daily.yml')">
+      <div class="ac-icon">🔄</div><div class="ac-title">Pull Apollo Leads</div><div class="ac-desc">Score and import 50 fresh leads from Apollo into pipeline</div>
+    </div>
+    <div class="action-card" onclick="window.open('https://github.com/nyspotlightreport/sct-agency-bots/actions/workflows/hubspot_setup.yml')">
+      <div class="ac-icon">🔗</div><div class="ac-title">Fix HubSpot</div><div class="ac-desc">Set up pipeline stages, custom scoring properties, deal pipeline</div>
+    </div>
+    <div class="action-card" onclick="window.open('https://app.supabase.com')">
+      <div class="ac-icon">🗄️</div><div class="ac-title">Supabase Database</div><div class="ac-desc">View contacts, deals, activities. Full persistent storage.</div>
+    </div>
+    <div class="action-card" onclick="window.open('/sales/')">
+      <div class="ac-icon">💰</div><div class="ac-title">Sales Department</div><div class="ac-desc">Cold email engine, sequences, proposal generator</div>
+    </div>
+    <div class="action-card" onclick="window.open('https://app.hubspot.com')">
+      <div class="ac-icon">🎯</div><div class="ac-title">HubSpot CRM</div><div class="ac-desc">Full CRM view with sequences and deal tracking</div>
+    </div>
+    <div class="action-card" onclick="window.open('/command/')">
+      <div class="ac-icon">🏠</div><div class="ac-title">Command Center</div><div class="ac-desc">Full system overview and control panel</div>
+    </div>
+  </div>
+
+  <!-- ICP REFERENCE -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">
+    <div style="background:var(--c);border:1px solid rgba(34,211,160,.2);border-radius:12px;padding:18px">
+      <div style="font-size:11px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace;margin-bottom:8px">ICP 1 — PROFLOW AI SAAS</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:6px">Content Marketers & Agencies</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">Titles: CMO, Content Director, Marketing Manager<br>Size: 1-200 employees<br>Pain: Content volume & SEO rankings<br>Price: $97–497/mo recurring</div>
+    </div>
+    <div style="background:var(--c);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:18px">
+      <div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:8px">ICP 2 — DFY SETUP CLIENT</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:6px">Founders & Business Owners</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">Titles: CEO, Founder, Owner<br>Size: 1-50 employees<br>Pain: Manual processes, no tech team<br>Price: $1,500–10,000 one-time</div>
+    </div>
+    <div style="background:var(--c);border:1px solid rgba(168,85,247,.2);border-radius:12px;padding:18px">
+      <div style="font-size:11px;font-weight:700;color:var(--purple);font-family:'DM Mono',monospace;margin-bottom:8px">ICP 3 — ENTERPRISE AGENCY</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:6px">Marketing Agencies & Mid-Market</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">Titles: VP Marketing, Agency Owner, Digital Director<br>Size: 51-500 employees<br>Pain: Client delivery speed, scale<br>Price: $997–1,997/mo recurring</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Clock
+setInterval(() => {
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString();
+}, 1000);
+</script>
+</body>
+</html>

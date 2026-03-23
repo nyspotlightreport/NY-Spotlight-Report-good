@@ -1,0 +1,17 @@
+{
+  "name": "ProFlow by NY Spotlight Report",
+  "short_name": "ProFlow",
+  "description": "Your AI-powered content engine dashboard",
+  "start_url": "/portal/",
+  "display": "standalone",
+  "background_color": "#faf9f6",
+  "theme_color": "#c9a84c",
+  "orientation": "any",
+  "icons": [
+    {"src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png"}
+  ],
+  "categories": ["business", "productivity"],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

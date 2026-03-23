@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BI Dashboard — NYSR Customer 360</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--bg:#0a0a0f;--surface:#13131a;--border:#1e1e2e;--accent:#7c3aed;--accent2:#06b6d4;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;--orange:#f97316;--text:#e2e8f0;--muted:#64748b}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif}
+  .nav{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;gap:1rem}
+  .logo{color:var(--accent);font-weight:700;font-size:1.1rem;margin-right:auto}
+  .nav a{color:var(--muted);text-decoration:none;font-size:.875rem}.nav a:hover{color:var(--text)}
+  .main{padding:2rem;max-width:1600px;margin:0 auto}
+  h1{font-size:1.75rem;font-weight:700;margin-bottom:.25rem}
+  .subtitle{color:var(--muted);font-size:.875rem;margin-bottom:2rem}
+  /* KPI TILES */
+  .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;margin-bottom:2rem}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem;position:relative;overflow:hidden}
+  .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);border-radius:14px 14px 0 0}
+  .kpi.green::before{background:var(--green)}.kpi.yellow::before{background:var(--yellow)}.kpi.red::before{background:var(--red)}.kpi.blue::before{background:var(--accent2)}
+  .kpi-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.5rem}
+  .kpi-val{font-size:1.875rem;font-weight:800}
+  .kpi-change{font-size:.75rem;margin-top:.25rem}
+  .kpi-change.up{color:var(--green)}.kpi-change.down{color:var(--red)}.kpi-change.neutral{color:var(--muted)}
+  /* GRID */
+  .row{display:grid;gap:1.5rem;margin-bottom:1.5rem}
+  .row-2{grid-template-columns:1fr 1fr}
+  .row-3{grid-template-columns:1fr 1fr 1fr}
+  .row-12{grid-template-columns:1fr 2fr}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
+  .card-title{font-weight:600;font-size:.95rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between}
+  /* FUNNEL */
+  .funnel-bar{margin-bottom:.75rem}
+  .funnel-label{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem}
+  .funnel-track{background:var(--border);border-radius:99px;height:10px;overflow:hidden}
+  .funnel-fill{background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;height:100%;transition:width .4s}
+  .funnel-rate{font-size:.7rem;color:var(--green);font-weight:600}
+  /* CUSTOMER TABLE */
+  .c360-table{width:100%;border-collapse:collapse}
+  .c360-table th{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:.5rem .75rem;text-align:left;border-bottom:1px solid var(--border)}
+  .c360-table td{padding:.6rem .75rem;border-bottom:1px solid var(--border);font-size:.8rem}
+  .c360-table tr:last-child td{border-bottom:none}
+  .c360-table tr:hover td{background:var(--border)}
+  /* HEALTH BAR */
+  .health-bar{width:60px;height:6px;background:var(--border);border-radius:99px;overflow:hidden;display:inline-block;vertical-align:middle}
+  .health-fill{height:100%;border-radius:99px}
+  /* RISK BADGES */
+  .risk{padding:.15rem .5rem;border-radius:4px;font-size:.68rem;font-weight:600}
+  .r-low{background:#10b98120;color:var(--green)}
+  .r-medium{background:#f59e0b20;color:var(--yellow)}
+  .r-high{background:#f9731620;color:var(--orange)}
+  .r-critical{background:#ef444420;color:var(--red)}
+  /* STAGE BADGE */
+  .stage{padding:.15rem .5rem;border-radius:4px;font-size:.68rem;font-weight:600}
+  .s-lead{background:var(--border);color:var(--muted)}
+  .s-prospect{background:#7c3aed20;color:var(--accent)}
+  .s-customer{background:#10b98120;color:var(--green)}
+  .s-churned{background:#ef444420;color:var(--red)}
+  /* ALERTS */
+  .alert-row{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.8rem}
+  .alert-row:last-child{border-bottom:none}
+  .alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .a-critical{background:var(--red)}.a-warning{background:var(--yellow)}.a-info{background:var(--accent2)}
+  /* FORECAST */
+  .forecast-bar{background:var(--border);border-radius:10px;padding:1.25rem;text-align:center}
+  .forecast-num{font-size:2rem;font-weight:800;color:var(--accent2)}
+  .forecast-label{font-size:.75rem;color:var(--muted);margin-top:.25rem}
+  /* KPI CHART placeholder */
+  .spark{height:40px;display:flex;align-items:flex-end;gap:2px;margin-top:.5rem}
+  .spark-bar{flex:1;background:var(--accent);border-radius:2px;opacity:.6;min-height:4px}
+  .loading{color:var(--muted);font-size:.875rem;text-align:center;padding:2rem}
+  @media(max-width:1200px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.row-3{grid-template-columns:1fr 1fr}}
+  @media(max-width:768px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.row-2,.row-3,.row-12{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <span class="logo">⚡ NYSR Agency</span>
+  <a href="/command/">Command</a>
+  <a href="/tickets/">Tickets</a>
+  <a href="/projects/">Projects</a>
+  <a href="/sales/">Sales</a>
+  <a href="/store/">Store</a>
+</nav>
+<main class="main">
+  <h1>📊 Business Intelligence — Customer 360</h1>
+  <div class="subtitle">Phase 5 · Closes Salesforce/Tableau gap · $15k–50k MRR unlock · Live data from Supabase</div>
+
+  <!-- KPI TILES -->
+  <div class="kpi-grid">
+    <div class="kpi green">
+      <div class="kpi-label">MRR</div>
+      <div class="kpi-val" id="k-mrr">$—</div>
+      <div class="kpi-change neutral" id="k-mrr-ch">—</div>
+    </div>
+    <div class="kpi blue">
+      <div class="kpi-label">ARR</div>
+      <div class="kpi-val" id="k-arr">$—</div>
+      <div class="kpi-change neutral">annualized</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Active Customers</div>
+      <div class="kpi-val" id="k-cust">—</div>
+      <div class="kpi-change neutral" id="k-cust-ch">—</div>
+    </div>
+    <div class="kpi yellow">
+      <div class="kpi-label">Churn Risk</div>
+      <div class="kpi-val" id="k-churn">—</div>
+      <div class="kpi-change neutral">contacts at risk</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Daily Revenue</div>
+      <div class="kpi-val" id="k-rev">$—</div>
+      <div class="kpi-change neutral" id="k-rev-ch">—</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Avg Health Score</div>
+      <div class="kpi-val" id="k-health">—</div>
+      <div class="kpi-change neutral">out of 100</div>
+    </div>
+  </div>
+
+  <div class="row row-12">
+    <!-- FUNNEL -->
+    <div class="card">
+      <div class="card-title">🔀 Conversion Funnel</div>
+      <div id="funnel-chart"><div class="loading">Loading…</div></div>
+    </div>
+    <!-- REVENUE FORECAST -->
+    <div class="card">
+      <div class="card-title">📈 Revenue Forecast (30-day)
+        <span style="font-size:.75rem;color:var(--muted)" id="forecast-conf"></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem">
+        <div class="forecast-bar">
+          <div class="forecast-num" id="mrr-forecast">$—</div>
+          <div class="forecast-label">Projected MRR</div>
+        </div>
+        <div class="forecast-bar">
+          <div class="forecast-num" id="arr-forecast">$—</div>
+          <div class="forecast-label">Projected ARR</div>
+        </div>
+      </div>
+      <div class="card-title" style="margin-top:.5rem;margin-bottom:.75rem">⚠️ Active BI Alerts</div>
+      <div id="alerts-list"><div class="loading">Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER 360 TABLE -->
+  <div class="card" style="margin-bottom:1.5rem">
+    <div class="card-title">
+      👤 Customer 360
+      <div style="display:flex;gap:.5rem">
+        <select id="stage-filter" onchange="filterC360()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:.3rem .6rem;border-radius:6px;font-size:.75rem">
+          <option value="all">All Stages</option>
+          <option value="customer">Customers</option>
+          <option value="prospect">Prospects</option>
+          <option value="lead">Leads</option>
+          <option value="churned">Churned</option>
+        </select>
+        <select id="risk-filter" onchange="filterC360()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:.3rem .6rem;border-radius:6px;font-size:.75rem">
+          <option value="all">All Risk</option>
+          <option value="critical">Critical</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="c360-table">
+        <thead>
+          <tr><th>Name</th><th>Company</th><th>Stage</th><th>Plan</th><th>LTV</th><th>MRR</th><th>Health</th><th>Churn Risk</th><th>Last Active</th><th>Tickets</th></tr>
+        </thead>
+        <tbody id="c360-tbody"><tr><td colspan="10" class="loading">Loading Customer 360…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row row-3">
+    <!-- COHORTS -->
+    <div class="card">
+      <div class="card-title">📅 Cohorts</div>
+      <div id="cohorts-list"><div class="loading">Loading…</div></div>
+    </div>
+    <!-- KPI HISTORY -->
+    <div class="card">
+      <div class="card-title">📉 KPI Trends (7d)</div>
+      <div id="kpi-trends"><div class="loading">Loading…</div></div>
+    </div>
+    <!-- PIPELINE -->
+    <div class="card">
+      <div class="card-title">🎯 Pipeline by Stage</div>
+      <div id="pipeline-chart"><div class="loading">Loading…</div></div>
+    </div>
+  </div>
+</main>
+
+<script>
+const SUPA_URL = 'https://sazuogglxukumnvhvkms.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhenVvZ2dseHVrdW1udmh2a21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTcxNTMsImV4cCI6MjA4OTY5MzE1M30.FQubC3llmkDgRjx28X1LrcEg1h5kCtFHbDxvmpYPYvI';
+
+let allC360 = [];
+
+async function supa(table, query='') {
+  const r = await fetch(`${SUPA_URL}/rest/v1/${table}${query}`,
+    {headers:{apikey:SUPA_KEY,Authorization:`Bearer ${SUPA_KEY}`}});
+  return r.ok ? r.json() : [];
+}
+
+async function loadKPIs() {
+  const today = new Date().toISOString().slice(0,10);
+  const yday  = new Date(Date.now()-86400000).toISOString().slice(0,10);
+  const kpis  = await supa('kpi_snapshots',`?date=in.(${today},${yday})&select=*`);
+  const get = (name, date=today) => kpis.find(k=>k.metric_name===name&&k.date===date);
+  const fmt = (v) => v==null?'—':v>=1000?'$'+(v/1000).toFixed(1)+'k':'$'+parseFloat(v).toFixed(0);
+  const chg = (cur, prev, isMoney=false) => {
+    if(!cur||!prev||prev===0) return '<span class="neutral">—</span>';
+    const pct = ((cur-prev)/prev*100).toFixed(1);
+    const cls = pct>0?'up':'down';
+    return `<span class="${cls}">${pct>0?'↑':'↓'} ${Math.abs(pct)}%</span>`;
+  };
+  const mrr = get('mrr')?.metric_value; const mrrY = get('mrr',yday)?.metric_value;
+  const arr = mrr ? mrr*12 : null;
+  const cust = get('active_customers')?.metric_value;
+  const churnRisk = get('churn_risk_count')?.metric_value;
+  const rev = get('daily_revenue')?.metric_value; const revY = get('daily_revenue',yday)?.metric_value;
+  const health = get('avg_health_score')?.metric_value;
+  document.getElementById('k-mrr').textContent = mrr!=null?'$'+parseFloat(mrr).toFixed(0):'$0';
+  document.getElementById('k-arr').textContent = arr!=null?'$'+parseFloat(arr).toFixed(0):'$0';
+  document.getElementById('k-cust').textContent = cust||'0';
+  document.getElementById('k-churn').textContent = churnRisk||'0';
+  document.getElementById('k-rev').textContent = rev!=null?'$'+parseFloat(rev).toFixed(2):'$0';
+  document.getElementById('k-health').textContent = health?parseFloat(health).toFixed(0):'—';
+  document.getElementById('k-mrr-ch').innerHTML = chg(mrr,mrrY,true);
+  document.getElementById('k-rev-ch').innerHTML = chg(rev,revY,true);
+}
+
+async function loadFunnel() {
+  const today = new Date().toISOString().slice(0,10);
+  const steps = await supa('funnel_steps',`?funnel_name=eq.main_conversion&date=eq.${today}&order=step_order.asc`);
+  const el = document.getElementById('funnel-chart');
+  if(!steps.length){el.innerHTML='<div class="loading">No funnel data yet</div>';return;}
+  const maxEntry = Math.max(...steps.map(s=>s.sessions_entered||0), 1);
+  el.innerHTML = steps.map(s=>{
+    const pct = maxEntry>0?Math.round((s.sessions_entered||0)/maxEntry*100):0;
+    const rate = s.sessions_entered>0?Math.round((s.sessions_completed||0)/s.sessions_entered*100):0;
+    return `<div class="funnel-bar">
+      <div class="funnel-label">
+        <span>${s.step_name}</span>
+        <span style="color:var(--muted)">${s.sessions_entered||0} <span class="funnel-rate">${rate}%</span></span>
+      </div>
+      <div class="funnel-track"><div class="funnel-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+async function loadForecast() {
+  const forecasts = await supa('revenue_forecast','?order=created_at.desc&limit=1');
+  if(forecasts.length) {
+    const f = forecasts[0];
+    document.getElementById('mrr-forecast').textContent = '$'+(parseFloat(f.mrr_forecast||0)).toFixed(0);
+    document.getElementById('arr-forecast').textContent = '$'+(parseFloat(f.arr_forecast||0)).toFixed(0);
+    document.getElementById('forecast-conf').textContent = `${Math.round((f.confidence||0)*100)}% confidence`;
+  }
+}
+
+async function loadAlerts() {
+  const alerts = await supa('bi_alerts','?active=eq.true&order=last_triggered.desc.nullslast&limit=6');
+  const el = document.getElementById('alerts-list');
+  el.innerHTML = alerts.map(a=>`
+    <div class="alert-row">
+      <div class="alert-dot a-${a.severity}"></div>
+      <div style="flex:1">
+        <div style="font-size:.8rem;font-weight:500">${a.alert_name}</div>
+        <div style="font-size:.7rem;color:var(--muted)">${a.metric_name} ${a.condition} ${a.threshold}</div>
+      </div>
+      <div style="font-size:.7rem;color:var(--muted)">${a.last_triggered?a.last_triggered.slice(0,10):'never'}</div>
+    </div>`).join('') || '<div class="loading">No alerts configured</div>';
+}
+
+async function loadC360() {
+  allC360 = await supa('customer_360','?order=health_score.asc&limit=50');
+  renderC360(allC360);
+}
+
+function healthColor(score) {
+  if(score>=70) return 'var(--green)';
+  if(score>=40) return 'var(--yellow)';
+  return 'var(--red)';
+}
+
+function renderC360(data) {
+  const tbody = document.getElementById('c360-tbody');
+  if(!data.length){tbody.innerHTML='<tr><td colspan="10" class="loading">No Customer 360 data yet. Trigger BI agent to build profiles.</td></tr>';return;}
+  tbody.innerHTML = data.map(c=>`
+    <tr>
+      <td><strong>${c.name||'—'}</strong><br><span style="color:var(--muted);font-size:.7rem">${c.email||''}</span></td>
+      <td>${c.company||'—'}</td>
+      <td><span class="stage s-${c.funnel_stage}">${c.funnel_stage}</span></td>
+      <td>${c.plan||'none'}</td>
+      <td>$${parseFloat(c.lifetime_value||0).toFixed(0)}</td>
+      <td>${c.mrr>0?'$'+parseFloat(c.mrr).toFixed(0)+'/mo':'—'}</td>
+      <td>
+        <div class="health-bar"><div class="health-fill" style="width:${c.health_score||0}%;background:${healthColor(c.health_score||0)}"></div></div>
+        <span style="font-size:.7rem;margin-left:.35rem">${c.health_score||0}</span>
+      </td>
+      <td><span class="risk r-${c.churn_risk}">${c.churn_risk}</span></td>
+      <td style="font-size:.75rem;color:var(--muted)">${c.last_active_at?c.last_active_at.slice(0,10):'never'}</td>
+      <td>${c.total_tickets||0} ${c.open_tickets>0?'<span style="color:var(--red);font-size:.7rem">('+c.open_tickets+' open)</span>':''}</td>
+    </tr>`).join('');
+}
+
+function filterC360() {
+  const stage = document.getElementById('stage-filter').value;
+  const risk  = document.getElementById('risk-filter').value;
+  let data = allC360;
+  if(stage !== 'all') data = data.filter(c=>c.funnel_stage===stage);
+  if(risk  !== 'all') data = data.filter(c=>c.churn_risk===risk);
+  renderC360(data);
+}
+
+async function loadCohorts() {
+  const cohorts = await supa('cohorts','?order=cohort_date.desc&limit=6');
+  const el = document.getElementById('cohorts-list');
+  if(!cohorts.length){el.innerHTML='<div class="loading">No cohorts yet</div>';return;}
+  el.innerHTML = cohorts.map(c=>`
+    <div style="padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.8rem">
+      <div style="font-weight:600;margin-bottom:.2rem">${c.cohort_name}</div>
+      <div style="color:var(--muted)">${c.contact_count} contacts · $${parseFloat(c.revenue_total||0).toFixed(0)} revenue</div>
+      ${c.retention_d30?`<div style="color:var(--green);font-size:.7rem">D30 retention: ${c.retention_d30}%</div>`:''}
+    </div>`).join('');
+}
+
+async function loadKPITrends() {
+  const week = new Date(Date.now()-7*86400000).toISOString().slice(0,10);
+  const hist = await supa('kpi_snapshots',`?metric_name=in.(mrr,daily_revenue,active_customers)&date=gte.${week}&order=date.asc`);
+  const el = document.getElementById('kpi-trends');
+  const metrics = ['mrr','daily_revenue','active_customers'];
+  const colors = {'mrr':'var(--green)','daily_revenue':'var(--accent2)','active_customers':'var(--accent)'};
+  el.innerHTML = metrics.map(m=>{
+    const vals = hist.filter(h=>h.metric_name===m).map(h=>parseFloat(h.metric_value||0));
+    const max = Math.max(...vals, 1);
+    const label = m.replace('_',' ').replace(/\b\w/g,l=>l.toUpperCase());
+    const last = vals[vals.length-1];
+    return `<div style="margin-bottom:1rem">
+      <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.3rem">
+        <span style="color:var(--muted)">${label}</span>
+        <span style="font-weight:600">${m.includes('revenue')||m==='mrr'?'$'+last.toFixed(0):last}</span>
+      </div>
+      <div class="spark">${vals.map(v=>`<div class="spark-bar" style="height:${Math.max(Math.round(v/max*36),4)}px;background:${colors[m]}"></div>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+async function loadPipeline() {
+  const stages = await supa('customer_360','?select=funnel_stage');
+  const counts = {};
+  stages.forEach(s=>{ counts[s.funnel_stage]=(counts[s.funnel_stage]||0)+1; });
+  const total = stages.length || 1;
+  const el = document.getElementById('pipeline-chart');
+  const order = ['lead','prospect','customer','churned'];
+  const colors = {'lead':'var(--muted)','prospect':'var(--accent)','customer':'var(--green)','churned':'var(--red)'};
+  el.innerHTML = order.map(stage=>{
+    const cnt = counts[stage]||0;
+    const pct = Math.round(cnt/total*100);
+    return `<div style="margin-bottom:.75rem">
+      <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem">
+        <span style="text-transform:capitalize">${stage}</span>
+        <span style="color:${colors[stage]};font-weight:600">${cnt} (${pct}%)</span>
+      </div>
+      <div style="background:var(--border);border-radius:99px;height:8px;overflow:hidden">
+        <div style="width:${pct}%;height:100%;background:${colors[stage]};border-radius:99px;transition:width .4s"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function loadAll() {
+  await Promise.all([
+    loadKPIs(), loadFunnel(), loadForecast(),
+    loadAlerts(), loadC360(), loadCohorts(),
+    loadKPITrends(), loadPipeline()
+  ]);
+}
+
+loadAll();
+setInterval(loadAll, 60000);
+
+// Track this page view
+const sid = localStorage.getItem('nysr_session') || Math.random().toString(36).slice(2);
+localStorage.setItem('nysr_session', sid);
+fetch('https://sazuogglxukumnvhvkms.supabase.co/functions/v1/track-event', {
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({event_name:'page_view',session_id:sid,page_path:'/bi/'})
+}).catch(()=>{});
+</script>
+</body>
+</html>

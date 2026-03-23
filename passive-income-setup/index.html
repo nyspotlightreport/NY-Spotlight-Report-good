@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DO Console Setup — NYSR</title>
+<style>
+  body{font-family:-apple-system,sans-serif;max-width:680px;margin:60px auto;padding:20px;color:#111;}
+  h1{color:#0D1B2A;border-bottom:3px solid #C9A84C;padding-bottom:12px;}
+  .step{background:#f8f8f6;border-radius:10px;padding:20px 24px;margin:16px 0;border-left:4px solid #C9A84C;}
+  .step h3{margin:0 0 8px;color:#0D1B2A;}
+  code{background:#e8e8e4;padding:4px 8px;border-radius:4px;font-size:13px;word-break:break-all;display:block;margin:8px 0;white-space:pre-wrap;}
+  .btn{display:inline-block;background:#0080FF;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;}
+</style>
+</head>
+<body>
+<h1>Passive Income VPS — 2-Minute Setup</h1>
+<p>Your droplet (204.48.29.16) is live. Run this script via the DigitalOcean console.</p>
+
+<div class="step">
+  <h3>Step 1 — Open Console</h3>
+  <p>Go to your <a href="https://cloud.digitalocean.com/droplets" target="_blank">DigitalOcean droplets</a>, click your droplet, then click <strong>Console</strong> in the top right.</p>
+</div>
+
+<div class="step">
+  <h3>Step 2 — Run Setup (paste this one command)</h3>
+  <code>curl -sL https://nyspotlightreport.com/passive-income/setup.sh | bash</code>
+  <p>Or paste the full script from: <a href="https://raw.githubusercontent.com/nyspotlightreport/sct-agency-bots/main/passive-income/setup.sh">GitHub</a></p>
+</div>
+
+<div class="step">
+  <h3>Step 3 — That's it</h3>
+  <p>Docker installs automatically. All 5 passive income apps start. Auto-restart on reboot enabled. Expected earnings: $15-45/month, 24/7.</p>
+</div>
+</body>
+</html>

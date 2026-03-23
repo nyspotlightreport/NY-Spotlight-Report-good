@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NYSR BD Command — Business Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#030810;--surface:#060D1A;--card:#0A1525;
+  --border:rgba(255,255,255,.05);--border-b:rgba(255,255,255,.1);
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,.08);
+  --green:#22D3A0;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;
+  --text:#E2E8F0;--muted:#475569;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* Golden grid lines */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(201,168,76,.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,.02) 1px,transparent 1px);
+  background-size:60px 60px;}
+
+.wrap{max-width:1400px;margin:0 auto;padding:28px 24px;position:relative;z-index:1;}
+
+/* Header */
+.hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px;}
+.hdr-left{display:flex;gap:14px;align-items:flex-start;}
+.hdr-logo{width:44px;height:44px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:900;font-size:13px;color:#030810;flex-shrink:0;}
+.hdr-title h1{font-family:'Syne',sans-serif;font-size:20px;font-weight:900;letter-spacing:-.5px;}
+.hdr-title p{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:3px;letter-spacing:.05em;}
+.hdr-right{display:flex;gap:8px;flex-wrap:wrap;}
+.hdr-btn{padding:8px 16px;border-radius:8px;font-size:11px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-gold{background:var(--gold);color:#030810;}
+.btn-outline{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,.3);}
+.btn-gold:hover,.btn-outline:hover{transform:translateY(-1px);}
+
+/* Revenue strip */
+.rev-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:24px;}
+.rev-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;}
+.rc-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:900;line-height:1;margin-bottom:4px;}
+.rc-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.rc-delta{font-size:10px;margin-top:4px;font-family:'DM Mono',monospace;}
+.up{color:var(--green);}
+.warn{color:var(--amber);}
+.zero{color:var(--red);}
+
+/* Main grid */
+.main-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:20px;}
+@media(max-width:900px){.main-grid{grid-template-columns:1fr;}}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.card-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;}
+.card-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;font-family:'DM Mono',monospace;}
+.badge-live{background:rgba(34,211,160,.08);color:var(--green);}
+.badge-gold{background:var(--gold-dim);color:var(--gold);}
+.badge-red{background:rgba(239,68,68,.08);color:var(--red);}
+
+/* Opportunity rows */
+.opp-list{display:flex;flex-direction:column;gap:8px;}
+.opp-row{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;transition:border .15s;cursor:default;}
+.opp-row:hover{border-color:rgba(201,168,76,.25);}
+.opp-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.opp-score{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;}
+.score-10,.score-9{background:rgba(34,211,160,.12);color:var(--green);}
+.score-8,.score-7{background:rgba(201,168,76,.12);color:var(--gold);}
+.score-6,.score-5{background:rgba(59,130,246,.1);color:var(--blue);}
+.opp-content{flex:1;}
+.opp-title{font-size:12px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px;}
+.opp-meta{font-size:10px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;}
+.opp-action{font-size:11px;color:var(--gold);font-weight:600;margin-top:6px;padding:4px 0;border-top:1px solid var(--border);}
+
+/* Priority actions */
+.action-list{display:flex;flex-direction:column;gap:8px;}
+.action-row{display:flex;gap:12px;padding:10px 12px;background:var(--surface);border-radius:8px;border:1px solid var(--border);}
+.action-num{font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--gold);width:24px;flex-shrink:0;text-align:center;}
+.action-body{flex:1;}
+.action-text{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.action-why{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:4px;}
+.action-impact{font-size:11px;color:var(--green);font-weight:600;}
+.action-deadline{font-size:10px;color:var(--amber);font-family:'DM Mono',monospace;margin-top:4px;}
+
+/* Revenue streams */
+.streams{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.stream{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;}
+.stream-icon{font-size:20px;margin-bottom:8px;}
+.stream-name{font-size:12px;font-weight:700;font-family:'Syne',sans-serif;margin-bottom:4px;}
+.stream-rev{font-size:20px;font-weight:800;color:var(--gold);font-family:'Syne',sans-serif;line-height:1;margin-bottom:4px;}
+.stream-status{font-size:10px;font-family:'DM Mono',monospace;font-weight:700;}
+.st-live{color:var(--green);}
+.st-building{color:var(--amber);}
+.st-inactive{color:var(--muted);}
+.st-launch{color:var(--blue);}
+
+/* Intelligence ticker */
+.ticker-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:20px;overflow:hidden;white-space:nowrap;}
+.ticker-label{font-size:10px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:.06em;margin-right:16px;}
+.ticker-inner{display:inline-flex;gap:32px;animation:ticker 25s linear infinite;}
+.ticker-item{font-size:11px;color:var(--muted);}
+.ticker-item strong{color:var(--text);}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* White label section */
+.white-label{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:20px;margin-bottom:20px;}
+.wl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;}
+.wl-tier{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.wl-tier.featured{border-color:rgba(201,168,76,.4);}
+.wl-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:6px;}
+.wl-price{font-size:22px;font-weight:800;color:var(--gold);font-family:'Syne',sans-serif;line-height:1;margin-bottom:8px;}
+.wl-includes{font-size:11px;color:var(--muted);line-height:1.7;}
+
+/* ROI table */
+.roi-table{width:100%;border-collapse:collapse;}
+.roi-table th{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.roi-table td{padding:8px 12px;font-size:12px;color:var(--muted);border-bottom:1px solid rgba(30,48,80,.4);}
+.roi-table tr:last-child td{border:none;}
+.roi-table td:first-child{color:var(--text);font-weight:600;}
+
+/* Bottom nav */
+.bottom-nav{display:flex;gap:10px;flex-wrap:wrap;}
+.nav-btn{padding:9px 20px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;border:1px solid var(--border);color:var(--muted);transition:all .2s;display:inline-block;}
+.nav-btn:hover{border-color:var(--gold);color:var(--gold);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="hdr-logo">BD</div>
+      <div class="hdr-title">
+        <h1>Business Development Command</h1>
+        <p>MARKET INTELLIGENCE · REVENUE OPTIMIZATION · STRATEGIC PLANNING · OPPORTUNITY SCOUTING</p>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <button class="hdr-btn btn-gold" onclick="alert('Go to GitHub Actions → Market Intelligence Scout → Run workflow')">⚡ Run Market Scan</button>
+      <button class="hdr-btn btn-outline" onclick="alert('Go to GitHub Actions → Strategic ROI Optimizer → Run workflow')">📊 ROI Audit</button>
+      <button class="hdr-btn btn-outline" onclick="window.location='/intelligence/'">← Intel Center</button>
+    </div>
+  </div>
+
+  <!-- INTELLIGENCE TICKER -->
+  <div class="ticker-wrap">
+    <span class="ticker-label">BD INTEL</span>
+    <span class="ticker-inner">
+      <span class="ticker-item"><strong>ProFlow AI</strong> — 7 Stripe payment links live · $0 revenue · Traffic needed</span>
+      <span class="ticker-item">🎯 <strong>First-mover window:</strong> AI content SaaS — market still unsaturated</span>
+      <span class="ticker-item">💰 <strong>Highest ROI now:</strong> Reddit posts + cold email + first close</span>
+      <span class="ticker-item">📈 <strong>White label opportunity:</strong> $2,500-10k setup + $500/mo recurring</span>
+      <span class="ticker-item">⚡ <strong>Newsletter monetizes at 1,000 subs</strong> — $500-1,000/mo from Beehiiv ads</span>
+      <span class="ticker-item">🤖 <strong>101 bots built</strong> — most powerful autonomous content stack in our niche</span>
+      <span class="ticker-item"><strong>ProFlow AI</strong> — 7 Stripe payment links live · $0 revenue · Traffic needed</span>
+      <span class="ticker-item">🎯 <strong>First-mover window:</strong> AI content SaaS — market still unsaturated</span>
+      <span class="ticker-item">💰 <strong>Highest ROI now:</strong> Reddit posts + cold email + first close</span>
+      <span class="ticker-item">📈 <strong>White label opportunity:</strong> $2,500-10k setup + $500/mo recurring</span>
+      <span class="ticker-item">⚡ <strong>Newsletter monetizes at 1,000 subs</strong> — $500-1,000/mo from Beehiiv ads</span>
+      <span class="ticker-item">🤖 <strong>101 bots built</strong> — most powerful autonomous content stack in our niche</span>
+    </span>
+  </div>
+
+  <!-- REVENUE STRIP -->
+  <div class="rev-strip">
+    <div class="rev-card"><div class="rc-val zero" id="stripe-rev">$0</div><div class="rc-label">Stripe Revenue</div><div class="rc-delta zero">No sales yet</div></div>
+    <div class="rev-card"><div class="rc-val zero" id="gumroad-rev">$0</div><div class="rc-label">Gumroad Revenue</div><div class="rc-delta zero">0 views → 0 sales</div></div>
+    <div class="rev-card"><div class="rc-val" style="color:var(--amber)" id="mrr">$0</div><div class="rc-label">MRR</div><div class="rc-delta warn">⚡ First sale needed</div></div>
+    <div class="rev-card"><div class="rc-val" style="color:var(--gold)">101</div><div class="rc-label">Active Bots</div><div class="rc-delta up">↑ Infrastructure complete</div></div>
+    <div class="rev-card"><div class="rc-val" style="color:var(--green)">$0.50</div><div class="rc-label">Passive/day (VPS)</div><div class="rc-delta up">↑ Running 24/7</div></div>
+    <div class="rev-card"><div class="rc-val" style="color:var(--gold)">$50k+</div><div class="rc-label">Potential MRR</div><div class="rc-delta up">With 50 clients</div></div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT: OPPORTUNITIES -->
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-title">Today's Opportunities</div>
+        <span class="card-badge badge-gold">MARKET SCOUT LIVE</span>
+      </div>
+      <div class="opp-list">
+        <div class="opp-row">
+          <div class="opp-top">
+            <div class="opp-score score-10">10</div>
+            <div class="opp-content">
+              <div class="opp-title">White-Label Bot System — Sell to Agencies</div>
+              <div class="opp-meta"><span>Type: Product</span><span>Timeline: 30 days</span><span>Source: Internal</span></div>
+            </div>
+          </div>
+          <div class="opp-action">→ Create landing page + pitch deck. One agency client = $2,500-10,000 setup fee. 5 agencies = $12,500-50,000. Stack already built.</div>
+        </div>
+        <div class="opp-row">
+          <div class="opp-top">
+            <div class="opp-score score-9">9</div>
+            <div class="opp-content">
+              <div class="opp-title">DFY Bot Setup Service — $1,500-5,000 one-time</div>
+              <div class="opp-meta"><span>Type: Service</span><span>Effort: Low</span><span>Timeline: Now</span></div>
+            </div>
+          </div>
+          <div class="opp-action">→ Replicate our stack for clients. Already documented. Add service page to website. Can sell TODAY.</div>
+        </div>
+        <div class="opp-row">
+          <div class="opp-top">
+            <div class="opp-score score-9">9</div>
+            <div class="opp-content">
+              <div class="opp-title">Product Hunt Launch — ProFlow AI</div>
+              <div class="opp-meta"><span>Type: Traffic</span><span>Timeline: This week</span><span>Reach: 5k-50k</span></div>
+            </div>
+          </div>
+          <div class="opp-action">→ Full launch assets ready in data/producthunt_launch.json. Submit Tuesday-Thursday for max exposure. One launch day = 5,000+ targeted visitors.</div>
+        </div>
+        <div class="opp-row">
+          <div class="opp-top">
+            <div class="opp-score score-8">8</div>
+            <div class="opp-content">
+              <div class="opp-title">Hacker News "Show HN" Post</div>
+              <div class="opp-meta"><span>Type: Traffic/Credibility</span><span>Timeline: Today</span><span>Risk: Low</span></div>
+            </div>
+          </div>
+          <div class="opp-action">→ "Show HN: I built 63 bots to run my entire business" — this story hits HN perfectly. Front page = 10,000-50,000 dev/founder visitors. Post text ready in data/viral_launch_assets.json</div>
+        </div>
+        <div class="opp-row">
+          <div class="opp-top">
+            <div class="opp-score score-8">8</div>
+            <div class="opp-content">
+              <div class="opp-title">Beehiiv Referral Program — Viral newsletter growth</div>
+              <div class="opp-meta"><span>Type: Growth</span><span>Effort: Low</span><span>Unlock: 1k subs</span></div>
+            </div>
+          </div>
+          <div class="opp-action">→ Enable referral rewards. At 1k subs, Beehiiv ad network activates: $500-1,000/month passive. Newsletter already running — just needs subscriber growth push.</div>
+        </div>
+        <div class="opp-row">
+          <div class="opp-top">
+            <div class="opp-score score-7">7</div>
+            <div class="opp-content">
+              <div class="opp-title">Newsletter Sponsorship Pipeline — B2B SaaS sponsors</div>
+              <div class="opp-meta"><span>Type: Revenue</span><span>Timeline: 60-90 days</span><span>At: 5k subs</span></div>
+            </div>
+          </div>
+          <div class="opp-action">→ At 5,000 subscribers: direct sponsorships $300-1,000 per issue. Start building sponsor waitlist page now so sponsors see it from day 1.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: PRIORITY ACTIONS + REVENUE STREAMS -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- PRIORITY ACTIONS -->
+      <div class="card">
+        <div class="card-hdr">
+          <div class="card-title">Priority Action List</div>
+          <span class="card-badge badge-live">RANKED BY ROI</span>
+        </div>
+        <div class="action-list">
+          <div class="action-row">
+            <div class="action-num">1</div>
+            <div class="action-body">
+              <div class="action-text">Post "Show HN" on HackerNews TODAY</div>
+              <div class="action-why">Full post written. data/viral_launch_assets.json. Dev/founder audience = ProFlow buyers.</div>
+              <div class="action-impact">$1,000-5,000 launch week revenue potential</div>
+              <div class="action-deadline">⏰ Today — morning for US traffic peak</div>
+            </div>
+          </div>
+          <div class="action-row">
+            <div class="action-num">2</div>
+            <div class="action-body">
+              <div class="action-text">Reddit: Post "I built 63 bots..." in r/passive_income</div>
+              <div class="action-why">1.2M member community. Our story is exactly what they want. Posts ready in data/reddit_posts_pending.json.</div>
+              <div class="action-impact">200-2,000 targeted visitors → free plan signups</div>
+              <div class="action-deadline">⏰ Today</div>
+            </div>
+          </div>
+          <div class="action-row">
+            <div class="action-num">3</div>
+            <div class="action-body">
+              <div class="action-text">Add "DFY Bot Setup" service — $1,500-5,000</div>
+              <div class="action-why">We replicate our stack for a client. It's already documented. Zero new work needed.</div>
+              <div class="action-impact">First client = $1,500-5,000 immediate + $300/mo retainer</div>
+              <div class="action-deadline">⏰ This week</div>
+            </div>
+          </div>
+          <div class="action-row">
+            <div class="action-num">4</div>
+            <div class="action-body">
+              <div class="action-text">Complete LinkedIn token → post daily for 14 days</div>
+              <div class="action-why">Our story + LinkedIn B2B audience = DFY agency leads. One sale at $997 = worth 30 days of posts.</div>
+              <div class="action-impact">1 DFY client likely in 14 days = $997/month MRR</div>
+              <div class="action-deadline">⏰ Today (5-min setup)</div>
+            </div>
+          </div>
+          <div class="action-row">
+            <div class="action-num">5</div>
+            <div class="action-body">
+              <div class="action-text">Submit ProFlow AI to Product Hunt</div>
+              <div class="action-why">Full launch assets ready. Best ROI marketing event possible. Free to submit.</div>
+              <div class="action-impact">Launch day: 500-5,000 targeted visitors</div>
+              <div class="action-deadline">⏰ Tuesday-Thursday next week</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- REVENUE STREAMS -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-hdr">
+      <div class="card-title">Revenue Stream Portfolio</div>
+      <span class="card-badge badge-red">$0 ACTIVE · BUILD MODE</span>
+    </div>
+    <div class="streams">
+      <div class="stream"><div class="stream-icon">🤖</div><div class="stream-name">ProFlow AI SaaS</div><div class="stream-rev">$0</div><div class="stream-status st-launch">⚡ TRAFFIC NEEDED</div></div>
+      <div class="stream"><div class="stream-icon">⚡</div><div class="stream-name">DFY Agency</div><div class="stream-rev">$0</div><div class="stream-status st-launch">⚡ LAUNCH READY</div></div>
+      <div class="stream"><div class="stream-icon">🎯</div><div class="stream-name">Lead Gen SaaS</div><div class="stream-rev">$0</div><div class="stream-status st-building">● BUILDING</div></div>
+      <div class="stream"><div class="stream-icon">💎</div><div class="stream-name">Gumroad Store</div><div class="stream-rev">$0</div><div class="stream-status st-building">● 10 products · 0 views</div></div>
+      <div class="stream"><div class="stream-icon">📧</div><div class="stream-name">Newsletter Ads</div><div class="stream-rev">$0</div><div class="stream-status st-building">● Unlocks at 1k subs</div></div>
+      <div class="stream"><div class="stream-icon">🔗</div><div class="stream-name">Affiliates</div><div class="stream-rev">$0</div><div class="stream-status st-building">● Links injected</div></div>
+      <div class="stream"><div class="stream-icon">🖥️</div><div class="stream-name">VPS Bandwidth</div><div class="stream-rev">~$15</div><div class="stream-status st-live">✓ RUNNING</div></div>
+      <div class="stream"><div class="stream-icon">🏷️</div><div class="stream-name">White Label</div><div class="stream-rev">$0</div><div class="stream-status st-launch">⚡ BUILD PAGE</div></div>
+      <div class="stream"><div class="stream-icon">🛠️</div><div class="stream-name">Bot Setup Service</div><div class="stream-rev">$0</div><div class="stream-status st-launch">⚡ SELL TODAY</div></div>
+    </div>
+  </div>
+
+  <!-- WHITE LABEL OFFERING -->
+  <div class="white-label">
+    <div class="card-hdr">
+      <div class="card-title" style="color:var(--gold)">💼 White Label Opportunity — Highest Revenue Potential</div>
+      <span class="card-badge badge-gold">UNTAPPED</span>
+    </div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:4px;">Agencies, consultants, and SaaS founders would pay $2,500-10,000 to have our entire bot stack deployed for their clients. We've built it once — we just replicate it. Same setup, different domain.</p>
+    <div class="wl-grid">
+      <div class="wl-tier">
+        <div class="wl-name">Bot Starter</div>
+        <div class="wl-price">$1,500</div>
+        <div class="wl-includes">20 bots setup<br>Blog + newsletter<br>Social posting<br>1-month support</div>
+      </div>
+      <div class="wl-tier featured">
+        <div class="wl-name">Full Stack</div>
+        <div class="wl-price">$5,000</div>
+        <div class="wl-includes">All 100 bots<br>Full agent system<br>Custom domain + branding<br>3-month support<br>+ $500/mo retainer</div>
+      </div>
+      <div class="wl-tier">
+        <div class="wl-name">Agency License</div>
+        <div class="wl-price">$10,000+</div>
+        <div class="wl-includes">Resell to clients<br>White-label rights<br>Unlimited deploys<br>Priority support<br>Revenue sharing</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRATEGY TABLE -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-hdr">
+      <div class="card-title">Competitive Intelligence — Revenue Benchmarks</div>
+    </div>
+    <table class="roi-table">
+      <thead><tr><th>Channel</th><th>Industry Avg Revenue</th><th>Our Status</th><th>Gap</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>SaaS ($97/mo avg)</td><td>$5,000-50,000/mo</td><td style="color:var(--red)">$0</td><td>Traffic + first close</td><td>Cold email + PH launch</td></tr>
+        <tr><td>Newsletter (10k subs)</td><td>$2,000-8,000/mo</td><td style="color:var(--amber)">Building</td><td>~9,800 subscribers</td><td>Referral program + partnerships</td></tr>
+        <tr><td>DFY Agency ($997/mo)</td><td>$10,000-80,000/mo</td><td style="color:var(--red)">$0</td><td>Sales + fulfillment</td><td>LinkedIn + cold email</td></tr>
+        <tr><td>Digital products</td><td>$500-5,000/mo</td><td style="color:var(--amber)">10 products, 0 sales</td><td>Traffic</td><td>SEO + Reddit + social</td></tr>
+        <tr><td>Affiliate income</td><td>$1,000-10,000/mo</td><td style="color:var(--amber)">Links inserted</td><td>Blog traffic</td><td>SEO compound from posts</td></tr>
+        <tr><td>VPS passive</td><td>$40-150/mo</td><td style="color:var(--green)">$15/mo ✓</td><td>Add more nodes</td><td>Upgrade VPS or add devices</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <a href="/studio/" class="nav-btn">Social Studio</a>
+    <a href="/fixer/" class="nav-btn">Fixer PR</a>
+    <a href="/intelligence/" class="nav-btn">Intelligence</a>
+    <a href="/proflow/" class="nav-btn">ProFlow AI</a>
+    <a href="/agency/" class="nav-btn">Agency</a>
+    <a href="/activate/" class="nav-btn">Tier 1 Activation</a>
+  </div>
+
+</div>
+</body>
+</html>

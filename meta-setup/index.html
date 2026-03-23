@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Meta App Setup — NYSR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui;background:#0A0F1A;color:#E2E8F0;padding:32px;max-width:700px;margin:0 auto;}
+h1{font-size:24px;font-weight:800;margin-bottom:8px;color:#1877F2;}
+p{font-size:14px;color:#64748B;line-height:1.6;margin-bottom:20px;}
+.step{background:#0D1B2A;border:1px solid #1a2d42;border-radius:12px;padding:20px;margin-bottom:14px;}
+.step-title{font-weight:700;font-size:15px;margin-bottom:10px;}
+.step-body{font-size:13px;color:#94A3B8;line-height:1.7;}
+code{background:#111827;padding:3px 8px;border-radius:4px;font-family:monospace;color:#C9A84C;}
+.btn{display:inline-block;background:#1877F2;color:white;padding:12px 28px;
+  border-radius:10px;text-decoration:none;font-size:14px;font-weight:700;margin-top:10px;transition:all .2s;}
+.btn:hover{background:#1565C0;}
+input{background:#111827;border:1px solid #1a2d42;border-radius:8px;padding:10px 14px;
+  color:#E2E8F0;font-size:13px;width:100%;outline:none;font-family:system-ui;margin-top:6px;}
+input:focus{border-color:#C9A84C;}
+label{font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.06em;}
+.save-btn{background:#C9A84C;color:#0A0F1A;border:none;padding:12px 32px;border-radius:10px;
+  font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-top:8px;}
+</style>
+</head>
+<body>
+<h1>📘 Meta / Facebook App Setup</h1>
+<p>The Meta app is already created (S.C. Thomas). We need to get the App ID, App Secret, and Page Token.</p>
+
+<div class="step">
+  <div class="step-title">Step 1 — Get App ID and Secret</div>
+  <div class="step-body">
+    Go to your Meta for Developers app:<br><br>
+    <a href="https://developers.facebook.com/apps/" target="_blank" class="btn">Open My Meta Apps →</a><br><br>
+    Click your app → <strong>Settings → Basic</strong><br>
+    Copy the <strong>App ID</strong> and <strong>App Secret</strong>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-title">Step 2 — Get Page Access Token</div>
+  <div class="step-body">
+    In your Meta app → <strong>Tools → Graph API Explorer</strong><br>
+    Select your Page from the dropdown → Generate Token<br><br>
+    Permissions needed: <code>pages_manage_posts</code>, <code>pages_read_engagement</code>, <code>publish_to_groups</code>, <code>instagram_basic</code>, <code>instagram_content_publish</code><br><br>
+    <a href="https://developers.facebook.com/tools/explorer/" target="_blank" class="btn">Open Graph API Explorer →</a>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-title">Step 3 — Save Credentials</div>
+  <div class="step-body">
+    <label>Facebook App ID</label>
+    <input type="text" id="fbAppId" placeholder="123456789012345">
+    <label style="margin-top:12px;display:block;">Facebook App Secret</label>
+    <input type="text" id="fbAppSecret" placeholder="abc123...">
+    <label style="margin-top:12px;display:block;">Facebook Page Token</label>
+    <input type="text" id="fbPageToken" placeholder="EAABz...">
+    <label style="margin-top:12px;display:block;">Instagram Account ID (optional)</label>
+    <input type="text" id="igAccountId" placeholder="17841400...">
+    <button class="save-btn" onclick="saveMeta()">💾 Save Meta Credentials</button>
+  </div>
+</div>
+
+<script>
+async function saveMeta() {
+  const appId    = document.getElementById('fbAppId').value.trim();
+  const secret   = document.getElementById('fbAppSecret').value.trim();
+  const token    = document.getElementById('fbPageToken').value.trim();
+  const igId     = document.getElementById('igAccountId').value.trim();
+  
+  if (!appId) { alert('Please enter at least the App ID'); return; }
+  
+  const secrets = {};
+  if (appId)  secrets.FACEBOOK_APP_ID     = appId;
+  if (secret) secrets.FACEBOOK_APP_SECRET = secret;
+  if (token)  secrets.INSTAGRAM_PAGE_TOKEN = token;
+  if (token)  secrets.FB_PAGE_TOKEN        = token;
+  if (igId)   secrets.INSTAGRAM_ACCOUNT_ID = igId;
+  
+  try {
+    const res = await fetch('/api/save-secret', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ secrets })
+    });
+    if (res.ok) {
+      alert('✅ Credentials saved to GitHub Secrets!');
+    } else {
+      window.open('https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions');
+    }
+  } catch(e) {
+    window.open('https://github.com/nyspotlightreport/sct-agency-bots/settings/secrets/actions');
+  }
+}
+</script>
+</body>
+</html>

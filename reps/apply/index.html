@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply — NYSR Commission Sales Rep</title>
+<meta name="description" content="Apply to become a 1099 commission sales rep for NY Spotlight Report.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#060a0f;color:#e2e8f0;padding:40px 20px}
+.page{max-width:600px;margin:0 auto}
+.badge{display:inline-block;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:#22c55e;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.08em;margin-bottom:16px}
+h1{font-size:28px;font-weight:700;color:#f8fafc;line-height:1.15;margin-bottom:10px}
+.sub{font-size:16px;color:#94a3b8;margin-bottom:28px}
+.comm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:32px}
+.comm-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px}
+.comm-offer{font-size:13px;font-weight:500;color:#f1f5f9;margin-bottom:4px}
+.comm-amount{font-size:18px;font-weight:700;color:#22c55e}
+.form-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px;margin-bottom:20px}
+h2{font-size:18px;font-weight:600;color:#f1f5f9;margin-bottom:20px}
+label{display:block;font-size:13px;color:#94a3b8;margin-bottom:6px;margin-top:14px}
+label:first-of-type{margin-top:0}
+input,select,textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:10px 12px;color:#e2e8f0;font-size:14px;outline:none}
+select option{background:#0f1117}
+.submit-btn{width:100%;background:#C9A84C;color:#060a0f;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;margin-top:20px}
+.success{display:none;text-align:center;padding:32px}
+.success h3{font-size:22px;color:#22c55e;margin-bottom:8px}
+.success p{font-size:14px;color:#94a3b8}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="badge">NOW RECRUITING</div>
+  <h1>Earn Recurring Commission Selling AI Automation</h1>
+  <p class="sub">Commission-only, 1099. You close. We deliver. $300–$1,500 per deal plus monthly recurring income.</p>
+
+  <div class="comm-grid">
+    <div class="comm-card"><div class="comm-offer">ProFlow AI ($97/mo)</div><div class="comm-amount">$40/mo recurring</div></div>
+    <div class="comm-card"><div class="comm-offer">ProFlow Growth ($297/mo)</div><div class="comm-amount">$100/mo recurring</div></div>
+    <div class="comm-card"><div class="comm-offer">DFY Setup ($1,497)</div><div class="comm-amount">$500 flat</div></div>
+    <div class="comm-card"><div class="comm-offer">DFY Agency ($997/mo)</div><div class="comm-amount">$300/mo recurring</div></div>
+    <div class="comm-card"><div class="comm-offer">Enterprise ($4,997)</div><div class="comm-amount">$1,500 flat</div></div>
+  </div>
+
+  <div class="form-card" id="formWrap">
+    <h2>Apply Now</h2>
+    <label>Full name *</label>
+    <input id="a_name" placeholder="Your full name"/>
+    <label>Email *</label>
+    <input id="a_email" type="email" placeholder="your@email.com"/>
+    <label>Phone</label>
+    <input id="a_phone" placeholder="+1 (555) 000-0000"/>
+    <label>LinkedIn profile URL</label>
+    <input id="a_li" placeholder="linkedin.com/in/yourname"/>
+    <label>How would you describe yourself?</label>
+    <select id="a_type">
+      <option value="">Select...</option>
+      <option value="freelance_closer">Freelance closer / sales pro</option>
+      <option value="agency_owner">Agency owner / consultant</option>
+      <option value="marketing_consultant">Marketing consultant</option>
+      <option value="va_obm">Virtual assistant / OBM</option>
+      <option value="other">Other</option>
+    </select>
+    <label>Describe your relevant experience</label>
+    <textarea id="a_exp" rows="3" placeholder="e.g. I have been a freelance closer for 3 years..."></textarea>
+    <label>Do you have existing clients or a network?</label>
+    <textarea id="a_clients" rows="2" placeholder="e.g. I work with 20 small business owners..."></textarea>
+    <label>How did you find this opportunity?</label>
+    <select id="a_source">
+      <option value="">Select...</option>
+      <option value="linkedin">LinkedIn post</option>
+      <option value="contra">Contra</option>
+      <option value="weworkremotely">We Work Remotely</option>
+      <option value="referral">Referral</option>
+      <option value="other">Other</option>
+    </select>
+    <button class="submit-btn" onclick="submitApp()">Submit Application →</button>
+  </div>
+
+  <div class="success" id="successMsg">
+    <h3>✅ Application received!</h3>
+    <p>We will review your application within 24-48 hours.<br>Questions? Email <a href="mailto:nyspotlightreport@gmail.com" style="color:#C9A84C">nyspotlightreport@gmail.com</a></p>
+  </div>
+</div>
+
+<script>
+// Form submission goes through server-side Netlify function — no DB creds in frontend
+async function submitApp() {
+  const name  = document.getElementById('a_name').value.trim();
+  const email = document.getElementById('a_email').value.trim();
+  if (!name || !email) { alert('Name and email required'); return; }
+
+  try {
+    const r = await fetch('/.netlify/functions/rep-apply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name, email,
+        phone:            document.getElementById('a_phone').value.trim() || null,
+        linkedin_url:     document.getElementById('a_li').value.trim() || null,
+        rep_type:         document.getElementById('a_type').value || null,
+        experience:       document.getElementById('a_exp').value.trim() || null,
+        existing_clients: document.getElementById('a_clients').value.trim() || null,
+        source:           document.getElementById('a_source').value || null
+      })
+    });
+    const data = await r.json();
+    if (data.success) {
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }
+  } catch(e) {
+    alert('Submission error. Please try again.');
+  }
+}
+</script>
+</body>
+</html>
