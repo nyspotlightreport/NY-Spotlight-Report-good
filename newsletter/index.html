@@ -3,271 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Spotlight Brief — Weekly AI &amp; Business Intelligence | NY Spotlight Report</title>
-<meta name="description" content="Subscribe to The Spotlight Brief, a weekly newsletter delivering AI tools, automation strategies, passive income opportunities, and business growth tactics.">
-<meta property="og:title" content="The Spotlight Brief — Weekly AI & Business Intelligence">
-<meta property="og:description" content="Weekly AI tools, automation strategies, and business growth tactics from NY Spotlight Report.">
-<link rel="canonical" href="https://nyspotlightreport.com/newsletter/">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>The Spotlight Brief — NYC Entertainment, Fashion & Nightlife Newsletter | NY Spotlight Report</title>
+<meta name="description" content="Free weekly newsletter covering NYC entertainment, fashion, culture, and nightlife. The insider stories you won't find anywhere else.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:wght@300;400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#faf9f6;--paper:#fff;--ink:#0f0f0f;--muted:#6b6b6b;--border:#e5e5e5;--accent:#c9a84c;--serif:'Instrument Serif',Georgia,serif;--sans:'Outfit',sans-serif}
-body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-
-.topbar{background:var(--ink);color:rgba(255,255,255,.55);font-size:11px;padding:8px 0;text-align:center;letter-spacing:.04em;line-height:1.6}
-.topbar strong{color:#fff;font-weight:600}
-.topbar .accent{color:var(--accent)}
-
-nav{background:var(--paper);border-bottom:1px solid var(--border);padding:0 clamp(16px,4vw,64px);position:sticky;top:0;z-index:100}
-.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{font-family:var(--serif);font-size:28px;font-weight:400;letter-spacing:-.02em}
-.logo span{color:var(--accent);font-style:italic}
-.nav-links a{font-size:13px;font-weight:500;color:var(--muted);margin-left:28px;transition:color .15s}
-.nav-links a:hover{color:var(--ink)}
-.nav-links a.active{color:var(--ink)}
-
-.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px)}
-
-/* HERO */
-.nl-hero{padding:64px 0 48px;text-align:center;border-bottom:1px solid var(--border)}
-.nl-hero .label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
-.nl-hero h1{font-family:var(--serif);font-size:clamp(32px,4.5vw,50px);font-weight:400;line-height:1.1;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto}
-.nl-hero h1 em{font-style:italic;color:var(--accent)}
-.nl-hero .deck{font-size:18px;color:var(--muted);max-width:560px;margin:0 auto 32px;line-height:1.65}
-
-/* SIGNUP FORM */
-.signup-box{background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:40px;max-width:520px;margin:0 auto}
-.signup-box form{display:flex;flex-direction:column;gap:12px}
-.signup-box input[type="email"]{width:100%;padding:14px 16px;border:1px solid var(--border);background:var(--bg);font-family:var(--sans);font-size:15px;border-radius:4px;transition:border-color .2s}
-.signup-box input[type="email"]:focus{outline:none;border-color:var(--accent)}
-.signup-box input[type="email"]::placeholder{color:#aaa}
-.signup-box button{width:100%;padding:14px;background:var(--ink);color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.03em;border:none;border-radius:4px;cursor:pointer;transition:background .2s}
-.signup-box button:hover{background:#333}
-.signup-box .note{font-size:12px;color:var(--muted);text-align:center;margin-top:4px}
-
-/* WHAT YOU GET */
-.benefits-section{padding:56px 0;border-bottom:1px solid var(--border)}
-.benefits-section h2{font-family:var(--serif);font-size:26px;text-align:center;margin-bottom:36px}
-.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:900px;margin:0 auto}
-.benefit-card{text-align:center;padding:28px 20px}
-.benefit-card .icon{width:48px;height:48px;background:var(--ink);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 16px}
-.benefit-card h3{font-family:var(--serif);font-size:19px;font-weight:400;margin-bottom:8px}
-.benefit-card p{font-size:14px;color:var(--muted);line-height:1.55}
-
-/* WHAT'S INSIDE */
-.inside-section{padding:56px 0;border-bottom:1px solid var(--border);max-width:680px;margin:0 auto}
-.inside-section h2{font-family:var(--serif);font-size:26px;margin-bottom:28px}
-.inside-list{list-style:none}
-.inside-list li{padding:14px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:14px;font-size:15px;line-height:1.6}
-.inside-list li .check{color:var(--accent);font-size:18px;flex-shrink:0;margin-top:1px}
-
-/* PAST HIGHLIGHTS */
-.highlights-section{padding:56px 0;border-bottom:1px solid var(--border)}
-.highlights-section h2{font-family:var(--serif);font-size:26px;margin-bottom:28px;text-align:center}
-.highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto}
-.highlight-card{background:var(--paper);border:1px solid var(--border);border-radius:6px;padding:24px;transition:border-color .2s}
-.highlight-card:hover{border-color:var(--accent)}
-.highlight-card .cat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.highlight-card h3{font-family:var(--serif);font-size:18px;font-weight:400;line-height:1.3;margin-bottom:8px}
-.highlight-card p{font-size:13px;color:var(--muted);line-height:1.5}
-
-/* BOTTOM CTA */
-.bottom-cta{background:var(--ink);color:#fff;padding:56px 48px;border-radius:8px;margin:56px 0;text-align:center}
-.bottom-cta h2{font-family:var(--serif);font-size:clamp(24px,3vw,34px);font-weight:400;margin-bottom:10px}
-.bottom-cta p{color:rgba(255,255,255,.55);max-width:480px;margin:0 auto 24px;font-size:15px;line-height:1.6}
-.bottom-cta form{display:flex;gap:10px;max-width:440px;margin:0 auto}
-.bottom-cta input[type="email"]{flex:1;padding:12px 16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-family:var(--sans);font-size:14px;border-radius:4px}
-.bottom-cta input[type="email"]::placeholder{color:rgba(255,255,255,.35)}
-.bottom-cta button{padding:12px 24px;background:var(--accent);color:var(--ink);font-family:var(--sans);font-size:13px;font-weight:600;border:none;border-radius:4px;cursor:pointer;transition:opacity .2s}
-.bottom-cta button:hover{opacity:.85}
-
-/* FOOTER */
-footer{background:var(--ink);color:rgba(255,255,255,.45);padding:48px 0 32px;font-size:13px}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
-.footer-brand{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:10px}
-.footer-brand span{color:var(--accent);font-style:italic}
-footer p{line-height:1.6}
-footer h4{color:#fff;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
-footer ul{list-style:none}
-footer li{margin-bottom:8px}
-footer a{color:rgba(255,255,255,.45);transition:color .15s}
-footer a:hover{color:var(--accent)}
-.footer-bottom{max-width:1200px;margin:0 auto;padding:24px clamp(16px,4vw,64px) 0;border-top:1px solid rgba(255,255,255,.08);margin-top:32px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
-
-@media(max-width:768px){
-.benefits-grid{grid-template-columns:1fr}
-.highlights-grid{grid-template-columns:1fr}
-.bottom-cta form{flex-direction:column}
-.bottom-cta{padding:40px 24px}
-.signup-box{padding:28px 20px}
-.footer-inner{grid-template-columns:1fr 1fr}
-.nav-links a{margin-left:16px;font-size:12px}
-.inside-section{padding-left:0;padding-right:0}
-}
+:root{--bg:#fafaf8;--ink:#111;--grey:#555;--light:#999;--rule:#ddd;--accent:#c9a84c;--serif:'Playfair Display',serif;--body:'Source Serif 4',serif;--sans:'Inter',sans-serif}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);font-size:17px;line-height:1.8}
+a{color:var(--accent);text-decoration:none}
+nav{border-bottom:1px solid var(--rule);padding:0 clamp(16px,4vw,64px);background:#fff;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px}
+.logo{font-family:var(--serif);font-size:20px;font-weight:900;color:var(--ink);text-decoration:none}.logo span{font-style:italic;color:var(--accent)}
+.nav-links a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--grey);margin-left:24px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.wrap{max-width:640px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.hero{padding:64px 0 48px;text-align:center;border-bottom:1px solid var(--rule)}
+.hero .label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.hero h1{font-family:var(--serif);font-size:clamp(32px,5vw,48px);font-weight:900;line-height:1.1;margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--grey);font-size:18px;line-height:1.6;max-width:520px;margin:0 auto 28px}
+.signup{max-width:440px;margin:0 auto}
+.signup form{display:flex;gap:8px}
+.signup input{flex:1;padding:14px 16px;border:1px solid var(--rule);font-family:var(--sans);font-size:15px;background:#fff}
+.signup button{padding:14px 28px;background:var(--ink);color:#fff;font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer}
+.signup .note{font-family:var(--sans);font-size:12px;color:var(--light);margin-top:10px;text-align:center}
+.content{padding:40px 0}
+.content h2{font-family:var(--serif);font-size:24px;font-weight:700;margin:36px 0 16px;padding-top:24px;border-top:1px solid var(--rule)}
+.content h2:first-child{border-top:none;margin-top:0;padding-top:0}
+.content p{margin-bottom:16px;color:var(--grey)}
+.content strong{color:var(--ink)}
+.benefits{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.benefit{background:#fff;border:1px solid var(--rule);padding:20px}
+.benefit h3{font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:4px}
+.benefit p{font-size:14px;color:var(--grey);margin:0}
+.past-issues h2{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:16px}
+.issue{padding:14px 0;border-bottom:1px solid var(--rule)}
+.issue .date{font-family:var(--sans);font-size:11px;color:var(--light);letter-spacing:.06em;text-transform:uppercase}
+.issue h3{font-family:var(--serif);font-size:18px;font-weight:600;margin-top:4px}
+.issue h3 a{color:var(--ink);text-decoration:none}
+.issue h3 a:hover{color:var(--accent)}
+.bottom-cta{background:var(--ink);color:#fff;padding:40px;text-align:center;margin:40px 0}
+.bottom-cta h2{font-family:var(--serif);font-size:28px;margin-bottom:8px}
+.bottom-cta p{color:rgba(255,255,255,.5);margin-bottom:20px}
+.bottom-cta form{display:flex;gap:8px;max-width:400px;margin:0 auto}
+.bottom-cta input{flex:1;padding:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-family:var(--sans);font-size:14px}
+.bottom-cta input::placeholder{color:rgba(255,255,255,.3)}
+.bottom-cta button{padding:12px 24px;background:var(--accent);color:var(--ink);font-family:var(--sans);font-size:12px;font-weight:700;border:none;cursor:pointer}
+footer{border-top:3px double var(--ink);padding:32px 0;text-align:center;font-family:var(--sans);font-size:12px;color:var(--light)}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:500px){.signup form,.bottom-cta form{flex-direction:column}.benefits{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
-<!-- TOP BAR -->
-<div class="topbar">
-New York's Independent Voice on AI, Technology &amp; Entrepreneurship &middot; Est. 2020 &middot; <strong>S.C. Thomas</strong>, Editor-in-Chief &middot; <span class="accent">ISSN 2026-0147</span>
-</div>
-
-<!-- NAV -->
-<nav>
-<div class="nav-inner">
-<a href="/" class="logo">NY <span>Spotlight</span> Report</a>
-<div class="nav-links">
-<a href="/blog/">Articles</a>
-<a href="/about/sc-thomas/">About</a>
-<a href="/press/">Press</a>
-<a href="/newsletter/" class="active">Newsletter</a>
-</div>
-</div>
-</nav>
+<nav><div class="nav-inner"><a href="/" class="logo">NY <span>Spotlight</span> Report</a><div class="nav-links"><a href="/">Home</a><a href="/blog/">Articles</a><a href="/about/sc-thomas/">About</a><a href="/tips/">Tips</a></div></div></nav>
 
 <div class="wrap">
-
-<!-- HERO + SIGNUP -->
-<section class="nl-hero">
-<div class="label">Free Weekly Newsletter</div>
+<div class="hero">
+<div class="label">Free Newsletter</div>
 <h1>The Spotlight <em>Brief</em></h1>
-<p class="deck">Weekly AI tools, automation strategies, passive income opportunities, and business growth tactics. Delivered every Monday morning.</p>
-<div class="signup-box">
-<form action="/.netlify/functions/subscribe" method="POST">
-<input type="email" name="email" placeholder="Enter your email address" required>
+<p>NYC entertainment, fashion, culture, and nightlife intelligence — the insider stories you won't find anywhere else. Delivered free every Monday morning.</p>
+<div class="signup">
+<form onsubmit="event.preventDefault();fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:this.querySelector('input').value,source:'newsletter_page'})});this.innerHTML='<p style=color:var(--accent);font-family:var(--serif);font-size:20px>You\'re in. First issue arrives Monday.</p>'">
+<input type="email" placeholder="your@email.com" required>
 <button type="submit">Subscribe Free</button>
 </form>
-<p class="note">No spam. Unsubscribe anytime. Read by thousands of entrepreneurs weekly.</p>
+<p class="note">Free forever. No spam. Unsubscribe with one click.</p>
 </div>
-</section>
+</div>
 
-<!-- WHAT YOU GET -->
-<section class="benefits-section">
+<div class="content">
 <h2>What You Get Every Week</h2>
-<div class="benefits-grid">
-<div class="benefit-card">
-<div class="icon">&#9881;</div>
-<h3>AI Tool Discoveries</h3>
-<p>Curated picks of the most useful AI tools for business, content, and productivity -- tested and reviewed firsthand.</p>
+<div class="benefits">
+<div class="benefit"><h3>Opening Night Reports</h3><p>First-hand coverage of Broadway premieres, Off-Broadway debuts, and exclusive performances before anyone else reviews them.</p></div>
+<div class="benefit"><h3>Nightlife Intel</h3><p>New venue openings, underground party tips, DJ residencies, and the social scenes that define NYC after dark.</p></div>
+<div class="benefit"><h3>Fashion Insider</h3><p>NYFW updates, emerging designer spotlights, streetwear drops, and the collections that matter.</p></div>
+<div class="benefit"><h3>Culture Radar</h3><p>Gallery openings, museum exhibitions, film festivals, cultural events, and the creative movements shaping the city.</p></div>
 </div>
-<div class="benefit-card">
-<div class="icon">&#9733;</div>
-<h3>Automation Playbooks</h3>
-<p>Step-by-step breakdowns of real automation systems you can replicate to save time and cut costs.</p>
-</div>
-<div class="benefit-card">
-<div class="icon">&#9650;</div>
-<h3>Growth Strategies</h3>
-<p>Actionable SEO, newsletter, and audience-building tactics from hands-on experiments and real data.</p>
-</div>
-</div>
-</section>
 
-<!-- WHAT'S INSIDE -->
-<section class="inside-section">
 <h2>Inside Every Issue</h2>
-<ul class="inside-list">
-<li><span class="check">&#10003;</span> Top AI tools and platforms released or updated that week</li>
-<li><span class="check">&#10003;</span> One deep-dive automation strategy you can implement immediately</li>
-<li><span class="check">&#10003;</span> Passive income opportunities with zero upfront cost</li>
-<li><span class="check">&#10003;</span> SEO and content growth tactics backed by real results</li>
-<li><span class="check">&#10003;</span> Tool comparisons and honest reviews (no sponsored placements)</li>
-<li><span class="check">&#10003;</span> Links to the latest NY Spotlight Report articles and guides</li>
-</ul>
-</section>
+<p><strong>The Lead</strong> — Our top story of the week. The entertainment or cultural story that matters most right now.</p>
+<p><strong>The Scene Report</strong> — What's happening in NYC nightlife, from new openings to closing-night parties.</p>
+<p><strong>The Runway</strong> — Fashion coverage, designer profiles, and style from the streets of New York.</p>
+<p><strong>The Spotlight</strong> — A deep-dive profile of someone shaping NYC's creative world — a producer, designer, DJ, gallery owner, or performer.</p>
+<p><strong>The Calendar</strong> — The 5 events, shows, and openings you should actually attend this week.</p>
 
-<!-- PAST ISSUE HIGHLIGHTS -->
-<section class="highlights-section">
-<h2>Past Issue Highlights</h2>
-<div class="highlights-grid">
-<a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/" class="highlight-card">
-<div class="cat">AI Automation</div>
-<h3>How I Built 63 AI Bots That Run My Business</h3>
-<p>Inside the autonomous system handling content, leads, outreach, and client management.</p>
-</a>
-<a href="/blog/automated-content-operation/" class="highlight-card">
-<div class="cat">Content Systems</div>
-<h3>How I Automated My Entire Content Operation for $0/Month</h3>
-<p>Building a zero-cost content pipeline with AI agents and scheduling tools.</p>
-</a>
-<a href="/blog/passive-income-zero-cost-2026/" class="highlight-card">
-<div class="cat">Passive Income</div>
-<h3>25 Zero-Cost Passive Income Streams in 2026</h3>
-<p>Every legitimate passive income model you can launch with no upfront capital.</p>
-</a>
-<a href="/blog/cold-email-system-proflow/" class="highlight-card">
-<div class="cat">Sales Systems</div>
-<h3>The Cold Email System That Books 5 Demos a Week</h3>
-<p>The exact outreach framework behind a repeatable demo-booking machine.</p>
-</a>
-<a href="/blog/newsletter-growth-strategy-2026/" class="highlight-card">
-<div class="cat">Newsletter Growth</div>
-<h3>Newsletter Growth Strategy 2026</h3>
-<p>Proven tactics for growing from zero to thousands of engaged subscribers.</p>
-</a>
-<a href="/best-ai-tools-entrepreneurs-2026/" class="highlight-card">
-<div class="cat">Tools</div>
-<h3>Best AI Tools for Entrepreneurs 2026</h3>
-<p>The definitive list of AI-powered tools that accelerate business growth.</p>
-</a>
+<div class="past-issues">
+<h2>Recent Coverage</h2>
+<div class="issue"><div class="date">March 2026</div><h3><a href="/blog/hells-kitchen-gay-nightlife-capital/">Hell's Kitchen Reclaims Its Crown as NYC's Gay Nightlife Capital</a></h3></div>
+<div class="issue"><div class="date">March 2026</div><h3><a href="/blog/nyfw-fall-winter-2026/">NYFW Fall/Winter 2026: The Collections That Defined the Season</a></h3></div>
+<div class="issue"><div class="date">March 2026</div><h3><a href="/blog/10-years-behind-the-scenes-entertainment/">Behind the Curtain: 10 Years of Covering NYC's Most Exclusive Scenes</a></h3></div>
 </div>
-</section>
+</div>
 
-<!-- BOTTOM CTA -->
-<section class="bottom-cta">
-<h2>Join The Spotlight Brief</h2>
-<p>Get the weekly intelligence report trusted by entrepreneurs, creators, and operators building with AI.</p>
-<form action="/.netlify/functions/subscribe" method="POST">
-<input type="email" name="email" placeholder="your@email.com" required>
-<button type="submit">Subscribe Free</button>
+<div class="bottom-cta">
+<h2>Don't Miss a Story</h2>
+<p>Join thousands of NYC insiders who get The Spotlight Brief every Monday.</p>
+<form onsubmit="event.preventDefault();fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:this.querySelector('input').value,source:'newsletter_bottom'})});this.innerHTML='<p style=color:var(--accent)>Welcome to the inside.</p>'">
+<input type="email" placeholder="your@email.com" required>
+<button type="submit">Subscribe</button>
 </form>
-</section>
+</div>
+</div>
 
-</div>
-
-<!-- FOOTER -->
-<footer>
-<div class="footer-inner">
-<div>
-<div class="footer-brand">NY <span>Spotlight</span> Report</div>
-<p>Independent AI, technology, and entrepreneurship reporting from New York. Est. 2020.</p>
-<p style="margin-top:8px">ISSN 2026-0147</p>
-</div>
-<div>
-<h4>Publication</h4>
-<ul>
-<li><a href="/blog/">Articles</a></li>
-<li><a href="/about/sc-thomas/">About</a></li>
-<li><a href="/press/">Press</a></li>
-<li><a href="/newsletter/">Newsletter</a></li>
-</ul>
-</div>
-<div>
-<h4>Popular Guides</h4>
-<ul>
-<li><a href="/best-ai-tools-entrepreneurs-2026/">Best AI Tools 2026</a></li>
-<li><a href="/amazon-kdp-guide-2026/">Amazon KDP Guide</a></li>
-<li><a href="/best-email-marketing-tools-2026/">Email Marketing Tools</a></li>
-<li><a href="/best-passive-income-apps-2026/">Passive Income Apps</a></li>
-</ul>
-</div>
-<div>
-<h4>Top Articles</h4>
-<ul>
-<li><a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/">63 AI Bots</a></li>
-<li><a href="/blog/automated-content-operation/">$0 Content System</a></li>
-<li><a href="/blog/cold-email-system-proflow/">Cold Email System</a></li>
-<li><a href="/blog/passive-income-zero-cost-2026/">Zero-Cost Income</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<span>&copy; 2020&ndash;2026 NY Spotlight Report. All rights reserved.</span>
-<span>New York, NY &middot; nyspotlightreport@gmail.com</span>
-</div>
-</footer>
-
+<footer><div class="wrap">&copy; 2020&ndash;2026 NY Spotlight Report &middot; ISSN 2026-0147 &middot; New York, NY<br><a href="/">Home</a> &middot; <a href="/blog/">Articles</a> &middot; <a href="/about/sc-thomas/">About</a> &middot; <a href="/editorial-standards/">Editorial Standards</a></div></footer>
 </body>
 </html>
