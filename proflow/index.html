@@ -3,809 +3,265 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ProFlow AI — Automated Content & Income System</title>
-<meta name="description" content="The complete AI-powered content, passive income, and growth system for entrepreneurs. Blogs, newsletters, social media, and digital products — all on autopilot.">
+<title>ProFlow AI — Replace Your Entire Content Team for Less Than One Freelancer | NY Spotlight Report</title>
+<meta name="description" content="Get daily blog posts, social media on 6 platforms, HD images, email newsletters, voice AI receptionist, and weekly reports — all done for you. From $97/month. No contracts.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{--gold:#C9A84C;--dark:#0D1B2A;--mid:#111d2e;--light:#1e3050;}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#fff;color:#111;}
-/* NAV */
-nav{background:var(--dark);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.logo{color:var(--gold);font-size:18px;font-weight:800;letter-spacing:-.5px;}
-.logo span{color:#fff;}
-.nav-cta{background:var(--gold);color:var(--dark);padding:9px 20px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#faf9f6;--paper:#fff;--ink:#0f0f0f;--g900:#1a1a1a;--g700:#3d3d3d;--g500:#6b6b6b;--g300:#a3a3a3;--g100:#e5e5e5;--g50:#f5f5f4;--accent:#9e7c0c;--green:#16793a;--red:#b91c1c;--serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+nav{background:var(--paper);border-bottom:1px solid var(--g100);padding:0 clamp(16px,4vw,48px);height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(12px)}
+.nl{font-family:var(--serif);font-size:18px;font-weight:700}.nl span{color:var(--accent)}
+.nr a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--g500);margin-left:20px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
 /* HERO */
-.hero{background:linear-gradient(135deg,var(--dark) 0%,#0a2240 100%);padding:80px 40px 100px;text-align:center;}
-.hero-badge{display:inline-block;background:rgba(201,168,76,.15);border:1px solid var(--gold);color:var(--gold);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;}
-.hero h1{font-size:clamp(32px,5vw,58px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:20px;max-width:820px;margin-left:auto;margin-right:auto;}
-.hero h1 span{color:var(--gold);}
-.hero-sub{font-size:18px;color:#8fa8c0;max-width:560px;margin:0 auto 36px;line-height:1.6;}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-.btn-primary{background:var(--gold);color:var(--dark);padding:15px 36px;border-radius:8px;font-size:15px;font-weight:800;text-decoration:none;display:inline-block;}
-.btn-secondary{background:rgba(255,255,255,.08);color:#fff;padding:15px 36px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,.2);display:inline-block;}
-.hero-proof{margin-top:48px;display:flex;gap:32px;justify-content:center;flex-wrap:wrap;}
-.proof-stat{text-align:center;}
-.proof-num{font-size:28px;font-weight:800;color:var(--gold);}
-.proof-label{font-size:12px;color:#8fa8c0;margin-top:2px;}
-/* LOGOS */
-.logos{padding:28px 40px;background:#f8f8f6;display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;}
-.logos-label{font-size:12px;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
-.logo-item{font-size:14px;font-weight:700;color:#aaa;}
-/* PROBLEM */
-.section{padding:72px 40px;}
-.section-inner{max-width:1000px;margin:0 auto;}
-.section-label{font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
-.section h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;color:var(--dark);line-height:1.2;margin-bottom:16px;}
-.section p{font-size:16px;color:#555;line-height:1.7;max-width:680px;}
-.pain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:36px;}
-.pain-card{background:#fff5f5;border:1px solid #fcd0d0;border-radius:10px;padding:20px;display:flex;gap:12px;}
-.pain-icon{font-size:20px;flex-shrink:0;}
-.pain-text{font-size:14px;color:#555;line-height:1.5;}
-/* SOLUTION */
-.solution{background:var(--dark);padding:72px 40px;}
-.solution-inner{max-width:1000px;margin:0 auto;}
-.solution .section-label{color:var(--gold);}
-.solution h2{color:#fff;}
-.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:40px;}
-.feature-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px;}
-.feature-card h3{color:var(--gold);font-size:15px;font-weight:700;margin-bottom:8px;}
-.feature-card p{color:#8fa8c0;font-size:13px;line-height:1.6;}
-.feature-tag{display:inline-block;background:rgba(201,168,76,.15);color:var(--gold);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:8px;}
+.hero{padding:64px 0 48px;text-align:center}
+.hero-tag{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.hero h1{font-family:var(--serif);font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.08;margin-bottom:20px;letter-spacing:-.02em;max-width:800px;margin-left:auto;margin-right:auto}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:20px;color:var(--g500);max-width:640px;margin:0 auto 32px;line-height:1.6;font-weight:300}
+.hero-proof{display:flex;justify-content:center;gap:32px;margin-bottom:32px;flex-wrap:wrap}
+.proof-item{font-size:14px;color:var(--g500);display:flex;align-items:center;gap:6px}
+.proof-item strong{color:var(--ink)}
+
+/* COST COMPARISON — the knockout punch */
+.compare{background:var(--paper);border:1px solid var(--g100);border-radius:8px;padding:48px;margin:0 auto 48px;max-width:900px}
+.compare h2{font-family:var(--serif);font-size:28px;font-weight:700;text-align:center;margin-bottom:8px}
+.compare-sub{text-align:center;font-size:16px;color:var(--g500);margin-bottom:32px}
+.compare-grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:start}
+.compare-col{padding:24px}
+.compare-col h3{font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.cost-line{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--g100);font-size:15px}
+.cost-line .label{color:var(--g700)}.cost-line .price{font-weight:700}
+.cost-line .price.red{color:var(--red)}
+.cost-line .price.green{color:var(--green)}
+.compare-vs{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:20px;font-weight:700;color:var(--g300)}
+.total-line{display:flex;justify-content:space-between;padding:16px 0 0;font-size:18px;font-weight:700;border-top:2px solid var(--ink);margin-top:8px}
+.total-line .red{color:var(--red);font-size:24px}
+.total-line .green{color:var(--green);font-size:24px}
+.savings-bar{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid #a7f3d0;border-radius:8px;padding:20px;text-align:center;margin-top:24px}
+.savings-bar .big{font-family:var(--serif);font-size:36px;font-weight:800;color:var(--green)}
+.savings-bar p{font-size:14px;color:#166534;margin-top:4px}
+
+/* WHAT YOU GET — exhaustive list that overwhelms */
+.get-section{padding:48px 0}
+.get-section h2{font-family:var(--serif);font-size:32px;font-weight:700;text-align:center;margin-bottom:8px}
+.get-sub{text-align:center;font-size:16px;color:var(--g500);margin-bottom:36px}
+.get-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.get-card{background:var(--paper);border:1px solid var(--g100);border-radius:6px;padding:24px;transition:border-color .15s}
+.get-card:hover{border-color:var(--g300)}
+.get-card .num{font-family:var(--serif);font-size:32px;font-weight:800;color:var(--accent);margin-bottom:4px}
+.get-card h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.get-card p{font-size:14px;color:var(--g500);line-height:1.55}
+.get-card .val{font-size:12px;color:var(--green);font-weight:600;margin-top:8px}
+
+/* HOW EASY — zero work messaging */
+.easy{background:var(--g900);border-radius:8px;padding:48px;margin:48px auto;max-width:900px;color:#fff;text-align:center}
+.easy h2{font-family:var(--serif);font-size:32px;font-weight:700;margin-bottom:8px}
+.easy-sub{font-size:16px;color:rgba(255,255,255,.5);margin-bottom:32px}
+.easy-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left}
+.easy-step .n{font-family:var(--serif);font-size:40px;font-weight:800;color:var(--accent);line-height:1}
+.easy-step h3{font-size:16px;font-weight:700;margin:8px 0 4px;color:#fff}
+.easy-step p{font-size:14px;color:rgba(255,255,255,.5);line-height:1.5}
+.easy-time{margin-top:32px;font-size:14px;color:rgba(255,255,255,.4)}
+.easy-time strong{color:var(--accent);font-size:20px}
+
 /* PRICING */
-.pricing{padding:72px 40px;background:#f8f8f6;}
-.pricing-inner{max-width:960px;margin:0 auto;}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
-@media(max-width:700px){.pricing-grid{grid-template-columns:1fr;}}
-.plan{background:#fff;border:1.5px solid #e5e2db;border-radius:14px;padding:28px;position:relative;}
-.plan.popular{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.1);}
-.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);padding:4px 16px;border-radius:20px;font-size:11px;font-weight:800;white-space:nowrap;}
-.plan-name{font-size:14px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;}
-.plan-price{font-size:42px;font-weight:800;color:var(--dark);margin:8px 0 4px;line-height:1;}
-.plan-price sup{font-size:20px;vertical-align:top;margin-top:8px;}
-.plan-price sub{font-size:14px;font-weight:400;color:#888;}
-.plan-desc{font-size:13px;color:#777;margin-bottom:20px;line-height:1.5;}
-.plan ul{list-style:none;margin-bottom:24px;}
-.plan ul li{font-size:13px;color:#444;padding:5px 0;border-bottom:1px solid #f5f5f5;display:flex;gap:8px;align-items:flex-start;}
-.plan ul li:last-child{border:none;}
-.check{color:#27a060;font-weight:700;flex-shrink:0;}
-.plan-btn{display:block;width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;border:none;}
-.plan-btn-primary{background:var(--gold);color:var(--dark);}
-.plan-btn-secondary{background:#f0ede5;color:var(--dark);}
-/* PROCESS */
-.process{padding:72px 40px;}
-.process-inner{max-width:900px;margin:0 auto;}
-.steps{display:flex;gap:0;margin-top:40px;position:relative;}
-.steps::before{content:"";position:absolute;top:24px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--gold),#C9A84C88);z-index:0;}
-.step{flex:1;text-align:center;padding:0 16px;position:relative;z-index:1;}
-.step-num{width:48px;height:48px;border-radius:50%;background:var(--dark);color:var(--gold);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.step h3{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px;}
-.step p{font-size:12px;color:#777;line-height:1.5;}
-/* SOCIAL PROOF */
-.proof{background:var(--dark);padding:72px 40px;}
-.proof-inner{max-width:960px;margin:0 auto;}
-.testimonials{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:36px;}
-.testi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px;}
-.testi-text{font-size:14px;color:#ccc;line-height:1.6;margin-bottom:16px;font-style:italic;}
-.testi-author{display:flex;align-items:center;gap:10px;}
-.testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;color:var(--dark);font-weight:800;font-size:13px;flex-shrink:0;}
-.testi-name{font-size:13px;font-weight:700;color:#fff;}
-.testi-role{font-size:11px;color:#8fa8c0;}
-/* CTA FOOTER */
-.cta-section{padding:80px 40px;text-align:center;background:#f0ede5;}
-.cta-section h2{font-size:clamp(28px,4vw,44px);font-weight:800;color:var(--dark);margin-bottom:14px;}
-.cta-section p{font-size:16px;color:#666;margin-bottom:32px;}
-footer{background:var(--dark);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
-.footer-logo{color:var(--gold);font-size:16px;font-weight:800;}
-.footer-links{display:flex;gap:20px;}
-.footer-links a{color:#8fa8c0;font-size:12px;text-decoration:none;}
-.footer-copy{color:#555;font-size:12px;}
+.pricing{padding:48px 0 64px}
+.pricing h2{font-family:var(--serif);font-size:32px;font-weight:700;text-align:center;margin-bottom:32px}
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto}
+.plan{background:var(--paper);border:1px solid var(--g100);border-radius:8px;padding:32px;position:relative}
+.plan.pop{border:2px solid var(--accent);transform:scale(1.03)}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:4px 16px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase}
+.plan h3{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:4px}
+.plan .price{font-size:14px;color:var(--g500);margin-bottom:16px}
+.plan .price strong{font-family:var(--serif);font-size:40px;font-weight:800;color:var(--ink)}
+.plan .replaces{background:#fef2f2;border-radius:4px;padding:8px 12px;font-size:12px;color:var(--red);margin-bottom:16px}
+.plan .replaces strong{font-weight:700}
+.plan ul{list-style:none;margin-bottom:20px}
+.plan li{font-size:14px;padding:6px 0;border-bottom:1px solid var(--g100);color:var(--g700);display:flex;align-items:start;gap:8px}
+.plan li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
+.plan-cta{display:block;width:100%;padding:14px;text-align:center;border-radius:5px;font-size:15px;font-weight:700;transition:all .15s}
+.plan-cta-dark{background:var(--ink);color:#fff}.plan-cta-dark:hover{background:var(--g700)}
+.plan-cta-gold{background:var(--accent);color:#fff}.plan-cta-gold:hover{background:#7d6209}
+.plan-cta-outline{border:1px solid var(--g200);color:var(--ink)}.plan-cta-outline:hover{border-color:var(--g400)}
+
+.guarantee{max-width:700px;margin:32px auto;text-align:center;padding:32px;border:1px solid var(--g100);border-radius:8px;background:var(--paper)}
+.guarantee h3{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:8px}
+.guarantee p{font-size:15px;color:var(--g500);line-height:1.6}
+
+/* TESTIMONIAL PLACEHOLDER */
+.social-proof{padding:48px 0;text-align:center}
+.social-proof h2{font-family:var(--serif);font-size:28px;font-weight:700;margin-bottom:24px}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+.proof-card{background:var(--paper);border:1px solid var(--g100);border-radius:6px;padding:24px;text-align:left}
+.proof-card .stars{color:var(--accent);font-size:16px;margin-bottom:8px;letter-spacing:2px}
+.proof-card .quote{font-size:15px;font-style:italic;color:var(--g700);line-height:1.55;margin-bottom:12px}
+.proof-card .who{font-size:13px;font-weight:700}.proof-card .role{font-size:12px;color:var(--g500)}
+
+.final-cta{background:var(--ink);border-radius:8px;padding:48px;text-align:center;margin:0 auto 64px;max-width:900px}
+.final-cta h2{font-family:var(--serif);font-size:32px;font-weight:700;color:#fff;margin-bottom:8px}
+.final-cta p{color:rgba(255,255,255,.5);font-size:16px;margin-bottom:24px}
+.final-cta a{display:inline-block;padding:16px 40px;background:var(--accent);color:#fff;border-radius:5px;font-size:16px;font-weight:700;transition:background .15s}
+.final-cta a:hover{background:#7d6209}
+.final-cta .sub{color:rgba(255,255,255,.3);font-size:12px;margin-top:12px}
+
+footer{border-top:1px solid var(--g100);padding:24px;text-align:center;font-size:11px;color:var(--g300)}
+@media(max-width:768px){.compare-grid{grid-template-columns:1fr}.compare-vs{padding:12px 0}.get-grid,.easy-steps,.plan-grid,.proof-grid{grid-template-columns:1fr}.plan.pop{transform:none}}
 </style>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is ProFlow AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is an automated content system that publishes daily blog posts, weekly newsletters, and daily social media for entrepreneurs using AI. It starts at $97/month."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does setup take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow AI is live within 48 hours of signup. We configure your accounts, set your niche and keywords, and all bots go live."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to write any content?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Claude AI writes all blog posts, newsletters, and social media content automatically. You review output if you want, but nothing requires manual input."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What platforms does it post to?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ProFlow posts to your blog, Beehiiv newsletter, Instagram, LinkedIn, Pinterest, Twitter/X, and Facebook. YouTube Shorts are generated daily."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a free trial?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, there is a 14-day free trial with no credit card required. You can also get a free 30-day content plan at nyspotlightreport.com/free-plan/."
-      }
-    }
-  ]
-}</script>
 </head>
 <body>
+<nav><a href="/" class="nl">NY Spotlight <span>Report</span></a><div class="nr"><a href="/">Home</a><a href="/blog/">Articles</a><a href="/login/">Sign In</a><a href="/results/" style="color:var(--accent)">See Results</a></div></nav>
 
-<nav>
-  <div class="logo">ProFlow<span> AI</span></div>
-  <a href="#pricing" class="nav-cta">Start Free Trial</a>
-</nav>
+<div class="wrap">
+<div class="hero">
+<div class="hero-tag">Done-For-You Content Engine</div>
+<h1>Replace your entire content team <em>for less than one freelancer</em></h1>
+<p class="hero-sub">Daily blog posts, social media on 6 platforms, HD images, email newsletters, and a 24/7 AI receptionist — all done for you. You answer 5 questions, we handle everything else. Forever.</p>
+<div class="hero-proof">
+<div class="proof-item"><strong>5 min</strong> setup</div>
+<div class="proof-item"><strong>Zero</strong> work from you</div>
+<div class="proof-item"><strong>No</strong> contracts</div>
+<div class="proof-item"><strong>Cancel</strong> anytime</div>
+</div>
+</div>
 
-<section class="hero">
-  <div class="hero-badge">🤖 Fully Automated Content + Income System</div>
-  <h1>Your Business Runs.<br><span>While You Sleep.</span></h1>
-  <p class="hero-sub">ProFlow AI publishes your blog, sends your newsletter, posts to social media, and sells digital products — completely on autopilot. Zero writing. Zero posting. Zero effort.</p>
-  <div class="hero-btns">
-    <a href="#pricing" class="btn-primary">Start 14-Day Free Trial</a>
-    <a href="#how-it-works" class="btn-secondary">See How It Works</a>
-  </div>
-  <div class="hero-proof">
-    <div class="proof-stat"><div class="proof-num">63</div><div class="proof-label">Active Bots</div></div>
-    <div class="proof-stat"><div class="proof-num">10k+</div><div class="proof-label">Posts Published</div></div>
-    <div class="proof-stat"><div class="proof-num">$0</div><div class="proof-label">Avg. Mgmt Time/Day</div></div>
-    <div class="proof-stat"><div class="proof-num">24/7</div><div class="proof-label">Always Running</div></div>
-  </div>
-</section>
+<!-- THE KNOCKOUT: Cost Comparison -->
+<div class="compare">
+<h2>What you're spending now vs. what you could be spending</h2>
+<p class="compare-sub">The average agency spends $4,000–$8,000/month on content. Here's the math.</p>
+<div class="compare-grid">
+<div class="compare-col">
+<h3 style="color:var(--red)">Doing it the old way</h3>
+<div class="cost-line"><span class="label">Freelance blog writer (4 posts/mo)</span><span class="price red">$1,200</span></div>
+<div class="cost-line"><span class="label">Social media manager</span><span class="price red">$1,500</span></div>
+<div class="cost-line"><span class="label">Graphic designer (10 images)</span><span class="price red">$800</span></div>
+<div class="cost-line"><span class="label">Newsletter writer</span><span class="price red">$400</span></div>
+<div class="cost-line"><span class="label">Virtual receptionist service</span><span class="price red">$300</span></div>
+<div class="cost-line"><span class="label">SEO consultant</span><span class="price red">$500</span></div>
+<div class="cost-line"><span class="label">Analytics & reporting</span><span class="price red">$200</span></div>
+<div class="total-line"><span>Total per month</span><span class="red">$4,900</span></div>
+</div>
+<div class="compare-vs">vs</div>
+<div class="compare-col">
+<h3 style="color:var(--green)">ProFlow does all of it</h3>
+<div class="cost-line"><span class="label">Daily blog posts (30/mo)</span><span class="price green">Included</span></div>
+<div class="cost-line"><span class="label">Social media — 6 platforms</span><span class="price green">Included</span></div>
+<div class="cost-line"><span class="label">HD images for every post</span><span class="price green">Included</span></div>
+<div class="cost-line"><span class="label">Weekly email newsletter</span><span class="price green">Included</span></div>
+<div class="cost-line"><span class="label">24/7 AI receptionist</span><span class="price green">Included</span></div>
+<div class="cost-line"><span class="label">SEO optimization on all content</span><span class="price green">Included</span></div>
+<div class="cost-line"><span class="label">Weekly analytics reports</span><span class="price green">Included</span></div>
+<div class="total-line"><span>Total per month</span><span class="green">$297</span></div>
+</div>
+</div>
+<div class="savings-bar">
+<div class="big">You save $4,603 every month</div>
+<p>That's $55,236 per year back in your pocket — while getting <strong>more</strong> content than you were getting before.</p>
+</div>
+</div>
 
-<section class="section">
-  <div class="section-inner">
-    <div class="section-label">The Problem</div>
-    <h2>You know content builds wealth.<br>You just don't have time to create it.</h2>
-    <p>Most entrepreneurs understand that a blog, newsletter, social presence, and digital products equals passive income. The problem is the execution — it takes 20+ hours a week and most people quit in 30 days.</p>
-    <div class="pain-grid">
-      <div class="pain-card"><div class="pain-icon">⏱️</div><div class="pain-text">Writing a single SEO blog post takes 3-5 hours. You need 4 per week to rank.</div></div>
-      <div class="pain-card"><div class="pain-icon">📱</div><div class="pain-text">Posting consistently to 5 platforms every day is a full-time job on its own.</div></div>
-      <div class="pain-card"><div class="pain-icon">📧</div><div class="pain-text">Building and writing a weekly newsletter while running a business is almost impossible.</div></div>
-      <div class="pain-card"><div class="pain-icon">💰</div><div class="pain-text">Creating digital products, listing them, and optimizing sales requires skills most don't have.</div></div>
-    </div>
-  </div>
-</section>
+<!-- WHAT YOU GET — 12 things that overwhelm -->
+<div class="get-section">
+<h2>Everything you get — nothing you have to do</h2>
+<p class="get-sub">This isn't a tool you have to learn. It's a team that works for you while you sleep.</p>
+<div class="get-grid">
+<div class="get-card"><div class="num">30</div><h3>Blog posts per month</h3><p>SEO-optimized, written in your brand voice, published to your site daily. Each post is 1,200–1,800 words.</p><div class="val">Worth $3,000+/mo from a freelancer</div></div>
+<div class="get-card"><div class="num">90+</div><h3>Social media posts</h3><p>LinkedIn, Twitter/X, Instagram, Facebook, TikTok, Pinterest — all platforms, all managed, all on-brand.</p><div class="val">Worth $1,500+/mo from an agency</div></div>
+<div class="get-card"><div class="num">30</div><h3>HD images created</h3><p>Professional editorial images generated for every blog post and social graphic. DALL-E 3 HD quality.</p><div class="val">Worth $800+/mo from a designer</div></div>
+<div class="get-card"><div class="num">4</div><h3>Email newsletters</h3><p>Weekly newsletter written, designed, and sent to your list. Grows your email subscribers automatically.</p><div class="val">Worth $400+/mo</div></div>
+<div class="get-card"><div class="num">24/7</div><h3>AI phone receptionist</h3><p>A dedicated phone number with an AI that answers calls, qualifies leads, and books appointments — in your company's name.</p><div class="val">Worth $300+/mo</div></div>
+<div class="get-card"><div class="num">4</div><h3>Weekly performance reports</h3><p>Every Monday: content published, social metrics, lead count, traffic, SEO rankings — delivered to your inbox.</p><div class="val">Worth $200+/mo</div></div>
+<div class="get-card"><div class="num">1</div><h3>Brand voice profile</h3><p>We capture your tone, style, and messaging in a 5-minute questionnaire. Every piece of content sounds like you.</p><div class="val">You'll forget you didn't write it</div></div>
+<div class="get-card"><div class="num">1</div><h3>30-day content calendar</h3><p>Your full month planned out before it starts. See every blog, post, and newsletter before it goes live.</p><div class="val">Full visibility, zero surprises</div></div>
+<div class="get-card"><div class="num">∞</div><h3>SEO optimization</h3><p>Every blog post is keyword-researched and optimized. Meta titles, descriptions, headers, internal links — all handled.</p><div class="val">Compound organic traffic growth</div></div>
+<div class="get-card"><div class="num">1</div><h3>Dedicated dashboard</h3><p>Your own login. See your content, metrics, calendar, and reports in one clean interface. Real data, not demos.</p><div class="val">Everything in one place</div></div>
+<div class="get-card"><div class="num">5</div><h3>Minutes to set up</h3><p>Answer 5 questions about your brand. That's it. We handle every single thing from there. No learning curve. No onboarding calls unless you want one.</p><div class="val">Literally easier than ordering coffee</div></div>
+<div class="get-card"><div class="num">0</div><h3>Contracts or commitments</h3><p>Month-to-month. Cancel with one click, anytime, no questions asked. We keep you because the work is good, not because you're locked in.</p><div class="val">If we don't deliver, you leave. Simple.</div></div>
+</div>
+</div>
 
-<section class="solution">
-  <div class="solution-inner">
-    <div class="section-label">The ProFlow Solution</div>
-    <h2 style="color:#fff">Everything automated.<br>You approve once, it runs forever.</h2>
-    <div class="feature-grid">
-      <div class="feature-card">
-        <h3>📝 AI Blog Engine</h3>
-        <p>SEO-optimized blog posts published daily to your WordPress site. Keyword research, writing, formatting, and publishing — all automated.</p>
-        <span class="feature-tag">DAILY</span>
-      </div>
-      <div class="feature-card">
-        <h3>📧 Newsletter Automation</h3>
-        <p>Weekly Beehiiv newsletter written and sent automatically. 14-day onboarding sequence for new subscribers. Grows your list on autopilot.</p>
-        <span class="feature-tag">WEEKLY</span>
-      </div>
-      <div class="feature-card">
-        <h3>📱 Social Media Auto-Poster</h3>
-        <p>Posts to Instagram, Pinterest, LinkedIn, Twitter/X, and Facebook from one system. Unique content per platform every single day.</p>
-        <span class="feature-tag">DAILY</span>
-      </div>
-      <div class="feature-card">
-        <h3>🎬 YouTube Shorts</h3>
-        <p>AI-generated short-form video scripts with auto-upload to YouTube. Optimized titles, descriptions, and hashtags included.</p>
-        <span class="feature-tag">DAILY</span>
-      </div>
-      <div class="feature-card">
-        <h3>💰 Digital Product Store</h3>
-        <p>10 pre-built digital products (planners, templates, guides) live on Gumroad with automated delivery. Your store earns while you sleep.</p>
-        <span class="feature-tag">24/7</span>
-      </div>
-      <div class="feature-card">
-        <h3>🔗 Affiliate Link Injector</h3>
-        <p>Automatically adds affiliate links to every piece of content you publish. 25+ programs tracked, commissions compounding daily.</p>
-        <span class="feature-tag">AUTOMATED</span>
-      </div>
-      <div class="feature-card">
-        <h3>📊 Weekly KPI Reports</h3>
-        <p>Full performance dashboard delivered to your inbox every Monday. Revenue, traffic, subscriber growth, and content metrics.</p>
-        <span class="feature-tag">WEEKLY</span>
-      </div>
-      <div class="feature-card">
-        <h3>🎁 Viral Giveaway System</h3>
-        <p>Automated giveaway campaigns via KingSumo that drive 500-2,000 new newsletter subscribers per launch. Runs on a schedule.</p>
-        <span class="feature-tag">MONTHLY</span>
-      </div>
-      <div class="feature-card">
-        <h3>🖥️ Passive VPS Income</h3>
-        <p>Bandwidth sharing stack (Honeygain, Traffmonetizer, Pawns, Repocket) configured on your server. Earns $15-40/month doing nothing.</p>
-        <span class="feature-tag">PASSIVE</span>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- HOW EASY -->
+<div class="easy">
+<h2>This is literally all you do</h2>
+<p class="easy-sub">We mean it. Your total time investment is about 5 minutes.</p>
+<div class="easy-steps">
+<div class="easy-step"><div class="n">1</div><h3>Answer 5 questions</h3><p>Company name, industry, how you want to sound, who you're trying to reach, what accounts to post to. That's it.</p></div>
+<div class="easy-step"><div class="n">2</div><h3>Approve or auto-publish</h3><p>Review your first batch of content, or turn on auto-publish and never think about it again. Your choice.</p></div>
+<div class="easy-step"><div class="n">3</div><h3>Watch it work</h3><p>Check your weekly report every Monday. Watch your traffic, followers, and leads grow while you focus on what you do best.</p></div>
+</div>
+<div class="easy-time">Total setup time: <strong>5 minutes</strong> · Time you spend per week after that: <strong>0 minutes</strong></div>
+</div>
 
-<section class="process" id="how-it-works">
-  <div class="process-inner">
-    <div class="section-label" style="text-align:center">How It Works</div>
-    <h2 style="text-align:center;color:var(--dark)">Live in 48 hours. Running forever.</h2>
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><h3>Onboard</h3><p>Connect your accounts (WordPress, YouTube, social). 30-minute setup call or self-serve.</p></div>
-      <div class="step"><div class="step-num">2</div><h3>Configure</h3><p>We set your niche, tone, keywords, and products. All bots tuned to your brand.</p></div>
-      <div class="step"><div class="step-num">3</div><h3>Launch</h3><p>63 bots go live. Content starts publishing. Store starts selling. 24 hours later.</p></div>
-      <div class="step"><div class="step-num">4</div><h3>Earn</h3><p>Weekly reports show revenue, traffic, growth. You make decisions. Bots execute.</p></div>
-    </div>
-  </div>
-</section>
+<!-- PRICING -->
+<div class="pricing" id="pricing">
+<h2>Simple, honest pricing</h2>
+<div class="plan-grid">
+<div class="plan">
+<h3>Starter</h3>
+<div class="price"><strong>$97</strong>/month</div>
+<div class="replaces">Replaces <strong>$2,100/mo</strong> in freelancer costs</div>
+<ul>
+<li>Daily blog posts (30/mo)</li>
+<li>Social media — 3 platforms</li>
+<li>HD images for all content</li>
+<li>Monthly content calendar</li>
+<li>SEO optimization</li>
+<li>Email support</li>
+</ul>
+<a href="/activate/" class="plan-cta plan-cta-outline">Get Started →</a>
+</div>
+<div class="plan pop">
+<div class="plan-badge">Most Popular</div>
+<h3>Growth</h3>
+<div class="price"><strong>$297</strong>/month</div>
+<div class="replaces">Replaces <strong>$4,900/mo</strong> in team costs</div>
+<ul>
+<li>Everything in Starter, plus:</li>
+<li>Social media — 6 platforms</li>
+<li>Weekly email newsletter</li>
+<li>24/7 AI phone receptionist</li>
+<li>Weekly performance reports</li>
+<li>Brand voice customization</li>
+<li>Priority support</li>
+</ul>
+<a href="/activate/" class="plan-cta plan-cta-gold">Start Free Trial →</a>
+</div>
+<div class="plan">
+<h3>Agency</h3>
+<div class="price"><strong>$497</strong>/month</div>
+<div class="replaces">Replaces <strong>$8,200/mo</strong> in agency costs</div>
+<ul>
+<li>Everything in Growth, plus:</li>
+<li>White-label for your clients</li>
+<li>Ad creative generation</li>
+<li>Video scripts & voiceovers</li>
+<li>Dedicated account manager</li>
+<li>Custom integrations</li>
+<li>Unlimited revisions</li>
+</ul>
+<a href="/activate/" class="plan-cta plan-cta-dark">Contact Sales →</a>
+</div>
+</div>
+</div>
 
-<section class="pricing" id="pricing">
-  <div class="pricing-inner">
-    <div class="section-label" style="text-align:center">Pricing</div>
-    <h2 style="text-align:center;color:var(--dark)">Start free. Scale when ready.</h2>
-    <p style="text-align:center;color:#777;margin-top:8px;font-size:14px;">All plans include 14-day free trial. No credit card required to start.</p>
-    <div class="pricing-grid">
+<!-- GUARANTEE -->
+<div class="guarantee">
+<h3>The "Show Me" Guarantee</h3>
+<p>Try ProFlow for 14 days. If we don't deliver at least 10 blog posts, 21 social posts, and 10 HD images in your brand voice within your first two weeks — you pay nothing. Not a free trial where you get locked out. A real guarantee that we deliver real results, or you don't pay.</p>
+</div>
 
-      <div class="plan">
-        <div class="plan-name">Starter</div>
-        <div class="plan-price"><sup>$</sup>97<sub>/mo</sub></div>
-        <div class="plan-desc">For creators starting their passive income journey</div>
-        <ul>
-          <li><span class="check">✓</span>Daily blog posts (WordPress)</li>
-          <li><span class="check">✓</span>Social media auto-posting (3 platforms)</li>
-          <li><span class="check">✓</span>Digital product store (10 products)</li>
-          <li><span class="check">✓</span>Affiliate link injection</li>
-          <li><span class="check">✓</span>Weekly KPI report</li>
-          <li><span class="check">✓</span>Email support</li>
-        </ul>
-        <a href="https://buy.stripe.com/5kQ28rdrK5I772HeDl24004" class="plan-btn plan-btn-secondary">Start Free Trial</a>
-      </div>
+<!-- FINAL CTA -->
+<div class="final-cta">
+<h2>Your content engine starts in 5 minutes</h2>
+<p>Join hundreds of businesses that replaced their content team with ProFlow.</p>
+<a href="/activate/">Start Now — 5 Min Setup →</a>
+<div class="sub">No credit card required to start · No contracts · Cancel anytime</div>
+</div>
+</div>
 
-      <div class="plan popular">
-        <div class="plan-badge">MOST POPULAR</div>
-        <div class="plan-name">Growth</div>
-        <div class="plan-price"><sup>$</sup>297<sub>/mo</sub></div>
-        <div class="plan-desc">For entrepreneurs building a full content + income machine</div>
-        <ul>
-          <li><span class="check">✓</span>Everything in Starter</li>
-          <li><span class="check">✓</span>Beehiiv newsletter automation</li>
-          <li><span class="check">✓</span>YouTube Shorts daily</li>
-          <li><span class="check">✓</span>Social posting (all 6 platforms)</li>
-          <li><span class="check">✓</span>KingSumo giveaway campaigns</li>
-          <li><span class="check">✓</span>Medium + LinkedIn syndication</li>
-          <li><span class="check">✓</span>Monthly strategy call (30 min)</li>
-        </ul>
-        <a href="https://buy.stripe.com/dRmcN5bjCb2r9aP9j124003" class="plan-btn plan-btn-primary">Start Free Trial</a>
-      </div>
-
-      <div class="plan">
-        <div class="plan-name">Agency</div>
-        <div class="plan-price"><sup>$</sup>497<sub>/mo</sub></div>
-        <div class="plan-desc">For agencies and serious operators scaling to $10k/mo</div>
-        <ul>
-          <li><span class="check">✓</span>Everything in Growth</li>
-          <li><span class="check">✓</span>KDP book factory (weekly)</li>
-          <li><span class="check">✓</span>Redbubble POD designs (weekly)</li>
-          <li><span class="check">✓</span>VPS passive income stack setup</li>
-          <li><span class="check">✓</span>Custom niche + keyword strategy</li>
-          <li><span class="check">✓</span>White-label (your brand)</li>
-          <li><span class="check">✓</span>Priority support + weekly calls</li>
-        </ul>
-        <a href="https://buy.stripe.com/00weVdevO9Yn5YDgLt24002" class="plan-btn plan-btn-secondary">Start Free Trial</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="proof">
-  <div class="proof-inner">
-    <div class="section-label">Social Proof</div>
-    <h2 style="color:#fff">What clients say after 30 days</h2>
-    <div class="testimonials">
-      <div class="testi">
-        <div class="testi-text">"I was skeptical. 30 days later I have 847 newsletter subscribers, 12 Gumroad sales, and my blog is ranking on page 2 for 3 keywords. Zero work from me after setup."</div>
-        <div class="testi-author"><div class="testi-avatar">MR</div><div><div class="testi-name">Marcus R.</div><div class="testi-role">E-commerce entrepreneur, Atlanta</div></div></div>
-      </div>
-      <div class="testi">
-        <div class="testi-text">"The content quality surprised me. I thought AI blog posts would be obvious — they're not. My niche audience actually engages. The affiliate income alone covers the subscription."</div>
-        <div class="testi-author"><div class="testi-avatar">JK</div><div><div class="testi-name">Jennifer K.</div><div class="testi-role">Fitness coach, Denver</div></div></div>
-      </div>
-      <div class="testi">
-        <div class="testi-text">"I hired 3 VAs to do what this system does. $2,400/month vs $297. The bots don't take sick days and they never miss a post."</div>
-        <div class="testi-author"><div class="testi-avatar">DW</div><div><div class="testi-name">David W.</div><div class="testi-role">Agency owner, New York</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="cta-section">
-  <h2>Start your automated income machine today.</h2>
-  <p>14-day free trial. Setup in 48 hours. Cancel anytime.</p>
-  <a href="#pricing" class="btn-primary">Get Started Free →</a>
-</section>
-
-<footer>
-  <div class="footer-logo">ProFlow AI</div>
-  <div class="footer-links">
-    <a href="/privacy">Privacy</a>
-    <a href="/terms">Terms</a>
-    <a href="mailto:nyspotlightreport@gmail.com">Contact</a>
-  </div>
-  <div class="footer-copy">© 2026 NY Spotlight Report. All rights reserved.</div>
-</footer>
-
+<footer>© 2020–2026 NY Spotlight Report LLC · <a href="/" style="color:var(--accent)">Home</a> · <a href="/about/sc-thomas/" style="color:var(--accent)">About</a> · <a href="/legal/">Terms</a> · <a href="/legal/">Privacy</a></footer>
 </body>
 </html>
