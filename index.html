@@ -7,284 +7,598 @@
 <meta name="description" content="New York's independent voice on entertainment, live performances, fashion, culture, and nightlife. Founded 2020 by S.C. Thomas. ISSN 2026-0147.">
 <meta property="og:title" content="NY Spotlight Report">
 <meta property="og:description" content="Entertainment, fashion, culture & nightlife from inside the rooms where it happens.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nyspotlightreport.com">
 <link rel="canonical" href="https://nyspotlightreport.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ===== RESET & TOKENS ===== */
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#fafaf8;--paper:#fff;--ink:#111;--grey:#555;--light:#999;--rule:#ddd;--accent:#c9a84c;--serif:'Playfair Display',Georgia,serif;--body:'Source Serif 4','Times New Roman',serif;--sans:'Inter',sans-serif}
+:root{
+  --bg:#fafaf8;--paper:#fff;--ink:#111;--grey:#555;--light:#999;--rule:#ddd;
+  --accent:#c9a84c;--accent-dark:#a8893a;--danger:#c0392b;
+  --serif:'Playfair Display',Georgia,serif;
+  --body:'Source Serif 4','Times New Roman',serif;
+  --sans:'Inter',-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;font-size:17px;line-height:1.7}
-a{color:inherit}
-
-.masthead{text-align:center;padding:28px 0 20px;border-bottom:3px double var(--ink)}
-.masthead-date{font-family:var(--sans);font-size:11px;color:var(--light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
-.masthead-logo{font-family:var(--serif);font-weight:900;letter-spacing:.02em;line-height:1}
-.masthead-logo .ny{font-size:clamp(28px,4vw,42px);display:block;letter-spacing:.08em}
-.masthead-logo .spotlight{font-size:clamp(48px,7vw,80px);display:block;letter-spacing:.03em;margin:-4px 0}
-.masthead-logo .report{font-size:clamp(14px,2vw,18px);letter-spacing:.35em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:12px;margin-top:2px}
-.masthead-logo .report::before,.masthead-logo .report::after{content:'';flex:1;max-width:120px;height:1px;background:var(--ink)}
-.masthead-tagline{font-family:var(--sans);font-size:11px;color:var(--light);margin-top:10px;letter-spacing:.06em}
-.masthead-tagline a{color:var(--accent);text-decoration:none}
-
-nav{border-bottom:1px solid var(--rule);padding:0 clamp(16px,4vw,64px);background:var(--paper);position:sticky;top:0;z-index:100}
-.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;height:44px;gap:32px}
-nav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--grey);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:color .15s}
-nav a:hover{color:var(--ink)}
-nav a.accent{color:var(--accent)}
-
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
 .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px)}
 
-/* BREAKING / TICKER */
-.ticker{background:var(--ink);color:rgba(255,255,255,.7);font-family:var(--sans);font-size:12px;padding:8px 0;overflow:hidden;white-space:nowrap}
-.ticker-inner{display:inline-block;animation:scroll 30s linear infinite}
-.ticker-inner span{margin-right:48px}
-.ticker-inner .dot{color:var(--accent);margin-right:48px}
-@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* ===== TOP BAR ===== */
+.topbar{background:var(--ink);color:rgba(255,255,255,.65);font-family:var(--sans);font-size:11px;letter-spacing:.04em;padding:7px 0}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.topbar-left,.topbar-right{display:flex;align-items:center;gap:16px}
+.topbar .sep{opacity:.3}
+.topbar .city{color:var(--accent);font-weight:600}
 
-/* FEATURED */
-.featured{padding:40px 0 36px;border-bottom:1px solid var(--rule)}
-.featured-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start}
-.featured-main .label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-.featured-main h1{font-family:var(--serif);font-size:clamp(30px,4vw,48px);font-weight:700;line-height:1.12;margin-bottom:14px}
-.featured-main h1 a{text-decoration:none}
-.featured-main h1 a:hover{color:var(--accent)}
-.featured-main .deck{font-size:18px;color:var(--grey);line-height:1.6;margin-bottom:14px}
-.featured-main .byline{font-family:var(--sans);font-size:12px;color:var(--light)}
-.featured-main .byline strong{color:var(--ink)}
-.featured-sidebar{border-left:1px solid var(--rule);padding-left:32px}
-.sidebar-item{padding:16px 0;border-bottom:1px solid var(--rule)}
-.sidebar-item:first-child{padding-top:0}
-.sidebar-item:last-child{border-bottom:none}
-.sidebar-item .label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
-.sidebar-item h3{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.3}
-.sidebar-item h3 a{text-decoration:none}
-.sidebar-item h3 a:hover{color:var(--accent)}
+/* ===== MASTHEAD ===== */
+.masthead{text-align:center;padding:28px 0 20px;border-bottom:3px double var(--ink);background:var(--paper)}
+.masthead-pre{font-family:var(--sans);font-size:10px;color:var(--light);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.masthead-logo{font-family:var(--serif);font-weight:900;letter-spacing:.02em;line-height:1}
+.masthead-logo .ny{font-size:clamp(26px,3.5vw,40px);display:block;letter-spacing:.1em}
+.masthead-logo .spotlight{font-size:clamp(48px,7vw,82px);display:block;letter-spacing:.03em;margin:-2px 0}
+.masthead-logo .report{font-size:clamp(13px,1.8vw,17px);letter-spacing:.38em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:14px;margin-top:2px}
+.masthead-logo .report::before,.masthead-logo .report::after{content:'';flex:1;max-width:140px;height:1px;background:var(--ink)}
+.masthead-tagline{font-family:var(--sans);font-size:11px;color:var(--light);margin-top:12px;letter-spacing:.08em}
 
-.section-head{display:flex;align-items:center;gap:16px;padding:32px 0 14px}
-.section-head h2{font-family:var(--serif);font-size:22px;font-weight:700;white-space:nowrap}
+/* ===== NAVIGATION ===== */
+nav{border-bottom:1px solid var(--rule);padding:0 clamp(16px,4vw,64px);background:var(--paper);position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;height:46px;gap:28px}
+nav a{font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--grey);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:color .15s;position:relative}
+nav a:hover{color:var(--ink)}
+nav a.accent{color:var(--accent)}
+nav a.accent:hover{color:var(--accent-dark)}
+.nav-hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
+
+/* ===== TICKER ===== */
+.ticker{background:#1a1a1a;color:rgba(255,255,255,.7);font-family:var(--sans);font-size:11.5px;padding:9px 0;overflow:hidden;white-space:nowrap;border-bottom:2px solid var(--accent)}
+.ticker-label{background:var(--danger);color:#fff;font-weight:700;font-size:10px;letter-spacing:.1em;padding:3px 10px;margin-right:20px;text-transform:uppercase;display:inline-block;vertical-align:middle}
+.ticker-track{display:inline-block;animation:ticker-scroll 45s linear infinite;vertical-align:middle}
+.ticker-track span{margin-right:40px}
+.ticker-track .dot{color:var(--accent);margin-right:40px;font-size:8px;vertical-align:middle}
+@keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ===== HERO / FEATURED ===== */
+.hero{padding:0;border-bottom:1px solid var(--rule);background:var(--paper)}
+.hero-grid{display:grid;grid-template-columns:1.5fr 1fr;min-height:520px}
+.hero-img{position:relative;overflow:hidden}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero-img .overlay{position:absolute;bottom:0;left:0;right:0;padding:32px;background:linear-gradient(transparent,rgba(0,0,0,.75))}
+.hero-content{padding:48px 40px;display:flex;flex-direction:column;justify-content:center}
+.label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:inline-block}
+.label-dark{color:#fff;background:var(--accent);padding:3px 8px;font-size:9px;letter-spacing:.1em}
+.hero-content h1{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:700;line-height:1.14;margin-bottom:16px}
+.hero-content h1 a:hover{color:var(--accent)}
+.hero-content .deck{font-size:17px;color:var(--grey);line-height:1.65;margin-bottom:18px}
+.meta{font-family:var(--sans);font-size:11px;color:var(--light);letter-spacing:.02em}
+.meta .by{font-weight:600;color:var(--grey)}
+.meta .sep{margin:0 8px;opacity:.4}
+
+/* ===== SECTION HEADS ===== */
+.section-head{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-top:48px}
+.section-head h2{font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-weight:700;white-space:nowrap}
 .section-head::after{content:'';flex:1;height:1px;background:var(--rule)}
-.section-head a{font-family:var(--sans);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.section-head .accent-line{width:50px;height:3px;background:var(--accent);flex-shrink:0}
 
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-bottom:48px}
-.card .thumb{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px;margin-bottom:14px;background:var(--rule)}
-.card .label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.card h3{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.28;margin-bottom:8px}
-.card h3 a{text-decoration:none}
-.card h3 a:hover{color:var(--accent)}
-.card p{font-size:15px;color:var(--grey);line-height:1.6}
-.featured-img{width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:20px;border-radius:2px}
+/* ===== STORY CARDS ===== */
+.card{background:var(--paper);border:1px solid var(--rule);transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
+.card-img{overflow:hidden;position:relative}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .card-img img{transform:scale(1.03)}
+.card-body{padding:20px}
+.card-body h3{font-family:var(--serif);font-size:clamp(16px,1.6vw,22px);font-weight:700;line-height:1.25;margin-bottom:8px}
+.card-body h3 a:hover{color:var(--accent)}
+.card-body .excerpt{font-size:15px;color:var(--grey);line-height:1.6;margin-bottom:10px}
+.card-body .meta{font-size:10.5px}
 
-/* PHOTO FEATURE */
-.photo-feature{background:var(--ink);padding:56px 48px;margin:40px 0;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;color:#fff}
-.photo-feature .label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-.photo-feature h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:700;line-height:1.15;margin-bottom:14px}
-.photo-feature p{color:rgba(255,255,255,.6);font-size:16px;line-height:1.7;margin-bottom:20px}
-.photo-feature a.read{color:var(--accent);font-family:var(--sans);font-size:13px;font-weight:600;text-decoration:none;letter-spacing:.04em}
-.photo-placeholder{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);border-radius:4px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:64px}
+/* ===== GRID LAYOUTS ===== */
+.grid-asym{display:grid;grid-template-columns:1.3fr 1fr;gap:28px}
+.grid-asym .card-lg .card-img{height:360px}
+.grid-asym .side{display:flex;flex-direction:column;gap:28px}
+.grid-asym .side .card-img{height:160px}
 
-.newsletter{background:var(--paper);border:2px solid var(--ink);padding:40px;margin:40px 0;text-align:center}
-.newsletter h2{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:8px}
-.newsletter p{color:var(--grey);max-width:500px;margin:0 auto 20px;font-size:15px}
-.newsletter form{display:flex;gap:8px;max-width:420px;margin:0 auto}
-.newsletter input{flex:1;padding:12px 16px;border:1px solid var(--rule);background:var(--bg);font-family:var(--sans);font-size:14px}
-.newsletter button{padding:12px 24px;background:var(--ink);color:#fff;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.grid-3 .card-img{height:220px}
 
-.about-strip{border-top:3px double var(--ink);padding:40px 0;text-align:center}
-.about-strip h2{font-family:var(--serif);font-size:20px;margin-bottom:8px}
-.about-strip p{color:var(--grey);max-width:660px;margin:0 auto;font-size:15px;line-height:1.7}
-.about-strip a.editor{color:var(--accent);font-family:var(--sans);font-size:13px;font-weight:600;text-decoration:none;display:inline-block;margin-top:12px}
+/* ===== PHOTO FEATURE (FULL-WIDTH) ===== */
+.photo-feature{position:relative;min-height:420px;display:flex;align-items:center;overflow:hidden;margin:48px 0 0}
+.photo-feature-bg{position:absolute;inset:0}
+.photo-feature-bg img{width:100%;height:100%;object-fit:cover}
+.photo-feature-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.55) 60%,rgba(0,0,0,.3) 100%)}
+.photo-feature-content{position:relative;z-index:2;max-width:560px;padding:60px clamp(24px,5vw,80px);color:#fff}
+.photo-feature-content .label{color:var(--accent)}
+.photo-feature-content h2{font-family:var(--serif);font-size:clamp(26px,3vw,40px);font-weight:700;line-height:1.18;margin-bottom:14px}
+.photo-feature-content p{font-size:16px;line-height:1.65;color:rgba(255,255,255,.8);margin-bottom:18px}
+.btn-gold{display:inline-block;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--accent);padding:12px 28px;transition:background .2s}
+.btn-gold:hover{background:var(--accent-dark)}
 
-footer{background:var(--ink);color:rgba(255,255,255,.4);padding:40px 0 28px;font-family:var(--sans);font-size:12px}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
-.footer-logo{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff;margin-bottom:8px}
-footer h4{color:rgba(255,255,255,.7);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
-footer ul{list-style:none}
-footer li{margin-bottom:6px}
-footer a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
-footer a:hover{color:var(--accent)}
-.footer-bottom{max-width:1200px;margin:24px auto 0;padding:16px clamp(16px,4vw,64px) 0;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between}
+/* ===== EDITOR'S PICKS ===== */
+.editors-picks{padding:48px 0 0}
+.pick-list{list-style:none;counter-reset:pick}
+.pick-list li{counter-increment:pick;padding:16px 0;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;gap:16px}
+.pick-list li::before{content:counter(pick,decimal-leading-zero);font-family:var(--serif);font-size:28px;font-weight:700;color:var(--accent);line-height:1;min-width:34px}
+.pick-list li a{font-family:var(--serif);font-size:17px;font-weight:600;line-height:1.35;flex:1}
+.pick-list li a:hover{color:var(--accent)}
+.pick-list li .pick-cat{font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light);white-space:nowrap}
 
-@media(max-width:768px){.featured-grid,.photo-feature{grid-template-columns:1fr}.featured-sidebar{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:16px}.grid-3{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}.nav-inner{gap:16px;flex-wrap:wrap}.photo-feature{padding:32px 24px}}
+/* ===== NEWSLETTER ===== */
+.newsletter{background:var(--ink);color:#fff;padding:56px 0;margin-top:48px;text-align:center}
+.newsletter h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:6px}
+.newsletter .sub{font-family:var(--sans);font-size:13px;color:rgba(255,255,255,.55);letter-spacing:.04em;margin-bottom:24px}
+.newsletter form{display:flex;gap:0;max-width:480px;margin:0 auto}
+.newsletter input[type="email"]{flex:1;padding:14px 18px;font-family:var(--sans);font-size:14px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;outline:none}
+.newsletter input[type="email"]::placeholder{color:rgba(255,255,255,.35)}
+.newsletter input[type="email"]:focus{border-color:var(--accent)}
+.newsletter button{padding:14px 28px;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:var(--ink);border:none;cursor:pointer;transition:background .2s}
+.newsletter button:hover{background:var(--accent-dark)}
+.newsletter .fine{font-family:var(--sans);font-size:10.5px;color:rgba(255,255,255,.35);margin-top:14px}
+
+/* ===== FROM THE EDITOR ===== */
+.from-editor{padding:48px 0;border-top:3px double var(--rule)}
+.from-editor-inner{max-width:680px;margin:0 auto;text-align:center}
+.from-editor h2{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:20px}
+.from-editor blockquote{font-family:var(--body);font-size:18px;font-style:italic;color:var(--grey);line-height:1.7;margin-bottom:16px;position:relative;padding:0 20px}
+.from-editor .sig{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--ink);letter-spacing:.04em}
+.from-editor .sig span{display:block;font-weight:400;color:var(--light);font-size:11px;margin-top:2px}
+
+/* ===== TRUST BAR ===== */
+.trust-bar{text-align:center;padding:32px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.trust-bar span{font-family:var(--sans);font-size:11px;color:var(--light);letter-spacing:.06em;margin:0 18px}
+.trust-bar .accent{color:var(--accent);font-weight:600}
+
+/* ===== FOOTER ===== */
+footer{background:var(--ink);color:rgba(255,255,255,.6);padding:56px 0 0}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-col h4{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}
+.footer-col p{font-size:14px;line-height:1.7;margin-bottom:8px}
+.footer-col a{font-family:var(--sans);font-size:13px;display:block;margin-bottom:10px;transition:color .15s}
+.footer-col a:hover{color:var(--accent)}
+.footer-col .brand{font-family:var(--serif);font-weight:700;font-size:18px;color:#fff;margin-bottom:12px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:20px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--sans);font-size:10.5px;letter-spacing:.04em}
+.footer-bottom a:hover{color:var(--accent)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-img{height:320px}
+  .hero-content{padding:28px 24px}
+  .grid-asym{grid-template-columns:1fr}
+  .grid-asym .card-lg .card-img{height:240px}
+  .grid-3{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .topbar-right{display:none}
+  .nav-inner a:not(.nav-home):not(.accent){display:none}
+  .nav-hamburger{display:block}
+  .grid-3{grid-template-columns:1fr}
+  .grid-asym .side{flex-direction:column}
+  .newsletter form{flex-direction:column}
+  .newsletter button{width:100%}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .pick-list li{gap:10px}
+}
 </style>
 </head>
 <body>
 
-<!-- TICKER -->
-<div class="ticker"><div class="ticker-inner"><span>Broadway's Spring Season Breaks Box Office Records</span><span class="dot">&bull;</span><span>Met Gala 2026 Theme Revealed: "Digital Couture"</span><span class="dot">&bull;</span><span>New York Fashion Week Fall/Winter Lineup Announced</span><span class="dot">&bull;</span><span>Brooklyn's Newest Underground Jazz Club Opens This Weekend</span><span class="dot">&bull;</span><span>Hell's Kitchen Nightlife Scene Surges Post-Pandemic</span><span class="dot">&bull;</span><span>Broadway's Spring Season Breaks Box Office Records</span><span class="dot">&bull;</span><span>Met Gala 2026 Theme Revealed: "Digital Couture"</span><span class="dot">&bull;</span><span>New York Fashion Week Fall/Winter Lineup Announced</span><span class="dot">&bull;</span><span>Brooklyn's Newest Underground Jazz Club Opens This Weekend</span><span class="dot">&bull;</span><span>Hell's Kitchen Nightlife Scene Surges Post-Pandemic</span><span class="dot">&bull;</span></div></div>
-
-<!-- MASTHEAD -->
-<header class="masthead">
-<div class="masthead-date">Monday, March 24, 2026 &middot; New York City</div>
-<div class="masthead-logo">
-<span class="ny">NY</span>
-<span class="spotlight">SPOTLIGHT</span>
-<span class="report">REPORT</span>
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-inner">
+      <div class="topbar-left">
+        <span>Sunday, March 23, 2026</span>
+        <span class="sep">|</span>
+        <span class="city">New York City</span>
+        <span class="sep">|</span>
+        <span>54&deg;F Partly Cloudy</span>
+      </div>
+      <div class="topbar-right">
+        <span>ISSN 2026-0147</span>
+        <span class="sep">|</span>
+        <span>Independent. Unsponsored. From Inside the Room.</span>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="masthead-tagline">Entertainment &middot; Live Performances &middot; Fashion &middot; Culture &middot; Nightlife &middot; Est. 2020 &middot; <a href="/about/sc-thomas/">S.C. Thomas, Editor-in-Chief</a></div>
+
+<!-- ===== MASTHEAD ===== -->
+<header class="masthead">
+  <div class="masthead-pre">Est. 2020 &mdash; New York City</div>
+  <div class="masthead-logo">
+    <span class="ny">NY</span>
+    <span class="spotlight">SPOTLIGHT</span>
+    <span class="report">REPORT</span>
+  </div>
+  <div class="masthead-tagline">Entertainment &middot; Live Performances &middot; Fashion &middot; Culture &middot; Nightlife</div>
 </header>
 
-<!-- NAV -->
+<!-- ===== NAVIGATION ===== -->
 <nav>
-<div class="nav-inner">
-<a href="/">Home</a>
-<a href="/blog/">Entertainment</a>
-<a href="/blog/">Fashion</a>
-<a href="/blog/">Culture</a>
-<a href="/blog/">Nightlife</a>
-<a href="/about/sc-thomas/">About</a>
-<a href="/newsletter/" class="accent">Subscribe</a>
-</div>
+  <div class="nav-inner">
+    <a href="/" class="nav-home">Home</a>
+    <a href="/blog/">Entertainment</a>
+    <a href="/blog/">Fashion</a>
+    <a href="/blog/">Culture</a>
+    <a href="/blog/hells-kitchen-gay-nightlife-capital/">Nightlife</a>
+    <a href="/blog/10-years-behind-the-scenes-entertainment/">About</a>
+    <a href="#newsletter" class="accent">Subscribe</a>
+    <button class="nav-hamburger" aria-label="Menu">&#9776;</button>
+  </div>
 </nav>
 
+<!-- ===== BREAKING TICKER ===== -->
+<div class="ticker">
+  <div class="wrap" style="padding:0;overflow:hidden">
+    <span class="ticker-label">Breaking</span>
+    <div class="ticker-track">
+      <span>Broadway's spring season shatters box-office records with $42M opening week</span>
+      <span class="dot">&bull;</span>
+      <span>Met Gala 2026 theme revealed: designers respond with bold early sketches</span>
+      <span class="dot">&bull;</span>
+      <span>Hell's Kitchen named nation's top nightlife corridor by Travel + Leisure</span>
+      <span class="dot">&bull;</span>
+      <span>MoMA PS1 announces 48-hour immersive performance art marathon for April</span>
+      <span class="dot">&bull;</span>
+      <span>NYC indie music venues report highest attendance since 2019</span>
+      <span class="dot">&bull;</span>
+      <span>Fashion Week aftershock: emerging designers land major retail deals</span>
+      <span class="dot">&bull;</span>
+      <!-- duplicate for seamless scroll -->
+      <span>Broadway's spring season shatters box-office records with $42M opening week</span>
+      <span class="dot">&bull;</span>
+      <span>Met Gala 2026 theme revealed: designers respond with bold early sketches</span>
+      <span class="dot">&bull;</span>
+      <span>Hell's Kitchen named nation's top nightlife corridor by Travel + Leisure</span>
+      <span class="dot">&bull;</span>
+      <span>MoMA PS1 announces 48-hour immersive performance art marathon for April</span>
+      <span class="dot">&bull;</span>
+      <span>NYC indie music venues report highest attendance since 2019</span>
+      <span class="dot">&bull;</span>
+      <span>Fashion Week aftershock: emerging designers land major retail deals</span>
+      <span class="dot">&bull;</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-img">
+      <img src="/images/broadway.jpg" alt="Broadway theater marquees illuminated at night" loading="eager">
+    </div>
+    <div class="hero-content">
+      <span class="label">Live Performance</span>
+      <h1><a href="/blog/10-years-behind-the-scenes-entertainment/">Broadway's Spring Awakening: Inside the Season That Changed the Theater Industry Forever</a></h1>
+      <p class="deck">After three years of cautious programming, producers are finally taking risks again. We went backstage at five of the season's boldest new productions to find out what's driving the creative surge.</p>
+      <div class="meta">
+        <span class="by">By S.C. Thomas</span>
+        <span class="sep">|</span>
+        <span>March 23, 2026</span>
+        <span class="sep">|</span>
+        <span>9 min read</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TODAY'S STORIES (ASYMMETRIC GRID) ===== -->
 <div class="wrap">
+  <div class="section-head">
+    <h2>Today's Stories</h2>
+    <span class="accent-line"></span>
+  </div>
+  <div class="grid-asym">
+    <!-- Large card -->
+    <div class="card card-lg">
+      <div class="card-img">
+        <img src="/images/runway.jpg" alt="Model on runway during New York Fashion Week" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="label">Fashion</span>
+        <h3><a href="/blog/">The New Guard: Five Designers Rewriting New York Fashion from the Ground Up</a></h3>
+        <p class="excerpt">From converted Bushwick warehouses to Midtown showrooms, a generation of designers is challenging everything the industry thought it knew about American style.</p>
+        <div class="meta">
+          <span class="by">By S.C. Thomas</span>
+          <span class="sep">|</span>
+          <span>March 22, 2026</span>
+          <span class="sep">|</span>
+          <span>11 min read</span>
+        </div>
+      </div>
+    </div>
+    <!-- Side stack -->
+    <div class="side">
+      <div class="card">
+        <div class="card-img">
+          <img src="/images/nightlife.jpg" alt="Nightclub interior with crowd and stage lighting" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="label">Nightlife</span>
+          <h3><a href="/blog/hells-kitchen-gay-nightlife-capital/">How Hell's Kitchen Became America's Undisputed Gay Nightlife Capital</a></h3>
+          <p class="excerpt">The neighborhood's transformation from gritty corridor to neon-lit epicenter is one of the city's great reinvention stories.</p>
+          <div class="meta">
+            <span class="by">By S.C. Thomas</span>
+            <span class="sep">|</span>
+            <span>March 21, 2026</span>
+            <span class="sep">|</span>
+            <span>8 min read</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img">
+          <img src="/images/gallery.jpg" alt="Contemporary art gallery opening in Chelsea" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="label">Culture</span>
+          <h3><a href="/blog/">Chelsea Galleries Are Having Their Biggest Spring in a Decade</a></h3>
+          <p class="excerpt">Record-setting openings and waitlisted shows signal a cultural appetite that even insiders didn't predict.</p>
+          <div class="meta">
+            <span class="by">By S.C. Thomas</span>
+            <span class="sep">|</span>
+            <span>March 20, 2026</span>
+            <span class="sep">|</span>
+            <span>6 min read</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- FEATURED -->
-<section class="featured">
-<div class="featured-grid">
-<div class="featured-main">
-<img src="/images/broadway.jpg" alt="Broadway theater stage" class="featured-img" loading="eager">
-<div class="label">Entertainment</div>
-<h1><a href="/blog/">Broadway's Boldest Season in a Decade: The Shows, the Stars, and the Stages Rewriting the Rules</a></h1>
-<p class="deck">From AI-choreographed dance sequences to sold-out immersive experiences in abandoned subway stations, New York's theater scene is having its most experimental moment since the pandemic. We went backstage at six productions to find out what's really happening.</p>
-<p class="byline">By <strong>S.C. Thomas</strong> &middot; NY Spotlight Report &middot; March 24, 2026</p>
+<!-- ===== ENTERTAINMENT SECTION ===== -->
+<div class="wrap">
+  <div class="section-head">
+    <h2>Entertainment</h2>
+    <span class="accent-line"></span>
+  </div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-img">
+        <img src="/images/theater.jpg" alt="Off-Broadway theater stage during rehearsal" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="label">The Industry</span>
+        <h3><a href="/blog/10-years-behind-the-scenes-entertainment/">A Decade Behind the Curtain: What Ten Years in Entertainment Taught Me About New York</a></h3>
+        <p class="excerpt">From greenrooms to boardrooms, the real machinery of the entertainment industry runs on relationships built after the show ends.</p>
+        <div class="meta">
+          <span class="by">By S.C. Thomas</span>
+          <span class="sep">|</span>
+          <span>March 19, 2026</span>
+          <span class="sep">|</span>
+          <span>12 min read</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="/images/dj.jpg" alt="DJ performing at a New York City venue" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="label">Entertainment</span>
+        <h3><a href="/blog/">The DJ Sets Reshaping New York's Live Music Landscape</a></h3>
+        <p class="excerpt">Electronic music is no longer the sideshow. At venues across the five boroughs, DJs are headlining rooms that used to belong to rock bands.</p>
+        <div class="meta">
+          <span class="by">By S.C. Thomas</span>
+          <span class="sep">|</span>
+          <span>March 18, 2026</span>
+          <span class="sep">|</span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="/images/concert.jpg" alt="Concert crowd at an outdoor New York City venue" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="label">Live Performance</span>
+        <h3><a href="/blog/">Summer Concert Season Preview: The NYC Shows You Cannot Miss</a></h3>
+        <p class="excerpt">Central Park, Governors Island, Brooklyn Steel, and a dozen unexpected stages are stacking lineups that rival any festival circuit.</p>
+        <div class="meta">
+          <span class="by">By S.C. Thomas</span>
+          <span class="sep">|</span>
+          <span>March 17, 2026</span>
+          <span class="sep">|</span>
+          <span>8 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="featured-sidebar">
-<div class="sidebar-item">
-<div class="label">Nightlife</div>
-<h3><a href="/blog/">Hell's Kitchen Reclaims Its Crown as NYC's Gay Nightlife Capital</a></h3>
-</div>
-<div class="sidebar-item">
-<div class="label">Fashion</div>
-<h3><a href="/blog/">The New Guard: 7 NYC Designers Redefining Streetwear From Brooklyn Studios</a></h3>
-</div>
-<div class="sidebar-item">
-<div class="label">Live Performance</div>
-<h3><a href="/blog/">Inside the Secret Comedy Shows Happening in Manhattan Basements After Midnight</a></h3>
-</div>
-<div class="sidebar-item">
-<div class="label">Culture</div>
-<h3><a href="/blog/">Why Every Gallery in Chelsea Is Suddenly Showing AI Art — And Why That's Not the Point</a></h3>
-</div>
-</div>
-</div>
-</section>
 
-<!-- ENTERTAINMENT -->
-<div class="section-head"><h2>Entertainment</h2><a href="/blog/">All Stories &rarr;</a></div>
-<div class="grid-3">
-<article class="card">
-<img src="/images/theater.jpg" alt="Theater performance" class="thumb" loading="lazy">
-<div class="label">Theater</div>
-<h3><a href="/blog/">The $2 Million Bet: How One Off-Broadway Producer Is Reinventing the Musical</a></h3>
-<p>A former tech founder is pouring venture capital into experimental theater — and the results are filling seats that traditional Broadway can't.</p>
-</article>
-<article class="card">
-<img src="/images/dj.jpg" alt="DJ performing" class="thumb" loading="lazy">
-<div class="label">Music</div>
-<h3><a href="/blog/">NYC's Underground DJ Scene Is Going Mainstream — Here's Who's Leading It</a></h3>
-<p>The DJs who used to spin in Bushwick warehouses are now headlining Madison Square Garden. A look at the new generation crossing over.</p>
-</article>
-<article class="card">
-<img src="/images/concert.jpg" alt="Film premiere" class="thumb" loading="lazy">
-<div class="label">Film</div>
-<h3><a href="/blog/">Tribeca Film Festival 2026: The 10 Films Everyone Will Be Talking About</a></h3>
-<p>From a documentary shot entirely on iPhones in the Bronx to a sci-fi thriller filmed in an actual decommissioned subway tunnel.</p>
-</article>
-</div>
-
-<!-- PHOTO FEATURE -->
+<!-- ===== FULL-WIDTH PHOTO FEATURE ===== -->
 <div class="photo-feature">
-<div>
-<div class="label">Fashion Week Report</div>
-<h2>New York Fashion Week Fall/Winter 2026: The Collections That Defined the Season</h2>
-<p>From the front rows of Lincoln Center to the guerrilla runway shows in Chinatown parking garages, we covered every major moment of NYFW. The verdict: New York fashion has never been more alive — or more divided.</p>
-<a href="/blog/" class="read">Read the Full Report &rarr;</a>
-</div>
-<div><img src="/images/runway.jpg" alt="New York Fashion Week runway" style="width:100%;border-radius:4px;aspect-ratio:4/3;object-fit:cover"></div>
-</div>
-
-<!-- NIGHTLIFE & CULTURE -->
-<div class="section-head"><h2>Nightlife &amp; Culture</h2><a href="/blog/">All Stories &rarr;</a></div>
-<div class="grid-3">
-<article class="card">
-<img src="/images/bar.jpg" alt="NYC cocktail bar" class="thumb" loading="lazy">
-<div class="label">Nightlife</div>
-<h3><a href="/blog/">The 15 Best New Bars in NYC Right Now, According to the People Who Actually Go Out</a></h3>
-<p>Forget the Infatuation lists. These are the spots the bartenders, DJs, and door guys drink at after their shifts end.</p>
-</article>
-<article class="card">
-<img src="/images/gallery.jpg" alt="Art gallery opening" class="thumb" loading="lazy">
-<div class="label">Culture</div>
-<h3><a href="/blog/">Inside the Members-Only Clubs Reshaping Manhattan's Social Scene</a></h3>
-<p>Soho House is old news. The new private clubs are smaller, weirder, and way harder to get into. We got inside three of them.</p>
-</article>
-<article class="card">
-<img src="/images/poetry.jpg" alt="Spoken word performance" class="thumb" loading="lazy">
-<div class="label">Live Performance</div>
-<h3><a href="/blog/">The Spoken Word Revival: How Poetry Slams Became NYC's Hottest Night Out</a></h3>
-<p>On any given Tuesday in the East Village, 200 people pack a basement to watch poets perform. This is the story of how that happened.</p>
-</article>
+  <div class="photo-feature-bg">
+    <img src="/images/fashion.jpg" alt="Fashion industry behind the scenes in New York" loading="lazy">
+  </div>
+  <div class="photo-feature-content">
+    <span class="label">Deep Dive</span>
+    <h2>The Rooms Where It Happens: An Investigation Into Who Really Controls New York's Entertainment Industry</h2>
+    <p>A four-part series examining the gatekeepers, power brokers, and unwritten rules that determine which artists break through and which are left on the outside looking in.</p>
+    <a href="/blog/10-years-behind-the-scenes-entertainment/" class="btn-gold">Read the Series</a>
+  </div>
 </div>
 
-<!-- NEWSLETTER -->
-<section class="newsletter">
-<h2>The Spotlight Brief</h2>
-<p>NYC entertainment, nightlife, fashion, and culture — the stories you won't find anywhere else. Delivered every Monday.</p>
-<form onsubmit="event.preventDefault();fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:this.querySelector('input').value,source:'homepage'})});this.innerHTML='<p style=color:var(--accent);font-weight:600>You\'re in. See you Monday.</p>'">
-<input type="email" placeholder="your@email.com" required>
-<button type="submit">Subscribe</button>
-</form>
+<!-- ===== NIGHTLIFE & CULTURE SECTION ===== -->
+<div class="wrap">
+  <div class="section-head">
+    <h2>Nightlife &amp; Culture</h2>
+    <span class="accent-line"></span>
+  </div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-img">
+        <img src="/images/bar.jpg" alt="Cocktail bar interior in the West Village" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="label">Nightlife</span>
+        <h3><a href="/blog/">The Speakeasy Is Dead. Long Live the Speakeasy.</a></h3>
+        <p class="excerpt">New York's cocktail scene is moving past the hidden-door gimmick and into something more interesting: bars that actually want to be found.</p>
+        <div class="meta">
+          <span class="by">By S.C. Thomas</span>
+          <span class="sep">|</span>
+          <span>March 16, 2026</span>
+          <span class="sep">|</span>
+          <span>6 min read</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="/images/poetry.jpg" alt="Poetry reading at a Harlem literary venue" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="label">Culture</span>
+        <h3><a href="/blog/">Harlem's Literary Renaissance Is Louder Than Ever</a></h3>
+        <p class="excerpt">Spoken word nights, independent bookstores, and a new generation of writers are making uptown the center of New York's literary conversation.</p>
+        <div class="meta">
+          <span class="by">By S.C. Thomas</span>
+          <span class="sep">|</span>
+          <span>March 15, 2026</span>
+          <span class="sep">|</span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="/images/street.jpg" alt="Street scene in Lower Manhattan at dusk" loading="lazy">
+      </div>
+      <div class="card-body">
+        <span class="label">Culture</span>
+        <h3><a href="/blog/">After Dark in the Lower East Side: The Neighborhood That Never Stopped Reinventing Itself</a></h3>
+        <p class="excerpt">Decades of change have only sharpened the LES's edge. Here's what's thriving on the blocks that made New York's reputation.</p>
+        <div class="meta">
+          <span class="by">By S.C. Thomas</span>
+          <span class="sep">|</span>
+          <span>March 14, 2026</span>
+          <span class="sep">|</span>
+          <span>9 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EDITOR'S PICKS ===== -->
+<div class="wrap editors-picks">
+  <div class="section-head">
+    <h2>Editor's Picks</h2>
+    <span class="accent-line"></span>
+  </div>
+  <ol class="pick-list">
+    <li>
+      <a href="/blog/hells-kitchen-gay-nightlife-capital/">Why Every Nightlife Journalist in America Is Writing About Hell's Kitchen Right Now</a>
+      <span class="pick-cat">Nightlife</span>
+    </li>
+    <li>
+      <a href="/blog/10-years-behind-the-scenes-entertainment/">What the Backstage Crew Knows That the Audience Never Will</a>
+      <span class="pick-cat">The Industry</span>
+    </li>
+    <li>
+      <a href="/blog/">The Quiet Power Shift Happening Inside New York's Fashion Houses</a>
+      <span class="pick-cat">Fashion</span>
+    </li>
+    <li>
+      <a href="/blog/">From the Subway Platform to the Main Stage: NYC Street Performers Who Made It</a>
+      <span class="pick-cat">Entertainment</span>
+    </li>
+    <li>
+      <a href="/blog/">The 12 Cultural Events That Will Define New York's Spring</a>
+      <span class="pick-cat">Culture</span>
+    </li>
+  </ol>
+</div>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="newsletter" id="newsletter">
+  <div class="wrap">
+    <h2>The Spotlight Brief</h2>
+    <p class="sub">NYC entertainment, culture, and nightlife &mdash; delivered to your inbox every week.</p>
+    <form action="/.netlify/functions/subscribe" method="POST">
+      <input type="email" name="email" placeholder="Your email address" required aria-label="Email address">
+      <button type="submit">Subscribe</button>
+    </form>
+    <p class="fine">Free. No spam. Unsubscribe anytime. Read by thousands of New Yorkers weekly.</p>
+  </div>
 </section>
 
-<!-- ABOUT -->
-<section class="about-strip">
-<h2>About NY Spotlight Report</h2>
-<p>NY Spotlight Report is an independent New York publication covering entertainment, live performances, fashion, culture, and nightlife. Founded in 2020 by S.C. Thomas — a U.S. Military Veteran and entertainment industry insider who stays in the shadows to get the best stories in the rooms where it happens. No corporate sponsors. No PR fluff. Just the real New York.</p>
-<a href="/about/sc-thomas/" class="editor">S.C. Thomas, Editor-in-Chief &rarr;</a>
-</section>
-
+<!-- ===== FROM THE EDITOR ===== -->
+<div class="wrap">
+  <section class="from-editor">
+    <div class="from-editor-inner">
+      <h2>From the Editor</h2>
+      <blockquote>
+        NY Spotlight Report was built on a simple premise: the most important stories in entertainment don't happen on stage. They happen in the rehearsal rooms, the fitting rooms, the after-parties, and the back offices where decisions get made. We report from inside the rooms where it happens &mdash; because proximity is the difference between a press release and the truth.
+      </blockquote>
+      <div class="sig">
+        S.C. Thomas
+        <span>Founder &amp; Editor-in-Chief &mdash; U.S. Military Veteran</span>
+      </div>
+    </div>
+  </section>
 </div>
 
-<!-- FOOTER -->
+<!-- ===== TRUST BAR ===== -->
+<div class="trust-bar">
+  <span>Trusted by <strong class="accent">thousands</strong> of readers monthly</span>
+  <span>|</span>
+  <span>Independent. Unsponsored. From Inside the Room.</span>
+  <span>|</span>
+  <span>ISSN <strong>2026-0147</strong></span>
+</div>
+
+<!-- ===== FOOTER ===== -->
 <footer>
-<div class="footer-inner">
-<div>
-<div class="footer-logo">NY Spotlight Report</div>
-<p>Entertainment, fashion, culture &amp; nightlife from inside the rooms where it happens.</p>
-<p style="margin-top:6px">ISSN 2026-0147 &middot; Est. 2020 &middot; New York City</p>
-</div>
-<div>
-<h4>Sections</h4>
-<ul>
-<li><a href="/blog/">Entertainment</a></li>
-<li><a href="/blog/">Fashion</a></li>
-<li><a href="/blog/">Culture</a></li>
-<li><a href="/blog/">Nightlife</a></li>
-<li><a href="/blog/">Live Performance</a></li>
-</ul>
-</div>
-<div>
-<h4>Publication</h4>
-<ul>
-<li><a href="/about/sc-thomas/">About the Editor</a></li>
-<li><a href="/press/">Press &amp; Media</a></li>
-<li><a href="/newsletter/">Newsletter</a></li>
-<li><a href="mailto:nyspotlightreport@gmail.com">Contact</a></li>
-</ul>
-</div>
-<div>
-<h4>Connect</h4>
-<ul>
-<li><a href="mailto:nyspotlightreport@gmail.com">Email the Editor</a></li>
-<li><a href="/newsletter/">Subscribe Free</a></li>
-<li><a href="/press/">Advertise</a></li>
-<li><a href="/press/">Tips &amp; Story Ideas</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<span>&copy; 2020&ndash;2026 NY Spotlight Report. All rights reserved.</span>
-<span>New York, NY &middot; nyspotlightreport@gmail.com</span>
-</div>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="brand">NY Spotlight Report</div>
+        <p>New York's independent voice on entertainment, live performances, fashion, culture, and nightlife. Founded 2020 in New York City.</p>
+        <p style="margin-top:8px;font-family:var(--sans);font-size:11px;color:rgba(255,255,255,.35)">ISSN 2026-0147</p>
+      </div>
+      <div class="footer-col">
+        <h4>Sections</h4>
+        <a href="/blog/">Entertainment</a>
+        <a href="/blog/">Fashion</a>
+        <a href="/blog/">Culture</a>
+        <a href="/blog/hells-kitchen-gay-nightlife-capital/">Nightlife</a>
+        <a href="/blog/">Live Performances</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="/blog/10-years-behind-the-scenes-entertainment/">Our Story</a>
+        <a href="/blog/">Editorial Standards</a>
+        <a href="/blog/">Masthead</a>
+        <a href="/blog/">Careers</a>
+        <a href="/blog/">Press</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:tips@nyspotlightreport.com">Tips: tips@nyspotlightreport.com</a>
+        <a href="mailto:hello@nyspotlightreport.com">General: hello@nyspotlightreport.com</a>
+        <a href="#newsletter">Subscribe to Newsletter</a>
+        <a href="/blog/">Twitter / X</a>
+        <a href="/blog/">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2020&ndash;2026 NY Spotlight Report. All rights reserved. New York City.</div>
+      <div>
+        <a href="/blog/">Privacy Policy</a> &nbsp;&middot;&nbsp;
+        <a href="/blog/">Terms of Use</a> &nbsp;&middot;&nbsp;
+        <a href="/blog/">Cookie Policy</a> &nbsp;&middot;&nbsp;
+        <a href="/blog/">Accessibility</a>
+      </div>
+    </div>
+  </div>
 </footer>
 
 </body>
