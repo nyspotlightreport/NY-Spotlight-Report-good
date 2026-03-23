@@ -39,6 +39,58 @@ exports.handler = async (event) => {
     return success({ token, email, name: "S.C. Thomas", plan: "agency", role: "chairman" });
   }
 
-  // Non-admin: reject unknown users (no open registration)
+  // Client login: check Supabase client_users table
+  const SUPABASE_URL = process.env.SUPABASE_URL;
+  const SUPABASE_KEY = process.env.SUPABASE_KEY;
+  if (SUPABASE_URL && SUPABASE_KEY) {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/client_users?email=eq.${encodeURIComponent(email)}&active=eq.true&select=id,email,name,company,plan,role,password_hash&limit=1`,
+        {
+          headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
+          signal: AbortSignal.timeout(8000),
+        }
+      );
+      if (res.ok) {
+        const users = await res.json();
+        if (users.length > 0) {
+          const user = users[0];
+          const valid = await bcrypt.compare(password, user.password_hash);
+          if (!valid) return error("Invalid credentials", 401);
+
+          // Update last_login (fire and forget)
+          fetch(`${SUPABASE_URL}/rest/v1/client_users?id=eq.${user.id}`, {
+            method: "PATCH",
+            headers: {
+              apikey: SUPABASE_KEY,
+              Authorization: `Bearer ${SUPABASE_KEY}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ last_login: new Date().toISOString() }),
+          }).catch(() => {});
+
+          const token = signToken({
+            sub: user.id,
+            email: user.email,
+            name: user.name,
+            plan: user.plan,
+            role: user.role,
+          });
+
+          return success({
+            token,
+            email: user.email,
+            name: user.name,
+            plan: user.plan,
+            role: user.role,
+            clientId: user.id,
+          });
+        }
+      }
+    } catch (err) {
+      console.error("Supabase client lookup error:", err.message);
+    }
+  }
+
   return error("Invalid credentials", 401);
 };

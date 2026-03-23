@@ -1,4 +1,19 @@
 [[redirects]]
+  from = "/api/voice-conversation"
+  to   = "/.netlify/functions/voice-conversation"
+  status = 200
+
+[[redirects]]
+  from = "/api/client-api"
+  to   = "/.netlify/functions/client-api"
+  status = 200
+
+[[redirects]]
+  from = "/api/client-register"
+  to   = "/.netlify/functions/client-register"
+  status = 200
+
+[[redirects]]
   from = "/api/news"
   to   = "/.netlify/functions/api-news"
   status = 200

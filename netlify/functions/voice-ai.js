@@ -4,6 +4,7 @@ const crypto = require("crypto");
 
 const BASE_URL = "https://nyspotlightreport.com/.netlify/functions/voice-ai";
 const AUDIO_URL = "https://nyspotlightreport.com/.netlify/functions/voice-audio";
+const CONV_URL = "https://nyspotlightreport.com/.netlify/functions/voice-conversation";
 const VOICE = "Polly.Joanna";
 const USE_ELEVENLABS = process.env.ELEVENLABS_API_KEY ? true : false;
 
@@ -62,32 +63,27 @@ exports.handler = async (event) => {
   // ── MAIN MENU ROUTING ──────────────────────────────
   if (step === "route") {
     if (digits === "1") {
+      // Route to live AI sales bot
       return twiml(`
-${say("Great choice... Let me pull up those details for you.")}
+${say("Great choice... Let me connect you with our sales assistant.")}
     <Pause length="1"/>
-${say("ProFlow is a done-for-you A.I. content engine that replaces your entire content team, for a fraction of the cost. Starting at just 97 dollars per month, you get daily blog posts, social media on 6 platforms, professional images, and weekly performance reports. All written in your brand voice. Setup takes just 5 minutes.")}
-    <Gather numDigits="1" timeout="5" action="${BASE_URL}?step=sales" method="POST">
-${say("Press 1 to hear pricing details. Press 2 to speak with our team. Or press 0 to return to the main menu.")}
-    </Gather>
-${say("Thank you for your interest in ProFlow. Visit n.y. spotlight report dot com slash proflow to get started today. Goodbye.")}`);
+    <Redirect method="POST">${CONV_URL}?dept=sales&amp;turn=0&amp;history=</Redirect>`);
     }
 
     if (digits === "2") {
+      // Route to live AI support bot
       return twiml(`
-${say("Sure thing... Let me get you that information.")}
+${say("Sure thing... Let me connect you with our support specialist.")}
     <Pause length="1"/>
-${say("For support, please email us at n.y. spotlight report at gmail dot com, or visit our website at n.y. spotlight report dot com. Our team typically responds within 24 hours.")}
-${say("If you need immediate assistance, you can also text this number and we will get back to you as soon as possible.")}
-${say("Thank you for being a ProFlow customer. Have a wonderful day.")}`);
+    <Redirect method="POST">${CONV_URL}?dept=support&amp;turn=0&amp;history=</Redirect>`);
     }
 
     if (digits === "0") {
+      // Route to live AI general assistant
       return twiml(`
-${say("One moment please... Let me connect you with our team.")}
+${say("One moment please... Let me connect you with our assistant.")}
     <Pause length="1"/>
-${say("Our team is currently unavailable. Please leave a message after the tone and we will call you back within 24 hours.")}
-    <Record maxLength="120" transcribe="true" transcribeCallback="${BASE_URL}?step=transcription" playBeep="true" action="${BASE_URL}?step=after-record" />
-${say("Thank you for your message. We will get back to you soon. Goodbye.")}`);
+    <Redirect method="POST">${CONV_URL}?dept=general&amp;turn=0&amp;history=</Redirect>`);
     }
 
     // Unrecognized input
