@@ -1,6 +1,6 @@
 const nacl = require("tweetnacl");
 const naclUtil = require("tweetnacl-util");
-require("tweetnacl-sealedbox");  // Adds nacl.sealedBox
+require("tweetnacl-sealedbox-js");  // Adds nacl.sealedBox
 const { verifyAuth } = require("./_shared/auth");
 const { cors, success, error } = require("./_shared/response");
 const { parseBody } = require("./_shared/utils");
