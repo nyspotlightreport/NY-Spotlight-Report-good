@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NY Spotlight Report — AI, Technology & Digital Entrepreneurship</title>
-<meta name="description" content="New York's independent digital publication covering AI, automation, passive income, and digital entrepreneurship. Founded 2020 by S.C. Thomas. ISSN 2026-0147.">
+<title>NY Spotlight Report — New York Entertainment, Fashion, Culture & Nightlife</title>
+<meta name="description" content="New York's independent voice on entertainment, live performances, fashion, culture, and nightlife. Founded 2020 by S.C. Thomas. ISSN 2026-0147.">
 <meta property="og:title" content="NY Spotlight Report">
-<meta property="og:description" content="AI, technology, and digital entrepreneurship from New York.">
+<meta property="og:description" content="Entertainment, fashion, culture & nightlife from inside the rooms where it happens.">
 <link rel="canonical" href="https://nyspotlightreport.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -15,7 +15,6 @@
 body{font-family:var(--body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;font-size:17px;line-height:1.7}
 a{color:inherit}
 
-/* MASTHEAD */
 .masthead{text-align:center;padding:28px 0 20px;border-bottom:3px double var(--ink)}
 .masthead-date{font-family:var(--sans);font-size:11px;color:var(--light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
 .masthead-logo{font-family:var(--serif);font-weight:900;letter-spacing:.02em;line-height:1}
@@ -26,7 +25,6 @@ a{color:inherit}
 .masthead-tagline{font-family:var(--sans);font-size:11px;color:var(--light);margin-top:10px;letter-spacing:.06em}
 .masthead-tagline a{color:var(--accent);text-decoration:none}
 
-/* NAV */
 nav{border-bottom:1px solid var(--rule);padding:0 clamp(16px,4vw,64px);background:var(--paper);position:sticky;top:0;z-index:100}
 .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;height:44px;gap:32px}
 nav a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--grey);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:color .15s}
@@ -34,6 +32,13 @@ nav a:hover{color:var(--ink)}
 nav a.accent{color:var(--accent)}
 
 .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px)}
+
+/* BREAKING / TICKER */
+.ticker{background:var(--ink);color:rgba(255,255,255,.7);font-family:var(--sans);font-size:12px;padding:8px 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-block;animation:scroll 30s linear infinite}
+.ticker-inner span{margin-right:48px}
+.ticker-inner .dot{color:var(--accent);margin-right:48px}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* FEATURED */
 .featured{padding:40px 0 36px;border-bottom:1px solid var(--rule)}
@@ -54,37 +59,38 @@ nav a.accent{color:var(--accent)}
 .sidebar-item h3 a{text-decoration:none}
 .sidebar-item h3 a:hover{color:var(--accent)}
 
-/* SECTION HEADERS */
 .section-head{display:flex;align-items:center;gap:16px;padding:32px 0 14px}
 .section-head h2{font-family:var(--serif);font-size:22px;font-weight:700;white-space:nowrap}
 .section-head::after{content:'';flex:1;height:1px;background:var(--rule)}
 .section-head a{font-family:var(--sans);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
 
-/* ARTICLE GRID */
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-bottom:48px}
-.card{padding-bottom:20px}
 .card .label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .card h3{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.28;margin-bottom:8px}
 .card h3 a{text-decoration:none}
 .card h3 a:hover{color:var(--accent)}
 .card p{font-size:15px;color:var(--grey);line-height:1.6}
 
-/* NEWSLETTER */
-.newsletter{background:var(--ink);color:#fff;padding:48px;margin:40px 0;text-align:center}
-.newsletter h2{font-family:var(--serif);font-size:28px;font-weight:700;margin-bottom:8px}
-.newsletter p{color:rgba(255,255,255,.55);max-width:500px;margin:0 auto 20px;font-size:15px;line-height:1.6}
-.newsletter form{display:flex;gap:8px;max-width:420px;margin:0 auto}
-.newsletter input{flex:1;padding:12px 16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-family:var(--sans);font-size:14px;border-radius:0}
-.newsletter input::placeholder{color:rgba(255,255,255,.3)}
-.newsletter button{padding:12px 24px;background:var(--accent);color:var(--ink);font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer}
+/* PHOTO FEATURE */
+.photo-feature{background:var(--ink);padding:56px 48px;margin:40px 0;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;color:#fff}
+.photo-feature .label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.photo-feature h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:700;line-height:1.15;margin-bottom:14px}
+.photo-feature p{color:rgba(255,255,255,.6);font-size:16px;line-height:1.7;margin-bottom:20px}
+.photo-feature a.read{color:var(--accent);font-family:var(--sans);font-size:13px;font-weight:600;text-decoration:none;letter-spacing:.04em}
+.photo-placeholder{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);border-radius:4px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:64px}
 
-/* ABOUT STRIP */
+.newsletter{background:var(--paper);border:2px solid var(--ink);padding:40px;margin:40px 0;text-align:center}
+.newsletter h2{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:8px}
+.newsletter p{color:var(--grey);max-width:500px;margin:0 auto 20px;font-size:15px}
+.newsletter form{display:flex;gap:8px;max-width:420px;margin:0 auto}
+.newsletter input{flex:1;padding:12px 16px;border:1px solid var(--rule);background:var(--bg);font-family:var(--sans);font-size:14px}
+.newsletter button{padding:12px 24px;background:var(--ink);color:#fff;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer}
+
 .about-strip{border-top:3px double var(--ink);padding:40px 0;text-align:center}
 .about-strip h2{font-family:var(--serif);font-size:20px;margin-bottom:8px}
-.about-strip p{color:var(--grey);max-width:640px;margin:0 auto;font-size:15px;line-height:1.7}
+.about-strip p{color:var(--grey);max-width:660px;margin:0 auto;font-size:15px;line-height:1.7}
 .about-strip a.editor{color:var(--accent);font-family:var(--sans);font-size:13px;font-weight:600;text-decoration:none;display:inline-block;margin-top:12px}
 
-/* FOOTER */
 footer{background:var(--ink);color:rgba(255,255,255,.4);padding:40px 0 28px;font-family:var(--sans);font-size:12px}
 .footer-inner{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
 .footer-logo{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff;margin-bottom:8px}
@@ -95,144 +101,135 @@ footer a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
 footer a:hover{color:var(--accent)}
 .footer-bottom{max-width:1200px;margin:24px auto 0;padding:16px clamp(16px,4vw,64px) 0;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between}
 
-@media(max-width:768px){
-.featured-grid{grid-template-columns:1fr}
-.featured-sidebar{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:16px}
-.grid-3{grid-template-columns:1fr}
-.footer-inner{grid-template-columns:1fr 1fr}
-.nav-inner{gap:16px;flex-wrap:wrap}
-}
+@media(max-width:768px){.featured-grid,.photo-feature{grid-template-columns:1fr}.featured-sidebar{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:16px}.grid-3{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}.nav-inner{gap:16px;flex-wrap:wrap}.photo-feature{padding:32px 24px}}
 </style>
 </head>
 <body>
 
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner"><span>Broadway's Spring Season Breaks Box Office Records</span><span class="dot">&bull;</span><span>Met Gala 2026 Theme Revealed: "Digital Couture"</span><span class="dot">&bull;</span><span>New York Fashion Week Fall/Winter Lineup Announced</span><span class="dot">&bull;</span><span>Brooklyn's Newest Underground Jazz Club Opens This Weekend</span><span class="dot">&bull;</span><span>Hell's Kitchen Nightlife Scene Surges Post-Pandemic</span><span class="dot">&bull;</span><span>Broadway's Spring Season Breaks Box Office Records</span><span class="dot">&bull;</span><span>Met Gala 2026 Theme Revealed: "Digital Couture"</span><span class="dot">&bull;</span><span>New York Fashion Week Fall/Winter Lineup Announced</span><span class="dot">&bull;</span><span>Brooklyn's Newest Underground Jazz Club Opens This Weekend</span><span class="dot">&bull;</span><span>Hell's Kitchen Nightlife Scene Surges Post-Pandemic</span><span class="dot">&bull;</span></div></div>
+
 <!-- MASTHEAD -->
 <header class="masthead">
-<div class="masthead-date">Monday, March 24, 2026 &middot; New York</div>
+<div class="masthead-date">Monday, March 24, 2026 &middot; New York City</div>
 <div class="masthead-logo">
 <span class="ny">NY</span>
 <span class="spotlight">SPOTLIGHT</span>
 <span class="report">REPORT</span>
 </div>
-<div class="masthead-tagline">Independent Reporting on AI, Technology &amp; Digital Entrepreneurship &middot; Est. 2020 &middot; ISSN 2026-0147 &middot; <a href="/about/sc-thomas/">S.C. Thomas, Editor-in-Chief</a></div>
+<div class="masthead-tagline">Entertainment &middot; Live Performances &middot; Fashion &middot; Culture &middot; Nightlife &middot; Est. 2020 &middot; <a href="/about/sc-thomas/">S.C. Thomas, Editor-in-Chief</a></div>
 </header>
 
 <!-- NAV -->
 <nav>
 <div class="nav-inner">
 <a href="/">Home</a>
-<a href="/blog/">Articles</a>
+<a href="/blog/">Entertainment</a>
+<a href="/blog/">Fashion</a>
+<a href="/blog/">Culture</a>
+<a href="/blog/">Nightlife</a>
 <a href="/about/sc-thomas/">About</a>
-<a href="/press/">Press</a>
-<a href="/newsletter/">Newsletter</a>
-<a href="/login/" class="accent">Sign In</a>
+<a href="/newsletter/" class="accent">Subscribe</a>
 </div>
 </nav>
 
 <div class="wrap">
 
-<!-- FEATURED STORY -->
+<!-- FEATURED -->
 <section class="featured">
 <div class="featured-grid">
 <div class="featured-main">
-<div class="label">Featured Report</div>
-<h1><a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/">How I Built 63 AI Bots That Run My Entire Business While I Sleep</a></h1>
-<p class="deck">Inside the fully autonomous system that handles content creation, lead generation, email outreach, social media, and client management — without human intervention. A complete architectural breakdown.</p>
-<p class="byline">By <strong>S.C. Thomas</strong> &middot; NY Spotlight Report &middot; March 2026</p>
+<div class="label">Entertainment</div>
+<h1><a href="/blog/">Broadway's Boldest Season in a Decade: The Shows, the Stars, and the Stages Rewriting the Rules</a></h1>
+<p class="deck">From AI-choreographed dance sequences to sold-out immersive experiences in abandoned subway stations, New York's theater scene is having its most experimental moment since the pandemic. We went backstage at six productions to find out what's really happening.</p>
+<p class="byline">By <strong>S.C. Thomas</strong> &middot; NY Spotlight Report &middot; March 24, 2026</p>
 </div>
 <div class="featured-sidebar">
 <div class="sidebar-item">
-<div class="label">AI Automation</div>
-<h3><a href="/blog/automated-content-operation/">How I Automated My Entire Content Operation for $0/Month</a></h3>
+<div class="label">Nightlife</div>
+<h3><a href="/blog/">Hell's Kitchen Reclaims Its Crown as NYC's Gay Nightlife Capital</a></h3>
 </div>
 <div class="sidebar-item">
-<div class="label">Sales Systems</div>
-<h3><a href="/blog/cold-email-system-proflow/">The Cold Email System That Books 5 Demos a Week Without a Sales Team</a></h3>
+<div class="label">Fashion</div>
+<h3><a href="/blog/">The New Guard: 7 NYC Designers Redefining Streetwear From Brooklyn Studios</a></h3>
 </div>
 <div class="sidebar-item">
-<div class="label">Passive Income</div>
-<h3><a href="/blog/passive-income-zero-cost-2026/">25 Zero-Cost Passive Income Streams That Actually Work in 2026</a></h3>
+<div class="label">Live Performance</div>
+<h3><a href="/blog/">Inside the Secret Comedy Shows Happening in Manhattan Basements After Midnight</a></h3>
 </div>
 <div class="sidebar-item">
-<div class="label">PR &amp; Growth</div>
-<h3><a href="/blog/pr-for-entrepreneurs-get-featured/">How to Get Featured on Podcasts and Newsletters Without a PR Agency</a></h3>
+<div class="label">Culture</div>
+<h3><a href="/blog/">Why Every Gallery in Chelsea Is Suddenly Showing AI Art — And Why That's Not the Point</a></h3>
 </div>
 </div>
 </div>
 </section>
 
-<!-- LATEST -->
-<div class="section-head"><h2>Latest</h2><a href="/blog/">View All &rarr;</a></div>
+<!-- ENTERTAINMENT -->
+<div class="section-head"><h2>Entertainment</h2><a href="/blog/">All Stories &rarr;</a></div>
 <div class="grid-3">
 <article class="card">
-<div class="label">Newsletter Growth</div>
-<h3><a href="/blog/newsletter-growth-strategy-2026/">Newsletter Growth Strategy 2026: From Zero to Thousands of Subscribers</a></h3>
-<p>Proven tactics for building a newsletter audience from scratch — and monetizing it before you hit 1,000 subscribers.</p>
+<div class="label">Theater</div>
+<h3><a href="/blog/">The $2 Million Bet: How One Off-Broadway Producer Is Reinventing the Musical</a></h3>
+<p>A former tech founder is pouring venture capital into experimental theater — and the results are filling seats that traditional Broadway can't.</p>
 </article>
 <article class="card">
-<div class="label">SEO</div>
-<h3><a href="/blog/ahrefs-seo-strategy-small-sites/">Ahrefs SEO Strategy for Small Sites: How to Compete With Big Publishers</a></h3>
-<p>The exact keyword research and content strategy that lets small sites outrank established competitors on Google.</p>
+<div class="label">Music</div>
+<h3><a href="/blog/">NYC's Underground DJ Scene Is Going Mainstream — Here's Who's Leading It</a></h3>
+<p>The DJs who used to spin in Bushwick warehouses are now headlining Madison Square Garden. A look at the new generation crossing over.</p>
 </article>
 <article class="card">
-<div class="label">Passive Income</div>
-<h3><a href="/blog/7-passive-income-ideas-for-2026-that-actually-gene/">7 Passive Income Ideas That Actually Generate Revenue in 2026</a></h3>
-<p>No gimmicks, no guru advice — just the income streams we've personally tested with real dollar amounts attached.</p>
+<div class="label">Film</div>
+<h3><a href="/blog/">Tribeca Film Festival 2026: The 10 Films Everyone Will Be Talking About</a></h3>
+<p>From a documentary shot entirely on iPhones in the Bronx to a sci-fi thriller filmed in an actual decommissioned subway tunnel.</p>
 </article>
 </div>
 
-<!-- GUIDES & REVIEWS -->
-<div class="section-head"><h2>Guides &amp; Reviews</h2><a href="/blog/">Browse All &rarr;</a></div>
-<div class="grid-3">
-<article class="card">
-<div class="label">Comparison</div>
-<h3><a href="/ahrefs-vs-semrush-2026/">Ahrefs vs SEMrush 2026: The Only Comparison That Matters</a></h3>
-<p>Two SEO powerhouses compared head-to-head on features, pricing, data accuracy, and real-world performance.</p>
-</article>
-<article class="card">
-<div class="label">Comparison</div>
-<h3><a href="/beehiiv-vs-substack-2026/">Beehiiv vs Substack 2026: Which Newsletter Platform Wins?</a></h3>
-<p>Monetization, design flexibility, deliverability, and analytics — everything you need to choose the right platform.</p>
-</article>
-<article class="card">
-<div class="label">Guide</div>
-<h3><a href="/amazon-kdp-guide-2026/">The Complete Amazon KDP Guide: Zero to Published in 2026</a></h3>
-<p>Everything from manuscript formatting to marketing strategy for self-publishing on Amazon's Kindle Direct Publishing.</p>
-</article>
+<!-- PHOTO FEATURE -->
+<div class="photo-feature">
+<div>
+<div class="label">Fashion Week Report</div>
+<h2>New York Fashion Week Fall/Winter 2026: The Collections That Defined the Season</h2>
+<p>From the front rows of Lincoln Center to the guerrilla runway shows in Chinatown parking garages, we covered every major moment of NYFW. The verdict: New York fashion has never been more alive — or more divided.</p>
+<a href="/blog/" class="read">Read the Full Report &rarr;</a>
+</div>
+<div class="photo-placeholder">🗽</div>
 </div>
 
+<!-- NIGHTLIFE & CULTURE -->
+<div class="section-head"><h2>Nightlife &amp; Culture</h2><a href="/blog/">All Stories &rarr;</a></div>
 <div class="grid-3">
 <article class="card">
-<div class="label">Tools</div>
-<h3><a href="/best-ai-tools-entrepreneurs-2026/">Best AI Tools for Entrepreneurs in 2026</a></h3>
-<p>The definitive ranking of AI tools that save time, cut costs, and accelerate growth for solo founders and small teams.</p>
+<div class="label">Nightlife</div>
+<h3><a href="/blog/">The 15 Best New Bars in NYC Right Now, According to the People Who Actually Go Out</a></h3>
+<p>Forget the Infatuation lists. These are the spots the bartenders, DJs, and door guys drink at after their shifts end.</p>
 </article>
 <article class="card">
-<div class="label">Tools</div>
-<h3><a href="/best-email-marketing-tools-2026/">Best Email Marketing Tools 2026</a></h3>
-<p>Top platforms ranked by deliverability, automation, pricing, and ease of use for creators and businesses.</p>
+<div class="label">Culture</div>
+<h3><a href="/blog/">Inside the Members-Only Clubs Reshaping Manhattan's Social Scene</a></h3>
+<p>Soho House is old news. The new private clubs are smaller, weirder, and way harder to get into. We got inside three of them.</p>
 </article>
 <article class="card">
-<div class="label">Tools</div>
-<h3><a href="/best-seo-tools-bloggers-2026/">Best SEO Tools for Bloggers 2026</a></h3>
-<p>The software stack that helps bloggers and content creators rank higher and grow organic traffic consistently.</p>
+<div class="label">Live Performance</div>
+<h3><a href="/blog/">The Spoken Word Revival: How Poetry Slams Became NYC's Hottest Night Out</a></h3>
+<p>On any given Tuesday in the East Village, 200 people pack a basement to watch poets perform. This is the story of how that happened.</p>
 </article>
 </div>
 
 <!-- NEWSLETTER -->
 <section class="newsletter">
 <h2>The Spotlight Brief</h2>
-<p>AI tools, automation strategies, passive income playbooks, and business growth intelligence. Delivered every Monday morning.</p>
-<form onsubmit="event.preventDefault();fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:this.querySelector('input').value,source:'homepage'})});this.innerHTML='<p style=color:var(--accent)>You\'re in. First issue arrives Monday.</p>'">
+<p>NYC entertainment, nightlife, fashion, and culture — the stories you won't find anywhere else. Delivered every Monday.</p>
+<form onsubmit="event.preventDefault();fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:this.querySelector('input').value,source:'homepage'})});this.innerHTML='<p style=color:var(--accent);font-weight:600>You\'re in. See you Monday.</p>'">
 <input type="email" placeholder="your@email.com" required>
-<button type="submit">Subscribe Free</button>
+<button type="submit">Subscribe</button>
 </form>
 </section>
 
 <!-- ABOUT -->
 <section class="about-strip">
 <h2>About NY Spotlight Report</h2>
-<p>NY Spotlight Report is an independent digital publication based in New York, covering the intersection of artificial intelligence, business automation, digital entrepreneurship, and modern content systems. Founded in 2020 by S.C. Thomas, the publication reaches thousands of readers monthly with original reporting, tool reviews, and tactical guides on the systems shaping the future of work.</p>
+<p>NY Spotlight Report is an independent New York publication covering entertainment, live performances, fashion, culture, and nightlife. Founded in 2020 by S.C. Thomas — a U.S. Military Veteran and entertainment industry insider who stays in the shadows to get the best stories in the rooms where it happens. No corporate sponsors. No PR fluff. Just the real New York.</p>
 <a href="/about/sc-thomas/" class="editor">S.C. Thomas, Editor-in-Chief &rarr;</a>
 </section>
 
@@ -243,34 +240,35 @@ footer a:hover{color:var(--accent)}
 <div class="footer-inner">
 <div>
 <div class="footer-logo">NY Spotlight Report</div>
-<p>Independent AI, technology, and entrepreneurship reporting from New York.</p>
-<p style="margin-top:6px">ISSN 2026-0147 &middot; Est. 2020</p>
+<p>Entertainment, fashion, culture &amp; nightlife from inside the rooms where it happens.</p>
+<p style="margin-top:6px">ISSN 2026-0147 &middot; Est. 2020 &middot; New York City</p>
+</div>
+<div>
+<h4>Sections</h4>
+<ul>
+<li><a href="/blog/">Entertainment</a></li>
+<li><a href="/blog/">Fashion</a></li>
+<li><a href="/blog/">Culture</a></li>
+<li><a href="/blog/">Nightlife</a></li>
+<li><a href="/blog/">Live Performance</a></li>
+</ul>
 </div>
 <div>
 <h4>Publication</h4>
 <ul>
-<li><a href="/blog/">All Articles</a></li>
 <li><a href="/about/sc-thomas/">About the Editor</a></li>
 <li><a href="/press/">Press &amp; Media</a></li>
 <li><a href="/newsletter/">Newsletter</a></li>
+<li><a href="mailto:nyspotlightreport@gmail.com">Contact</a></li>
 </ul>
 </div>
 <div>
-<h4>Popular Guides</h4>
+<h4>Connect</h4>
 <ul>
-<li><a href="/best-ai-tools-entrepreneurs-2026/">Best AI Tools 2026</a></li>
-<li><a href="/amazon-kdp-guide-2026/">Amazon KDP Guide</a></li>
-<li><a href="/best-email-marketing-tools-2026/">Email Marketing Tools</a></li>
-<li><a href="/best-passive-income-apps-2026/">Passive Income Apps</a></li>
-</ul>
-</div>
-<div>
-<h4>Top Reports</h4>
-<ul>
-<li><a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/">63 AI Bots System</a></li>
-<li><a href="/blog/automated-content-operation/">$0 Content Engine</a></li>
-<li><a href="/blog/cold-email-system-proflow/">Cold Email Machine</a></li>
-<li><a href="/blog/passive-income-zero-cost-2026/">Zero-Cost Income</a></li>
+<li><a href="mailto:nyspotlightreport@gmail.com">Email the Editor</a></li>
+<li><a href="/newsletter/">Subscribe Free</a></li>
+<li><a href="/press/">Advertise</a></li>
+<li><a href="/press/">Tips &amp; Story Ideas</a></li>
 </ul>
 </div>
 </div>

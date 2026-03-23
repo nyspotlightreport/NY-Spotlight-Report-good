@@ -4,287 +4,94 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>S.C. Thomas — Editor-in-Chief | NY Spotlight Report</title>
-<meta name="description" content="S.C. Thomas is the founder and Editor-in-Chief of NY Spotlight Report, an independent digital publication covering AI, automation, and entrepreneurship from New York.">
-<meta property="og:title" content="S.C. Thomas — Editor-in-Chief, NY Spotlight Report">
-<meta property="og:description" content="Founder of NY Spotlight Report. Covering AI, automation, and digital entrepreneurship from New York since 2020.">
-<link rel="canonical" href="https://nyspotlightreport.com/about/sc-thomas/">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="S.C. Thomas is a U.S. Military Veteran, entertainment industry insider, and founding Editor-in-Chief of NY Spotlight Report.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#faf9f6;--paper:#fff;--ink:#0f0f0f;--muted:#6b6b6b;--border:#e5e5e5;--accent:#c9a84c;--serif:'Instrument Serif',Georgia,serif;--sans:'Outfit',sans-serif}
-body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+:root{--bg:#fafaf8;--ink:#111;--grey:#555;--light:#999;--rule:#ddd;--accent:#c9a84c;--serif:'Playfair Display',Georgia,serif;--body:'Source Serif 4',serif;--sans:'Inter',sans-serif}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-
-.topbar{background:var(--ink);color:rgba(255,255,255,.55);font-size:11px;padding:8px 0;text-align:center;letter-spacing:.04em;line-height:1.6}
-.topbar strong{color:#fff;font-weight:600}
-.topbar .accent{color:var(--accent)}
-
-nav{background:var(--paper);border-bottom:1px solid var(--border);padding:0 clamp(16px,4vw,64px);position:sticky;top:0;z-index:100}
-.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{font-family:var(--serif);font-size:28px;font-weight:400;letter-spacing:-.02em}
-.logo span{color:var(--accent);font-style:italic}
-.nav-links a{font-size:13px;font-weight:500;color:var(--muted);margin-left:28px;transition:color .15s}
-.nav-links a:hover{color:var(--ink)}
-.nav-links a.active{color:var(--ink)}
-
-.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px)}
-
-/* PAGE HEADER */
-.page-header{padding:56px 0 40px;border-bottom:1px solid var(--border)}
-.page-header .label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-.page-header h1{font-family:var(--serif);font-size:clamp(32px,4.5vw,48px);font-weight:400;line-height:1.12;margin-bottom:14px}
-.page-header h1 em{font-style:italic;color:var(--accent)}
-.page-header .subtitle{font-size:18px;color:var(--muted);max-width:600px;line-height:1.6}
-
-/* BIO */
-.bio-section{padding:48px 0;max-width:720px}
-.bio-section p{font-size:16px;line-height:1.75;color:var(--ink);margin-bottom:20px}
-.bio-section p.muted{color:var(--muted)}
-
-/* COVERAGE GRID */
-.coverage-header{padding:36px 0 16px;border-bottom:1px solid var(--border);margin-bottom:28px}
-.coverage-header h2{font-family:var(--serif);font-size:26px;font-weight:400}
-.coverage-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:56px}
-.coverage-card{background:var(--paper);border:1px solid var(--border);border-radius:6px;padding:28px 24px}
-.coverage-card .icon{font-size:28px;margin-bottom:12px}
-.coverage-card h3{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:8px}
-.coverage-card p{font-size:14px;color:var(--muted);line-height:1.55}
-
-/* NUMBERS */
-.numbers-section{background:var(--ink);color:#fff;padding:48px;border-radius:8px;margin-bottom:56px}
-.numbers-section h2{font-family:var(--serif);font-size:26px;font-weight:400;margin-bottom:32px;text-align:center}
-.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
-.number-item .num{font-family:var(--serif);font-size:42px;color:var(--accent);line-height:1}
-.number-item .label{font-size:13px;color:rgba(255,255,255,.55);margin-top:8px}
-
-/* CONTACT */
-.contact-section{padding:48px 0;border-top:1px solid var(--border)}
-.contact-section h2{font-family:var(--serif);font-size:26px;margin-bottom:20px}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
-.contact-item{background:var(--paper);border:1px solid var(--border);border-radius:6px;padding:24px}
-.contact-item .type{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.contact-item .value{font-size:16px;font-weight:500}
-.contact-item .value a{color:var(--ink);border-bottom:1px solid var(--border);transition:border-color .15s}
-.contact-item .value a:hover{border-color:var(--accent)}
-
-/* LATEST ARTICLES */
-.latest-section{padding:48px 0;border-top:1px solid var(--border)}
-.latest-section h2{font-family:var(--serif);font-size:26px;margin-bottom:24px}
-.latest-list{list-style:none}
-.latest-list li{padding:16px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline}
-.latest-list li a{font-family:var(--serif);font-size:18px;transition:color .15s}
-.latest-list li a:hover{color:var(--accent)}
-.latest-list li .cat{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-
-/* FOOTER */
-footer{background:var(--ink);color:rgba(255,255,255,.45);padding:48px 0 32px;font-size:13px;margin-top:48px}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
-.footer-brand{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:10px}
-.footer-brand span{color:var(--accent);font-style:italic}
-footer p{line-height:1.6}
-footer h4{color:#fff;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
-footer ul{list-style:none}
-footer li{margin-bottom:8px}
-footer a{color:rgba(255,255,255,.45);transition:color .15s}
-footer a:hover{color:var(--accent)}
-.footer-bottom{max-width:1200px;margin:0 auto;padding:24px clamp(16px,4vw,64px) 0;border-top:1px solid rgba(255,255,255,.08);margin-top:32px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
-
-@media(max-width:768px){
-.coverage-grid{grid-template-columns:1fr}
-.numbers-grid{grid-template-columns:repeat(2,1fr)}
-.contact-grid{grid-template-columns:1fr}
-.footer-inner{grid-template-columns:1fr 1fr}
-.nav-links a{margin-left:16px;font-size:12px}
-.numbers-section{padding:32px 24px}
-}
+nav{border-bottom:1px solid var(--rule);padding:0 clamp(16px,4vw,64px);background:#fff;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px}
+.logo{font-family:var(--serif);font-size:20px;font-weight:900}.logo span{font-style:italic;color:var(--accent)}
+.nav-links a{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--grey);margin-left:24px;letter-spacing:.04em;text-transform:uppercase}
+.wrap{max-width:720px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.hero{padding:56px 0 40px;border-bottom:1px solid var(--rule);text-align:center}
+.hero .label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.hero h1{font-family:var(--serif);font-size:clamp(32px,5vw,48px);font-weight:900;line-height:1.1;margin-bottom:12px}
+.hero .subtitle{font-family:var(--sans);font-size:14px;color:var(--light);letter-spacing:.04em}
+.bio{padding:40px 0;border-bottom:1px solid var(--rule)}
+.bio p{margin-bottom:20px;color:var(--grey)}
+.bio p:first-child{font-size:20px;color:var(--ink);line-height:1.6}
+.bio strong{color:var(--ink)}
+.section{padding:36px 0;border-bottom:1px solid var(--rule)}
+.section h2{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:20px}
+.coverage-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.coverage-item{padding:16px 0;border-bottom:1px solid var(--rule)}
+.coverage-item:nth-last-child(-n+2){border-bottom:none}
+.coverage-item h3{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:4px}
+.coverage-item p{font-size:14px;color:var(--grey)}
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:24px 0}
+.num{text-align:center}
+.num .big{font-family:var(--serif);font-size:36px;font-weight:900;color:var(--accent)}
+.num .lbl{font-family:var(--sans);font-size:11px;color:var(--light);letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+.contact-box{background:var(--ink);color:#fff;padding:32px;margin:40px 0;text-align:center}
+.contact-box h3{font-family:var(--serif);font-size:22px;margin-bottom:8px}
+.contact-box p{color:rgba(255,255,255,.5);font-size:14px;margin-bottom:16px}
+.contact-box a{color:var(--accent);font-family:var(--sans);font-size:14px;font-weight:600}
+footer{border-top:3px double var(--ink);padding:32px 0;text-align:center;font-family:var(--sans);font-size:12px;color:var(--light)}
+footer a{color:var(--accent)}
+@media(max-width:600px){.coverage-grid{grid-template-columns:1fr}.numbers{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
-
-<!-- TOP BAR -->
-<div class="topbar">
-New York's Independent Voice on AI, Technology &amp; Entrepreneurship &middot; Est. 2020 &middot; <strong>S.C. Thomas</strong>, Editor-in-Chief &middot; <span class="accent">ISSN 2026-0147</span>
-</div>
-
-<!-- NAV -->
-<nav>
-<div class="nav-inner">
-<a href="/" class="logo">NY <span>Spotlight</span> Report</a>
-<div class="nav-links">
-<a href="/blog/">Articles</a>
-<a href="/about/sc-thomas/" class="active">About</a>
-<a href="/press/">Press</a>
-<a href="/newsletter/">Newsletter</a>
-</div>
-</div>
-</nav>
+<nav><div class="nav-inner"><a href="/" class="logo">NY <span>Spotlight</span> Report</a><div class="nav-links"><a href="/">Home</a><a href="/blog/">Articles</a><a href="/press/">Press</a><a href="/newsletter/">Newsletter</a></div></div></nav>
 
 <div class="wrap">
+<div class="hero">
+<div class="label">Editor-in-Chief</div>
+<h1>S.C. Thomas</h1>
+<div class="subtitle">U.S. Military Veteran &middot; Founder &middot; Editor-in-Chief</div>
+</div>
 
-<!-- PAGE HEADER -->
-<section class="page-header">
-<div class="label">About the Editor</div>
-<h1>S.C. Thomas &mdash; <em>Editor-in-Chief</em></h1>
-<p class="subtitle">Founder of NY Spotlight Report. Covering the intersection of AI, automation, and entrepreneurship from New York since 2020.</p>
-</section>
+<div class="bio">
+<p>S.C. Thomas is a U.S. Military Veteran and entertainment industry insider who founded NY Spotlight Report in 2020 to cover New York's entertainment, live performance, fashion, culture, and nightlife scenes from the inside.</p>
+<p>Before launching the publication, Thomas spent years embedded in New York's entertainment world — not as a celebrity, but as someone who understood that the best stories come from <strong>staying in the shadows and being in the rooms where it happens</strong>. That philosophy defines every story NY Spotlight Report publishes.</p>
+<p>The military instilled discipline, precision, and a commitment to truth that carries through to every piece of reporting. In a media landscape dominated by PR-approved press releases and paid placements, NY Spotlight Report operates differently: independent, unsponsored, and accountable only to the reader.</p>
+<p>Under Thomas's leadership, the publication has grown from a solo operation into a digital newsroom covering Broadway, Off-Broadway, the underground music scene, New York Fashion Week, gallery openings, nightlife culture, and the people shaping the city's creative future.</p>
+<p>Thomas brings a simple editorial standard: <strong>report what's real, from inside the room, without asking permission.</strong></p>
+</div>
 
-<!-- BIO -->
-<section class="bio-section">
-<p>S.C. Thomas founded NY Spotlight Report in March 2020 as an independent digital publication dedicated to covering the rapidly evolving landscape of artificial intelligence, business automation, and digital entrepreneurship.</p>
-<p>Based in New York, the publication operates at the intersection of technology and business, delivering actionable reporting on the tools, systems, and strategies that are reshaping how people build and run businesses in the modern economy.</p>
-<p>Under Thomas's editorial direction, NY Spotlight Report has developed a fully autonomous publishing system powered by over 100 AI agents. This system manages everything from content research and drafting to distribution and audience engagement, serving as both a subject of coverage and a proof of concept for the automation strategies the publication reports on.</p>
-<p>The publication reaches thousands of readers monthly across its website, newsletter, and syndication channels, with a focus on practical, experience-driven reporting that readers can act on immediately.</p>
-</section>
-
-<!-- WHAT WE COVER -->
-<div class="coverage-header">
+<div class="section">
 <h2>What We Cover</h2>
-</div>
 <div class="coverage-grid">
-<div class="coverage-card">
-<div class="icon">&#9881;</div>
-<h3>AI &amp; Automation</h3>
-<p>How artificial intelligence and automation tools are transforming business operations, content creation, and daily workflows.</p>
-</div>
-<div class="coverage-card">
-<div class="icon">&#9733;</div>
-<h3>Passive Income</h3>
-<p>Legitimate passive income models, from digital products and affiliate marketing to KDP publishing and app-based earnings.</p>
-</div>
-<div class="coverage-card">
-<div class="icon">&#9998;</div>
-<h3>Content Systems</h3>
-<p>Building scalable content operations using AI agents, scheduling tools, and distribution automation.</p>
-</div>
-<div class="coverage-card">
-<div class="icon">&#9889;</div>
-<h3>Digital Entrepreneurship</h3>
-<p>Strategies for launching and growing online businesses, from freelancing platforms to full-scale digital agencies.</p>
-</div>
-<div class="coverage-card">
-<div class="icon">&#9650;</div>
-<h3>SEO &amp; Growth</h3>
-<p>Search engine optimization tactics, newsletter growth strategies, and audience-building frameworks for independent publishers.</p>
-</div>
-<div class="coverage-card">
-<div class="icon">&#9878;</div>
-<h3>Tools &amp; Reviews</h3>
-<p>In-depth comparisons and reviews of the software platforms that power modern digital businesses.</p>
+<div class="coverage-item"><h3>Entertainment</h3><p>Broadway, Off-Broadway, film premieres, comedy, live events, and the business behind New York's entertainment industry.</p></div>
+<div class="coverage-item"><h3>Live Performances</h3><p>Theater, concerts, spoken word, dance, immersive experiences, and the performers pushing the boundaries of live art.</p></div>
+<div class="coverage-item"><h3>Fashion</h3><p>NYFW coverage, emerging designers, streetwear culture, and the intersection of fashion and New York identity.</p></div>
+<div class="coverage-item"><h3>Culture</h3><p>Gallery openings, museum exhibitions, cultural movements, community stories, and the ideas shaping the city.</p></div>
+<div class="coverage-item"><h3>Nightlife</h3><p>Clubs, bars, underground parties, DJs, door culture, and the social scenes that define New York after dark.</p></div>
+<div class="coverage-item"><h3>The Industry</h3><p>The people, money, and decisions behind the scenes — the agents, producers, venue owners, and dealmakers.</p></div>
 </div>
 </div>
 
-<!-- BY THE NUMBERS -->
-<section class="numbers-section">
+<div class="section">
 <h2>By the Numbers</h2>
-<div class="numbers-grid">
-<div class="number-item">
-<div class="num">2020</div>
-<div class="label">Founded</div>
+<div class="numbers">
+<div class="num"><div class="big">2020</div><div class="lbl">Founded</div></div>
+<div class="num"><div class="big">100+</div><div class="lbl">Articles</div></div>
+<div class="num"><div class="big">NYC</div><div class="lbl">Based</div></div>
+<div class="num"><div class="big">5</div><div class="lbl">Beats</div></div>
 </div>
-<div class="number-item">
-<div class="num">100+</div>
-<div class="label">Articles Published</div>
-</div>
-<div class="number-item">
-<div class="num">6</div>
-<div class="label">Platforms</div>
-</div>
-<div class="number-item">
-<div class="num">15</div>
-<div class="label">AI Agencies via ProFlow</div>
-</div>
-</div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact-section">
-<h2>Contact</h2>
-<div class="contact-grid">
-<div class="contact-item">
-<div class="type">Email</div>
-<div class="value"><a href="mailto:nyspotlightreport@gmail.com">nyspotlightreport@gmail.com</a></div>
-</div>
-<div class="contact-item">
-<div class="type">Phone</div>
-<div class="value"><a href="tel:+16318929817">(631) 892-9817</a></div>
-</div>
-</div>
-</section>
-
-<!-- LATEST ARTICLES -->
-<section class="latest-section">
-<h2>Latest Articles</h2>
-<ul class="latest-list">
-<li>
-<a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/">How I Built 63 AI Bots That Run My Business</a>
-<span class="cat">AI Automation</span>
-</li>
-<li>
-<a href="/blog/automated-content-operation/">How I Automated My Entire Content Operation for $0/Month</a>
-<span class="cat">Content Systems</span>
-</li>
-<li>
-<a href="/blog/cold-email-system-proflow/">The Cold Email System That Books 5 Demos a Week</a>
-<span class="cat">Sales</span>
-</li>
-<li>
-<a href="/blog/passive-income-zero-cost-2026/">25 Zero-Cost Passive Income Streams in 2026</a>
-<span class="cat">Passive Income</span>
-</li>
-<li>
-<a href="/blog/pr-for-entrepreneurs-get-featured/">How to Get Featured Without a PR Agency</a>
-<span class="cat">PR &amp; Growth</span>
-</li>
-<li>
-<a href="/blog/newsletter-growth-strategy-2026/">Newsletter Growth Strategy 2026</a>
-<span class="cat">Newsletter</span>
-</li>
-</ul>
-</section>
-
 </div>
 
-<!-- FOOTER -->
-<footer>
-<div class="footer-inner">
-<div>
-<div class="footer-brand">NY <span>Spotlight</span> Report</div>
-<p>Independent AI, technology, and entrepreneurship reporting from New York. Est. 2020.</p>
-<p style="margin-top:8px">ISSN 2026-0147</p>
-</div>
-<div>
-<h4>Publication</h4>
-<ul>
-<li><a href="/blog/">Articles</a></li>
-<li><a href="/about/sc-thomas/">About</a></li>
-<li><a href="/press/">Press</a></li>
-<li><a href="/newsletter/">Newsletter</a></li>
-</ul>
-</div>
-<div>
-<h4>Popular Guides</h4>
-<ul>
-<li><a href="/best-ai-tools-entrepreneurs-2026/">Best AI Tools 2026</a></li>
-<li><a href="/amazon-kdp-guide-2026/">Amazon KDP Guide</a></li>
-<li><a href="/best-email-marketing-tools-2026/">Email Marketing Tools</a></li>
-<li><a href="/best-passive-income-apps-2026/">Passive Income Apps</a></li>
-</ul>
-</div>
-<div>
-<h4>Top Articles</h4>
-<ul>
-<li><a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/">63 AI Bots</a></li>
-<li><a href="/blog/automated-content-operation/">$0 Content System</a></li>
-<li><a href="/blog/cold-email-system-proflow/">Cold Email System</a></li>
-<li><a href="/blog/passive-income-zero-cost-2026/">Zero-Cost Income</a></li>
-</ul>
+<div class="contact-box">
+<h3>Contact the Editor</h3>
+<p>Story tips, press inquiries, corrections, or collaboration.</p>
+<a href="mailto:nyspotlightreport@gmail.com">nyspotlightreport@gmail.com</a><br>
+<a href="tel:+16318929817" style="display:inline-block;margin-top:8px">(631) 892-9817</a>
 </div>
 </div>
-<div class="footer-bottom">
-<span>&copy; 2020&ndash;2026 NY Spotlight Report. All rights reserved.</span>
-<span>New York, NY &middot; nyspotlightreport@gmail.com</span>
-</div>
-</footer>
 
+<footer><div class="wrap">&copy; 2020&ndash;2026 NY Spotlight Report &middot; ISSN 2026-0147 &middot; New York, NY<br><a href="/">Home</a> &middot; <a href="/blog/">Articles</a> &middot; <a href="/press/">Press</a> &middot; <a href="/newsletter/">Newsletter</a></div></footer>
 </body>
 </html>
