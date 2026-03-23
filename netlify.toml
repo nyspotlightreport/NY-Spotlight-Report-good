@@ -13,22 +13,10 @@
   to   = "/.netlify/functions/subscribe"
   status = 200
 
-[functions]
-  directory = "netlify/functions"
-
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Content-Type"
+[[redirects]]
+  from = "/api/auth-login"
+  to   = "/.netlify/functions/auth-login"
+  status = 200
 
 [[redirects]]
   from = "/api/linkedin-callback"
@@ -44,3 +32,41 @@
   from = "/api/save-secret"
   to   = "/.netlify/functions/save-secret"
   status = 200
+
+[[redirects]]
+  from = "/api/verify-token"
+  to   = "/.netlify/functions/verify-token"
+  status = 200
+
+[[redirects]]
+  from = "/api/reset-password"
+  to   = "/.netlify/functions/reset-password"
+  status = 200
+
+[[redirects]]
+  from = "/api/agents"
+  to   = "/.netlify/functions/agent-bridge"
+  status = 200
+
+[[redirects]]
+  from = "/api/health"
+  to   = "/.netlify/functions/health-dashboard"
+  status = 200
+
+[functions]
+  directory = "netlify/functions"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self' https://api.anthropic.com https://api.elevenlabs.io https://content.guardianapis.com https://newsapi.org https://www.alphavantage.co"
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://nyspotlightreport.com"
+    Access-Control-Allow-Headers = "Content-Type, Authorization, X-Butler-Key"

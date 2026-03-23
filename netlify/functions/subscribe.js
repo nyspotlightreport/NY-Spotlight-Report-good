@@ -1,20 +1,27 @@
+const { cors, success, error } = require("./_shared/response");
+const { isValidEmail, sanitizeString, parseBody } = require("./_shared/utils");
+const { checkRateLimit, getClientIP } = require("./_shared/rate-limit");
+
 exports.handler = async (event) => {
-  if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 200, headers: {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"Content-Type","Access-Control-Allow-Methods":"POST,OPTIONS"}, body: "" };
-  }
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, headers:{"Content-Type":"application/json","Access-Control-Allow-Origin":"*"}, body: JSON.stringify({error:"Method not allowed"}) };
+  if (event.httpMethod === "OPTIONS") return cors();
+  if (event.httpMethod !== "POST") return error("Method not allowed", 405);
+
+  // Rate limit: 5 subscriptions per minute per IP
+  const ip = getClientIP(event);
+  const { allowed, retryAfterMs } = checkRateLimit(`subscribe:${ip}`, 5, 60_000);
+  if (!allowed) {
+    return { statusCode: 429, headers: { "Retry-After": String(Math.ceil(retryAfterMs / 1000)) },
+      body: JSON.stringify({ error: "Too many requests. Please try again later." }) };
   }
 
-  const HEADERS = {"Content-Type":"application/json","Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"Content-Type"};
+  const body = parseBody(event);
+  if (!body) return error("Invalid JSON", 400);
 
-  let body = {};
-  try { body = JSON.parse(event.body || "{}"); } catch(e) {}
   const email = (body.email || "").trim().toLowerCase();
-  const name  = (body.name  || "").trim();
+  const name = sanitizeString(body.name || "", 200);
 
-  if (!email || !email.includes("@")) {
-    return { statusCode: 400, headers: HEADERS, body: JSON.stringify({error:"Invalid email"}) };
+  if (!isValidEmail(email)) {
+    return error("Invalid email", 400);
   }
 
   const results = {};
@@ -26,51 +33,43 @@ exports.handler = async (event) => {
       const nameParts = name.split(" ");
       const hsRes = await fetch("https://api.hubapi.com/crm/v3/objects/contacts", {
         method: "POST",
-        headers: { 
-          "Authorization": `Bearer ${HS_KEY}`, 
+        headers: {
+          "Authorization": `Bearer ${HS_KEY}`,
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Accept": "application/json",
         },
         body: JSON.stringify({
           properties: {
             email,
             firstname: nameParts[0] || "",
-            lastname:  nameParts.slice(1).join(" ") || "",
-            lifecyclestage: "subscriber"
-          }
+            lastname: nameParts.slice(1).join(" ") || "",
+            lifecyclestage: "subscriber",
+          },
         }),
-        signal: AbortSignal.timeout(8000)
+        signal: AbortSignal.timeout(8000),
       });
-      
-      const hsBody = await hsRes.text();
-      console.log(`HubSpot status: ${hsRes.status}`);
-      console.log(`HubSpot body: ${hsBody.substring(0,200)}`);
-      
+
       if (hsRes.status === 201 || hsRes.status === 200) {
         results.hubspot = "added";
       } else if (hsRes.status === 409) {
-        results.hubspot = "already_exists";  // Contact already exists
+        results.hubspot = "already_exists";
       } else {
+        const hsBody = await hsRes.text();
+        console.warn(`HubSpot error ${hsRes.status}: ${hsBody.substring(0, 200)}`);
         results.hubspot = `http_${hsRes.status}`;
-        // Try to extract error
-        try {
-          const err = JSON.parse(hsBody);
-          results.hubspot_msg = err.message || err.error || hsBody.substring(0,80);
-        } catch(e) { results.hubspot_msg = hsBody.substring(0,80); }
       }
-    } catch(e) { 
+    } catch (e) {
+      console.error("HubSpot request failed:", e.message);
       results.hubspot = "error";
-      results.hubspot_msg = e.message;
     }
   } else {
     results.hubspot = "no_key";
   }
 
-  console.log(`📧 SUBSCRIBE: ${email} | name: "${name}" | hs: ${results.hubspot}`);
+  console.log(JSON.stringify({
+    event: "subscribe", email, name, hubspot: results.hubspot,
+    timestamp: new Date().toISOString(),
+  }));
 
-  return {
-    statusCode: 200,
-    headers: HEADERS,
-    body: JSON.stringify({ success: true, email, results })
-  };
+  return success({ success: true, email, results });
 };

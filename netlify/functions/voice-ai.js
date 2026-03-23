@@ -1,64 +1,157 @@
-// netlify/functions/voice-ai.js
-// ProFlow Voice AI Receptionist — Emma
-// Twilio calls this for every inbound voice interaction
+// ProFlow Voice AI Receptionist — Emma v3.0
+// ElevenLabs natural voice with Polly fallback, Twilio signature validation, call logging
+const crypto = require("crypto");
 
-exports.handler = async (event) => {
-  const twiml = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    <Say voice="Polly.Joanna">Thank you for calling ProFlow by NY Spotlight Report. My name is Emma and I am happy to assist you today.</Say>
-    <Gather numDigits="1" timeout="6" action="/.netlify/functions/voice-ai?step=route">
-        <Say voice="Polly.Joanna">For sales and pricing information, press 1. For support, press 2. To speak with our team, press 0. Or simply stay on the line.</Say>
-    </Gather>
-    <Say voice="Polly.Joanna">I did not receive a selection. Let me connect you with our team now.</Say>
-    <Say voice="Polly.Joanna">Thank you for calling NY Spotlight Report. Have a wonderful day.</Say>
-</Response>`;
+const BASE_URL = "https://nyspotlightreport.com/.netlify/functions/voice-ai";
+const AUDIO_URL = "https://nyspotlightreport.com/.netlify/functions/voice-audio";
+const VOICE = "Polly.Joanna";
+const USE_ELEVENLABS = process.env.ELEVENLABS_API_KEY ? true : false;
 
-  // Handle menu routing
-  const params = event.queryStringParameters || {};
-  const body = event.body ? new URLSearchParams(event.body) : new URLSearchParams();
-  const digits = body.get('Digits') || params.Digits || '';
-  const step = params.step || '';
+function validateTwilioSignature(event) {
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  if (!authToken) return true; // Skip validation if no token configured
 
-  if (step === 'route') {
-    let routeTwiml = '';
-    switch(digits) {
-      case '1':
-        routeTwiml = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    <Say voice="Polly.Joanna">Great choice. Let me tell you about ProFlow. ProFlow is a done for you AI content engine that replaces your entire content team for a fraction of the cost. Starting at just 97 dollars per month, you get daily blog posts, social media on 6 platforms, professional images, and weekly performance reports. All written in your brand voice. Setup takes just 5 minutes. Would you like to learn more? Visit nyspotlightreport.com slash proflow, or I can connect you with our sales team.</Say>
-    <Gather numDigits="1" timeout="5" action="/.netlify/functions/voice-ai?step=sales">
-        <Say voice="Polly.Joanna">Press 1 to hear pricing details, or press 0 to return to the main menu.</Say>
-    </Gather>
-    <Say voice="Polly.Joanna">Thank you for your interest in ProFlow. Visit nyspotlightreport.com slash proflow to get started today. Goodbye.</Say>
-</Response>`;
-        break;
-      case '2':
-        routeTwiml = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    <Say voice="Polly.Joanna">For support, please email us at nyspotlightreport at gmail dot com, or visit our website at nyspotlightreport.com. Our team typically responds within 24 hours. Thank you for being a ProFlow customer.</Say>
-</Response>`;
-        break;
-      default:
-        routeTwiml = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    <Say voice="Polly.Joanna">Thank you for calling NY Spotlight Report. For the fastest response, email us at nyspotlightreport at gmail dot com or visit nyspotlightreport.com. Have a great day.</Say>
-</Response>`;
-    }
-    return { statusCode: 200, headers: { 'Content-Type': 'text/xml' }, body: routeTwiml };
-  }
+  const signature = event.headers["x-twilio-signature"] || "";
+  if (!signature) return false;
 
-  if (step === 'sales') {
-    const salesTwiml = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-    <Say voice="Polly.Joanna">Our plans start at 97 dollars per month for the Starter plan, which includes daily blog posts, social media on 3 platforms, and HD images. Our most popular plan is Growth at 297 dollars per month, which adds 6 platform social media, a weekly newsletter, an AI phone receptionist for your business, and weekly performance reports. For agencies, we offer our Agency plan at 497 dollars per month with white label capabilities, ad creative generation, and a dedicated account manager. All plans come with a 14 day delivery guarantee. No contracts. Cancel anytime. Visit nyspotlightreport.com slash proflow to get started in just 5 minutes.</Say>
-    <Say voice="Polly.Joanna">Thank you for calling ProFlow. We look forward to serving you.</Say>
-</Response>`;
-    return { statusCode: 200, headers: { 'Content-Type': 'text/xml' }, body: salesTwiml };
-  }
+  const url = BASE_URL + (event.rawQuery ? `?${event.rawQuery}` : "");
+  const params = event.body ? Object.fromEntries(new URLSearchParams(event.body)) : {};
+  const sortedKeys = Object.keys(params).sort();
+  const dataString = url + sortedKeys.map((k) => k + params[k]).join("");
+  const expected = crypto.createHmac("sha1", authToken).update(dataString).digest("base64");
 
+  return signature === expected;
+}
+
+function twiml(content) {
   return {
     statusCode: 200,
-    headers: { 'Content-Type': 'text/xml' },
-    body: twiml
+    headers: { "Content-Type": "text/xml" },
+    body: `<?xml version="1.0" encoding="UTF-8"?>\n<Response>\n${content}\n</Response>`,
   };
+}
+
+function say(text) {
+  if (USE_ELEVENLABS) {
+    return `    <Play>${AUDIO_URL}?text=${encodeURIComponent(text)}</Play>`;
+  }
+  return `    <Say voice="${VOICE}" language="en-US">${text}</Say>`;
+}
+
+exports.handler = async (event) => {
+  const params = event.queryStringParameters || {};
+  const body = event.body ? new URLSearchParams(event.body) : new URLSearchParams();
+  const digits = body.get("Digits") || params.Digits || "";
+  const step = params.step || "";
+  const speechResult = body.get("SpeechResult") || "";
+  const callSid = body.get("CallSid") || "unknown";
+  const from = body.get("From") || "unknown";
+
+  // Log every call for analytics
+  console.log(JSON.stringify({
+    event: "voice_ai_request",
+    step: step || "greeting",
+    digits,
+    speech: speechResult ? speechResult.substring(0, 100) : "",
+    callSid,
+    from: from.replace(/\d{4}$/, "XXXX"),
+    elevenlabs: USE_ELEVENLABS,
+    timestamp: new Date().toISOString(),
+  }));
+
+  // ── MAIN MENU ROUTING ──────────────────────────────
+  if (step === "route") {
+    if (digits === "1") {
+      return twiml(`
+${say("Great choice... Let me pull up those details for you.")}
+    <Pause length="1"/>
+${say("ProFlow is a done-for-you A.I. content engine that replaces your entire content team, for a fraction of the cost. Starting at just 97 dollars per month, you get daily blog posts, social media on 6 platforms, professional images, and weekly performance reports. All written in your brand voice. Setup takes just 5 minutes.")}
+    <Gather numDigits="1" timeout="5" action="${BASE_URL}?step=sales" method="POST">
+${say("Press 1 to hear pricing details. Press 2 to speak with our team. Or press 0 to return to the main menu.")}
+    </Gather>
+${say("Thank you for your interest in ProFlow. Visit n.y. spotlight report dot com slash proflow to get started today. Goodbye.")}`);
+    }
+
+    if (digits === "2") {
+      return twiml(`
+${say("Sure thing... Let me get you that information.")}
+    <Pause length="1"/>
+${say("For support, please email us at n.y. spotlight report at gmail dot com, or visit our website at n.y. spotlight report dot com. Our team typically responds within 24 hours.")}
+${say("If you need immediate assistance, you can also text this number and we will get back to you as soon as possible.")}
+${say("Thank you for being a ProFlow customer. Have a wonderful day.")}`);
+    }
+
+    if (digits === "0") {
+      return twiml(`
+${say("One moment please... Let me connect you with our team.")}
+    <Pause length="1"/>
+${say("Our team is currently unavailable. Please leave a message after the tone and we will call you back within 24 hours.")}
+    <Record maxLength="120" transcribe="true" transcribeCallback="${BASE_URL}?step=transcription" playBeep="true" action="${BASE_URL}?step=after-record" />
+${say("Thank you for your message. We will get back to you soon. Goodbye.")}`);
+    }
+
+    // Unrecognized input
+    return twiml(`
+${say("I didn't quite catch that. No worries, let me give you the options again.")}
+    <Gather numDigits="1" timeout="6" action="${BASE_URL}?step=route" method="POST">
+${say("Press 1 for sales and pricing. Press 2 for support. Press 0 to leave a message.")}
+    </Gather>
+${say("Goodbye.")}`);
+  }
+
+  // ── SALES / PRICING ────────────────────────────────
+  if (step === "sales") {
+    if (digits === "2") {
+      return twiml(`
+${say("Let me connect you with our sales team.")}
+    <Pause length="1"/>
+${say("Our sales team is currently assisting other clients. Please leave your name and number after the tone.")}
+    <Record maxLength="60" transcribe="true" transcribeCallback="${BASE_URL}?step=transcription" playBeep="true" action="${BASE_URL}?step=after-record" />`);
+    }
+
+    return twiml(`
+${say("Let me walk you through our plans.")}
+    <Pause length="1"/>
+${say("Starter... 97 dollars per month. Includes daily blog posts, social media on 3 platforms, and H.D. images.")}
+${say("Growth... 297 dollars per month. This is our most popular plan. It adds 6 platform social media, a weekly newsletter, an A.I. phone receptionist for your business, and weekly performance reports.")}
+${say("Agency... 497 dollars per month. Everything in Growth, plus white-label capabilities, ad creative generation, and a dedicated account manager.")}
+    <Pause length="1"/>
+${say("All plans come with a 14 day delivery guarantee. No contracts. Cancel anytime.")}
+    <Gather numDigits="1" timeout="5" action="${BASE_URL}?step=sales" method="POST">
+${say("Press 2 to speak with our sales team. Press 0 to return to the main menu.")}
+    </Gather>
+${say("Visit n.y. spotlight report dot com slash proflow to get started in just 5 minutes. Thank you for calling. Goodbye.")}`);
+  }
+
+  // ── VOICEMAIL / RECORDING HANDLERS ─────────────────
+  if (step === "after-record") {
+    return twiml(`
+${say("Thank you for your message. A member of our team will call you back within 24 hours. Have a wonderful day. Goodbye.")}`);
+  }
+
+  if (step === "transcription") {
+    const transcription = body.get("TranscriptionText") || "";
+    const recordingUrl = body.get("RecordingUrl") || "";
+    console.log(JSON.stringify({
+      event: "voicemail_received",
+      callSid,
+      from,
+      transcription: transcription.substring(0, 500),
+      recordingUrl,
+      timestamp: new Date().toISOString(),
+    }));
+    return { statusCode: 200, body: "" };
+  }
+
+  // ── DEFAULT GREETING ───────────────────────────────
+  return twiml(`
+${say("Thank you for calling ProFlow by N.Y. Spotlight Report. My name is Emma, and I am happy to assist you today.")}
+    <Pause length="1"/>
+    <Gather numDigits="1" timeout="8" action="${BASE_URL}?step=route" method="POST">
+${say("For sales and pricing information, press 1. For support, press 2. To leave a message for our team, press 0. Or simply stay on the line.")}
+    </Gather>
+${say("I did not receive a selection. No problem.")}
+${say("Please leave a message after the tone and someone will call you back.")}
+    <Record maxLength="120" transcribe="true" transcribeCallback="${BASE_URL}?step=transcription" playBeep="true" action="${BASE_URL}?step=after-record" />
+${say("Thank you for calling N.Y. Spotlight Report. Have a wonderful day.")}`);
 };

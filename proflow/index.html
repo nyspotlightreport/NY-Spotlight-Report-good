@@ -126,7 +126,90 @@ footer{border-top:1px solid var(--g100);padding:24px;text-align:center;font-size
 <div class="proof-item"><strong>No</strong> contracts</div>
 <div class="proof-item"><strong>Cancel</strong> anytime</div>
 </div>
+<div style="margin-top:16px"><a href="/downloads/proflow-playbook/" style="font-size:14px;color:var(--accent);font-weight:600;text-decoration:underline">Free: Download the Content Automation Playbook →</a></div>
 </div>
+
+<!-- WATCH IT WORK — Live Demo -->
+<div style="text-align:center;padding:48px 0 0">
+<h2 style="font-family:var(--serif);font-size:28px;font-weight:700;margin-bottom:8px">See what you get on Day Zero</h2>
+<p style="font-size:16px;color:var(--g500);margin-bottom:24px">Watch your entire content engine come to life in real time.</p>
+<button onclick="openDemo()" style="background:var(--accent);color:#fff;padding:16px 40px;border:none;border-radius:5px;font-family:var(--sans);font-size:16px;font-weight:700;cursor:pointer;transition:background .15s">Watch It Work →</button>
+</div>
+
+<!-- Demo Modal -->
+<div id="demo-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:10000;overflow-y:auto;backdrop-filter:blur(6px)">
+<div style="max-width:720px;margin:40px auto;padding:32px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
+<h3 style="font-family:var(--serif);font-size:24px;color:#fff;font-weight:700">Your Day 0 Deliverables</h3>
+<span onclick="closeDemo()" style="color:rgba(255,255,255,.4);font-size:24px;cursor:pointer">&times;</span>
+</div>
+<div id="demo-steps"></div>
+<div id="demo-cta" style="display:none;text-align:center;margin-top:40px;animation:demoFade .6s ease both">
+<h3 style="font-family:var(--serif);font-size:24px;color:#fff;margin-bottom:12px">Ready to see this for YOUR business?</h3>
+<p style="color:rgba(255,255,255,.5);font-size:15px;margin-bottom:20px">Everything above — customized to your brand, niche, and voice.</p>
+<a href="/activate/" style="display:inline-block;padding:16px 40px;background:var(--accent);color:#fff;border-radius:5px;font-size:16px;font-weight:700;text-decoration:none">Activate Now →</a>
+</div>
+</div>
+</div>
+
+<style>
+@keyframes demoFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.demo-step{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;margin-bottom:24px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:24px}
+.demo-step.show{opacity:1;transform:none}
+.demo-step .step-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.demo-step .step-icon{font-size:24px}
+.demo-step .step-label{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff}
+.demo-step .step-check{margin-left:auto;color:#16793a;font-weight:700;opacity:0;transition:opacity .3s}
+.demo-step.done .step-check{opacity:1}
+.demo-content{font-family:monospace;font-size:13px;color:rgba(255,255,255,.6);line-height:1.8;white-space:pre-wrap}
+.demo-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.demo-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:12px;font-size:12px;color:rgba(255,255,255,.7);text-align:center}
+.demo-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.demo-grid-cell{background:rgba(255,255,255,.06);border-radius:3px;padding:6px 4px;font-size:10px;color:rgba(255,255,255,.5);text-align:center}
+.demo-email{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:16px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.6}
+</style>
+
+<script>
+var demoRunning=false;
+function openDemo(){
+  if(demoRunning)return;
+  demoRunning=true;
+  document.getElementById('demo-modal').style.display='block';
+  document.body.style.overflow='hidden';
+  document.getElementById('demo-steps').innerHTML='';
+  document.getElementById('demo-cta').style.display='none';
+  runDemoSequence();
+}
+function closeDemo(){
+  document.getElementById('demo-modal').style.display='none';
+  document.body.style.overflow='';
+  demoRunning=false;
+}
+function runDemoSequence(){
+  var steps=[
+    {icon:'🏢',label:'Brand Profile',content:'<div class="demo-content">Analyzing your niche: Digital Marketing\nTone: Professional, authoritative, conversational\nTarget audience: Entrepreneurs, agency owners\nKeywords: AI content, automation, passive income\nBrand voice: Confident, data-driven, approachable</div>'},
+    {icon:'📝',label:'3 Blog Posts Generated',content:'<div class="demo-content">1. "10 AI Tools Every Entrepreneur Needs in 2026"\n   — 1,450 words · SEO score: 94 · 3 internal links\n\n2. "How to Build a Content Machine That Runs Itself"\n   — 1,620 words · SEO score: 91 · 2 affiliate links\n\n3. "The $297 Content Team Replacement"\n   — 1,380 words · SEO score: 96 · Lead magnet CTA</div>'},
+    {icon:'📱',label:'7 Social Posts Created',content:'<div class="demo-cards"><div class="demo-card">LinkedIn<br><strong>Thought piece</strong></div><div class="demo-card">Twitter/X<br><strong>Thread (8)</strong></div><div class="demo-card">Instagram<br><strong>Carousel</strong></div><div class="demo-card">Facebook<br><strong>Article share</strong></div><div class="demo-card">Pinterest<br><strong>Infographic</strong></div><div class="demo-card">TikTok<br><strong>Script draft</strong></div><div class="demo-card">LinkedIn #2<br><strong>Poll post</strong></div></div>'},
+    {icon:'🖼️',label:'5 HD Images Generated',content:'<div class="demo-cards"><div class="demo-card" style="padding:20px">Blog hero<br>1792×1024</div><div class="demo-card" style="padding:20px">Social card<br>1080×1080</div><div class="demo-card" style="padding:20px">Pinterest pin<br>1000×1500</div><div class="demo-card" style="padding:20px">Email header<br>1200×400</div><div class="demo-card" style="padding:20px">OG image<br>1200×630</div></div>'},
+    {icon:'📅',label:'Content Calendar Set',content:'<div class="demo-grid"><div class="demo-grid-cell"><strong>Mon</strong></div><div class="demo-grid-cell"><strong>Tue</strong></div><div class="demo-grid-cell"><strong>Wed</strong></div><div class="demo-grid-cell"><strong>Thu</strong></div><div class="demo-grid-cell"><strong>Fri</strong></div><div class="demo-grid-cell"><strong>Sat</strong></div><div class="demo-grid-cell"><strong>Sun</strong></div><div class="demo-grid-cell">Blog #1<br>3 social</div><div class="demo-grid-cell">2 social<br>Pinterest</div><div class="demo-grid-cell">Blog #2<br>3 social</div><div class="demo-grid-cell">Newsletter<br>2 social</div><div class="demo-grid-cell">Blog #3<br>3 social</div><div class="demo-grid-cell">2 social<br>Recap</div><div class="demo-grid-cell">Report<br>Planning</div></div>'},
+    {icon:'✉️',label:'Welcome Email Sent',content:'<div class="demo-email"><strong>Subject:</strong> Welcome to ProFlow — here\'s what happens next<br><br>Hi there,<br><br>Your content engine is live. Here\'s what we just set up for you:<br>• 3 blog posts queued for this week<br>• 7 social posts scheduled across 6 platforms<br>• 5 custom images generated<br>• Your first weekly report arrives Monday<br><br>You don\'t need to do anything. We\'ve got it from here.<br><br>— The ProFlow Team</div>'}
+  ];
+  steps.forEach(function(s,i){
+    setTimeout(function(){
+      var el=document.createElement('div');
+      el.className='demo-step';
+      el.innerHTML='<div class="step-head"><span class="step-icon">'+s.icon+'</span><span class="step-label">'+s.label+'</span><span class="step-check">✓ Complete</span></div>'+s.content;
+      document.getElementById('demo-steps').appendChild(el);
+      setTimeout(function(){el.classList.add('show')},50);
+      setTimeout(function(){el.classList.add('done')},1200);
+      if(i===steps.length-1){
+        setTimeout(function(){document.getElementById('demo-cta').style.display='block'},2000);
+      }
+    },i*2000);
+  });
+}
+document.getElementById('demo-modal').addEventListener('click',function(e){if(e.target===this)closeDemo()});
+</script>
 
 <!-- THE KNOCKOUT: Cost Comparison -->
 <div class="compare">
@@ -263,5 +346,113 @@ footer{border-top:1px solid var(--g100);padding:24px;text-align:center;font-size
 </div>
 
 <footer>© 2020–2026 NY Spotlight Report LLC · <a href="/" style="color:var(--accent)">Home</a> · <a href="/about/sc-thomas/" style="color:var(--accent)">About</a> · <a href="/legal/">Terms</a> · <a href="/legal/">Privacy</a></footer>
+
+<!-- CONVERSION ENGINE -->
+<!-- CONVERSION ENGINE — Add this to EVERY page on the site -->
+<!-- Drop this before </body> on every HTML page -->
+
+<!-- STICKY BOTTOM CTA BAR -->
+<div id="sticky-cta" style="position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;padding:10px 24px;display:flex;justify-content:center;align-items:center;gap:16px;z-index:9999;transform:translateY(100%);transition:transform .3s ease;box-shadow:0 -2px 20px rgba(0,0,0,.15)">
+<span style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,255,255,.7)">Replace your content team for <strong style="color:#fff">$297/mo</strong></span>
+<a href="/proflow/" style="background:#9e7c0c;color:#fff;padding:8px 20px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap">See How It Works →</a>
+<span style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,.3);cursor:pointer" onclick="this.parentElement.style.display='none';sessionStorage.setItem('cta_closed','1')">✕</span>
+</div>
+
+<!-- EXIT INTENT POPUP -->
+<div id="exit-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10000;justify-content:center;align-items:center;backdrop-filter:blur(4px)">
+<div style="background:#fff;border-radius:8px;padding:40px;max-width:480px;width:90%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+<span onclick="document.getElementById('exit-popup').style.display='none';sessionStorage.setItem('exit_shown','1')" style="position:absolute;top:12px;right:16px;font-size:20px;color:#a3a3a3;cursor:pointer">✕</span>
+<h3 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px;color:#0f0f0f">Before you go...</h3>
+<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:#6b6b6b;margin-bottom:20px;line-height:1.55">Get our free guide: <strong style="color:#0f0f0f">"How to Replace Your Content Team with AI — The Complete Playbook"</strong></p>
+<input type="email" id="exit-email" placeholder="your@email.com" style="width:100%;padding:12px;border:1px solid #e5e5e5;border-radius:5px;font-size:15px;font-family:'DM Sans',sans-serif;margin-bottom:10px;outline:none">
+<button onclick="captureExitLead()" style="width:100%;padding:12px;background:#0f0f0f;color:#fff;border:none;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer">Send Me the Free Guide →</button>
+<p style="font-family:'DM Sans',sans-serif;font-size:11px;color:#a3a3a3;margin-top:8px">No spam. Unsubscribe anytime.</p>
+</div>
+</div>
+
+<!-- INLINE CTA COMPONENT (inject into blog posts) -->
+<template id="inline-cta-template">
+<div style="background:linear-gradient(135deg,#faf9f6,#f0ede5);border:1px solid #e5e5e5;border-radius:8px;padding:28px 32px;margin:32px 0;text-align:center">
+<h4 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:6px;color:#0f0f0f">Tired of doing this manually?</h4>
+<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#6b6b6b;margin-bottom:16px">ProFlow produces 30 blog posts, 90+ social posts, and HD images every month — in your brand voice. Starting at $97/mo.</p>
+<a href="/proflow/" style="display:inline-block;padding:12px 28px;background:#0f0f0f;color:#fff;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;text-decoration:none">See the Full Offer →</a>
+</div>
+</template>
+
+<!-- PHONE DEMO CTA -->
+<template id="phone-cta-template">
+<div style="background:#0f0f0f;border-radius:8px;padding:24px 32px;margin:32px 0;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center">
+<div style="text-align:center">
+<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Try it right now</div>
+<div style="font-family:'Playfair Display',serif;font-size:22px;color:#fff;font-weight:700">Call our AI receptionist</div>
+</div>
+<a href="tel:+16318929817" style="display:inline-block;padding:14px 28px;background:#9e7c0c;color:#fff;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;text-decoration:none;white-space:nowrap">(631) 892-9817</a>
+</div>
+</template>
+
+<script>
+// Sticky CTA — show after 30% scroll
+(function(){
+  if(sessionStorage.getItem('cta_closed'))return;
+  var shown=false;
+  window.addEventListener('scroll',function(){
+    if(shown)return;
+    var pct=window.scrollY/(document.body.scrollHeight-window.innerHeight);
+    if(pct>0.3){
+      document.getElementById('sticky-cta').style.transform='translateY(0)';
+      shown=true;
+    }
+  });
+})();
+
+// Exit intent — show when mouse leaves viewport (desktop only)
+(function(){
+  if(sessionStorage.getItem('exit_shown'))return;
+  if('ontouchstart' in window)return; // skip mobile
+  document.addEventListener('mouseout',function(e){
+    if(!e.relatedTarget && !e.toElement && e.clientY<10){
+      document.getElementById('exit-popup').style.display='flex';
+      sessionStorage.setItem('exit_shown','1');
+    }
+  });
+})();
+
+// Lead capture
+function captureExitLead(){
+  var email=document.getElementById('exit-email').value;
+  if(!email||!email.includes('@'))return;
+  fetch('/.netlify/functions/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:email,source:'exit_intent',page:location.pathname})}).catch(function(){});
+  fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:email,source:'exit_popup'})}).catch(function(){});
+  localStorage.setItem('nysr_lead',email);
+  document.getElementById('exit-popup').innerHTML='<div style="background:#fff;border-radius:8px;padding:48px;text-align:center"><h3 style="font-family:Playfair Display,serif;font-size:24px;color:#16793a">Check your inbox!</h3><p style="font-family:DM Sans,sans-serif;font-size:15px;color:#6b6b6b;margin-top:8px">Your free guide is on its way.</p></div>';
+  setTimeout(function(){document.getElementById('exit-popup').style.display='none'},3000);
+}
+
+// Auto-inject inline CTAs into blog posts (every 3rd section)
+(function(){
+  var article=document.querySelector('article');
+  if(!article)return;
+  var h2s=article.querySelectorAll('h2');
+  var tpl=document.getElementById('inline-cta-template');
+  var phoneTpl=document.getElementById('phone-cta-template');
+  if(h2s.length>2 && tpl){
+    var cta=tpl.content.cloneNode(true);
+    h2s[Math.floor(h2s.length/2)].parentNode.insertBefore(cta,h2s[Math.floor(h2s.length/2)]);
+  }
+  if(h2s.length>4 && phoneTpl){
+    var phone=phoneTpl.content.cloneNode(true);
+    h2s[h2s.length-1].parentNode.insertBefore(phone,h2s[h2s.length-1]);
+  }
+})();
+
+// Track page views for analytics
+(function(){
+  fetch('/.netlify/functions/track',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({event:'pageview',page:location.pathname,ref:document.referrer,ts:Date.now()})}).catch(function(){});
+})();
+</script>
+
 </body>
 </html>

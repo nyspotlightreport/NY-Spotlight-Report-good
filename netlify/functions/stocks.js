@@ -1,24 +1,25 @@
-// Entertainment Stocks Function
+const { cors, success, error } = require("./_shared/response");
+
+const TICKERS = [
+  { sym: "DIS", name: "Disney", sector: "entertainment" },
+  { sym: "NFLX", name: "Netflix", sector: "streaming" },
+  { sym: "PARA", name: "Paramount", sector: "entertainment" },
+  { sym: "AMC", name: "AMC Networks", sector: "entertainment" },
+  { sym: "WBD", name: "Warner Bros", sector: "entertainment" },
+  { sym: "SPOT", name: "Spotify", sector: "music" },
+  { sym: "LUMN", name: "Lumen", sector: "media" },
+  { sym: "LYV", name: "Live Nation", sector: "events" },
+];
+
 exports.handler = async (event) => {
+  if (event.httpMethod === "OPTIONS") return cors();
+
   const AV_KEY = process.env.ALPHA_VANTAGE_API_KEY || "";
   if (!AV_KEY) {
-    return { statusCode: 200, headers: {"Content-Type":"application/json","Access-Control-Allow-Origin":"*"},
-      body: JSON.stringify({stocks:[], error:"No AV key"}) };
+    return success({ stocks: [], error: "No AV key" });
   }
 
-  const TICKERS = [
-    { sym:"DIS",  name:"Disney",       sector:"entertainment" },
-    { sym:"NFLX", name:"Netflix",      sector:"streaming" },
-    { sym:"PARA", name:"Paramount",    sector:"entertainment" },
-    { sym:"AMC",  name:"AMC Networks", sector:"entertainment" },
-    { sym:"WBD",  name:"Warner Bros",  sector:"entertainment" },
-    { sym:"SPOT", name:"Spotify",      sector:"music" },
-    { sym:"LUMN", name:"Lumen",        sector:"media" },
-    { sym:"LYV",  name:"Live Nation",  sector:"events" },
-  ];
-
   const results = [];
-  // Fetch up to 4 to stay within free tier rate limits (5 calls/min)
   const toFetch = TICKERS.slice(0, 4);
 
   for (const t of toFetch) {
@@ -31,30 +32,22 @@ exports.handler = async (event) => {
         const d = await r.json();
         const q = d["Global Quote"];
         if (q && q["05. price"]) {
-          const price  = parseFloat(q["05. price"]).toFixed(2);
+          const price = parseFloat(q["05. price"]).toFixed(2);
           const change = parseFloat(q["09. change"]).toFixed(2);
-          const pct    = parseFloat(q["10. change percent"]).toFixed(2);
-          const vol    = parseInt(q["06. volume"] || 0);
-          results.push({
-            symbol: t.sym,
-            name:   t.name,
-            sector: t.sector,
-            price, change, pct, vol,
-            up: parseFloat(change) >= 0
-          });
+          const pct = parseFloat(q["10. change percent"]).toFixed(2);
+          const vol = parseInt(q["06. volume"] || 0);
+          results.push({ symbol: t.sym, name: t.name, sector: t.sector, price, change, pct, vol, up: parseFloat(change) >= 0 });
         }
       }
-    } catch(e) { console.warn(`Stock ${t.sym}:`, e.message); }
-    await new Promise(r => setTimeout(r, 250)); // rate limit spacing
+    } catch (e) {
+      console.warn(`Stock ${t.sym} fetch failed:`, e.message);
+    }
+    await new Promise((r) => setTimeout(r, 250));
   }
 
-  return {
-    statusCode: 200,
-    headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "public, max-age=900, stale-while-revalidate=3600",
-      "Access-Control-Allow-Origin": "*"
-    },
-    body: JSON.stringify({ stocks: results, fetchedAt: new Date().toISOString() })
-  };
+  return success(
+    { stocks: results, fetchedAt: new Date().toISOString() },
+    200,
+    { "Cache-Control": "public, max-age=900, stale-while-revalidate=3600" }
+  );
 };
