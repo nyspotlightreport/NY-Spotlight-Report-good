@@ -1,0 +1,103 @@
+name: Post-Deploy Smoke Tests
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  smoke:
+    name: Post-Deploy Verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          token: ${{ secrets.GH_PAT || github.token }}
+
+      - name: Wait for Netlify deploy
+        run: sleep 60
+
+      - name: Run smoke tests
+        id: checks
+        run: |
+          SITE="https://nyspotlightreport.com"
+          FAILURES=""
+          ALL_PASSED=true
+          CRITICAL_FAIL=false
+
+          check_url() {
+            local name="$1" url="$2" expected_status="$3" expected_body="$4" critical="$5"
+            local status body
+            if [ -n "$expected_body" ]; then
+              body=$(curl -s -o /tmp/resp -w "%{http_code}" --max-time 15 "$url")
+              status="$body"
+              body=$(cat /tmp/resp)
+            else
+              status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "$url")
+            fi
+
+            if [ "$status" != "$expected_status" ]; then
+              FAILURES="${FAILURES}${name} (expected ${expected_status}, got ${status})\n"
+              ALL_PASSED=false
+              [ "$critical" = "true" ] && CRITICAL_FAIL=true
+              return 1
+            fi
+
+            if [ -n "$expected_body" ] && ! echo "$body" | grep -qi "$expected_body"; then
+              FAILURES="${FAILURES}${name} (missing '${expected_body}')\n"
+              ALL_PASSED=false
+              [ "$critical" = "true" ] && CRITICAL_FAIL=true
+              return 1
+            fi
+            return 0
+          }
+
+          check_url "Homepage" "$SITE/" "200" "" "false"
+          check_url "ProFlow" "$SITE/proflow/" "200" "" "true"
+          check_url "Checkout Success" "$SITE/checkout/success/" "200" "" "false"
+          check_url "Blog" "$SITE/blog/" "200" "" "false"
+          check_url "Press" "$SITE/press/" "200" "" "false"
+          check_url "Voice AI" "$SITE/.netlify/functions/voice-ai" "200" "ProFlow" "false"
+          check_url "Stripe Webhook" "$SITE/.netlify/functions/stripe-webhook" "400" "" "false"
+
+          CHECKOUT_STATUS=$(curl -s -o /tmp/checkout_resp -w "%{http_code}" --max-time 15 \
+            -X POST -H "Content-Type: application/json" \
+            -d '{"plan":"starter"}' \
+            "$SITE/.netlify/functions/create-checkout")
+          CHECKOUT_BODY=$(cat /tmp/checkout_resp)
+          if [ "$CHECKOUT_STATUS" != "200" ]; then
+            FAILURES="${FAILURES}Create Checkout (expected 200, got ${CHECKOUT_STATUS})\n"
+            ALL_PASSED=false
+            CRITICAL_FAIL=true
+          elif ! echo "$CHECKOUT_BODY" | grep -qE "cs_live_|checkout.stripe.com"; then
+            FAILURES="${FAILURES}Create Checkout (no session ID)\n"
+            ALL_PASSED=false
+            CRITICAL_FAIL=true
+          fi
+
+          echo "all_passed=$ALL_PASSED" >> $GITHUB_OUTPUT
+          echo "critical_fail=$CRITICAL_FAIL" >> $GITHUB_OUTPUT
+          echo "failures<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$FAILURES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Alert on failure
+        if: steps.checks.outputs.all_passed == 'false'
+        run: |
+          curl -s -F "token=${{ secrets.PUSHOVER_API_KEY }}" \
+               -F "user=${{ secrets.PUSHOVER_USER_KEY }}" \
+               -F "title=🚨 DEPLOY BROKE SITE" \
+               -F "message=Post-deploy failures after commit $(echo $GITHUB_SHA | cut -c1-7):
+          ${{ steps.checks.outputs.failures }}
+          $([ '${{ steps.checks.outputs.critical_fail }}' = 'true' ] && echo 'AUTO-REVERTING...' || echo '')" \
+               -F "priority=1" \
+               -F "sound=siren" \
+               https://api.pushover.net/1/messages.json
+
+      - name: Auto-revert on critical failure
+        if: steps.checks.outputs.critical_fail == 'true'
+        run: |
+          git config user.name "Smoke Test Bot"
+          git config user.email "smoke@nyspotlightreport.com"
+          git revert HEAD --no-edit
+          git push origin main

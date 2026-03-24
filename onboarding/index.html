@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Welcome to ProFlow AI — Onboarding</title>
+<meta name="description" content="Tell us about your business so we can customize your ProFlow AI content engine.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#C9A84C;--dark:#0D1B2A;--mid:#111d2e;--light:#1e3050}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0a1628;color:#fff;min-height:100vh}
+.container{max-width:640px;margin:0 auto;padding:60px 24px}
+h1{font-size:clamp(28px,4vw,36px);font-weight:800;text-align:center;margin-bottom:8px}
+h1 span{color:var(--gold)}
+.subtitle{text-align:center;color:rgba(255,255,255,.6);font-size:16px;margin-bottom:40px}
+.form-group{margin-bottom:24px}
+label{display:block;font-size:14px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:8px}
+input,textarea,select{width:100%;padding:14px 16px;border:1px solid rgba(255,255,255,.15);border-radius:8px;background:rgba(255,255,255,.06);color:#fff;font-size:15px;font-family:inherit;transition:border-color .2s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold)}
+textarea{resize:vertical;min-height:100px}
+select{appearance:none;cursor:pointer}
+select option{background:var(--dark);color:#fff}
+.btn{display:block;width:100%;padding:16px;background:var(--gold);color:var(--dark);border:none;border-radius:8px;font-size:16px;font-weight:800;cursor:pointer;transition:opacity .2s}
+.btn:hover{opacity:.9}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.success{display:none;text-align:center;padding:60px 24px}
+.success h2{font-size:28px;margin-bottom:12px}
+.success p{color:rgba(255,255,255,.6)}
+.check-icon{font-size:64px;margin-bottom:24px}
+.logo{text-align:center;margin-bottom:40px;font-size:18px;font-weight:800;color:var(--gold)}
+.logo span{color:#fff}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">ProFlow<span> AI</span></div>
+  <h1>Welcome to <span>ProFlow</span></h1>
+  <p class="subtitle">Tell us about your business so we can customize your content engine.</p>
+
+  <form id="onboarding-form">
+    <div class="form-group">
+      <label>Business Name *</label>
+      <input type="text" name="business_name" required placeholder="e.g. Acme Marketing Co.">
+    </div>
+    <div class="form-group">
+      <label>Website URL</label>
+      <input type="url" name="website" placeholder="https://yoursite.com">
+    </div>
+    <div class="form-group">
+      <label>Industry *</label>
+      <select name="industry" required>
+        <option value="">Select your industry</option>
+        <option>E-commerce / Retail</option>
+        <option>SaaS / Technology</option>
+        <option>Marketing / Agency</option>
+        <option>Real Estate</option>
+        <option>Health & Wellness</option>
+        <option>Finance / Insurance</option>
+        <option>Education / Coaching</option>
+        <option>Entertainment / Media</option>
+        <option>Food & Beverage</option>
+        <option>Professional Services</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Social Media Handles</label>
+      <input type="text" name="social_handles" placeholder="@yourhandle (Instagram, Twitter, LinkedIn, etc.)">
+    </div>
+    <div class="form-group">
+      <label>Describe Your Brand Voice</label>
+      <textarea name="brand_voice" placeholder="Professional but friendly? Bold and edgy? Warm and approachable? Tell us how you want to sound."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Your Email *</label>
+      <input type="email" name="email" required placeholder="you@company.com">
+    </div>
+    <button type="submit" class="btn" id="submit-btn">Submit &amp; Start Your Engine</button>
+  </form>
+
+  <div class="success" id="success-msg">
+    <div class="check-icon">✅</div>
+    <h2>You're all set!</h2>
+    <p>We'll customize your ProFlow engine and have it running within 24 hours. Check your email for next steps.</p>
+    <p style="margin-top:24px"><a href="/" style="color:var(--gold);font-weight:600">Back to NY Spotlight Report →</a></p>
+  </div>
+</div>
+
+<script>
+document.getElementById('onboarding-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const data = Object.fromEntries(new FormData(this));
+  data.source = 'onboarding';
+
+  try {
+    await fetch('/api/lead-capture', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+  } catch(e) {}
+
+  document.getElementById('onboarding-form').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+});
+</script>
+</body>
+</html>
