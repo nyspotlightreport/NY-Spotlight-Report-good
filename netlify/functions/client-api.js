@@ -35,7 +35,7 @@ exports.handler = async (event) => {
           supaQuery(`client_content?client_id=eq.${clientId}&select=id&status=eq.published`),
           supaQuery(`client_social_posts?client_id=eq.${clientId}&select=id&status=eq.published`),
           supaQuery(`client_analytics?client_id=eq.${clientId}&order=date.desc&limit=7`),
-          supaQuery(`voice_conversations?select=id&limit=1000`),
+          supaQuery(`voice_conversations?client_id=eq.${clientId}&select=id&limit=1000`),
         ]);
         const recentAnalytics = analytics || [];
         const thisWeek = recentAnalytics.slice(0, 7);
@@ -75,14 +75,14 @@ exports.handler = async (event) => {
 
       case "leads": {
         const data = await supaQuery(
-          `contacts?select=id,email,name,company,stage,score,created_at&order=created_at.desc&limit=50`
+          `contacts?client_id=eq.${clientId}&select=id,email,name,company,stage,score,created_at&order=created_at.desc&limit=50`
         );
         return success({ leads: data || [] });
       }
 
       case "voice": {
         const data = await supaQuery(
-          `voice_conversations?order=created_at.desc&limit=50&select=call_sid,department,turn,caller_text,ai_response,created_at`
+          `voice_conversations?client_id=eq.${clientId}&order=created_at.desc&limit=50&select=call_sid,department,turn,caller_text,ai_response,created_at`
         );
         return success({ conversations: data || [] });
       }
