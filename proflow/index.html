@@ -1144,7 +1144,7 @@ document.getElementById('demo-modal').addEventListener('click',function(e){if(e.
           <li><span class="check">✓</span>Weekly KPI report</li>
           <li><span class="check">✓</span>Email support</li>
         </ul>
-        <a href="https://buy.stripe.com/5kQ28rdrK5I772HeDl24004" class="plan-btn plan-btn-secondary">Get Started — $97/mo</a>
+        <button onclick="startCheckout('starter')" class="plan-btn plan-btn-secondary">Get Started — $97/mo</button>
       </div>
 
       <div class="plan popular">
@@ -1161,7 +1161,7 @@ document.getElementById('demo-modal').addEventListener('click',function(e){if(e.
           <li><span class="check">✓</span>Medium + LinkedIn syndication</li>
           <li><span class="check">✓</span>Monthly strategy call (30 min)</li>
         </ul>
-        <a href="https://buy.stripe.com/dRmcN5bjCb2r9aP9j124003" class="plan-btn plan-btn-primary">Get Started — $297/mo</a>
+        <button onclick="startCheckout('growth')" class="plan-btn plan-btn-primary">Get Started — $297/mo</button>
       </div>
 
       <div class="plan">
@@ -1177,7 +1177,7 @@ document.getElementById('demo-modal').addEventListener('click',function(e){if(e.
           <li><span class="check">✓</span>White-label (your brand)</li>
           <li><span class="check">✓</span>Priority support + weekly calls</li>
         </ul>
-        <a href="https://buy.stripe.com/00weVdevO9Yn5YDgLt24002" class="plan-btn plan-btn-secondary">Get Started — $497/mo</a>
+        <button onclick="startCheckout('agency')" class="plan-btn plan-btn-secondary">Get Started — $497/mo</button>
       </div>
 
     </div>
@@ -1327,6 +1327,25 @@ function captureExitLead(){
   fetch('/.netlify/functions/track',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({event:'pageview',page:location.pathname,ref:document.referrer,ts:Date.now()})}).catch(function(){});
 })();
+</script>
+
+<script>
+async function startCheckout(plan) {
+  try {
+    const btn = event.target;
+    const origText = btn.textContent;
+    btn.textContent = 'Processing...';
+    btn.disabled = true;
+    const resp = await fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({plan})
+    });
+    const data = await resp.json();
+    if (data.url) { window.location.href = data.url; }
+    else { alert('Checkout error. Please call (631) 892-9817'); btn.textContent = origText; btn.disabled = false; }
+  } catch(e) { alert('Connection error. Please call (631) 892-9817'); }
+}
 </script>
 
 </body>
