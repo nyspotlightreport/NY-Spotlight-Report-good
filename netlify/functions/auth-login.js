@@ -20,8 +20,12 @@ exports.handler = async (event) => {
   const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || "").toLowerCase();
   const ADMIN_HASH = process.env.ADMIN_PASSWORD_HASH || "";
 
-  // Admin login (if configured)
-  if (ADMIN_EMAIL && ADMIN_HASH && email === ADMIN_EMAIL) {
+  if (!ADMIN_EMAIL || !ADMIN_HASH) {
+    console.error("Auth config missing: ADMIN_EMAIL or ADMIN_PASSWORD_HASH not set");
+    return error("Server configuration error", 500);
+  }
+
+  if (email === ADMIN_EMAIL) {
     const valid = await bcrypt.compare(password, ADMIN_HASH);
     if (!valid) return error("Invalid credentials", 401);
 

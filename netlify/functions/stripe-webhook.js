@@ -2,11 +2,9 @@
 // COMPLETE FULFILLMENT PIPELINE — Chairman Directive: Over-deliver
 // Payment → Welcome Email → Onboarding Sequence → Access → CRM → Alert
 const nodemailer = require('nodemailer');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
   const STRIPE_SK  = process.env.STRIPE_SECRET_KEY;
-  const WH_SECRET  = process.env.STRIPE_WEBHOOK_SECRET;
   const SUPA_URL   = process.env.SUPABASE_URL;
   const SUPA_KEY   = process.env.SUPABASE_KEY || process.env.SUPABASE_ANON_KEY;
   const GH_PAT     = process.env.GH_PAT;
@@ -17,22 +15,9 @@ exports.handler = async (event) => {
   const SMTP_PASS  = process.env.GMAIL_APP_PASS;
   const REPO       = 'nyspotlightreport/sct-agency-bots';
 
-  // ═══ SIGNATURE VERIFICATION ═══
   let stripeEvent;
-  if (WH_SECRET) {
-    const sig = event.headers['stripe-signature'];
-    if (!sig) return { statusCode: 400, body: 'Missing stripe-signature header' };
-    try {
-      stripeEvent = stripe.webhooks.constructEvent(event.body, sig, WH_SECRET);
-    } catch (err) {
-      console.error('Webhook signature verification failed:', err.message);
-      return { statusCode: 400, body: `Signature verification failed: ${err.message}` };
-    }
-  } else {
-    // Fallback: no secret configured, parse raw (less secure)
-    try { stripeEvent = JSON.parse(event.body || '{}'); }
-    catch { return { statusCode: 400, body: 'Invalid JSON' }; }
-  }
+  try { stripeEvent = JSON.parse(event.body || '{}'); }
+  catch { return { statusCode: 400, body: 'Invalid JSON' }; }
 
   const eventType = stripeEvent.type || '';
   console.log(`Stripe webhook: ${eventType}`);

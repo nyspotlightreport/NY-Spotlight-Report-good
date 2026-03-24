@@ -3,12 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NY Spotlight Report — New York Entertainment, Fashion, Culture & Nightlife</title>
-<meta name="description" content="New York's independent voice on entertainment, live performances, fashion, culture, and nightlife. Founded 2020 by S.C. Thomas. ISSN 2026-0147.">
-<meta property="og:title" content="NY Spotlight Report">
-<meta property="og:description" content="Entertainment, fashion, culture & nightlife from inside the rooms where it happens.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://nyspotlightreport.com">
+<title>NY Spotlight Report — Content Systems That Run Themselves</title>
+<meta name="description" content="We build autonomous content engines for agencies and founders. Daily blogs, social media, newsletters — published on schedule, every single day.">
+<meta property="og:title" content="NY Spotlight Report — Content That Runs Itself">
+<meta property="og:description" content="Autonomous content systems for agencies. Daily blogs, social, newsletters — zero manual work.">
 <link rel="canonical" href="https://nyspotlightreport.com">
 <!-- PLACEHOLDER: Replace META_PIXEL_ID / GA_MEASUREMENT_ID with real IDs and uncomment -->
 <!-- Meta Pixel
@@ -19,615 +17,445 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GA_MEASUREMENT_ID');</script>
 -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ===== RESET & TOKENS ===== */
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#fafaf8;--paper:#fff;--ink:#111;--grey:#555;--light:#999;--rule:#ddd;
-  --accent:#c9a84c;--accent-dark:#a8893a;--danger:#c0392b;
-  --serif:'Playfair Display',Georgia,serif;
-  --body:'Source Serif 4','Times New Roman',serif;
-  --sans:'Inter',-apple-system,sans-serif;
-}
+:root{--sand:#f7f5f0;--ink:#141413;--warm:#3d3929;--accent:#c9a84c;--accent-dark:#a08536;--muted:#8a8578;--border:rgba(0,0,0,.08);--card:#fff;--serif:'Instrument Serif',Georgia,serif;--sans:'Outfit','Helvetica Neue',sans-serif}
 html{scroll-behavior:smooth}
-body{font-family:var(--body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;font-size:17px;line-height:1.7}
+body{font-family:var(--sans);background:var(--sand);color:var(--ink);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%;height:auto}
-.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px)}
 
-/* ===== TOP BAR ===== */
-.topbar{background:var(--ink);color:rgba(255,255,255,.65);font-family:var(--sans);font-size:11px;letter-spacing:.04em;padding:7px 0}
-.topbar-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.topbar-left,.topbar-right{display:flex;align-items:center;gap:16px}
-.topbar .sep{opacity:.3}
-.topbar .city{color:var(--accent);font-weight:600}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,245,240,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 clamp(24px,5vw,80px);height:64px;display:flex;align-items:center;justify-content:space-between}
+.n-logo{font-family:var(--serif);font-size:18px;letter-spacing:-.02em;color:var(--ink)}
+.n-logo i{color:var(--accent);font-style:italic}
+.n-links{display:flex;align-items:center;gap:28px}
+.n-links a{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.01em;transition:color .2s}
+.n-links a:hover{color:var(--ink)}
+.n-cta{background:var(--ink)!important;color:var(--sand)!important;padding:10px 24px;border-radius:100px;font-weight:600!important;font-size:13px!important;transition:all .2s}
+.n-cta:hover{background:var(--warm)!important}
 
-/* ===== MASTHEAD ===== */
-.masthead{text-align:center;padding:28px 0 20px;border-bottom:3px double var(--ink);background:var(--paper)}
-.masthead-pre{font-family:var(--sans);font-size:10px;color:var(--light);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
-.masthead-logo{font-family:var(--serif);font-weight:900;letter-spacing:.02em;line-height:1}
-.masthead-logo .ny{font-size:clamp(26px,3.5vw,40px);display:block;letter-spacing:.1em}
-.masthead-logo .spotlight{font-size:clamp(48px,7vw,82px);display:block;letter-spacing:.03em;margin:-2px 0}
-.masthead-logo .report{font-size:clamp(13px,1.8vw,17px);letter-spacing:.38em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:14px;margin-top:2px}
-.masthead-logo .report::before,.masthead-logo .report::after{content:'';flex:1;max-width:140px;height:1px;background:var(--ink)}
-.masthead-tagline{font-family:var(--sans);font-size:11px;color:var(--light);margin-top:12px;letter-spacing:.08em}
+/* HERO */
+.hero{padding:140px clamp(24px,5vw,80px) 80px;max-width:1100px;margin:0 auto}
+.hero-over{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:24px}
+.hero h1{font-family:var(--serif);font-size:clamp(42px,6vw,76px);font-weight:400;line-height:1.05;letter-spacing:-.03em;margin-bottom:28px;max-width:800px}
+.hero h1 i{font-style:italic;color:var(--warm)}
+.hero-p{font-size:18px;color:var(--muted);max-width:520px;line-height:1.7;font-weight:300;margin-bottom:40px}
+.hero-btns{display:flex;gap:12px;margin-bottom:80px;flex-wrap:wrap}
+.btn-a{background:var(--ink);color:var(--sand);padding:16px 36px;border-radius:100px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:all .25s}
+.btn-a:hover{background:var(--warm);transform:translateY(-1px)}
+.btn-a svg{width:16px;height:16px;transition:transform .2s}
+.btn-a:hover svg{transform:translateX(3px)}
+.btn-b{color:var(--ink);padding:16px 36px;border-radius:100px;font-size:14px;font-weight:500;border:1px solid rgba(0,0,0,.15);display:inline-block;transition:all .25s}
+.btn-b:hover{border-color:var(--ink)}
 
-/* ===== NAVIGATION ===== */
-nav{border-bottom:1px solid var(--rule);padding:0 clamp(16px,4vw,64px);background:var(--paper);position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;height:46px;gap:28px}
-nav a{font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--grey);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:color .15s;position:relative}
-nav a:hover{color:var(--ink)}
-nav a.accent{color:var(--accent)}
-nav a.accent:hover{color:var(--accent-dark)}
-.nav-hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
+/* PROOF BAR */
+.proof{display:flex;gap:48px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.proof-i{display:flex;flex-direction:column}
+.proof-n{font-family:var(--serif);font-size:36px;color:var(--ink);line-height:1}
+.proof-l{font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
 
-/* ===== TICKER ===== */
-.ticker{background:#1a1a1a;color:rgba(255,255,255,.7);font-family:var(--sans);font-size:11.5px;padding:9px 0;overflow:hidden;white-space:nowrap;border-bottom:2px solid var(--accent)}
-.ticker-label{background:var(--danger);color:#fff;font-weight:700;font-size:10px;letter-spacing:.1em;padding:3px 10px;margin-right:20px;text-transform:uppercase;display:inline-block;vertical-align:middle}
-.ticker-track{display:inline-block;animation:ticker-scroll 45s linear infinite;vertical-align:middle}
-.ticker-track span{margin-right:40px}
-.ticker-track .dot{color:var(--accent);margin-right:40px;font-size:8px;vertical-align:middle}
-@keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* DIVIDER */
+.divider{width:100%;height:1px;background:var(--border);margin:0}
 
-/* ===== HERO / FEATURED ===== */
-.hero{padding:0;border-bottom:1px solid var(--rule);background:var(--paper)}
-.hero-grid{display:grid;grid-template-columns:1.5fr 1fr;min-height:520px}
-.hero-img{position:relative;overflow:hidden}
-.hero-img img{width:100%;height:100%;object-fit:cover}
-.hero-img .overlay{position:absolute;bottom:0;left:0;right:0;padding:32px;background:linear-gradient(transparent,rgba(0,0,0,.75))}
-.hero-content{padding:48px 40px;display:flex;flex-direction:column;justify-content:center}
-.label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:inline-block}
-.label-dark{color:#fff;background:var(--accent);padding:3px 8px;font-size:9px;letter-spacing:.1em}
-.hero-content h1{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:700;line-height:1.14;margin-bottom:16px}
-.hero-content h1 a:hover{color:var(--accent)}
-.hero-content .deck{font-size:17px;color:var(--grey);line-height:1.65;margin-bottom:18px}
-.meta{font-family:var(--sans);font-size:11px;color:var(--light);letter-spacing:.02em}
-.meta .by{font-weight:600;color:var(--grey)}
-.meta .sep{margin:0 8px;opacity:.4}
+/* SECTION */
+section{padding:80px clamp(24px,5vw,80px);max-width:1100px;margin:0 auto}
+.s-tag{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:12px}
+.s-head{font-family:var(--serif);font-size:clamp(30px,4vw,48px);line-height:1.1;letter-spacing:-.02em;margin-bottom:16px;max-width:600px}
+.s-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.6;font-weight:300;margin-bottom:48px}
 
-/* ===== SECTION HEADS ===== */
-.section-head{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-top:48px}
-.section-head h2{font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-weight:700;white-space:nowrap}
-.section-head::after{content:'';flex:1;height:1px;background:var(--rule)}
-.section-head .accent-line{width:50px;height:3px;background:var(--accent);flex-shrink:0}
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px}
+.step-num{font-family:var(--serif);font-size:48px;color:rgba(201,168,76,.3);line-height:1;margin-bottom:16px}
+.step h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.step p{font-size:14px;color:var(--muted);line-height:1.6;font-weight:300}
 
-/* ===== STORY CARDS ===== */
-.card{background:var(--paper);border:1px solid var(--rule);transition:box-shadow .2s,transform .2s}
-.card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
-.card-img{overflow:hidden;position:relative}
-.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.card:hover .card-img img{transform:scale(1.03)}
-.card-body{padding:20px}
-.card-body h3{font-family:var(--serif);font-size:clamp(16px,1.6vw,22px);font-weight:700;line-height:1.25;margin-bottom:8px}
-.card-body h3 a:hover{color:var(--accent)}
-.card-body .excerpt{font-size:15px;color:var(--grey);line-height:1.6;margin-bottom:10px}
-.card-body .meta{font-size:10.5px}
+/* WHAT YOU GET */
+.features{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.feat{display:flex;gap:16px;padding:24px;border-radius:12px;transition:background .2s}
+.feat:hover{background:rgba(0,0,0,.02)}
+.feat-ico{width:40px;height:40px;border-radius:10px;background:rgba(201,168,76,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.feat h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.feat p{font-size:13px;color:var(--muted);line-height:1.5;font-weight:300}
 
-/* ===== GRID LAYOUTS ===== */
-.grid-asym{display:grid;grid-template-columns:1.3fr 1fr;gap:28px}
-.grid-asym .card-lg .card-img{height:360px}
-.grid-asym .side{display:flex;flex-direction:column;gap:28px}
-.grid-asym .side .card-img{height:160px}
+/* PRICING */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.plan{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;position:relative;transition:all .25s}
+.plan:hover{border-color:rgba(0,0,0,.15);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.06)}
+.plan.pop{border:2px solid var(--accent)}
+.plan-badge{position:absolute;top:-12px;left:28px;background:var(--accent);color:var(--ink);font-size:11px;font-weight:700;padding:4px 14px;border-radius:100px;letter-spacing:.04em}
+.plan-name{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.plan-price{font-family:var(--serif);font-size:42px;color:var(--ink);line-height:1;margin-bottom:4px}
+.plan-price span{font-size:16px;color:var(--muted);font-family:var(--sans)}
+.plan-desc{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.5;font-weight:300}
+.plan ul{list-style:none;margin-bottom:28px}
+.plan li{font-size:13px;color:var(--warm);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.plan li:last-child{border:0}
+.plan li::before{content:"✓";color:var(--accent-dark);font-weight:700;font-size:12px}
+.plan-btn{display:block;text-align:center;padding:14px;border-radius:100px;font-size:13px;font-weight:600;transition:all .2s}
+.plan-btn-dark{background:var(--ink);color:var(--sand)}
+.plan-btn-dark:hover{background:var(--warm)}
+.plan-btn-outline{border:1px solid rgba(0,0,0,.15);color:var(--ink)}
+.plan-btn-outline:hover{border-color:var(--ink)}
 
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.grid-3 .card-img{height:220px}
+/* TESTIMONIAL */
+.test{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:48px;text-align:center;max-width:640px;margin:0 auto}
+.test-q{font-family:var(--serif);font-size:clamp(20px,3vw,28px);line-height:1.4;margin-bottom:24px;font-style:italic;color:var(--warm)}
+.test-who{font-size:13px;color:var(--muted);font-weight:500}
 
-/* ===== PHOTO FEATURE (FULL-WIDTH) ===== */
-.photo-feature{position:relative;min-height:420px;display:flex;align-items:center;overflow:hidden;margin:48px 0 0}
-.photo-feature-bg{position:absolute;inset:0}
-.photo-feature-bg img{width:100%;height:100%;object-fit:cover}
-.photo-feature-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.55) 60%,rgba(0,0,0,.3) 100%)}
-.photo-feature-content{position:relative;z-index:2;max-width:560px;padding:60px clamp(24px,5vw,80px);color:#fff}
-.photo-feature-content .label{color:var(--accent)}
-.photo-feature-content h2{font-family:var(--serif);font-size:clamp(26px,3vw,40px);font-weight:700;line-height:1.18;margin-bottom:14px}
-.photo-feature-content p{font-size:16px;line-height:1.65;color:rgba(255,255,255,.8);margin-bottom:18px}
-.btn-gold{display:inline-block;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--accent);padding:12px 28px;transition:background .2s}
-.btn-gold:hover{background:var(--accent-dark)}
+/* CTA */
+.cta-s{background:var(--ink);border-radius:20px;padding:64px;text-align:center;margin:0 clamp(24px,5vw,80px) 80px;max-width:1100px;margin-left:auto;margin-right:auto}
+.cta-s h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);color:var(--sand);margin-bottom:16px;line-height:1.1}
+.cta-s p{color:rgba(247,245,240,.6);font-size:16px;margin-bottom:32px;font-weight:300}
+.btn-gold{background:var(--accent);color:var(--ink);padding:16px 40px;border-radius:100px;font-size:14px;font-weight:700;display:inline-block;transition:all .25s}
+.btn-gold:hover{background:var(--accent-dark);transform:translateY(-1px)}
 
-/* ===== EDITOR'S PICKS ===== */
-.editors-picks{padding:48px 0 0}
-.pick-list{list-style:none;counter-reset:pick}
-.pick-list li{counter-increment:pick;padding:16px 0;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;gap:16px}
-.pick-list li::before{content:counter(pick,decimal-leading-zero);font-family:var(--serif);font-size:28px;font-weight:700;color:var(--accent);line-height:1;min-width:34px}
-.pick-list li a{font-family:var(--serif);font-size:17px;font-weight:600;line-height:1.35;flex:1}
-.pick-list li a:hover{color:var(--accent)}
-.pick-list li .pick-cat{font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light);white-space:nowrap}
+/* FOOTER */
+footer{padding:40px clamp(24px,5vw,80px);max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
+footer p{font-size:12px;color:var(--muted)}
+footer a{font-size:12px;color:var(--muted);margin-left:24px;transition:color .2s}
+footer a:hover{color:var(--ink)}
 
-/* ===== NEWSLETTER ===== */
-.newsletter{background:var(--ink);color:#fff;padding:56px 0;margin-top:48px;text-align:center}
-.newsletter h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:6px}
-.newsletter .sub{font-family:var(--sans);font-size:13px;color:rgba(255,255,255,.55);letter-spacing:.04em;margin-bottom:24px}
-.newsletter form{display:flex;gap:0;max-width:480px;margin:0 auto}
-.newsletter input[type="email"]{flex:1;padding:14px 18px;font-family:var(--sans);font-size:14px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;outline:none}
-.newsletter input[type="email"]::placeholder{color:rgba(255,255,255,.35)}
-.newsletter input[type="email"]:focus{border-color:var(--accent)}
-.newsletter button{padding:14px 28px;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:var(--ink);border:none;cursor:pointer;transition:background .2s}
-.newsletter button:hover{background:var(--accent-dark)}
-.newsletter .fine{font-family:var(--sans);font-size:10.5px;color:rgba(255,255,255,.35);margin-top:14px}
-
-/* ===== FROM THE EDITOR ===== */
-.from-editor{padding:48px 0;border-top:3px double var(--rule)}
-.from-editor-inner{max-width:680px;margin:0 auto;text-align:center}
-.from-editor h2{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:20px}
-.from-editor blockquote{font-family:var(--body);font-size:18px;font-style:italic;color:var(--grey);line-height:1.7;margin-bottom:16px;position:relative;padding:0 20px}
-.from-editor .sig{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--ink);letter-spacing:.04em}
-.from-editor .sig span{display:block;font-weight:400;color:var(--light);font-size:11px;margin-top:2px}
-
-/* ===== TRUST BAR ===== */
-.trust-bar{text-align:center;padding:32px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.trust-bar span{font-family:var(--sans);font-size:11px;color:var(--light);letter-spacing:.06em;margin:0 18px}
-.trust-bar .accent{color:var(--accent);font-weight:600}
-
-/* ===== FOOTER ===== */
-footer{background:var(--ink);color:rgba(255,255,255,.6);padding:56px 0 0}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.footer-col h4{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}
-.footer-col p{font-size:14px;line-height:1.7;margin-bottom:8px}
-.footer-col a{font-family:var(--sans);font-size:13px;display:block;margin-bottom:10px;transition:color .15s}
-.footer-col a:hover{color:var(--accent)}
-.footer-col .brand{font-family:var(--serif);font-weight:700;font-size:18px;color:#fff;margin-bottom:12px}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:20px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--sans);font-size:10.5px;letter-spacing:.04em}
-.footer-bottom a:hover{color:var(--accent)}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:900px){
-  .hero-grid{grid-template-columns:1fr}
-  .hero-img{height:320px}
-  .hero-content{padding:28px 24px}
-  .grid-asym{grid-template-columns:1fr}
-  .grid-asym .card-lg .card-img{height:240px}
-  .grid-3{grid-template-columns:1fr 1fr}
-  .footer-grid{grid-template-columns:1fr 1fr}
+/* MOBILE */
+@media(max-width:768px){
+  .n-links a:not(.n-cta){display:none}
+  .steps,.features,.plans{grid-template-columns:1fr}
+  .proof{gap:24px}
+  .cta-s{margin:0 16px 40px;padding:40px 24px;border-radius:16px}
+  footer{flex-direction:column;gap:16px;text-align:center}
 }
-@media(max-width:640px){
-  .topbar-right{display:none}
-  .nav-inner a:not(.nav-home):not(.accent):not(.nav-hamburger){display:none}
-  .nav-hamburger{display:block}
-  .mobile-menu{display:none;position:fixed;top:46px;left:0;right:0;background:var(--paper);border-bottom:2px solid var(--accent);padding:16px 24px;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.08)}
-  .mobile-menu.open{display:flex;flex-direction:column;gap:12px}
-  .mobile-menu a{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--ink);padding:8px 0;border-bottom:1px solid var(--rule)}
-  .mobile-menu a:last-child{border-bottom:none}
-  .mobile-menu a.accent{color:var(--accent);font-weight:700}
-  .grid-3{grid-template-columns:1fr}
-  .grid-asym .side{flex-direction:column}
-  .newsletter form{flex-direction:column}
-  .newsletter button{width:100%}
-  .footer-grid{grid-template-columns:1fr}
-  .footer-bottom{flex-direction:column;text-align:center}
-  .pick-list li{gap:10px}
-}
+
+/* ANIMATION */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero h1,.hero-p,.hero-btns,.proof,.step,.feat,.plan,.test{animation:fadeUp .6s ease both}
+.hero-p{animation-delay:.1s}.hero-btns{animation-delay:.2s}.proof{animation-delay:.3s}
 </style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
 </head>
 <body>
 
-<!-- ===== TOP BAR ===== -->
-<div class="topbar">
-  <div class="wrap">
-    <div class="topbar-inner">
-      <div class="topbar-left">
-        <span>Sunday, March 23, 2026</span>
-        <span class="sep">|</span>
-        <span class="city">New York City</span>
-        <span class="sep">|</span>
-        <span>54&deg;F Partly Cloudy</span>
-      </div>
-      <div class="topbar-right">
-        <span>ISSN 2026-0147</span>
-        <span class="sep">|</span>
-        <span>Independent. Unsponsored. From Inside the Room.</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== MASTHEAD ===== -->
-<header class="masthead">
-  <div class="masthead-pre">Est. 2020 &mdash; New York City</div>
-  <div class="masthead-logo">
-    <span class="ny">NY</span>
-    <span class="spotlight">SPOTLIGHT</span>
-    <span class="report">REPORT</span>
-  </div>
-  <div class="masthead-tagline">Entertainment &middot; Live Performances &middot; Fashion &middot; Culture &middot; Nightlife</div>
-</header>
-
-<!-- ===== NAVIGATION ===== -->
 <nav>
-  <div class="nav-inner">
-    <a href="/" class="nav-home">Home</a>
-    <a href="/blog/">Entertainment</a>
-    <a href="/blog/">Fashion</a>
-    <a href="/blog/">Culture</a>
-    <a href="/blog/hells-kitchen-gay-nightlife-capital/">Nightlife</a>
-    <a href="/about/sc-thomas/">About</a>
-    <a href="#newsletter" class="accent">Subscribe</a>
-    <button class="nav-hamburger" aria-label="Menu" onclick="document.getElementById('mobile-menu').classList.toggle('open')">&#9776;</button>
+  <a href="/" class="n-logo">NY Spotlight <i>Report</i></a>
+  <div class="n-links">
+    <a href="/blog/">Insights</a>
+    <a href="/proflow/">How It Works</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/proflow/" class="n-cta">Get Started</a>
+    <a href="/login/" style="padding:10px 24px;border-radius:100px;font-weight:600;font-size:13px;color:#c9a84c;border:1px solid #c9a84c">Log In</a>
   </div>
 </nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/">Home</a>
-  <a href="/blog/">Entertainment</a>
-  <a href="/blog/">Fashion</a>
-  <a href="/blog/">Culture</a>
-  <a href="/blog/hells-kitchen-gay-nightlife-capital/">Nightlife</a>
-  <a href="/about/sc-thomas/">About</a>
-  <a href="/press/">Press</a>
-  <a href="/newsletter/">Newsletter</a>
-  <a href="/tips/">Send a Tip</a>
-  <a href="#newsletter" class="accent">Subscribe Free</a>
-</div>
 
-<!-- ===== BREAKING TICKER ===== -->
-<div class="ticker">
-  <div class="wrap" style="padding:0;overflow:hidden">
-    <span class="ticker-label">Breaking</span>
-    <div class="ticker-track">
-      <span>Broadway's spring season shatters box-office records with $42M opening week</span>
-      <span class="dot">&bull;</span>
-      <span>Met Gala 2026 theme revealed: designers respond with bold early sketches</span>
-      <span class="dot">&bull;</span>
-      <span>Hell's Kitchen named nation's top nightlife corridor by Travel + Leisure</span>
-      <span class="dot">&bull;</span>
-      <span>MoMA PS1 announces 48-hour immersive performance art marathon for April</span>
-      <span class="dot">&bull;</span>
-      <span>NYC indie music venues report highest attendance since 2019</span>
-      <span class="dot">&bull;</span>
-      <span>Fashion Week aftershock: emerging designers land major retail deals</span>
-      <span class="dot">&bull;</span>
-      <!-- duplicate for seamless scroll -->
-      <span>Broadway's spring season shatters box-office records with $42M opening week</span>
-      <span class="dot">&bull;</span>
-      <span>Met Gala 2026 theme revealed: designers respond with bold early sketches</span>
-      <span class="dot">&bull;</span>
-      <span>Hell's Kitchen named nation's top nightlife corridor by Travel + Leisure</span>
-      <span class="dot">&bull;</span>
-      <span>MoMA PS1 announces 48-hour immersive performance art marathon for April</span>
-      <span class="dot">&bull;</span>
-      <span>NYC indie music venues report highest attendance since 2019</span>
-      <span class="dot">&bull;</span>
-      <span>Fashion Week aftershock: emerging designers land major retail deals</span>
-      <span class="dot">&bull;</span>
-    </div>
-  </div>
-</div>
-
-<!-- ===== HERO SECTION ===== -->
 <section class="hero">
-  <div class="hero-grid">
-    <div class="hero-img">
-      <img src="/images/broadway.jpg" alt="Broadway theater marquees illuminated at night" loading="eager">
+  <p class="hero-over">Content systems for agencies & founders</p>
+  <h1>We build the content engine.<br>You run the <i>business.</i></h1>
+  <p class="hero-p">Daily blog posts, social media, and newsletters — researched, written, and published automatically. Your brand voice, not ours.</p>
+  <div class="hero-btns">
+    <a href="/demo/" class="btn-a">See real samples <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    <a href="/pricing/" class="btn-b">View pricing</a>
+  </div>
+  <div class="proof">
+    <div class="proof-i"><div class="proof-n">Daily</div><div class="proof-l">Content published</div></div>
+    <div class="proof-i"><div class="proof-n">6</div><div class="proof-l">Platforms managed</div></div>
+    <div class="proof-i"><div class="proof-n">Zero</div><div class="proof-l">Manual work required</div></div>
+    <div class="proof-i"><div class="proof-n">48hr</div><div class="proof-l">Setup to first post</div></div>
+  </div>
+</section>
+
+<section>
+  <p class="s-tag">How it works</p>
+  <h2 class="s-head">Three steps to content<br>that never stops.</h2>
+  <p class="s-sub">We handle the research, writing, design, and publishing. You approve the strategy once, then watch it run.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><h3>We learn your brand</h3><p>Your voice, your audience, your goals. We configure your content engine around what makes your business unique — not generic templates.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>Content starts flowing</h3><p>Within 48 hours, your first batch of blog posts, social content, and newsletter drafts are live. SEO-optimized, on-brand, and ready for your audience.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>It runs itself</h3><p>Daily publishing across all your platforms. Weekly performance reports. Monthly strategy adjustments. You focus on clients — we handle the content.</p></div>
+  </div>
+</section>
+
+<section>
+  <p class="s-tag">What you get</p>
+  <h2 class="s-head">Everything a content team does. Without the team.</h2>
+  <p class="s-sub">Every deliverable is researched, written, and published automatically — calibrated to your industry and voice.</p>
+  <div class="features">
+    <div class="feat"><div class="feat-ico">📝</div><div><h4>Daily SEO blog posts</h4><p>Keyword-researched articles published to your blog every day. Optimized for Google, written for humans.</p></div></div>
+    <div class="feat"><div class="feat-ico">📱</div><div><h4>Social media on 6 platforms</h4><p>LinkedIn, Twitter, Instagram, Facebook, Pinterest, TikTok — daily posts with platform-native formatting.</p></div></div>
+    <div class="feat"><div class="feat-ico">📰</div><div><h4>Weekly newsletter</h4><p>Curated industry insights sent to your subscribers every week. Grows your list while you sleep.</p></div></div>
+    <div class="feat"><div class="feat-ico">📊</div><div><h4>Performance reports</h4><p>Weekly KPIs delivered to your inbox. What's working, what to adjust, where the opportunities are.</p></div></div>
+    <div class="feat"><div class="feat-ico">🎯</div><div><h4>Lead generation</h4><p>Content designed to attract your ideal clients. CTAs, landing pages, and conversion paths built in.</p></div></div>
+    <div class="feat"><div class="feat-ico">🛡️</div><div><h4>Brand voice protection</h4><p>Every piece is calibrated to your tone, terminology, and style guidelines. Not generic — yours.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <p class="s-tag">Simple pricing</p>
+  <h2 class="s-head">Pick a plan.<br>Content starts tomorrow.</h2>
+  <p class="s-sub">No contracts. Cancel anytime. Every plan includes setup, onboarding, and a dedicated content strategist.</p>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">$97<span>/mo</span></div>
+      <p class="plan-desc">Perfect for solopreneurs who need consistent content without the hassle.</p>
+      <ul>
+        <li>Daily SEO blog posts</li>
+        <li>3-platform social media</li>
+        <li>Digital product store</li>
+        <li>Weekly KPI reports</li>
+      </ul>
+      <a href="/proflow/" class="plan-btn plan-btn-outline">Get started</a>
     </div>
-    <div class="hero-content">
-      <span class="label">Live Performance</span>
-      <h1><a href="/blog/10-years-behind-the-scenes-entertainment/">Broadway's Spring Awakening: Inside the Season That Changed the Theater Industry Forever</a></h1>
-      <p class="deck">After three years of cautious programming, producers are finally taking risks again. We went backstage at five of the season's boldest new productions to find out what's driving the creative surge.</p>
-      <div class="meta">
-        <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-        <span class="sep">|</span>
-        <span>March 23, 2026</span>
-        <span class="sep">|</span>
-        <span>9 min read</span>
-      </div>
+    <div class="plan pop">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-price">$297<span>/mo</span></div>
+      <p class="plan-desc">For growing businesses ready to dominate their content game.</p>
+      <ul>
+        <li>Everything in Starter</li>
+        <li>6-platform social media</li>
+        <li>Weekly newsletter automation</li>
+        <li>Video content (Shorts/Reels)</li>
+        <li>Monthly strategy session</li>
+      </ul>
+      <a href="/proflow/" class="plan-btn plan-btn-dark">Get started</a>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Agency</div>
+      <div class="plan-price">$497<span>/mo</span></div>
+      <p class="plan-desc">Full-stack content operation for agencies and established brands.</p>
+      <ul>
+        <li>Everything in Growth</li>
+        <li>KDP book publishing</li>
+        <li>Print-on-demand designs</li>
+        <li>White-label ready</li>
+        <li>Priority support</li>
+        <li>Dedicated account manager</li>
+      </ul>
+      <a href="/proflow/" class="plan-btn plan-btn-outline">Get started</a>
     </div>
   </div>
 </section>
 
-<!-- ===== TODAY'S STORIES (ASYMMETRIC GRID) ===== -->
-<div class="wrap">
-  <div class="section-head">
-    <h2>Today's Stories</h2>
-    <span class="accent-line"></span>
-  </div>
-  <div class="grid-asym">
-    <!-- Large card -->
-    <div class="card card-lg">
-      <div class="card-img">
-        <img src="/images/runway.jpg" alt="Model on runway during New York Fashion Week" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Fashion</span>
-        <h3><a href="/blog/">The New Guard: Five Designers Rewriting New York Fashion from the Ground Up</a></h3>
-        <p class="excerpt">From converted Bushwick warehouses to Midtown showrooms, a generation of designers is challenging everything the industry thought it knew about American style.</p>
-        <div class="meta">
-          <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-          <span class="sep">|</span>
-          <span>March 22, 2026</span>
-          <span class="sep">|</span>
-          <span>11 min read</span>
-        </div>
-      </div>
-    </div>
-    <!-- Side stack -->
-    <div class="side">
-      <div class="card">
-        <div class="card-img">
-          <img src="/images/nightlife.jpg" alt="Nightclub interior with crowd and stage lighting" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="label">Nightlife</span>
-          <h3><a href="/blog/hells-kitchen-gay-nightlife-capital/">How Hell's Kitchen Became America's Undisputed Gay Nightlife Capital</a></h3>
-          <p class="excerpt">The neighborhood's transformation from gritty corridor to neon-lit epicenter is one of the city's great reinvention stories.</p>
-          <div class="meta">
-            <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-            <span class="sep">|</span>
-            <span>March 21, 2026</span>
-            <span class="sep">|</span>
-            <span>8 min read</span>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="/images/gallery.jpg" alt="Contemporary art gallery opening in Chelsea" loading="lazy">
-        </div>
-        <div class="card-body">
-          <span class="label">Culture</span>
-          <h3><a href="/blog/">Chelsea Galleries Are Having Their Biggest Spring in a Decade</a></h3>
-          <p class="excerpt">Record-setting openings and waitlisted shows signal a cultural appetite that even insiders didn't predict.</p>
-          <div class="meta">
-            <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-            <span class="sep">|</span>
-            <span>March 20, 2026</span>
-            <span class="sep">|</span>
-            <span>6 min read</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== ENTERTAINMENT SECTION ===== -->
-<div class="wrap">
-  <div class="section-head">
-    <h2>Entertainment</h2>
-    <span class="accent-line"></span>
-  </div>
-  <div class="grid-3">
-    <div class="card">
-      <div class="card-img">
-        <img src="/images/theater.jpg" alt="Off-Broadway theater stage during rehearsal" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">The Industry</span>
-        <h3><a href="/blog/10-years-behind-the-scenes-entertainment/">A Decade Behind the Curtain: What Ten Years in Entertainment Taught Me About New York</a></h3>
-        <p class="excerpt">From greenrooms to boardrooms, the real machinery of the entertainment industry runs on relationships built after the show ends.</p>
-        <div class="meta">
-          <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-          <span class="sep">|</span>
-          <span>March 19, 2026</span>
-          <span class="sep">|</span>
-          <span>12 min read</span>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img">
-        <img src="/images/dj.jpg" alt="DJ performing at a New York City venue" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Entertainment</span>
-        <h3><a href="/blog/">The DJ Sets Reshaping New York's Live Music Landscape</a></h3>
-        <p class="excerpt">Electronic music is no longer the sideshow. At venues across the five boroughs, DJs are headlining rooms that used to belong to rock bands.</p>
-        <div class="meta">
-          <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-          <span class="sep">|</span>
-          <span>March 18, 2026</span>
-          <span class="sep">|</span>
-          <span>7 min read</span>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img">
-        <img src="/images/concert.jpg" alt="Concert crowd at an outdoor New York City venue" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Live Performance</span>
-        <h3><a href="/blog/">Summer Concert Season Preview: The NYC Shows You Cannot Miss</a></h3>
-        <p class="excerpt">Central Park, Governors Island, Brooklyn Steel, and a dozen unexpected stages are stacking lineups that rival any festival circuit.</p>
-        <div class="meta">
-          <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-          <span class="sep">|</span>
-          <span>March 17, 2026</span>
-          <span class="sep">|</span>
-          <span>8 min read</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== FULL-WIDTH PHOTO FEATURE ===== -->
-<div class="photo-feature">
-  <div class="photo-feature-bg">
-    <img src="/images/fashion.jpg" alt="Fashion industry behind the scenes in New York" loading="lazy">
-  </div>
-  <div class="photo-feature-content">
-    <span class="label">Deep Dive</span>
-    <h2>The Rooms Where It Happens: An Investigation Into Who Really Controls New York's Entertainment Industry</h2>
-    <p>A four-part series examining the gatekeepers, power brokers, and unwritten rules that determine which artists break through and which are left on the outside looking in.</p>
-    <a href="/blog/10-years-behind-the-scenes-entertainment/" class="btn-gold">Read the Series</a>
-  </div>
-</div>
-
-<!-- ===== NIGHTLIFE & CULTURE SECTION ===== -->
-<div class="wrap">
-  <div class="section-head">
-    <h2>Nightlife &amp; Culture</h2>
-    <span class="accent-line"></span>
-  </div>
-  <div class="grid-3">
-    <div class="card">
-      <div class="card-img">
-        <img src="/images/bar.jpg" alt="Cocktail bar interior in the West Village" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Nightlife</span>
-        <h3><a href="/blog/">The Speakeasy Is Dead. Long Live the Speakeasy.</a></h3>
-        <p class="excerpt">New York's cocktail scene is moving past the hidden-door gimmick and into something more interesting: bars that actually want to be found.</p>
-        <div class="meta">
-          <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-          <span class="sep">|</span>
-          <span>March 16, 2026</span>
-          <span class="sep">|</span>
-          <span>6 min read</span>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img">
-        <img src="/images/poetry.jpg" alt="Poetry reading at a Harlem literary venue" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Culture</span>
-        <h3><a href="/blog/">Harlem's Literary Renaissance Is Louder Than Ever</a></h3>
-        <p class="excerpt">Spoken word nights, independent bookstores, and a new generation of writers are making uptown the center of New York's literary conversation.</p>
-        <div class="meta">
-          <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-          <span class="sep">|</span>
-          <span>March 15, 2026</span>
-          <span class="sep">|</span>
-          <span>7 min read</span>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img">
-        <img src="/images/street.jpg" alt="Street scene in Lower Manhattan at dusk" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Culture</span>
-        <h3><a href="/blog/">After Dark in the Lower East Side: The Neighborhood That Never Stopped Reinventing Itself</a></h3>
-        <p class="excerpt">Decades of change have only sharpened the LES's edge. Here's what's thriving on the blocks that made New York's reputation.</p>
-        <div class="meta">
-          <span class="by">By <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)">S.C. Thomas</a></span>
-          <span class="sep">|</span>
-          <span>March 14, 2026</span>
-          <span class="sep">|</span>
-          <span>9 min read</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== EDITOR'S PICKS ===== -->
-<div class="wrap editors-picks">
-  <div class="section-head">
-    <h2>Editor's Picks</h2>
-    <span class="accent-line"></span>
-  </div>
-  <ol class="pick-list">
-    <li>
-      <a href="/blog/hells-kitchen-gay-nightlife-capital/">Why Every Nightlife Journalist in America Is Writing About Hell's Kitchen Right Now</a>
-      <span class="pick-cat">Nightlife</span>
-    </li>
-    <li>
-      <a href="/blog/10-years-behind-the-scenes-entertainment/">What the Backstage Crew Knows That the Audience Never Will</a>
-      <span class="pick-cat">The Industry</span>
-    </li>
-    <li>
-      <a href="/blog/">The Quiet Power Shift Happening Inside New York's Fashion Houses</a>
-      <span class="pick-cat">Fashion</span>
-    </li>
-    <li>
-      <a href="/blog/">From the Subway Platform to the Main Stage: NYC Street Performers Who Made It</a>
-      <span class="pick-cat">Entertainment</span>
-    </li>
-    <li>
-      <a href="/blog/">The 12 Cultural Events That Will Define New York's Spring</a>
-      <span class="pick-cat">Culture</span>
-    </li>
-  </ol>
-</div>
-
-<!-- ===== NEWSLETTER ===== -->
-<section class="newsletter" id="newsletter">
-  <div class="wrap">
-    <h2>The Spotlight Brief</h2>
-    <p class="sub">NYC entertainment, culture, and nightlife &mdash; delivered to your inbox every week.</p>
-    <form action="/.netlify/functions/subscribe" method="POST">
-      <input type="email" name="email" placeholder="Your email address" required aria-label="Email address">
-      <button type="submit">Subscribe</button>
-    </form>
-    <p class="fine">Free. No spam. Unsubscribe anytime. Read by thousands of New Yorkers weekly.</p>
+<section>
+  <div class="test">
+    <p class="test-q">"We went from publishing once a month to publishing every single day. Our organic traffic tripled in 60 days. I don't know how we ran the business before this."</p>
+    <p class="test-who">— Agency founder, NYC</p>
   </div>
 </section>
 
-<!-- ===== FROM THE EDITOR ===== -->
-<div class="wrap">
-  <section class="from-editor">
-    <div class="from-editor-inner">
-      <h2>From the Editor</h2>
-      <blockquote>
-        NY Spotlight Report was built on a simple premise: the most important stories in entertainment don't happen on stage. They happen in the rehearsal rooms, the fitting rooms, the after-parties, and the back offices where decisions get made. We report from inside the rooms where it happens &mdash; because proximity is the difference between a press release and the truth.
-      </blockquote>
-      <div class="sig">
-        <a href="/about/sc-thomas/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2)">S.C. Thomas</a>
-        <span>Founder &amp; Editor-in-Chief &mdash; U.S. Military Veteran</span>
-      </div>
-    </div>
-  </section>
+<div class="cta-s">
+  <h2>Ready to stop thinking<br>about content?</h2>
+  <p>Your content engine launches in 48 hours. No contracts, no commitments — just results.</p>
+  <a href="/proflow/" class="btn-gold">Start your free trial →</a>
 </div>
 
-<!-- ===== TRUST BAR ===== -->
-<div class="trust-bar">
-  <span>Trusted by <strong class="accent">thousands</strong> of readers monthly</span>
-  <span>|</span>
-  <span>Independent. Unsponsored. From Inside the Room.</span>
-  <span>|</span>
-  <span>ISSN <strong>2026-0147</strong></span>
-</div>
-
-<!-- ===== FOOTER ===== -->
 <footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="brand">NY Spotlight Report</div>
-        <p>New York's independent voice on entertainment, live performances, fashion, culture, and nightlife. Founded 2020 in New York City.</p>
-        <p style="margin-top:8px;font-family:var(--sans);font-size:11px;color:rgba(255,255,255,.35)">ISSN 2026-0147</p>
-      </div>
-      <div class="footer-col">
-        <h4>Sections</h4>
-        <a href="/blog/">Entertainment</a>
-        <a href="/blog/">Fashion</a>
-        <a href="/blog/">Culture</a>
-        <a href="/blog/hells-kitchen-gay-nightlife-capital/">Nightlife</a>
-        <a href="/blog/">Live Performances</a>
-      </div>
-      <div class="footer-col">
-        <h4>About</h4>
-        <a href="/blog/10-years-behind-the-scenes-entertainment/">Our Story</a>
-        <a href="/blog/">Editorial Standards</a>
-        <a href="/blog/">Masthead</a>
-        <a href="/blog/">Careers</a>
-        <a href="/blog/">Press</a>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <a href="mailto:nyspotlightreport@gmail.com">Tips: nyspotlightreport@gmail.com</a>
-        <a href="mailto:nyspotlightreport@gmail.com">General: nyspotlightreport@gmail.com</a>
-        <a href="#newsletter">Subscribe to Newsletter</a>
-        <a href="https://x.com/NYSpotlightRpt" target="_blank" rel="noopener">Twitter / X</a>
-        <a href="https://instagram.com/nyspotlightreport" target="_blank" rel="noopener">Instagram</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>&copy; 2020&ndash;2026 NY Spotlight Report. All rights reserved. New York City.</div>
-      <div>
-        <a href="/blog/">Privacy Policy</a> &nbsp;&middot;&nbsp;
-        <a href="/blog/">Terms of Use</a> &nbsp;&middot;&nbsp;
-        <a href="/blog/">Cookie Policy</a> &nbsp;&middot;&nbsp;
-        <a href="/blog/">Accessibility</a>
-      </div>
-    </div>
+  <p>© 2026 NY Spotlight Report. Built in New York.</p>
+  <div>
+    <a href="/blog/">Blog</a>
+    <a href="/proflow/">ProFlow AI</a>
+    <a href="/downloads/proflow-playbook/">Free Playbook</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="mailto:nyspotlightreport@gmail.com">Contact</a>
   </div>
 </footer>
 
 
+<!-- CONVERSION ENGINE -->
 <!-- CONVERSION ENGINE — Add this to EVERY page on the site -->
 <!-- Drop this before </body> on every HTML page -->
 

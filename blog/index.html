@@ -3,715 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Articles — NY Spotlight Report | Entertainment, Fashion, Culture & Nightlife</title>
-<meta name="description" content="All articles from NY Spotlight Report — covering NYC entertainment, fashion, culture, nightlife, and the business behind it all.">
+<title>Blog — NY Spotlight Report | AI Automation, Passive Income & Growth</title>
+<meta name="description" content="Actionable insights on AI-powered content, passive income systems, and entrepreneurship. Updated daily.">
 <link rel="canonical" href="https://nyspotlightreport.com/blog/">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ===== RESET & TOKENS ===== */
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#fafaf8;--paper:#fff;--ink:#111;--grey:#555;--light:#999;--rule:#ddd;
-  --accent:#c9a84c;--accent-dark:#a8893a;--danger:#c0392b;
-  --serif:'Playfair Display',Georgia,serif;
-  --body:'Source Serif 4','Times New Roman',serif;
-  --sans:'Inter',-apple-system,sans-serif;
-}
-html{scroll-behavior:smooth}
-body{font-family:var(--body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;font-size:17px;line-height:1.7}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%;height:auto}
-.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,64px)}
-
-/* ===== TOP BAR ===== */
-.topbar{background:var(--ink);color:rgba(255,255,255,.65);font-family:var(--sans);font-size:11px;letter-spacing:.04em;padding:7px 0}
-.topbar-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.topbar-left,.topbar-right{display:flex;align-items:center;gap:16px}
-.topbar .sep{opacity:.3}
-.topbar .city{color:var(--accent);font-weight:600}
-
-/* ===== MASTHEAD ===== */
-.masthead{text-align:center;padding:28px 0 20px;border-bottom:3px double var(--ink);background:var(--paper)}
-.masthead-pre{font-family:var(--sans);font-size:10px;color:var(--light);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
-.masthead-logo{font-family:var(--serif);font-weight:900;letter-spacing:.02em;line-height:1}
-.masthead-logo a{text-decoration:none;color:inherit}
-.masthead-logo .ny{font-size:clamp(26px,3.5vw,40px);display:block;letter-spacing:.1em}
-.masthead-logo .spotlight{font-size:clamp(48px,7vw,82px);display:block;letter-spacing:.03em;margin:-2px 0}
-.masthead-logo .report{font-size:clamp(13px,1.8vw,17px);letter-spacing:.38em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:14px;margin-top:2px}
-.masthead-logo .report::before,.masthead-logo .report::after{content:'';flex:1;max-width:140px;height:1px;background:var(--ink)}
-.masthead-tagline{font-family:var(--sans);font-size:11px;color:var(--light);margin-top:12px;letter-spacing:.08em}
-
-/* ===== NAVIGATION ===== */
-nav{border-bottom:1px solid var(--rule);padding:0 clamp(16px,4vw,64px);background:var(--paper);position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;height:46px;gap:28px}
-nav a{font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--grey);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:color .15s}
-nav a:hover{color:var(--ink)}
-nav a.active{color:var(--ink);border-bottom:2px solid var(--accent);padding-bottom:2px}
-nav a.accent{color:var(--accent)}
-nav a.accent:hover{color:var(--accent-dark)}
-
-/* ===== PAGE HEADER ===== */
-.page-header{text-align:center;padding:56px 0 40px;border-bottom:1px solid var(--rule);background:var(--paper)}
-.page-header h1{font-family:var(--serif);font-size:clamp(36px,5vw,60px);font-weight:700;letter-spacing:-.01em;margin-bottom:12px}
-.page-header .deck{font-family:var(--body);font-size:18px;color:var(--grey);line-height:1.6;max-width:640px;margin:0 auto}
-
-/* ===== CATEGORY FILTERS ===== */
-.filters{padding:28px 0;border-bottom:1px solid var(--rule);background:var(--paper)}
-.filter-inner{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px}
-.filter-btn{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:8px 20px;border:1px solid var(--rule);border-radius:100px;background:transparent;color:var(--grey);cursor:pointer;transition:all .2s}
-.filter-btn:hover{border-color:var(--accent);color:var(--ink)}
-.filter-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-
-/* ===== FEATURED ARTICLE ===== */
-.featured{padding:48px 0 0}
-.featured-card{display:grid;grid-template-columns:1.4fr 1fr;background:var(--paper);border:1px solid var(--rule);overflow:hidden;transition:box-shadow .3s}
-.featured-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.08)}
-.featured-img{position:relative;overflow:hidden;min-height:400px}
-.featured-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.featured-card:hover .featured-img img{transform:scale(1.03)}
-.featured-body{padding:48px 40px;display:flex;flex-direction:column;justify-content:center}
-.label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:inline-block}
-.featured-body h2{font-family:var(--serif);font-size:clamp(26px,3vw,38px);font-weight:700;line-height:1.18;margin-bottom:16px}
-.featured-body h2 a:hover{color:var(--accent)}
-.featured-body .excerpt{font-size:17px;color:var(--grey);line-height:1.65;margin-bottom:20px}
-.meta{font-family:var(--sans);font-size:11px;color:var(--light);letter-spacing:.02em}
-.meta .by{font-weight:600;color:var(--grey)}
-.meta .sep{margin:0 8px;opacity:.4}
-.btn-read{display:inline-block;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--accent);padding:12px 28px;margin-top:20px;transition:background .2s;align-self:flex-start}
-.btn-read:hover{background:var(--accent-dark)}
-
-/* ===== ARTICLE GRID ===== */
-.articles-section{padding:48px 0}
-.section-head{display:flex;align-items:center;gap:16px;margin-bottom:32px}
-.section-head h2{font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-weight:700;white-space:nowrap}
-.section-head::after{content:'';flex:1;height:1px;background:var(--rule)}
-.section-head .accent-line{width:50px;height:3px;background:var(--accent);flex-shrink:0}
-
-.articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.card{background:var(--paper);border:1px solid var(--rule);transition:box-shadow .2s,transform .2s}
-.card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
-.card-img{overflow:hidden;position:relative;height:200px}
-.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.card:hover .card-img img{transform:scale(1.03)}
-.card-body{padding:20px}
-.card-body h3{font-family:var(--serif);font-size:clamp(16px,1.5vw,20px);font-weight:700;line-height:1.28;margin-bottom:8px}
-.card-body h3 a:hover{color:var(--accent)}
-.card-body .excerpt{font-size:14.5px;color:var(--grey);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card-body .meta{font-size:10.5px}
-
-/* ===== NEWSLETTER ===== */
-.newsletter{background:var(--ink);color:#fff;padding:56px 0;margin-top:48px;text-align:center}
-.newsletter h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:6px}
-.newsletter .sub{font-family:var(--sans);font-size:13px;color:rgba(255,255,255,.55);letter-spacing:.04em;margin-bottom:24px}
-.newsletter form{display:flex;gap:0;max-width:480px;margin:0 auto}
-.newsletter input[type="email"]{flex:1;padding:14px 18px;font-family:var(--sans);font-size:14px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;outline:none}
-.newsletter input[type="email"]::placeholder{color:rgba(255,255,255,.35)}
-.newsletter input[type="email"]:focus{border-color:var(--accent)}
-.newsletter button{padding:14px 28px;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:var(--ink);border:none;cursor:pointer;transition:background .2s}
-.newsletter button:hover{background:var(--accent-dark)}
-.newsletter .fine{font-family:var(--sans);font-size:10.5px;color:rgba(255,255,255,.35);margin-top:14px}
-
-/* ===== FOOTER ===== */
-footer{background:var(--ink);color:rgba(255,255,255,.6);padding:56px 0 0}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.footer-col h4{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}
-.footer-col p{font-size:14px;line-height:1.7;margin-bottom:8px}
-.footer-col a{font-family:var(--sans);font-size:13px;display:block;margin-bottom:10px;transition:color .15s}
-.footer-col a:hover{color:var(--accent)}
-.footer-col .brand{font-family:var(--serif);font-weight:700;font-size:18px;color:#fff;margin-bottom:12px}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:20px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--sans);font-size:10.5px;letter-spacing:.04em}
-.footer-bottom a:hover{color:var(--accent)}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:900px){
-  .featured-card{grid-template-columns:1fr}
-  .featured-img{min-height:280px}
-  .featured-body{padding:28px 24px}
-  .articles-grid{grid-template-columns:1fr 1fr}
-  .footer-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:640px){
-  .topbar-right{display:none}
-  .nav-inner{gap:16px;flex-wrap:wrap;height:auto;padding:10px 0}
-  .nav-inner a{font-size:10.5px}
-  .articles-grid{grid-template-columns:1fr}
-  .newsletter form{flex-direction:column}
-  .newsletter button{width:100%}
-  .footer-grid{grid-template-columns:1fr}
-  .footer-bottom{flex-direction:column;text-align:center}
-  .filter-inner{gap:6px}
-  .filter-btn{padding:6px 14px;font-size:11px}
-}
-
-/* ===== HIDDEN UTILITY ===== */
-.hidden{display:none!important}
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--gold:#C9A84C;--dark:#0D1B2A;--mid:#111d2e;--border:#1a2d42;--text:#e8edf2;--muted:#7a8fa0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#060f1a;color:var(--text);line-height:1.6;}
+nav{background:rgba(6,15,26,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.logo{color:var(--gold);font-size:16px;font-weight:800;text-decoration:none;}
+.nav-cta{background:var(--gold);color:var(--dark);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;}
+.wrap{max-width:1100px;margin:0 auto;padding:60px 48px;}
+@media(max-width:768px){.wrap{padding:40px 20px;}nav{padding:0 20px;}}
+.page-header{margin-bottom:48px;}
+.page-label{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+h1{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1.5px;margin-bottom:8px;}
+.page-sub{color:var(--muted);font-size:15px;}
+.categories{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.cat-btn{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .2s;background:none;}
+.cat-btn.active,.cat-btn:hover{background:var(--gold);color:var(--dark);border-color:var(--gold);}
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+.post-card{background:var(--mid);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border .2s,transform .2s;}
+.post-card:hover{border-color:rgba(201,168,76,.4);transform:translateY(-2px);}
+.post-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;}
+.post-body{padding:20px;}
+.post-cat{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+.post-title{font-size:17px;font-weight:700;line-height:1.35;margin-bottom:8px;}
+.post-title a{color:var(--text);text-decoration:none;}
+.post-title a:hover{color:var(--gold);}
+.post-excerpt{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.post-meta{font-size:11px;color:rgba(122,143,160,.5);display:flex;align-items:center;gap:12px;}
+.featured-post{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:14px;overflow:hidden;border:1px solid var(--border);}
+@media(max-width:700px){.featured-post{grid-template-columns:1fr;}}
+.featured-thumb{min-height:260px;background:linear-gradient(135deg,var(--dark) 0%,#0a2240 100%);display:flex;align-items:center;justify-content:center;font-size:80px;}
+.featured-body{padding:32px;display:flex;flex-direction:column;justify-content:center;}
+.featured-badge{display:inline-block;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;}
+.featured-body h2{font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-1px;line-height:1.2;margin-bottom:12px;}
+.featured-body p{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:20px;}
+.read-more{display:inline-block;background:var(--gold);color:var(--dark);padding:10px 22px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;}
+.newsletter-bar{background:var(--mid);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:24px 28px;margin:48px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.nl-text h3{font-size:16px;font-weight:700;margin-bottom:4px;}
+.nl-text p{font-size:13px;color:var(--muted);}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap;}
+.nl-form input{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:7px;padding:10px 14px;color:var(--text);font-size:13px;width:240px;outline:none;}
+.nl-form input:focus{border-color:var(--gold);}
+.nl-form button{background:var(--gold);color:var(--dark);border:none;padding:10px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;}
 </style>
 </head>
 <body>
-
-<!-- ===== TOP BAR ===== -->
-<div class="topbar">
-  <div class="wrap">
-    <div class="topbar-inner">
-      <div class="topbar-left">
-        <span>March 2026</span>
-        <span class="sep">|</span>
-        <span class="city">New York City</span>
-      </div>
-      <div class="topbar-right">
-        <span>Independent &amp; Unsponsored</span>
-        <span class="sep">|</span>
-        <span>ISSN 2026-0147</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== MASTHEAD ===== -->
-<header class="masthead">
-  <div class="wrap">
-    <div class="masthead-pre">Est. 2020 &mdash; New York City</div>
-    <div class="masthead-logo">
-      <a href="/">
-        <span class="ny">NY</span>
-        <span class="spotlight">Spotlight</span>
-        <span class="report">Report</span>
-      </a>
-    </div>
-    <div class="masthead-tagline">Entertainment &bull; Fashion &bull; Culture &bull; Nightlife</div>
-  </div>
-</header>
-
-<!-- ===== NAVIGATION ===== -->
 <nav>
-  <div class="nav-inner">
-    <a href="/">Home</a>
-    <a href="/blog/" class="active">Articles</a>
-    <a href="/blog/hells-kitchen-gay-nightlife-capital/">Nightlife</a>
-    <a href="/blog/nyfw-fall-winter-2026/">Fashion</a>
-    <a href="/blog/10-years-behind-the-scenes-entertainment/">Entertainment</a>
-    <a href="#newsletter" class="accent">Subscribe</a>
-  </div>
+  <a href="/" class="logo">NY Spotlight Report</a>
+  <a href="/free-plan/" class="nav-cta">Free Content Audit</a>
 </nav>
+<div class="wrap">
+  <div class="page-header">
+    <div class="page-label">Insights</div>
+    <h1>The Blog</h1>
+    <p class="page-sub">Daily articles on AI automation, passive income, and building systems that work without you.</p>
+  </div>
 
-<!-- ===== PAGE HEADER ===== -->
-<div class="page-header">
-  <div class="wrap">
-    <h1>Articles</h1>
-    <p class="deck">Entertainment, fashion, culture, nightlife &mdash; and the business behind it all.</p>
+  <div class="categories">
+    <button class="cat-btn active" onclick="filterCat('all',this)">All</button>
+    <button class="cat-btn" onclick="filterCat('passive-income',this)">Passive Income</button>
+    <button class="cat-btn" onclick="filterCat('ai-tools',this)">AI Tools</button>
+    <button class="cat-btn" onclick="filterCat('content',this)">Content Automation</button>
+    <button class="cat-btn" onclick="filterCat('entrepreneurship',this)">Entrepreneurship</button>
+  </div>
+
+  <div class="newsletter-bar">
+    <div class="nl-text">
+      <h3>Get insights delivered daily</h3>
+      <p>Join 5,000+ entrepreneurs. No spam. Unsubscribe anytime.</p>
+    </div>
+    <div class="nl-form">
+      <input type="email" id="nl-email" placeholder="Your email address">
+      <button onclick="nlSubmit()">Subscribe →</button>
+    </div>
+  </div>
+
+  <div class="posts-grid" id="posts-grid">
+    <!-- Featured post -->
+    <div class="featured-post" data-cat="content">
+      <div class="featured-thumb">🤖</div>
+      <div class="featured-body">
+        <span class="featured-badge">Featured</span>
+        <h2>How I automated my entire content operation for $0/month</h2>
+        <p>The exact stack of AI bots, APIs, and workflows that replaced 20+ hours of weekly content work — blog posts, newsletter, social media, and YouTube Shorts all running on autopilot.</p>
+        <a href="/blog/automated-content-operation/" class="read-more">Read Article →</a>
+      </div>
+    </div>
+
+    <!-- Regular posts -->
+    <div class="post-card" data-cat="passive-income">
+      <div class="post-thumb" style="background:linear-gradient(135deg,#1a3320,#0f2a1a)">💰</div>
+      <div class="post-body">
+        <div class="post-cat">Passive Income</div>
+        <div class="post-title"><a href="/blog/passive-income-zero-cost-2026/">25 zero-cost passive income streams that actually work in 2026</a></div>
+        <div class="post-excerpt">Every method requires $0 to start and can run on autopilot after setup. Includes bandwidth sharing, digital products, and content monetization.</div>
+        <div class="post-meta"><span>NY Spotlight Report</span><span>12 min read</span></div>
+      </div>
+    </div>
+
+    <div class="post-card" data-cat="ai-tools">
+      <div class="post-thumb" style="background:linear-gradient(135deg,#1c1c3a,#0d1b2a)">🛠️</div>
+      <div class="post-body">
+        <div class="post-cat">AI Tools</div>
+        <div class="post-title"><a href="/blog/best-ai-tools-entrepreneurs-2026/">The best AI tools for entrepreneurs in 2026 (tested, ranked, honest)</a></div>
+        <div class="post-excerpt">After running 63 bots across 15 platforms, here's what actually moves the needle versus what's just hype.</div>
+        <div class="post-meta"><span>NY Spotlight Report</span><span>10 min read</span></div>
+      </div>
+    </div>
+
+    <div class="post-card" data-cat="content">
+      <div class="post-thumb" style="background:linear-gradient(135deg,#2a1a0f,#1c0f08)">📧</div>
+      <div class="post-body">
+        <div class="post-cat">Content Automation</div>
+        <div class="post-title"><a href="/blog/newsletter-1000-subscribers-45-days/">How I went from 0 to 1,200 newsletter subscribers in 45 days without buying a list</a></div>
+        <div class="post-excerpt">The exact playbook: infrastructure, content engine, amplifiers, and the automation that made it sustainable.</div>
+        <div class="post-meta"><span>NY Spotlight Report</span><span>8 min read</span></div>
+      </div>
+    </div>
+
+    <div class="post-card" data-cat="passive-income">
+      <div class="post-thumb" style="background:linear-gradient(135deg,#1b3a5c,#0d1b2a)">📚</div>
+      <div class="post-body">
+        <div class="post-cat">Passive Income</div>
+        <div class="post-title"><a href="/blog/kdp-low-content-books-guide/">KDP low-content books: the complete 2026 guide to publishing on Amazon</a></div>
+        <div class="post-excerpt">Planners, journals, puzzle books — how to create them with AI, list them on Amazon KDP, and earn royalties forever.</div>
+        <div class="post-meta"><span>NY Spotlight Report</span><span>14 min read</span></div>
+      </div>
+    </div>
+
+    <div class="post-card" data-cat="entrepreneurship">
+      <div class="post-thumb" style="background:linear-gradient(135deg,#2a1a3a,#1a0a2e)">🎯</div>
+      <div class="post-body">
+        <div class="post-cat">Entrepreneurship</div>
+        <div class="post-title"><a href="/blog/cold-email-system-proflow/">The cold email system that books 5 demos a week without a sales team</a></div>
+        <div class="post-excerpt">Apollo + Claude + Gmail = 200 personalized emails per day. Here's the exact setup, templates, and sequences we use.</div>
+        <div class="post-meta"><span>NY Spotlight Report</span><span>9 min read</span></div>
+      </div>
+    </div>
+
+    <div class="post-card" data-cat="ai-tools">
+      <div class="post-thumb" style="background:linear-gradient(135deg,#1a3320,#0f2a1a)">💵</div>
+      <div class="post-body">
+        <div class="post-cat">AI Tools</div>
+        <div class="post-title"><a href="/blog/affiliate-income-stack-2026/">The affiliate income stack making $300-500/month passively (full breakdown)</a></div>
+        <div class="post-excerpt">Commission rates, monthly earnings, and exactly how an automated link injector turns every blog post into revenue.</div>
+        <div class="post-meta"><span>NY Spotlight Report</span><span>11 min read</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;padding:32px;background:var(--mid);border-radius:12px;border:1px solid var(--border);">
+    <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">New articles publish daily. Subscribe to get them in your inbox.</p>
+    <a href="/free-plan/" style="background:var(--gold);color:var(--dark);padding:12px 28px;border-radius:7px;font-size:14px;font-weight:700;text-decoration:none;">Subscribe Free →</a>
   </div>
 </div>
 
-<!-- ===== CATEGORY FILTERS ===== -->
-<div class="filters">
-  <div class="wrap">
-    <div class="filter-inner">
-      <button class="filter-btn active" data-cat="all">All</button>
-      <button class="filter-btn" data-cat="entertainment">Entertainment</button>
-      <button class="filter-btn" data-cat="fashion">Fashion</button>
-      <button class="filter-btn" data-cat="nightlife">Nightlife</button>
-      <button class="filter-btn" data-cat="culture">Culture</button>
-      <button class="filter-btn" data-cat="business">Business</button>
-      <button class="filter-btn" data-cat="guides">Guides</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== FEATURED ARTICLE ===== -->
-<div class="wrap featured" id="featured-wrap" data-cat="nightlife">
-  <div class="featured-card">
-    <div class="featured-img">
-      <img src="/images/nightlife.jpg" alt="Hell's Kitchen nightlife scene in New York City" loading="eager">
-    </div>
-    <div class="featured-body">
-      <span class="label">Nightlife</span>
-      <h2><a href="/blog/hells-kitchen-gay-nightlife-capital/">Hell's Kitchen Reclaims Its Crown as NYC's Gay Nightlife Capital</a></h2>
-      <p class="excerpt">After years of displacement and pandemic closures, Hell's Kitchen has surged back as the undisputed center of queer nightlife in New York City. Here's what's driving the renaissance.</p>
-      <div class="meta">
-        <span class="by">By S.C. Thomas</span>
-        <span class="sep">|</span>
-        <span>March 22, 2026</span>
-        <span class="sep">|</span>
-        <span>12 min read</span>
-      </div>
-      <a href="/blog/hells-kitchen-gay-nightlife-capital/" class="btn-read">Read Article</a>
-    </div>
-  </div>
-</div>
-
-<!-- ===== ARTICLE GRID ===== -->
-<div class="wrap articles-section">
-  <div class="section-head">
-    <h2>All Articles</h2>
-    <span class="accent-line"></span>
-  </div>
-
-  <div class="articles-grid" id="articles-grid">
-
-    <!-- ENTERTAINMENT -->
-    <div class="card" data-cat="entertainment">
-      <div class="card-img">
-        <img src="/images/theater.jpg" alt="Behind the scenes of NYC entertainment" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Entertainment</span>
-        <h3><a href="/blog/10-years-behind-the-scenes-entertainment/">Behind the Curtain: 10 Years of Covering NYC's Most Exclusive Entertainment Scenes</a></h3>
-        <p class="excerpt">A decade inside the rooms where deals are made, shows are cast, and careers are built or broken in New York's entertainment industry.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>March 18, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- FASHION -->
-    <div class="card" data-cat="fashion">
-      <div class="card-img">
-        <img src="/images/runway.jpg" alt="NYFW Fall Winter 2026 runway" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Fashion</span>
-        <h3><a href="/blog/nyfw-fall-winter-2026/">NYFW Fall/Winter 2026: The Collections That Defined the Season</a></h3>
-        <p class="excerpt">From bold silhouettes to muted palettes, the Fall/Winter 2026 collections signaled a new direction for American fashion.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>March 15, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- NIGHTLIFE (duplicate of featured, shown in grid too) -->
-    <div class="card" data-cat="nightlife">
-      <div class="card-img">
-        <img src="/images/nightlife.jpg" alt="Hell's Kitchen gay nightlife" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Nightlife</span>
-        <h3><a href="/blog/hells-kitchen-gay-nightlife-capital/">Hell's Kitchen Reclaims Its Crown as NYC's Gay Nightlife Capital</a></h3>
-        <p class="excerpt">After years of displacement and pandemic closures, Hell's Kitchen has surged back as the epicenter of queer nightlife in NYC.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>March 22, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- TECHNOLOGY -->
-    <div class="card" data-cat="business">
-      <div class="card-img">
-        <img src="/images/nyc.jpg" alt="AI automation business" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Technology</span>
-        <h3><a href="/blog/how-i-built-63-ai-bots-that-run-my-business-w/">How I Built 63 AI Bots That Run My Business</a></h3>
-        <p class="excerpt">Inside the automation architecture that replaced an entire operations team with AI-powered workflows running 24/7.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Feb 28, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- TECHNOLOGY -->
-    <div class="card" data-cat="business">
-      <div class="card-img">
-        <img src="/images/street.jpg" alt="Automated content operation" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Technology</span>
-        <h3><a href="/blog/automated-content-operation/">How I Automated My Entire Content Operation for $0/Month</a></h3>
-        <p class="excerpt">The exact stack, workflows, and integrations behind a fully automated content pipeline that costs nothing to run.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Feb 22, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- BUSINESS -->
-    <div class="card" data-cat="business">
-      <div class="card-img">
-        <img src="/images/nyc.jpg" alt="Cold email outreach system" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Business</span>
-        <h3><a href="/blog/cold-email-system-proflow/">The Cold Email System That Books 5 Demos a Week</a></h3>
-        <p class="excerpt">A repeatable outbound system built on personalization, timing, and follow-up sequences that consistently convert.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Feb 18, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- BUSINESS -->
-    <div class="card" data-cat="business">
-      <div class="card-img">
-        <img src="/images/street.jpg" alt="Passive income strategies 2026" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Business</span>
-        <h3><a href="/blog/passive-income-zero-cost-2026/">25 Zero-Cost Passive Income Streams in 2026</a></h3>
-        <p class="excerpt">Every viable passive income model that requires no upfront investment, tested and ranked by realistic earning potential.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Feb 14, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- PR & GROWTH -->
-    <div class="card" data-cat="business">
-      <div class="card-img">
-        <img src="/images/nyc.jpg" alt="PR strategy for entrepreneurs" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">PR &amp; Growth</span>
-        <h3><a href="/blog/pr-for-entrepreneurs-get-featured/">How to Get Featured Without a PR Agency</a></h3>
-        <p class="excerpt">The playbook for earning media coverage, podcast appearances, and press mentions on your own terms.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Feb 10, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- BUSINESS -->
-    <div class="card" data-cat="business">
-      <div class="card-img">
-        <img src="/images/street.jpg" alt="Newsletter growth strategy" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Business</span>
-        <h3><a href="/blog/newsletter-growth-strategy-2026/">Newsletter Growth Strategy 2026</a></h3>
-        <p class="excerpt">How to grow a newsletter from zero to thousands of subscribers using organic channels, referral loops, and strategic partnerships.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Feb 6, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- TECHNOLOGY -->
-    <div class="card" data-cat="business">
-      <div class="card-img">
-        <img src="/images/nyc.jpg" alt="Ahrefs SEO strategy" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Technology</span>
-        <h3><a href="/blog/ahrefs-seo-strategy-small-sites/">Ahrefs SEO Strategy for Small Sites</a></h3>
-        <p class="excerpt">A practical SEO framework for small publishers using Ahrefs to compete against sites with ten times the budget.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 30, 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- GUIDES -->
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/gallery.jpg" alt="Ahrefs vs SEMrush comparison" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/ahrefs-vs-semrush-2026/">Ahrefs vs SEMrush 2026</a></h3>
-        <p class="excerpt">A side-by-side comparison of the two leading SEO platforms, updated for 2026 features and pricing.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/street.jpg" alt="Beehiiv vs Substack comparison" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/beehiiv-vs-substack-2026/">Beehiiv vs Substack 2026</a></h3>
-        <p class="excerpt">Which newsletter platform is right for your publication? Features, monetization, and growth tools compared.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/nyc.jpg" alt="Amazon KDP publishing guide" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/amazon-kdp-guide-2026/">Complete Amazon KDP Guide 2026</a></h3>
-        <p class="excerpt">Everything you need to know about publishing and selling books on Amazon's Kindle Direct Publishing platform.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/gallery.jpg" alt="Best AI tools for entrepreneurs" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/best-ai-tools-entrepreneurs-2026/">Best AI Tools for Entrepreneurs 2026</a></h3>
-        <p class="excerpt">The AI tools that are actually worth paying for, tested by founders building real businesses.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/street.jpg" alt="Best AI writing tools" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/best-ai-writing-tools-2026/">Best AI Writing Tools 2026</a></h3>
-        <p class="excerpt">From long-form content to ad copy, the writing tools that deliver results across every format.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/nyc.jpg" alt="Best email marketing tools" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/best-email-marketing-tools-2026/">Best Email Marketing Tools 2026</a></h3>
-        <p class="excerpt">The email platforms that balance power, deliverability, and price for publishers and small businesses.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/gallery.jpg" alt="Best SEO tools for bloggers" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/best-seo-tools-bloggers-2026/">Best SEO Tools for Bloggers 2026</a></h3>
-        <p class="excerpt">The SEO tools that help independent bloggers compete with major publishers on organic search.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/street.jpg" alt="Best passive income apps" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/best-passive-income-apps-2026/">Best Passive Income Apps 2026</a></h3>
-        <p class="excerpt">Mobile apps that generate real passive income, ranked by earning potential and effort required.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/nyc.jpg" alt="Best freelance platforms" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/best-freelance-platforms-2026/">Best Freelance Platforms 2026</a></h3>
-        <p class="excerpt">Where to find high-quality freelance work in 2026, from established marketplaces to emerging platforms.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/gallery.jpg" alt="Best web hosting providers" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/best-web-hosting-2026/">Best Web Hosting 2026</a></h3>
-        <p class="excerpt">Hosting providers tested on speed, uptime, support, and value for publishers and small businesses.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/street.jpg" alt="Best website builders" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/best-website-builders-2026/">Best Website Builders 2026</a></h3>
-        <p class="excerpt">The fastest way to launch a professional website in 2026, compared across ease of use, design, and cost.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-cat="guides">
-      <div class="card-img">
-        <img src="/images/nyc.jpg" alt="Best productivity tools" loading="lazy">
-      </div>
-      <div class="card-body">
-        <span class="label">Guide</span>
-        <h3><a href="/best-productivity-tools-2026/">Best Productivity Tools 2026</a></h3>
-        <p class="excerpt">The tools that actually save time, tested across project management, writing, communication, and focus.</p>
-        <div class="meta">
-          <span class="by">By S.C. Thomas</span>
-          <span class="sep">|</span>
-          <span>Jan 2026</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===== NEWSLETTER ===== -->
-<section class="newsletter" id="newsletter">
-  <div class="wrap">
-    <h2>The Spotlight Brief</h2>
-    <p class="sub">NYC entertainment, culture, and nightlife &mdash; delivered to your inbox every week.</p>
-    <form action="/.netlify/functions/subscribe" method="POST">
-      <input type="email" name="email" placeholder="Your email address" required aria-label="Email address">
-      <button type="submit">Subscribe</button>
-    </form>
-    <p class="fine">Free. No spam. Unsubscribe anytime. Read by thousands of New Yorkers weekly.</p>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="brand">NY Spotlight Report</div>
-        <p>New York's independent voice on entertainment, live performances, fashion, culture, and nightlife. Founded 2020 in New York City.</p>
-        <p style="margin-top:8px;font-family:var(--sans);font-size:11px;color:rgba(255,255,255,.35)">ISSN 2026-0147</p>
-      </div>
-      <div class="footer-col">
-        <h4>Sections</h4>
-        <a href="/blog/">Entertainment</a>
-        <a href="/blog/nyfw-fall-winter-2026/">Fashion</a>
-        <a href="/blog/">Culture</a>
-        <a href="/blog/hells-kitchen-gay-nightlife-capital/">Nightlife</a>
-        <a href="/blog/">Live Performances</a>
-      </div>
-      <div class="footer-col">
-        <h4>About</h4>
-        <a href="/blog/10-years-behind-the-scenes-entertainment/">Our Story</a>
-        <a href="/blog/">Editorial Standards</a>
-        <a href="/blog/">Masthead</a>
-        <a href="/blog/">Careers</a>
-        <a href="/blog/">Press</a>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <a href="mailto:tips@nyspotlightreport.com">Tips: tips@nyspotlightreport.com</a>
-        <a href="mailto:hello@nyspotlightreport.com">General: hello@nyspotlightreport.com</a>
-        <a href="#newsletter">Subscribe to Newsletter</a>
-        <a href="/blog/">Twitter / X</a>
-        <a href="/blog/">Instagram</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>&copy; 2020&ndash;2026 NY Spotlight Report. All rights reserved. New York City.</div>
-      <div>
-        <a href="/blog/">Privacy Policy</a> &nbsp;&middot;&nbsp;
-        <a href="/blog/">Terms of Use</a> &nbsp;&middot;&nbsp;
-        <a href="/blog/">Cookie Policy</a> &nbsp;&middot;&nbsp;
-        <a href="/blog/">Accessibility</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- ===== CATEGORY FILTER JS ===== -->
 <script>
-(function(){
-  var btns = document.querySelectorAll('.filter-btn');
-  var cards = document.querySelectorAll('.articles-grid .card');
-  var featured = document.getElementById('featured-wrap');
-
-  btns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      btns.forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      var cat = btn.getAttribute('data-cat');
-
-      // Featured card visibility
-      if(cat === 'all' || cat === 'nightlife'){
-        featured.classList.remove('hidden');
-      } else {
-        featured.classList.add('hidden');
-      }
-
-      // Grid cards
-      cards.forEach(function(card){
-        if(cat === 'all'){
-          card.classList.remove('hidden');
-        } else {
-          var cardCat = card.getAttribute('data-cat');
-          if(cardCat === cat){
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        }
-      });
-    });
+function filterCat(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('[data-cat]').forEach(card=>{
+    card.style.display = cat==='all' || card.dataset.cat===cat ? '' : 'none';
   });
-})();
+}
+
+function nlSubmit() {
+  const email = document.getElementById('nl-email').value;
+  if(!email) return;
+  fetch('/.netlify/functions/lead-capture',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email, source:'blog', niche:'general', goal:'newsletter'})
+  }).then(()=>{
+    document.querySelector('.nl-form').innerHTML='<p style="color:var(--gold);font-weight:700;">✓ Subscribed! Check your inbox.</p>';
+  }).catch(()=>{
+    document.querySelector('.nl-form').innerHTML='<p style="color:var(--gold);font-weight:700;">✓ Subscribed!</p>';
+  });
+}
 </script>
 
-
+<!-- CONVERSION ENGINE -->
 <!-- CONVERSION ENGINE — Add this to EVERY page on the site -->
 <!-- Drop this before </body> on every HTML page -->
 

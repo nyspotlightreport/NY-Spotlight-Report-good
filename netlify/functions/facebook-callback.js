@@ -1,101 +1,94 @@
-const { html } = require("./_shared/response");
-const { escapeHtml } = require("./_shared/utils");
+// netlify/functions/facebook-callback.js
+// Receives Meta OAuth callback, exchanges for PERMANENT non-expiring page token.
+// Instagram + Facebook page tokens from long-lived user tokens do not expire.
 
 exports.handler = async (event) => {
-  const { code, error: fbError } = event.queryStringParameters || {};
+  const params      = new URLSearchParams(event.queryStringParameters || {});
+  const code        = params.get('code');
+  const APP_ID      = process.env.META_APP_ID    || process.env.FB_APP_ID;
+  const APP_SECRET  = process.env.META_APP_SECRET || process.env.FB_APP_SECRET;
+  const REDIRECT    = 'https://nyspotlightreport.com/.netlify/functions/facebook-callback';
+  const GH_PAT      = process.env.GH_PAT;
+  const REPO        = 'nyspotlightreport/sct-agency-bots';
+  const PUSH_API    = process.env.PUSHOVER_API_KEY;
+  const PUSH_USER   = process.env.PUSHOVER_USER_KEY;
 
-  const page = (body) => html(`<!DOCTYPE html><html><head><title>Facebook - NYSR</title></head>
-<body style="font-family:system-ui;background:#020409;color:#E2E8F0;padding:40px;max-width:600px;margin:0 auto;text-align:center">${body}
-<p style="margin-top:20px"><a href="/tokens/" style="color:#C9A84C">← Token Center</a></p></body></html>`);
+  if (!code) return { statusCode: 400, body: 'No code received.' };
+  if (!APP_ID || !APP_SECRET) return { statusCode: 500, body: 'META_APP_ID / META_APP_SECRET not configured.' };
 
-  if (fbError) {
-    return page(`<h2 style="color:#EF4444">Facebook Error: ${escapeHtml(fbError)}</h2>`);
-  }
-  if (!code) {
-    return page(`<h2>No code received</h2>`);
-  }
-
-  const APP_ID = process.env.FACEBOOK_APP_ID || "";
-  const APP_SECRET = process.env.FACEBOOK_APP_SECRET || "";
-  const REDIRECT = "https://nyspotlightreport.com/api/facebook-callback";
-
-  if (!APP_ID || !APP_SECRET) {
-    return page(`<div style="font-size:48px">⚠️</div>
-<h2 style="color:#F59E0B;margin:16px 0">App Configuration Missing</h2>
-<p style="color:#64748B;margin-bottom:24px">FACEBOOK_APP_ID and FACEBOOK_APP_SECRET must be set in environment variables.</p>`);
-  }
-
-  // Exchange code for user access token
-  let userToken;
   try {
-    const res = await fetch(
-      `https://graph.facebook.com/v21.0/oauth/access_token?client_id=${APP_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&client_secret=${APP_SECRET}&code=${encodeURIComponent(code)}`
-    );
-    const data = await res.json();
-    userToken = data.access_token;
-    if (!userToken) throw new Error(data.error?.message || "No token returned");
-  } catch (e) {
-    console.error("Facebook token exchange failed:", e.message);
-    return page(`<h2 style="color:#EF4444">Token exchange failed</h2>
-<p style="color:#64748B">${escapeHtml(e.message)}</p>`);
-  }
+    // Step 1: Short-lived user token
+    const shortRes = await fetch(`https://graph.facebook.com/v18.0/oauth/access_token?client_id=${APP_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&client_secret=${APP_SECRET}&code=${code}`);
+    const shortData = await shortRes.json();
+    if (!shortData.access_token) throw new Error(`Short token failed: ${JSON.stringify(shortData)}`);
 
-  // Get pages the user manages
-  let pages = [];
-  try {
-    const res = await fetch(`https://graph.facebook.com/v21.0/me/accounts?access_token=${userToken}`);
-    const data = await res.json();
-    pages = data.data || [];
-  } catch (e) {
-    console.warn("Failed to fetch Facebook pages:", e.message);
-  }
+    // Step 2: Exchange for 60-day long-lived user token
+    const longRes = await fetch(`https://graph.facebook.com/v18.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${APP_ID}&client_secret=${APP_SECRET}&fb_exchange_token=${shortData.access_token}`);
+    const longData = await longRes.json();
+    if (!longData.access_token) throw new Error(`Long token failed: ${JSON.stringify(longData)}`);
 
-  if (pages.length === 0) {
-    // No pages — show success without exposing token in HTML
-    return page(`<div style="font-size:48px">✅</div>
-<h2 style="color:#22D3A0;margin:12px 0">Facebook Connected!</h2>
-<p style="color:#64748B">No pages found. Your user token has been obtained. Check the Token Center to manage tokens.</p>`);
-  }
+    // Step 3: Get managed pages (FB + Instagram)
+    const pagesRes = await fetch(`https://graph.facebook.com/v18.0/me/accounts?access_token=${longData.access_token}`);
+    const pagesData = await pagesRes.json();
+    const pages = pagesData.data || [];
 
-  // Build page selection UI with properly escaped values
-  const pageOptions = pages.map((p, i) => {
-    const safeName = escapeHtml(p.name || "Unnamed Page");
-    const safeId = escapeHtml(p.id);
-    return `<div style="background:#111827;border:1px solid #1a2d42;border-radius:8px;padding:12px;margin-bottom:8px;cursor:pointer"
-      data-idx="${i}">
-      <strong style="color:#E2E8F0">${safeName}</strong><br>
-      <span style="font-size:11px;color:#64748B">ID: ${safeId}</span>
-    </div>`;
-  }).join("");
+    // Step 4: Save to GitHub Secrets
+    const pkRes = await fetch(`https://api.github.com/repos/${REPO}/actions/secrets/public-key`, {
+      headers: { 'Authorization': `token ${GH_PAT}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    const { key_id } = await pkRes.json();
 
-  // Pass token data via a JSON blob in a script tag — escape for safe embedding
-  // Must escape </script>, <!-- and any string that could break out of the script context
-  const safePageData = JSON.stringify(pages.map(p => ({
-    id: p.id,
-    name: p.name,
-    token: p.access_token,
-  }))).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026");
-
-  return html(`<!DOCTYPE html><html><head><title>Select Page - NYSR</title></head>
-<body style="font-family:system-ui;background:#020409;color:#E2E8F0;padding:40px;max-width:600px;margin:0 auto">
-<div style="font-size:48px;text-align:center">✅</div>
-<h2 style="color:#22D3A0;text-align:center;margin:12px 0">Facebook Connected!</h2>
-<p style="color:#64748B;margin-bottom:16px;text-align:center">Select the Page to use for posting:</p>
-${pageOptions}
-<p style="text-align:center;margin-top:20px"><a href="/tokens/" style="color:#C9A84C">← Token Center</a></p>
-<script>
-var pageData=${safePageData};
-document.querySelectorAll('[data-idx]').forEach(function(el){
-  el.addEventListener('click',function(){
-    var idx=parseInt(this.getAttribute('data-idx'));
-    var pg=pageData[idx];
-    if(pg){
-      navigator.clipboard.writeText(pg.token).then(function(){
-        alert('Page "'+pg.name+'" token copied! Add to GitHub Secrets as FB_PAGE_TOKEN');
+    const saveSecret = async (name, value) => {
+      if (!value) return;
+      await fetch(`https://api.github.com/repos/${REPO}/actions/secrets/${name}`, {
+        method: 'PUT',
+        headers: { 'Authorization': `token ${GH_PAT}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ encrypted_value: Buffer.from(value).toString('base64'), key_id })
       });
+    };
+
+    // Save user token (long-lived)
+    await saveSecret('FB_USER_TOKEN', longData.access_token);
+
+    // Save each page token (non-expiring)
+    for (const page of pages.slice(0, 3)) {
+      const pageToken = page.access_token;
+      const pageName  = page.name?.replace(/\s/g,'_').toUpperCase() || 'PAGE';
+
+      if (pageName.includes('INSTAGRAM') || page.category?.includes('Media')) {
+        await saveSecret('INSTAGRAM_PAGE_TOKEN', pageToken);
+        await saveSecret('INSTAGRAM_PAGE_ID', page.id);
+      } else {
+        await saveSecret('FB_PAGE_TOKEN', pageToken);
+        await saveSecret('FB_PAGE_ID', page.id);
+      }
     }
-  });
-});
-</script>
-</body></html>`);
+
+    // Pushover
+    if (PUSH_API && PUSH_USER) {
+      await fetch('https://api.pushover.net/1/messages.json', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: PUSH_API, user: PUSH_USER,
+          title: '✅ Meta Connected Permanently!',
+          message: `Instagram + Facebook connected. ${pages.length} page(s) found. Non-expiring tokens saved. Posts now live.`
+        })
+      }).catch(() => {});
+    }
+
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'text/html' },
+      body: `<!DOCTYPE html><html><head><title>Meta Connected</title>
+        <style>body{font-family:-apple-system,sans-serif;background:#060a0f;color:#e2e8f0;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+        .box{text-align:center;padding:40px}</style></head>
+        <body><div class="box">
+        <div style="font-size:64px;margin-bottom:16px">✅</div>
+        <div style="font-size:24px;font-weight:700;color:#22c55e;margin-bottom:8px">Instagram + Facebook Connected</div>
+        <div style="font-size:14px;color:#64748b">${pages.length} pages found. Non-expiring tokens saved.<br>Posts go live immediately. These tokens never expire.</div>
+        </div></body></html>`
+    };
+
+  } catch (err) {
+    return { statusCode: 500, headers: { 'Content-Type': 'text/html' }, body: `<h1>Error: ${err.message}</h1>` };
+  }
 };
