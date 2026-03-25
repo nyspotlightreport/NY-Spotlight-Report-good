@@ -62,8 +62,9 @@ jobs:
           check_url "Culture" "$SITE/culture/" "200" "false"
 
           echo "=== Netlify Functions ==="
-          check_url "Subscribe API" "$SITE/.netlify/functions/subscribe" "200" "false"
+          check_url "Subscribe API" "$SITE/.netlify/functions/subscribe" "405" "false"
           check_url "News API" "$SITE/.netlify/functions/api-news" "200" "false"
+          check_url "Health Dashboard" "$SITE/.netlify/functions/health-dashboard" "200" "false"
 
           echo ""
           echo "=== Results: $PASS_COUNT passed, $FAIL_COUNT failed ==="
