@@ -1,14 +1,12 @@
 // netlify/functions/send-email.js
-// Email relay — GitHub Actions agents call this to send email via Gmail SMTP
-// Because Gmail blocks GitHub IPs but allows Netlify IPs
-const nodemailer = require('nodemailer');
+// Email relay — Uses Resend API (no Gmail ban risk)
+// Resend free tier: 3,000 emails/month, built for transactional + marketing
 
 exports.handler = async (event) => {
   const H = {'Access-Control-Allow-Origin':'https://nyspotlightreport.com','Content-Type':'application/json'};
   if (event.httpMethod !== 'POST') return { statusCode: 405, headers: H, body: '{"error":"POST only"}' };
 
-  // Auth check — requires a shared secret
-  const AUTH_KEY = process.env.PUSHOVER_API_KEY; // reuse as shared secret
+  const AUTH_KEY = process.env.PUSHOVER_API_KEY;
   const authHeader = event.headers['x-auth-key'] || '';
   if (authHeader !== AUTH_KEY) return { statusCode: 401, headers: H, body: '{"error":"unauthorized"}' };
 
@@ -18,21 +16,22 @@ exports.handler = async (event) => {
   const { to, subject, html, text } = body;
   if (!to || !subject) return { statusCode: 400, headers: H, body: '{"error":"to and subject required"}' };
 
-  const SMTP_USER = process.env.GMAIL_USER || process.env.SMTP_USER || 'nyspotlightreport@gmail.com';
-  const SMTP_PASS = process.env.GMAIL_APP_PASS;
-  if (!SMTP_PASS) return { statusCode: 500, headers: H, body: '{"error":"SMTP not configured"}' };
+  const RESEND_KEY = process.env.RESEND_API_KEY;
+  if (!RESEND_KEY) return { statusCode: 500, headers: H, body: '{"error":"RESEND_API_KEY not configured"}' };
+
+  const FROM = process.env.RESEND_FROM || 'NY Spotlight Report <onboarding@resend.dev>';
 
   try {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail', auth: { user: SMTP_USER, pass: SMTP_PASS }
+    const resp = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: FROM, to: [to], subject, html: html || undefined, text: text || subject })
     });
-    await transporter.sendMail({
-      from: `"NY Spotlight Report" <${SMTP_USER}>`,
-      to, subject, html: html || undefined, text: text || subject
-    });
-    return { statusCode: 200, headers: H, body: JSON.stringify({ sent: true, to }) };
+    const data = await resp.json();
+    if (resp.ok) return { statusCode: 200, headers: H, body: JSON.stringify({ sent: true, to, id: data.id }) };
+    return { statusCode: 500, headers: H, body: JSON.stringify({ error: data.message || 'Resend error' }) };
   } catch (err) {
-    console.error('Email send failed:', err.message);
+    console.error('Resend send failed:', err.message);
     return { statusCode: 500, headers: H, body: JSON.stringify({ error: err.message }) };
   }
 };
