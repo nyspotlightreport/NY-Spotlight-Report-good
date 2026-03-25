@@ -24,59 +24,54 @@ jobs:
           FAILURES=""
           ALL_PASSED=true
           CRITICAL_FAIL=false
+          PASS_COUNT=0
+          FAIL_COUNT=0
 
           check_url() {
-            local name="$1" url="$2" expected_status="$3" expected_body="$4" critical="$5"
-            local status body
-            if [ -n "$expected_body" ]; then
-              body=$(curl -s -o /tmp/resp -w "%{http_code}" --max-time 15 "$url")
-              status="$body"
-              body=$(cat /tmp/resp)
+            local name="$1" url="$2" expected_status="$3" critical="$4"
+            local status
+            status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "$url")
+
+            if [ "$status" = "$expected_status" ]; then
+              echo "✅ $name — $status"
+              PASS_COUNT=$((PASS_COUNT + 1))
+              return 0
             else
-              status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "$url")
-            fi
-
-            if [ "$status" != "$expected_status" ]; then
+              echo "❌ $name — expected $expected_status, got $status"
               FAILURES="${FAILURES}${name} (expected ${expected_status}, got ${status})\n"
+              FAIL_COUNT=$((FAIL_COUNT + 1))
               ALL_PASSED=false
               [ "$critical" = "true" ] && CRITICAL_FAIL=true
               return 1
             fi
-
-            if [ -n "$expected_body" ] && ! echo "$body" | grep -qi "$expected_body"; then
-              FAILURES="${FAILURES}${name} (missing '${expected_body}')\n"
-              ALL_PASSED=false
-              [ "$critical" = "true" ] && CRITICAL_FAIL=true
-              return 1
-            fi
-            return 0
           }
 
-          check_url "Homepage" "$SITE/" "200" "" "false"
-          check_url "ProFlow" "$SITE/proflow/" "200" "" "true"
-          check_url "Checkout Success" "$SITE/checkout/success/" "200" "" "false"
-          check_url "Blog" "$SITE/blog/" "200" "" "false"
-          check_url "Press" "$SITE/press/" "200" "" "false"
-          check_url "Voice AI" "$SITE/.netlify/functions/voice-ai" "200" "ProFlow" "false"
-          check_url "Stripe Webhook" "$SITE/.netlify/functions/stripe-webhook" "400" "" "false"
+          echo "=== Core Pages ==="
+          check_url "Homepage" "$SITE/" "200" "true"
+          check_url "Blog Index" "$SITE/blog/" "200" "true"
+          check_url "About SC Thomas" "$SITE/about/sc-thomas/" "200" "false"
+          check_url "Privacy Policy" "$SITE/privacy/" "200" "false"
+          check_url "Editorial Standards" "$SITE/editorial-standards/" "200" "false"
+          check_url "Contact" "$SITE/contact/" "200" "false"
 
-          CHECKOUT_STATUS=$(curl -s -o /tmp/checkout_resp -w "%{http_code}" --max-time 15 \
-            -X POST -H "Content-Type: application/json" \
-            -d '{"plan":"starter"}' \
-            "$SITE/.netlify/functions/create-checkout")
-          CHECKOUT_BODY=$(cat /tmp/checkout_resp)
-          if [ "$CHECKOUT_STATUS" != "200" ]; then
-            FAILURES="${FAILURES}Create Checkout (expected 200, got ${CHECKOUT_STATUS})\n"
-            ALL_PASSED=false
-            CRITICAL_FAIL=true
-          elif ! echo "$CHECKOUT_BODY" | grep -qE "cs_live_|checkout.stripe.com"; then
-            FAILURES="${FAILURES}Create Checkout (no session ID)\n"
-            ALL_PASSED=false
-            CRITICAL_FAIL=true
-          fi
+          echo "=== Editorial Sections ==="
+          check_url "Entertainment" "$SITE/entertainment/" "200" "false"
+          check_url "Fashion" "$SITE/fashion/" "200" "false"
+          check_url "Nightlife" "$SITE/nightlife/" "200" "false"
+          check_url "LGBTQ" "$SITE/lgbtq/" "200" "false"
+          check_url "Culture" "$SITE/culture/" "200" "false"
+
+          echo "=== Netlify Functions ==="
+          check_url "Subscribe API" "$SITE/.netlify/functions/subscribe" "200" "false"
+          check_url "News API" "$SITE/.netlify/functions/api-news" "200" "false"
+
+          echo ""
+          echo "=== Results: $PASS_COUNT passed, $FAIL_COUNT failed ==="
 
           echo "all_passed=$ALL_PASSED" >> $GITHUB_OUTPUT
           echo "critical_fail=$CRITICAL_FAIL" >> $GITHUB_OUTPUT
+          echo "pass_count=$PASS_COUNT" >> $GITHUB_OUTPUT
+          echo "fail_count=$FAIL_COUNT" >> $GITHUB_OUTPUT
           echo "failures<<EOF" >> $GITHUB_OUTPUT
           echo -e "$FAILURES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -86,12 +81,11 @@ jobs:
         run: |
           curl -s -F "token=${{ secrets.PUSHOVER_API_KEY }}" \
                -F "user=${{ secrets.PUSHOVER_USER_KEY }}" \
-               -F "title=🚨 DEPLOY BROKE SITE" \
-               -F "message=Post-deploy failures after commit $(echo $GITHUB_SHA | cut -c1-7):
-          ${{ steps.checks.outputs.failures }}
-          $([ '${{ steps.checks.outputs.critical_fail }}' = 'true' ] && echo 'AUTO-REVERTING...' || echo '')" \
-               -F "priority=1" \
-               -F "sound=siren" \
+               -F "title=⚠️ Smoke Test Failures" \
+               -F "message=Post-deploy: ${{ steps.checks.outputs.pass_count }} passed, ${{ steps.checks.outputs.fail_count }} failed after $(echo $GITHUB_SHA | cut -c1-7):
+          ${{ steps.checks.outputs.failures }}" \
+               -F "priority=0" \
+               -F "sound=pushover" \
                https://api.pushover.net/1/messages.json
 
       - name: Auto-revert on critical failure
