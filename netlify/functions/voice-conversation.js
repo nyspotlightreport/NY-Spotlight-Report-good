@@ -46,7 +46,7 @@ About NY Spotlight Report:
 - Founded in 2020, based in New York
 - ProFlow is the main product — an AI content automation system
 - Chairman: S.C. Thomas
-- Phone: (631) 892-9817
+- Phone: (631) 375-1097
 - Website: nyspotlightreport.com
 
 Rules:
