@@ -3,294 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Blog — NY Spotlight Report | AI Automation, Passive Income & Growth</title>
-<meta name="description" content="Actionable insights on AI-powered content, passive income systems, and entrepreneurship. Updated daily.">
+<title>Articles — NY Spotlight Report | NYC Entertainment, Culture & Nightlife News</title>
+<meta name="description" content="The latest entertainment, nightlife, fashion, culture, and LGBTQIA+ coverage from New York City and Long Island. By S.C. Thomas.">
 <link rel="canonical" href="https://nyspotlightreport.com/blog/">
+<meta property="og:title" content="Articles — NY Spotlight Report">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nyspotlightreport.com/blog/">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{--gold:#C9A84C;--dark:#0D1B2A;--mid:#111d2e;--border:#1a2d42;--text:#e8edf2;--muted:#7a8fa0;}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#060f1a;color:var(--text);line-height:1.6;}
-nav{background:rgba(6,15,26,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.logo{color:var(--gold);font-size:16px;font-weight:800;text-decoration:none;}
-.nav-cta{background:var(--gold);color:var(--dark);padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;}
-.wrap{max-width:1100px;margin:0 auto;padding:60px 48px;}
-@media(max-width:768px){.wrap{padding:40px 20px;}nav{padding:0 20px;}}
-.page-header{margin-bottom:48px;}
-.page-label{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
-h1{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1.5px;margin-bottom:8px;}
-.page-sub{color:var(--muted);font-size:15px;}
-.categories{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
-.cat-btn{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .2s;background:none;}
-.cat-btn.active,.cat-btn:hover{background:var(--gold);color:var(--dark);border-color:var(--gold);}
-.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
-.post-card{background:var(--mid);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border .2s,transform .2s;}
-.post-card:hover{border-color:rgba(201,168,76,.4);transform:translateY(-2px);}
-.post-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;}
-.post-body{padding:20px;}
-.post-cat{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
-.post-title{font-size:17px;font-weight:700;line-height:1.35;margin-bottom:8px;}
-.post-title a{color:var(--text);text-decoration:none;}
-.post-title a:hover{color:var(--gold);}
-.post-excerpt{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
-.post-meta{font-size:11px;color:rgba(122,143,160,.5);display:flex;align-items:center;gap:12px;}
-.featured-post{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:14px;overflow:hidden;border:1px solid var(--border);}
-@media(max-width:700px){.featured-post{grid-template-columns:1fr;}}
-.featured-thumb{min-height:260px;background:linear-gradient(135deg,var(--dark) 0%,#0a2240 100%);display:flex;align-items:center;justify-content:center;font-size:80px;}
-.featured-body{padding:32px;display:flex;flex-direction:column;justify-content:center;}
-.featured-badge{display:inline-block;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;}
-.featured-body h2{font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-1px;line-height:1.2;margin-bottom:12px;}
-.featured-body p{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:20px;}
-.read-more{display:inline-block;background:var(--gold);color:var(--dark);padding:10px 22px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;}
-.newsletter-bar{background:var(--mid);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:24px 28px;margin:48px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
-.nl-text h3{font-size:16px;font-weight:700;margin-bottom:4px;}
-.nl-text p{font-size:13px;color:var(--muted);}
-.nl-form{display:flex;gap:8px;flex-wrap:wrap;}
-.nl-form input{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:7px;padding:10px 14px;color:var(--text);font-size:13px;width:240px;outline:none;}
-.nl-form input:focus{border-color:var(--gold);}
-.nl-form button{background:var(--gold);color:var(--dark);border:none;padding:10px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,'Times New Roman',serif;background:#faf9f6;color:#1a1a2e;line-height:1.7}
+nav{background:#faf9f6;border-bottom:1px solid #e0ddd5;padding:16px 48px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;color:#1a1a2e;text-decoration:none}
+.logo span{color:#c41e3a}
+.nav-links{display:flex;gap:24px;font-family:system-ui,sans-serif;font-size:13px;font-weight:500}
+.nav-links a{color:#555;text-decoration:none}
+.nav-links a:hover{color:#c41e3a}
+.wrap{max-width:900px;margin:0 auto;padding:48px 24px}
+h1{font-family:'Playfair Display',Georgia,serif;font-size:36px;margin-bottom:8px;color:#1a1a2e}
+.subtitle{color:#666;font-size:16px;margin-bottom:40px;font-family:system-ui,sans-serif}
 </style>
 </head>
 <body>
 <nav>
-  <a href="/" class="logo">NY Spotlight Report</a>
-  <a href="/free-plan/" class="nav-cta">Free Content Audit</a>
+<a href="/" class="logo">NY <span>Spotlight</span> Report</a>
+<div class="nav-links">
+<a href="/">Home</a>
+<a href="/blog/">Articles</a>
+<a href="/entertainment/">Entertainment</a>
+<a href="/fashion/">Fashion</a>
+<a href="/culture/">Culture</a>
+<a href="/nightlife/">Nightlife</a>
+<a href="/lgbtq/">LGBTQIA+</a>
+</div>
 </nav>
 <div class="wrap">
-  <div class="page-header">
-    <div class="page-label">Insights</div>
-    <h1>The Blog</h1>
-    <p class="page-sub">Daily articles on AI automation, passive income, and building systems that work without you.</p>
-  </div>
+<h1>Articles</h1>
+<p class="subtitle">Entertainment, nightlife, fashion, culture, and LGBTQIA+ coverage from NYC and Long Island.</p>
+<style>
+.articles{display:flex;flex-direction:column;gap:32px}
+.article-card{display:flex;gap:24px;padding-bottom:32px;border-bottom:1px solid #e0ddd5}
+.article-card:last-child{border-bottom:none}
+.card-img{width:200px;min-width:200px;height:140px;border-radius:6px;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#2d1b46)}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-body{flex:1}
+.card-cat{font-family:system-ui,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.cat-entertainment{color:#c41e3a}
+.cat-nightlife{color:#7c3aed}
+.cat-fashion{color:#d97706}
+.cat-culture{color:#059669}
+.cat-lgbtq{color:#e11d48}
+.card-title{font-size:20px;font-weight:700;margin-bottom:8px}
+.card-title a{color:#1a1a2e;text-decoration:none}
+.card-title a:hover{color:#c41e3a}
+.card-excerpt{color:#555;font-size:14px;font-family:system-ui,sans-serif;margin-bottom:8px}
+.card-meta{font-family:system-ui,sans-serif;font-size:12px;color:#888}
+@media(max-width:600px){.article-card{flex-direction:column}.card-img{width:100%;height:180px}}
+</style>
+<div class="articles">
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-entertainment">Entertainment & Awards</div>
+<h2 class="card-title"><a href="/blog/oscars-2026-predictions/">Oscars 2026: Predictions, Snubs, and Why Independent Film Is Having Its Moment</a></h2>
+<p class="card-excerpt">As the 98th Academy Awards approach, independent studios like A24 and Neon are reshaping the Oscar landscape while NYC premieres set the cultural agenda.</p>
+<div class="card-meta">By S.C. Thomas · March 10, 2026</div>
+</div></div>
 
-  <div class="categories">
-    <button class="cat-btn active" onclick="filterCat('all',this)">All</button>
-    <button class="cat-btn" onclick="filterCat('passive-income',this)">Passive Income</button>
-    <button class="cat-btn" onclick="filterCat('ai-tools',this)">AI Tools</button>
-    <button class="cat-btn" onclick="filterCat('content',this)">Content Automation</button>
-    <button class="cat-btn" onclick="filterCat('entrepreneurship',this)">Entrepreneurship</button>
-  </div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-lgbtq">LGBTQIA+</div>
+<h2 class="card-title"><a href="/blog/pride-2026-nyc-events/">Pride 2026 NYC: The Events, Marches, and Celebrations You Can't Miss</a></h2>
+<p class="card-excerpt">From the main march down Fifth Avenue to the underground parties in Brooklyn, your comprehensive guide to NYC Pride.</p>
+<div class="card-meta">By S.C. Thomas · March 12, 2026</div>
+</div></div>
 
-  <div class="newsletter-bar">
-    <div class="nl-text">
-      <h3>Get insights delivered daily</h3>
-      <p>Join 5,000+ entrepreneurs. No spam. Unsubscribe anytime.</p>
-    </div>
-    <div class="nl-form">
-      <input type="email" id="nl-email" placeholder="Your email address">
-      <button onclick="nlSubmit()">Subscribe →</button>
-    </div>
-  </div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-fashion">Fashion</div>
+<h2 class="card-title"><a href="/blog/nyfw-2026-recap/">NYFW 2026 Recap: The Runway Moments That Defined the Season</a></h2>
+<p class="card-excerpt">From emerging designers at the Piers to the established houses on the main schedule, the collections that set the tone for 2026.</p>
+<div class="card-meta">By S.C. Thomas · March 8, 2026</div>
+</div></div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-entertainment">Broadway</div>
+<h2 class="card-title"><a href="/blog/tony-awards-2026-preview/">Tony Awards Preview: The Broadway Season That Broke Every Record</a></h2>
+<p class="card-excerpt">A season of extraordinary new work and record-breaking revivals has set up the most competitive Tony race in years.</p>
+<div class="card-meta">By S.C. Thomas · March 14, 2026</div>
+</div></div>
 
-  <div class="posts-grid" id="posts-grid">
-    <!-- Featured post -->
-    <div class="featured-post" data-cat="content">
-      <div class="featured-thumb">🤖</div>
-      <div class="featured-body">
-        <span class="featured-badge">Featured</span>
-        <h2>How I automated my entire content operation for $0/month</h2>
-        <p>The exact stack of AI bots, APIs, and workflows that replaced 20+ hours of weekly content work — blog posts, newsletter, social media, and YouTube Shorts all running on autopilot.</p>
-        <a href="/blog/automated-content-operation/" class="read-more">Read Article →</a>
-      </div>
-    </div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-lgbtq">LGBTQIA+</div>
+<h2 class="card-title"><a href="/blog/evolution-of-drag-culture/">The Evolution of Drag Culture: From Underground to Broadway</a></h2>
+<p class="card-excerpt">How drag went from secret clubs to mainstream entertainment — and what NYC's scene looks like in 2026.</p>
+<div class="card-meta">By S.C. Thomas · March 11, 2026</div>
+</div></div>
 
-    <!-- Regular posts -->
-    <div class="post-card" data-cat="passive-income">
-      <div class="post-thumb" style="background:linear-gradient(135deg,#1a3320,#0f2a1a)">💰</div>
-      <div class="post-body">
-        <div class="post-cat">Passive Income</div>
-        <div class="post-title"><a href="/blog/passive-income-zero-cost-2026/">25 zero-cost passive income streams that actually work in 2026</a></div>
-        <div class="post-excerpt">Every method requires $0 to start and can run on autopilot after setup. Includes bandwidth sharing, digital products, and content monetization.</div>
-        <div class="post-meta"><span>NY Spotlight Report</span><span>12 min read</span></div>
-      </div>
-    </div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-nightlife">Nightlife</div>
+<h2 class="card-title"><a href="/blog/lgbtq-bars-clubs-nyc-guide/">Queer Nightlife Guide: The 15 Best LGBTQ+ Bars and Clubs in NYC</a></h2>
+<p class="card-excerpt">Neighborhood by neighborhood, the venues keeping queer nightlife culture alive and thriving across all five boroughs.</p>
+<div class="card-meta">By S.C. Thomas · March 9, 2026</div>
+</div></div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-nightlife">Nightlife</div>
+<h2 class="card-title"><a href="/blog/hells-kitchen-gay-nightlife-capital/">Hell's Kitchen: NYC's Gay Nightlife Capital</a></h2>
+<p class="card-excerpt">How one Manhattan neighborhood became the epicenter of queer nightlife culture.</p>
+<div class="card-meta">By S.C. Thomas · March 6, 2026</div>
+</div></div>
 
-    <div class="post-card" data-cat="ai-tools">
-      <div class="post-thumb" style="background:linear-gradient(135deg,#1c1c3a,#0d1b2a)">🛠️</div>
-      <div class="post-body">
-        <div class="post-cat">AI Tools</div>
-        <div class="post-title"><a href="/blog/best-ai-tools-entrepreneurs-2026/">The best AI tools for entrepreneurs in 2026 (tested, ranked, honest)</a></div>
-        <div class="post-excerpt">After running 63 bots across 15 platforms, here's what actually moves the needle versus what's just hype.</div>
-        <div class="post-meta"><span>NY Spotlight Report</span><span>10 min read</span></div>
-      </div>
-    </div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-culture">Arts & Culture</div>
+<h2 class="card-title"><a href="/blog/chelsea-gallery-district-2024/">Chelsea Gallery District Reinvents Itself for the AI Era</a></h2>
+<p class="card-excerpt">West Chelsea's gallery ecosystem is evolving with AI-powered exhibitions and immersive installations.</p>
+<div class="card-meta">By S.C. Thomas · March 5, 2026</div>
+</div></div>
 
-    <div class="post-card" data-cat="content">
-      <div class="post-thumb" style="background:linear-gradient(135deg,#2a1a0f,#1c0f08)">📧</div>
-      <div class="post-body">
-        <div class="post-cat">Content Automation</div>
-        <div class="post-title"><a href="/blog/newsletter-1000-subscribers-45-days/">How I went from 0 to 1,200 newsletter subscribers in 45 days without buying a list</a></div>
-        <div class="post-excerpt">The exact playbook: infrastructure, content engine, amplifiers, and the automation that made it sustainable.</div>
-        <div class="post-meta"><span>NY Spotlight Report</span><span>8 min read</span></div>
-      </div>
-    </div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-entertainment">Entertainment</div>
+<h2 class="card-title"><a href="/blog/100-million-broadway-season-2024/">Broadway's $100 Million Season Rewrites the Record Books</a></h2>
+<p class="card-excerpt">The 2024-25 season delivered record-breaking numbers, signaling a full post-pandemic renaissance on the Great White Way.</p>
+<div class="card-meta">By S.C. Thomas · March 3, 2026</div>
+</div></div>
 
-    <div class="post-card" data-cat="passive-income">
-      <div class="post-thumb" style="background:linear-gradient(135deg,#1b3a5c,#0d1b2a)">📚</div>
-      <div class="post-body">
-        <div class="post-cat">Passive Income</div>
-        <div class="post-title"><a href="/blog/kdp-low-content-books-guide/">KDP low-content books: the complete 2026 guide to publishing on Amazon</a></div>
-        <div class="post-excerpt">Planners, journals, puzzle books — how to create them with AI, list them on Amazon KDP, and earn royalties forever.</div>
-        <div class="post-meta"><span>NY Spotlight Report</span><span>14 min read</span></div>
-      </div>
-    </div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-culture">Music</div>
+<h2 class="card-title"><a href="/blog/nyc-jazz-renaissance-2024/">NYC Jazz Renaissance: The Clubs Keeping the Art Form Alive</a></h2>
+<p class="card-excerpt">From Smalls to the Blue Note to new underground spots, jazz is thriving in the city that invented it.</p>
+<div class="card-meta">By S.C. Thomas · March 1, 2026</div>
+</div></div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-nightlife">Nightlife</div>
+<h2 class="card-title"><a href="/blog/rooftop-bars-manhattan-2024/">Manhattan's Rooftop Bar Scene Reaches New Heights</a></h2>
+<p class="card-excerpt">The definitive guide to the rooftop bars reshaping Manhattan's skyline cocktail culture.</p>
+<div class="card-meta">By S.C. Thomas · February 28, 2026</div>
+</div></div>
 
-    <div class="post-card" data-cat="entrepreneurship">
-      <div class="post-thumb" style="background:linear-gradient(135deg,#2a1a3a,#1a0a2e)">🎯</div>
-      <div class="post-body">
-        <div class="post-cat">Entrepreneurship</div>
-        <div class="post-title"><a href="/blog/cold-email-system-proflow/">The cold email system that books 5 demos a week without a sales team</a></div>
-        <div class="post-excerpt">Apollo + Claude + Gmail = 200 personalized emails per day. Here's the exact setup, templates, and sequences we use.</div>
-        <div class="post-meta"><span>NY Spotlight Report</span><span>9 min read</span></div>
-      </div>
-    </div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-fashion">Fashion</div>
+<h2 class="card-title"><a href="/blog/sustainable-fashion-nyc-guide/">Sustainable Fashion in NYC: Where to Shop Ethical and Look Amazing</a></h2>
+<p class="card-excerpt">The best ethical fashion destinations across the five boroughs — from vintage to new sustainable labels.</p>
+<div class="card-meta">By S.C. Thomas · March 7, 2026</div>
+</div></div>
 
-    <div class="post-card" data-cat="ai-tools">
-      <div class="post-thumb" style="background:linear-gradient(135deg,#1a3320,#0f2a1a)">💵</div>
-      <div class="post-body">
-        <div class="post-cat">AI Tools</div>
-        <div class="post-title"><a href="/blog/affiliate-income-stack-2026/">The affiliate income stack making $300-500/month passively (full breakdown)</a></div>
-        <div class="post-excerpt">Commission rates, monthly earnings, and exactly how an automated link injector turns every blog post into revenue.</div>
-        <div class="post-meta"><span>NY Spotlight Report</span><span>11 min read</span></div>
-      </div>
-    </div>
-  </div>
+<div class="article-card">
+<div class="card-img"></div>
+<div class="card-body">
+<div class="card-cat cat-culture">Culture</div>
+<h2 class="card-title"><a href="/blog/street-art-murals-nyc-2026/">Street Art Explodes Across NYC: Murals, Installations, and the Artists Behind Them</a></h2>
+<p class="card-excerpt">Murals, installations, and guerrilla art are transforming the city's visual landscape neighborhood by neighborhood.</p>
+<div class="card-meta">By S.C. Thomas · March 4, 2026</div>
+</div></div>
 
-  <div style="text-align:center;margin-top:40px;padding:32px;background:var(--mid);border-radius:12px;border:1px solid var(--border);">
-    <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">New articles publish daily. Subscribe to get them in your inbox.</p>
-    <a href="/free-plan/" style="background:var(--gold);color:var(--dark);padding:12px 28px;border-radius:7px;font-size:14px;font-weight:700;text-decoration:none;">Subscribe Free →</a>
-  </div>
-</div>
+</div><!-- end articles -->
+</div><!-- end wrap -->
 
-<script>
-function filterCat(cat, btn) {
-  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('[data-cat]').forEach(card=>{
-    card.style.display = cat==='all' || card.dataset.cat===cat ? '' : 'none';
-  });
-}
-
-function nlSubmit() {
-  const email = document.getElementById('nl-email').value;
-  if(!email) return;
-  fetch('/.netlify/functions/lead-capture',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({email, source:'blog', niche:'general', goal:'newsletter'})
-  }).then(()=>{
-    document.querySelector('.nl-form').innerHTML='<p style="color:var(--gold);font-weight:700;">✓ Subscribed! Check your inbox.</p>';
-  }).catch(()=>{
-    document.querySelector('.nl-form').innerHTML='<p style="color:var(--gold);font-weight:700;">✓ Subscribed!</p>';
-  });
-}
-</script>
-
-<!-- CONVERSION ENGINE -->
-<!-- CONVERSION ENGINE — Add this to EVERY page on the site -->
-<!-- Drop this before </body> on every HTML page -->
-
-<!-- STICKY BOTTOM CTA BAR -->
-<div id="sticky-cta" style="position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;padding:10px 24px;display:flex;justify-content:center;align-items:center;gap:16px;z-index:9999;transform:translateY(100%);transition:transform .3s ease;box-shadow:0 -2px 20px rgba(0,0,0,.15)">
-<span style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,255,255,.7)">Replace your content team for <strong style="color:#fff">$297/mo</strong></span>
-<a href="/proflow/" style="background:#9e7c0c;color:#fff;padding:8px 20px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap">See How It Works →</a>
-<span style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,.3);cursor:pointer" onclick="this.parentElement.style.display='none';sessionStorage.setItem('cta_closed','1')">✕</span>
-</div>
-
-<!-- EXIT INTENT POPUP -->
-<div id="exit-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10000;justify-content:center;align-items:center;backdrop-filter:blur(4px)">
-<div style="background:#fff;border-radius:8px;padding:40px;max-width:480px;width:90%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)">
-<span onclick="document.getElementById('exit-popup').style.display='none';sessionStorage.setItem('exit_shown','1')" style="position:absolute;top:12px;right:16px;font-size:20px;color:#a3a3a3;cursor:pointer">✕</span>
-<h3 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px;color:#0f0f0f">Before you go...</h3>
-<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:#6b6b6b;margin-bottom:20px;line-height:1.55">Get our free guide: <strong style="color:#0f0f0f">"How to Replace Your Content Team with AI — The Complete Playbook"</strong></p>
-<input type="email" id="exit-email" placeholder="your@email.com" style="width:100%;padding:12px;border:1px solid #e5e5e5;border-radius:5px;font-size:15px;font-family:'DM Sans',sans-serif;margin-bottom:10px;outline:none">
-<button onclick="captureExitLead()" style="width:100%;padding:12px;background:#0f0f0f;color:#fff;border:none;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer">Send Me the Free Guide →</button>
-<p style="font-family:'DM Sans',sans-serif;font-size:11px;color:#a3a3a3;margin-top:8px">No spam. Unsubscribe anytime.</p>
-</div>
-</div>
-
-<!-- INLINE CTA COMPONENT (inject into blog posts) -->
-<template id="inline-cta-template">
-<div style="background:linear-gradient(135deg,#faf9f6,#f0ede5);border:1px solid #e5e5e5;border-radius:8px;padding:28px 32px;margin:32px 0;text-align:center">
-<h4 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:6px;color:#0f0f0f">Tired of doing this manually?</h4>
-<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#6b6b6b;margin-bottom:16px">ProFlow produces 30 blog posts, 90+ social posts, and HD images every month — in your brand voice. Starting at $97/mo.</p>
-<a href="/proflow/" style="display:inline-block;padding:12px 28px;background:#0f0f0f;color:#fff;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;text-decoration:none">See the Full Offer →</a>
-</div>
-</template>
-
-<!-- PHONE DEMO CTA -->
-<template id="phone-cta-template">
-<div style="background:#0f0f0f;border-radius:8px;padding:24px 32px;margin:32px 0;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center">
-<div style="text-align:center">
-<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Try it right now</div>
-<div style="font-family:'Playfair Display',serif;font-size:22px;color:#fff;font-weight:700">Call our AI receptionist</div>
-</div>
-<a href="tel:+16313751097" style="display:inline-block;padding:14px 28px;background:#9e7c0c;color:#fff;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;text-decoration:none;white-space:nowrap">(631) 375-1097</a>
-</div>
-</template>
-
-<script>
-// Sticky CTA — show after 30% scroll
-(function(){
-  if(sessionStorage.getItem('cta_closed'))return;
-  var shown=false;
-  window.addEventListener('scroll',function(){
-    if(shown)return;
-    var pct=window.scrollY/(document.body.scrollHeight-window.innerHeight);
-    if(pct>0.3){
-      document.getElementById('sticky-cta').style.transform='translateY(0)';
-      shown=true;
-    }
-  });
-})();
-
-// Exit intent — show when mouse leaves viewport (desktop only)
-(function(){
-  if(sessionStorage.getItem('exit_shown'))return;
-  if('ontouchstart' in window)return; // skip mobile
-  document.addEventListener('mouseout',function(e){
-    if(!e.relatedTarget && !e.toElement && e.clientY<10){
-      document.getElementById('exit-popup').style.display='flex';
-      sessionStorage.setItem('exit_shown','1');
-    }
-  });
-})();
-
-// Lead capture
-function captureExitLead(){
-  var email=document.getElementById('exit-email').value;
-  if(!email||!email.includes('@'))return;
-  fetch('/.netlify/functions/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({email:email,source:'exit_intent',page:location.pathname})}).catch(function(){});
-  fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({email:email,source:'exit_popup'})}).catch(function(){});
-  localStorage.setItem('nysr_lead',email);
-  document.getElementById('exit-popup').innerHTML='<div style="background:#fff;border-radius:8px;padding:48px;text-align:center"><h3 style="font-family:Playfair Display,serif;font-size:24px;color:#16793a">Check your inbox!</h3><p style="font-family:DM Sans,sans-serif;font-size:15px;color:#6b6b6b;margin-top:8px">Your free guide is on its way.</p></div>';
-  setTimeout(function(){document.getElementById('exit-popup').style.display='none'},3000);
-}
-
-// Auto-inject inline CTAs into blog posts (every 3rd section)
-(function(){
-  var article=document.querySelector('article');
-  if(!article)return;
-  var h2s=article.querySelectorAll('h2');
-  var tpl=document.getElementById('inline-cta-template');
-  var phoneTpl=document.getElementById('phone-cta-template');
-  if(h2s.length>2 && tpl){
-    var cta=tpl.content.cloneNode(true);
-    h2s[Math.floor(h2s.length/2)].parentNode.insertBefore(cta,h2s[Math.floor(h2s.length/2)]);
-  }
-  if(h2s.length>4 && phoneTpl){
-    var phone=phoneTpl.content.cloneNode(true);
-    h2s[h2s.length-1].parentNode.insertBefore(phone,h2s[h2s.length-1]);
-  }
-})();
-
-// Track page views for analytics
-(function(){
-  fetch('/.netlify/functions/track',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({event:'pageview',page:location.pathname,ref:document.referrer,ts:Date.now()})}).catch(function(){});
-})();
-</script>
-
+<footer style="background:#1a1a2e;color:#ccc;padding:40px 48px;font-family:system-ui,sans-serif;font-size:13px;text-align:center;margin-top:60px">
+<p style="margin-bottom:8px"><strong style="color:#fff">NY Spotlight Report</strong> · ISSN 2026-0147 (Online) · Est. 2020</p>
+<p style="margin-bottom:8px"><a href="/about/sc-thomas/" style="color:#ccc">About the Editor</a> · <a href="/press/" style="color:#ccc">Press</a> · <a href="/editorial-standards/" style="color:#ccc">Editorial Standards</a> · <a href="/privacy/" style="color:#ccc">Privacy</a> · <a href="/terms/" style="color:#ccc">Terms</a></p>
+<p style="color:#888">editor-in-chief@nyspotlightreport.com · (631) 375-1097</p>
+</footer>
 </body>
 </html>
