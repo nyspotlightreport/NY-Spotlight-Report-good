@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NY Spotlight Report — Content Systems That Run Themselves</title>
+<meta name="description" content="We build autonomous content engines for agencies and founders. Daily blogs, social media, newsletters — published on schedule, every single day.">
+<meta property="og:title" content="NY Spotlight Report — Content That Runs Itself">
+<meta property="og:description" content="Autonomous content systems for agencies. Daily blogs, social, newsletters — zero manual work.">
+<link rel="canonical" href="https://nyspotlightreport.com">
+<!-- PLACEHOLDER: Replace META_PIXEL_ID / GA_MEASUREMENT_ID with real IDs and uncomment -->
+<!-- Meta Pixel
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','META_PIXEL_ID');fbq('track','PageView');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=META_PIXEL_ID&ev=PageView&noscript=1" alt="Tr?Id=Meta Pixel Id&Ev=Pageview&Noscript=1"/></noscript>
+-->
+<!-- Google Analytics
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','GA_MEASUREMENT_ID');</script>
+-->
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--sand:#f7f5f0;--ink:#141413;--warm:#3d3929;--accent:#c9a84c;--accent-dark:#a08536;--muted:#8a8578;--border:rgba(0,0,0,.08);--card:#fff;--serif:'Instrument Serif',Georgia,serif;--sans:'Outfit','Helvetica Neue',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--sand);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,245,240,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 clamp(24px,5vw,80px);height:64px;display:flex;align-items:center;justify-content:space-between}
+.n-logo{font-family:var(--serif);font-size:18px;letter-spacing:-.02em;color:var(--ink)}
+.n-logo i{color:var(--accent);font-style:italic}
+.n-links{display:flex;align-items:center;gap:28px}
+.n-links a{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.01em;transition:color .2s}
+.n-links a:hover{color:var(--ink)}
+.n-cta{background:var(--ink)!important;color:var(--sand)!important;padding:10px 24px;border-radius:100px;font-weight:600!important;font-size:13px!important;transition:all .2s}
+.n-cta:hover{background:var(--warm)!important}
+
+/* HERO */
+.hero{padding:140px clamp(24px,5vw,80px) 80px;max-width:1100px;margin:0 auto}
+.hero-over{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:24px}
+.hero h1{font-family:var(--serif);font-size:clamp(42px,6vw,76px);font-weight:400;line-height:1.05;letter-spacing:-.03em;margin-bottom:28px;max-width:800px}
+.hero h1 i{font-style:italic;color:var(--warm)}
+.hero-p{font-size:18px;color:var(--muted);max-width:520px;line-height:1.7;font-weight:300;margin-bottom:40px}
+.hero-btns{display:flex;gap:12px;margin-bottom:80px;flex-wrap:wrap}
+.btn-a{background:var(--ink);color:var(--sand);padding:16px 36px;border-radius:100px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:all .25s}
+.btn-a:hover{background:var(--warm);transform:translateY(-1px)}
+.btn-a svg{width:16px;height:16px;transition:transform .2s}
+.btn-a:hover svg{transform:translateX(3px)}
+.btn-b{color:var(--ink);padding:16px 36px;border-radius:100px;font-size:14px;font-weight:500;border:1px solid rgba(0,0,0,.15);display:inline-block;transition:all .25s}
+.btn-b:hover{border-color:var(--ink)}
+
+/* PROOF BAR */
+.proof{display:flex;gap:48px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.proof-i{display:flex;flex-direction:column}
+.proof-n{font-family:var(--serif);font-size:36px;color:var(--ink);line-height:1}
+.proof-l{font-size:12px;color:var(--muted);margin-top:4px;font-weight:400}
+
+/* DIVIDER */
+.divider{width:100%;height:1px;background:var(--border);margin:0}
+
+/* SECTION */
+section{padding:80px clamp(24px,5vw,80px);max-width:1100px;margin:0 auto}
+.s-tag{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:12px}
+.s-head{font-family:var(--serif);font-size:clamp(30px,4vw,48px);line-height:1.1;letter-spacing:-.02em;margin-bottom:16px;max-width:600px}
+.s-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.6;font-weight:300;margin-bottom:48px}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px}
+.step-num{font-family:var(--serif);font-size:48px;color:rgba(201,168,76,.3);line-height:1;margin-bottom:16px}
+.step h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.step p{font-size:14px;color:var(--muted);line-height:1.6;font-weight:300}
+
+/* WHAT YOU GET */
+.features{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.feat{display:flex;gap:16px;padding:24px;border-radius:12px;transition:background .2s}
+.feat:hover{background:rgba(0,0,0,.02)}
+.feat-ico{width:40px;height:40px;border-radius:10px;background:rgba(201,168,76,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.feat h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.feat p{font-size:13px;color:var(--muted);line-height:1.5;font-weight:300}
+
+/* PRICING */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.plan{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;position:relative;transition:all .25s}
+.plan:hover{border-color:rgba(0,0,0,.15);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.06)}
+.plan.pop{border:2px solid var(--accent)}
+.plan-badge{position:absolute;top:-12px;left:28px;background:var(--accent);color:var(--ink);font-size:11px;font-weight:700;padding:4px 14px;border-radius:100px;letter-spacing:.04em}
+.plan-name{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.plan-price{font-family:var(--serif);font-size:42px;color:var(--ink);line-height:1;margin-bottom:4px}
+.plan-price span{font-size:16px;color:var(--muted);font-family:var(--sans)}
+.plan-desc{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.5;font-weight:300}
+.plan ul{list-style:none;margin-bottom:28px}
+.plan li{font-size:13px;color:var(--warm);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.plan li:last-child{border:0}
+.plan li::before{content:"✓";color:var(--accent-dark);font-weight:700;font-size:12px}
+.plan-btn{display:block;text-align:center;padding:14px;border-radius:100px;font-size:13px;font-weight:600;transition:all .2s}
+.plan-btn-dark{background:var(--ink);color:var(--sand)}
+.plan-btn-dark:hover{background:var(--warm)}
+.plan-btn-outline{border:1px solid rgba(0,0,0,.15);color:var(--ink)}
+.plan-btn-outline:hover{border-color:var(--ink)}
+
+/* TESTIMONIAL */
+.test{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:48px;text-align:center;max-width:640px;margin:0 auto}
+.test-q{font-family:var(--serif);font-size:clamp(20px,3vw,28px);line-height:1.4;margin-bottom:24px;font-style:italic;color:var(--warm)}
+.test-who{font-size:13px;color:var(--muted);font-weight:500}
+
+/* CTA */
+.cta-s{background:var(--ink);border-radius:20px;padding:64px;text-align:center;margin:0 clamp(24px,5vw,80px) 80px;max-width:1100px;margin-left:auto;margin-right:auto}
+.cta-s h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);color:var(--sand);margin-bottom:16px;line-height:1.1}
+.cta-s p{color:rgba(247,245,240,.6);font-size:16px;margin-bottom:32px;font-weight:300}
+.btn-gold{background:var(--accent);color:var(--ink);padding:16px 40px;border-radius:100px;font-size:14px;font-weight:700;display:inline-block;transition:all .25s}
+.btn-gold:hover{background:var(--accent-dark);transform:translateY(-1px)}
+
+/* FOOTER */
+footer{padding:40px clamp(24px,5vw,80px);max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
+footer p{font-size:12px;color:var(--muted)}
+footer a{font-size:12px;color:var(--muted);margin-left:24px;transition:color .2s}
+footer a:hover{color:var(--ink)}
+
+/* MOBILE */
+@media(max-width:768px){
+  .n-links a:not(.n-cta){display:none}
+  .steps,.features,.plans{grid-template-columns:1fr}
+  .proof{gap:24px}
+  .cta-s{margin:0 16px 40px;padding:40px 24px;border-radius:16px}
+  footer{flex-direction:column;gap:16px;text-align:center}
+}
+
+/* ANIMATION */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero h1,.hero-p,.hero-btns,.proof,.step,.feat,.plan,.test{animation:fadeUp .6s ease both}
+.hero-p{animation-delay:.1s}.hero-btns{animation-delay:.2s}.proof{animation-delay:.3s}
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "logo": "https://nyspotlightreport.com/assets/logo.png",
+  "sameAs": [
+    "https://twitter.com/nyspotlightreport",
+    "https://www.linkedin.com/company/ny-spotlight-report",
+    "https://www.youtube.com/@nyspotlightreport"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "nyspotlightreport@gmail.com",
+    "contactType": "customer support"
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NY Spotlight Report",
+  "url": "https://nyspotlightreport.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://nyspotlightreport.com/blog/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="n-logo">NY Spotlight <i>Report</i></a>
+  <div class="n-links">
+    <a href="/blog/">Insights</a>
+    <a href="/proflow/">How It Works</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/proflow/" class="n-cta">Get Started</a>
+    <a href="/login/" style="padding:10px 24px;border-radius:100px;font-weight:600;font-size:13px;color:#c9a84c;border:1px solid #c9a84c">Log In</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-over">Content systems for agencies & founders</p>
+  <h1>We build the content engine.<br>You run the <i>business.</i></h1>
+  <p class="hero-p">Daily blog posts, social media, and newsletters — researched, written, and published automatically. Your brand voice, not ours.</p>
+  <div class="hero-btns">
+    <a href="/demo/" class="btn-a">See real samples <svg fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    <a href="/pricing/" class="btn-b">View pricing</a>
+  </div>
+  <div class="proof">
+    <div class="proof-i"><div class="proof-n">Daily</div><div class="proof-l">Content published</div></div>
+    <div class="proof-i"><div class="proof-n">6</div><div class="proof-l">Platforms managed</div></div>
+    <div class="proof-i"><div class="proof-n">Zero</div><div class="proof-l">Manual work required</div></div>
+    <div class="proof-i"><div class="proof-n">48hr</div><div class="proof-l">Setup to first post</div></div>
+  </div>
+</section>
+
+<section>
+  <p class="s-tag">How it works</p>
+  <h2 class="s-head">Three steps to content<br>that never stops.</h2>
+  <p class="s-sub">We handle the research, writing, design, and publishing. You approve the strategy once, then watch it run.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><h3>We learn your brand</h3><p>Your voice, your audience, your goals. We configure your content engine around what makes your business unique — not generic templates.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>Content starts flowing</h3><p>Within 48 hours, your first batch of blog posts, social content, and newsletter drafts are live. SEO-optimized, on-brand, and ready for your audience.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>It runs itself</h3><p>Daily publishing across all your platforms. Weekly performance reports. Monthly strategy adjustments. You focus on clients — we handle the content.</p></div>
+  </div>
+</section>
+
+<section>
+  <p class="s-tag">What you get</p>
+  <h2 class="s-head">Everything a content team does. Without the team.</h2>
+  <p class="s-sub">Every deliverable is researched, written, and published automatically — calibrated to your industry and voice.</p>
+  <div class="features">
+    <div class="feat"><div class="feat-ico">📝</div><div><h4>Daily SEO blog posts</h4><p>Keyword-researched articles published to your blog every day. Optimized for Google, written for humans.</p></div></div>
+    <div class="feat"><div class="feat-ico">📱</div><div><h4>Social media on 6 platforms</h4><p>LinkedIn, Twitter, Instagram, Facebook, Pinterest, TikTok — daily posts with platform-native formatting.</p></div></div>
+    <div class="feat"><div class="feat-ico">📰</div><div><h4>Weekly newsletter</h4><p>Curated industry insights sent to your subscribers every week. Grows your list while you sleep.</p></div></div>
+    <div class="feat"><div class="feat-ico">📊</div><div><h4>Performance reports</h4><p>Weekly KPIs delivered to your inbox. What's working, what to adjust, where the opportunities are.</p></div></div>
+    <div class="feat"><div class="feat-ico">🎯</div><div><h4>Lead generation</h4><p>Content designed to attract your ideal clients. CTAs, landing pages, and conversion paths built in.</p></div></div>
+    <div class="feat"><div class="feat-ico">🛡️</div><div><h4>Brand voice protection</h4><p>Every piece is calibrated to your tone, terminology, and style guidelines. Not generic — yours.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <p class="s-tag">Simple pricing</p>
+  <h2 class="s-head">Pick a plan.<br>Content starts tomorrow.</h2>
+  <p class="s-sub">No contracts. Cancel anytime. Every plan includes setup, onboarding, and a dedicated content strategist.</p>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">$97<span>/mo</span></div>
+      <p class="plan-desc">Perfect for solopreneurs who need consistent content without the hassle.</p>
+      <ul>
+        <li>Daily SEO blog posts</li>
+        <li>3-platform social media</li>
+        <li>Digital product store</li>
+        <li>Weekly KPI reports</li>
+      </ul>
+      <a href="/proflow/" class="plan-btn plan-btn-outline">Get started</a>
+    </div>
+    <div class="plan pop">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-price">$297<span>/mo</span></div>
+      <p class="plan-desc">For growing businesses ready to dominate their content game.</p>
+      <ul>
+        <li>Everything in Starter</li>
+        <li>6-platform social media</li>
+        <li>Weekly newsletter automation</li>
+        <li>Video content (Shorts/Reels)</li>
+        <li>Monthly strategy session</li>
+      </ul>
+      <a href="/proflow/" class="plan-btn plan-btn-dark">Get started</a>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Agency</div>
+      <div class="plan-price">$497<span>/mo</span></div>
+      <p class="plan-desc">Full-stack content operation for agencies and established brands.</p>
+      <ul>
+        <li>Everything in Growth</li>
+        <li>KDP book publishing</li>
+        <li>Print-on-demand designs</li>
+        <li>White-label ready</li>
+        <li>Priority support</li>
+        <li>Dedicated account manager</li>
+      </ul>
+      <a href="/proflow/" class="plan-btn plan-btn-outline">Get started</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="test">
+    <p class="test-q">"We went from publishing once a month to publishing every single day. Our organic traffic tripled in 60 days. I don't know how we ran the business before this."</p>
+    <p class="test-who">— Agency founder, NYC</p>
+  </div>
+</section>
+
+<div class="cta-s">
+  <h2>Ready to stop thinking<br>about content?</h2>
+  <p>Your content engine launches in 48 hours. No contracts, no commitments — just results.</p>
+  <a href="/proflow/" class="btn-gold">Get Started Today →</a>
+</div>
+
+<footer>
+  <p>© 2026 NY Spotlight Report. Built in New York.</p>
+  <div>
+    <a href="/blog/">Blog</a>
+    <a href="/proflow/">ProFlow AI</a>
+    <a href="/downloads/proflow-playbook/">Free Playbook</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="mailto:nyspotlightreport@gmail.com">Contact</a>
+  </div>
+</footer>
+
+
+<!-- CONVERSION ENGINE -->
+<!-- CONVERSION ENGINE — Add this to EVERY page on the site -->
+<!-- Drop this before <div style="text-align:center;padding:1rem;font-size:0.8rem;color:#666">ISSN: 2026-0147 (Online) | Est. 2020 | NY Spotlight Report</div>
+</body> on every HTML page -->
+
+<!-- STICKY BOTTOM CTA BAR -->
+<div id="sticky-cta" style="position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;padding:10px 24px;display:flex;justify-content:center;align-items:center;gap:16px;z-index:9999;transform:translateY(100%);transition:transform .3s ease;box-shadow:0 -2px 20px rgba(0,0,0,.15)">
+<span style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,255,255,.7)">Replace your content team for <strong style="color:#fff">$297/mo</strong></span>
+<a href="/proflow/" style="background:#9e7c0c;color:#fff;padding:8px 20px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap">See How It Works →</a>
+<span style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,.3);cursor:pointer" onclick="this.parentElement.style.display='none';sessionStorage.setItem('cta_closed','1')">✕</span>
+</div>
+
+<!-- EXIT INTENT POPUP -->
+<div id="exit-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10000;justify-content:center;align-items:center;backdrop-filter:blur(4px)">
+<div style="background:#fff;border-radius:8px;padding:40px;max-width:480px;width:90%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+<span onclick="document.getElementById('exit-popup').style.display='none';sessionStorage.setItem('exit_shown','1')" style="position:absolute;top:12px;right:16px;font-size:20px;color:#a3a3a3;cursor:pointer">✕</span>
+<h3 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px;color:#0f0f0f">Before you go...</h3>
+<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:#6b6b6b;margin-bottom:20px;line-height:1.55">Get our free guide: <strong style="color:#0f0f0f">"How to Replace Your Content Team with AI — The Complete Playbook"</strong></p>
+<input type="email" id="exit-email" placeholder="your@email.com" style="width:100%;padding:12px;border:1px solid #e5e5e5;border-radius:5px;font-size:15px;font-family:'DM Sans',sans-serif;margin-bottom:10px;outline:none">
+<button onclick="captureExitLead()" style="width:100%;padding:12px;background:#0f0f0f;color:#fff;border:none;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer">Send Me the Free Guide →</button>
+<p style="font-family:'DM Sans',sans-serif;font-size:11px;color:#a3a3a3;margin-top:8px">No spam. Unsubscribe anytime.</p>
+</div>
+</div>
+
+<!-- INLINE CTA COMPONENT (inject into blog posts) -->
+<template id="inline-cta-template">
+<div style="background:linear-gradient(135deg,#faf9f6,#f0ede5);border:1px solid #e5e5e5;border-radius:8px;padding:28px 32px;margin:32px 0;text-align:center">
+<h4 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:6px;color:#0f0f0f">Tired of doing this manually?</h4>
+<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#6b6b6b;margin-bottom:16px">ProFlow produces 30 blog posts, 90+ social posts, and HD images every month — in your brand voice. Starting at $97/mo.</p>
+<a href="/proflow/" style="display:inline-block;padding:12px 28px;background:#0f0f0f;color:#fff;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;text-decoration:none">See the Full Offer →</a>
+</div>
+</template>
+
+<!-- PHONE DEMO CTA -->
+<template id="phone-cta-template">
+<div style="background:#0f0f0f;border-radius:8px;padding:24px 32px;margin:32px 0;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center">
+<div style="text-align:center">
+<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Try it right now</div>
+<div style="font-family:'Playfair Display',serif;font-size:22px;color:#fff;font-weight:700">Call our AI receptionist</div>
+</div>
+<a href="tel:+16318929817" style="display:inline-block;padding:14px 28px;background:#9e7c0c;color:#fff;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;text-decoration:none;white-space:nowrap">(631) 892-9817</a>
+</div>
+</template>
+
+<script>
+// Sticky CTA — show after 30% scroll
+(function(){
+  if(sessionStorage.getItem('cta_closed'))return;
+  var shown=false;
+  window.addEventListener('scroll',function(){
+    if(shown)return;
+    var pct=window.scrollY/(document.body.scrollHeight-window.innerHeight);
+    if(pct>0.3){
+      document.getElementById('sticky-cta').style.transform='translateY(0)';
+      shown=true;
+    }
+  });
+})();
+
+// Exit intent — show when mouse leaves viewport (desktop only)
+(function(){
+  if(sessionStorage.getItem('exit_shown'))return;
+  if('ontouchstart' in window)return; // skip mobile
+  document.addEventListener('mouseout',function(e){
+    if(!e.relatedTarget && !e.toElement && e.clientY<10){
+      document.getElementById('exit-popup').style.display='flex';
+      sessionStorage.setItem('exit_shown','1');
+    }
+  });
+})();
+
+// Lead capture
+function captureExitLead(){
+  var email=document.getElementById('exit-email').value;
+  if(!email||!email.includes('@'))return;
+  fetch('/.netlify/functions/lead-capture',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:email,source:'exit_intent',page:location.pathname})}).catch(function(){});
+  fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:email,source:'exit_popup'})}).catch(function(){});
+  localStorage.setItem('nysr_lead',email);
+  document.getElementById('exit-popup').innerHTML='<div style="background:#fff;border-radius:8px;padding:48px;text-align:center"><h3 style="font-family:Playfair Display,serif;font-size:24px;color:#16793a">Check your inbox!</h3><p style="font-family:DM Sans,sans-serif;font-size:15px;color:#6b6b6b;margin-top:8px">Your free guide is on its way.</p></div>';
+  setTimeout(function(){document.getElementById('exit-popup').style.display='none'},3000);
+}
+
+// Auto-inject inline CTAs into blog posts (every 3rd section)
+(function(){
+  var article=document.querySelector('article');
+  if(!article)return;
+  var h2s=article.querySelectorAll('h2');
+  var tpl=document.getElementById('inline-cta-template');
+  var phoneTpl=document.getElementById('phone-cta-template');
+  if(h2s.length>2 && tpl){
+    var cta=tpl.content.cloneNode(true);
+    h2s[Math.floor(h2s.length/2)].parentNode.insertBefore(cta,h2s[Math.floor(h2s.length/2)]);
+  }
+  if(h2s.length>4 && phoneTpl){
+    var phone=phoneTpl.content.cloneNode(true);
+    h2s[h2s.length-1].parentNode.insertBefore(phone,h2s[h2s.length-1]);
+  }
+})();
+
+// Track page views for analytics
+(function(){
+  fetch('/.netlify/functions/track',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({event:'pageview',page:location.pathname,ref:document.referrer,ts:Date.now()})}).catch(function(){});
+})();
+</script>
+
+<div style="text-align:center;padding:1rem;font-size:0.8rem;color:#666">ISSN: 2026-0147 (Online) | Est. 2020 | NY Spotlight Report</div>
+</body>
+</html>
