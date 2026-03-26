@@ -45,3 +45,23 @@
   to   = "/.netlify/functions/save-secret"
   status = 200
 
+[[redirects]]
+  from = "/press-credentials"
+  to   = "/press/credentials/"
+  status = 301
+
+[[redirects]]
+  from = "/press-credentials/"
+  to   = "/press/credentials/"
+  status = 301
+
+[[redirects]]
+  from = "/terms-of-use"
+  to   = "/terms/"
+  status = 301
+
+[[redirects]]
+  from = "/terms-of-use/"
+  to   = "/terms/"
+  status = 301
+
