@@ -45,12 +45,3 @@
   to   = "/.netlify/functions/save-secret"
   status = 200
 
-[[redirects]]
-  from = "/store"
-  to = "/.netlify/functions/store-page"
-  status = 200
-
-[[redirects]]
-  from = "/store/"
-  to = "/.netlify/functions/store-page"
-  status = 200
