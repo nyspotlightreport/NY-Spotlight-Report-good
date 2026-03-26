@@ -59,6 +59,79 @@ footer{background:#111;color:#999;padding:48px 24px;font-family:var(--sans);font
 footer a{color:#ccc;text-decoration:underline}
 footer .foot-title{font-family:var(--serif);font-size:18px;color:#fff;font-weight:700;margin-bottom:8px}
 </style>
+  <meta property="og:image" content="https://nyspotlightreport.com/images/nysr-og-default.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@nyspotlightreport">
+  <meta name="twitter:image" content="https://nyspotlightreport.com/images/nysr-og-default.jpg">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="S.C. Thomas">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are the best bars in NYC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NYC has a vibrant nightlife scene with rooftop bars, jazz clubs, and speakeasies across Manhattan and Brooklyn."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where should I go out in NYC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "From the Meatpacking District to Williamsburg, NYC offers world-class nightlife for every taste and budget."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nyspotlightreport.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://nyspotlightreport.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Hell's Kitchen: NYC's Gay Nightlife Capital",
+          "item": "https://nyspotlightreport.com/blog/hells-kitchen-gay-nightlife-capital/"
+        }
+      ]
+    },
+    {
+      "@type": "NewsArticle",
+      "headline": "Hell's Kitchen: NYC's Gay Nightlife Capital",
+      "author": {
+        "@type": "Person",
+        "name": "S.C. Thomas"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "NY Spotlight Report",
+        "url": "https://nyspotlightreport.com"
+      },
+      "mainEntityOfPage": "https://nyspotlightreport.com/blog/hells-kitchen-gay-nightlife-capital/"
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <nav>
@@ -78,6 +151,12 @@ footer .foot-title{font-family:var(--serif);font-size:18px;color:#fff;font-weigh
     <header>
       <span class="cat-badge">Nightlife</span>
       <h1>Hell's Kitchen: NYC's Gay Nightlife Capital</h1>
+<div class="nysr-share" style="display:flex;gap:8px;align-items:center;margin:1.5rem 0;padding:1rem 0;border-top:1px solid #e8e0d4;border-bottom:1px solid #e8e0d4;font-family:sans-serif;flex-wrap:wrap">
+<span style="font-size:11px;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Share</span>
+<a href="#" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(document.title)+'&amp;url='+encodeURIComponent(location.href),'_blank');return false" style="padding:5px 12px;background:#000;color:#fff;border-radius:4px;font-size:12px;text-decoration:none">Twitter</a>
+<a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'_blank');return false" style="padding:5px 12px;background:#1877f2;color:#fff;border-radius:4px;font-size:12px;text-decoration:none">Facebook</a>
+<a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href),'_blank');return false" style="padding:5px 12px;background:#0077b5;color:#fff;border-radius:4px;font-size:12px;text-decoration:none">LinkedIn</a>
+</div>
       <p class="deck">The West Side neighborhood once known for tenements and turf wars is now home to the densest concentration of gay bars in America. Here is how it happened, and why it matters.</p>
       <p class="byline">By <strong>S.C. Thomas</strong> &middot; March 25, 2026</p>
     </header>
@@ -158,6 +237,17 @@ footer .foot-title{font-family:var(--serif);font-size:18px;color:#fff;font-weigh
   </article>
 </div>
 
+<div class="nysr-cta" style="margin:3rem 0 2rem;font-family:Georgia,serif;border-top:3px solid #c9a84c;padding-top:2rem">
+<div style="background:#f9f5ed;padding:1.5rem;border-radius:4px">
+<p style="margin:0 0 .5rem;font-weight:bold">Get NYC coverage in your inbox</p>
+<p style="color:#666;font-size:.875rem;margin:0 0 1rem">Entertainment, nightlife, fashion, and culture. Weekly from S.C. Thomas.</p>
+<form onsubmit="event.preventDefault();fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:this.email.value,source:'article_cta'})}).then(function(){this.innerHTML='<p style=color:green>Subscribed!</p>'}.bind(this))"><input name="email" type="email" placeholder="your@email.com" required style="padding:.5rem;border:1px solid #ccc;border-radius:3px;width:200px;margin-right:.5rem"><button type="submit" style="padding:.5rem 1rem;background:#c9a84c;color:white;border:none;border-radius:3px;cursor:pointer">Subscribe</button></form>
+</div>
+<div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem">
+<a href="/store/" style="padding:.75rem 1rem;background:white;border:1px solid #e8e0d4;border-radius:4px;text-decoration:none;color:inherit;font-size:.85rem"><strong>Resource Library</strong></a>
+<a href="/support/" style="padding:.75rem 1rem;background:white;border:1px solid #e8e0d4;border-radius:4px;text-decoration:none;color:inherit;font-size:.85rem"><strong>Support NYSR</strong></a>
+</div>
+</div>
 <footer>
   <div class="foot-title">NY Spotlight Report</div>
   <p>ISSN 2026-0147 &middot; Est. 2020</p>
