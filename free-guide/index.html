@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free NYC Guide 2026 — NY Spotlight Report</title>
+<meta name="description" content="Get the free Ultimate NYC Guide 2026. 100 best things to do — entertainment, nightlife, fashion, culture, and LGBTQIA+.">
+<meta property="og:title" content="The Ultimate NYC Guide 2026 — Free Download">
+<meta property="og:image" content="https://nyspotlightreport.com/images/nysr-og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,serif;background:#faf8f3;color:#1a1a1a}
+.hero{background:#1a1a1a;color:white;text-align:center;padding:4rem 1.5rem}
+.hero h1{font-size:2.5rem;font-weight:normal;margin-bottom:1rem;color:#c9a84c}
+.hero p{font-size:1.1rem;color:#ccc;max-width:600px;margin:0 auto 2rem}
+.form-box{background:white;border:1px solid #e8e0d4;border-radius:8px;padding:2rem;max-width:480px;margin:2rem auto;text-align:center}
+input[type=email]{width:100%;padding:.75rem 1rem;border:1px solid #ccc;border-radius:4px;font-size:1rem;margin-bottom:1rem;font-family:Georgia,serif}
+button{width:100%;padding:.85rem;background:#c9a84c;color:white;border:none;border-radius:4px;font-size:1.05rem;cursor:pointer;font-weight:600}
+.what{max-width:700px;margin:3rem auto;padding:0 1.5rem}
+.what h2{font-size:1.5rem;margin-bottom:1.5rem;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.card{background:white;border:1px solid #e8e0d4;border-radius:6px;padding:1.25rem;text-align:center}
+.card strong{display:block;color:#c9a84c;margin-bottom:.5rem}
+footer{text-align:center;padding:2rem;color:#888;font-size:.8rem;font-family:sans-serif}
+</style>
+</head>
+<body>
+<div style="background:#1a1a1a;padding:.75rem 1.5rem"><a href="/" style="color:#c9a84c;text-decoration:none;font-family:Georgia,serif">NY Spotlight Report</a></div>
+<div class="hero">
+<p style="font-size:.8rem;letter-spacing:.15em;color:#c9a84c;text-transform:uppercase;margin-bottom:.75rem">Free Download</p>
+<h1>The Ultimate NYC Guide 2026</h1>
+<p>100 best things to do this year — entertainment, nightlife, fashion, culture, and LGBTQIA+. Curated by S.C. Thomas.</p>
+</div>
+<div class="form-box">
+<h2 style="font-size:1.2rem;margin-bottom:1rem">Get it free — enter your email</h2>
+<div id="form-container">
+<input type="email" id="guide-email" placeholder="your@email.com" required>
+<button onclick="getGuide()">Send Me the Guide</button>
+<p style="font-size:.75rem;color:#aaa;margin-top:.75rem">No spam. Unsubscribe anytime.</p>
+</div>
+</div>
+<div class="what">
+<h2>What's inside</h2>
+<div class="grid">
+<div class="card"><strong>Entertainment</strong>Broadway, film, immersive theater, live music</div>
+<div class="card"><strong>Nightlife</strong>Rooftop bars, jazz clubs, late-night spots</div>
+<div class="card"><strong>Fashion</strong>NYFW, sample sales, emerging designers</div>
+<div class="card"><strong>Culture</strong>Galleries, street art, literary events</div>
+<div class="card"><strong>LGBTQIA+</strong>Pride 2026, drag shows, queer history</div>
+</div>
+</div>
+<footer>&copy; 2026 NY Spotlight Report &middot; editor-in-chief@nyspotlightreport.com &middot; ISSN 2026-0147</footer>
+<script>
+function getGuide(){
+var email=document.getElementById('guide-email').value;
+if(!email)return;
+document.getElementById('form-container').innerHTML='<p style="color:green;font-size:1.1rem;font-weight:bold">Guide sent! Check your inbox.</p>';
+fetch('/.netlify/functions/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,source:'free_guide_landing'})}).catch(function(){});
+}
+</script>
+</body>
+</html>
