@@ -1,0 +1,87 @@
+name: Generate Article Images
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 7 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  generate-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout live repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests openai -q
+
+      - name: Generate DALL-E 3 images and commit
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python3 << 'PYEOF'
+          import os, requests, base64, time
+          from pathlib import Path
+
+          key = os.environ['OPENAI_API_KEY']
+          img_dir = Path('images/articles')
+          img_dir.mkdir(parents=True, exist_ok=True)
+
+          articles = [
+            ('oscars-2026-predictions', 'Academy Awards Oscars 2026 red carpet Hollywood cinema dramatic lighting'),
+            ('hells-kitchen-gay-nightlife-capital', 'NYC Hells Kitchen gay nightlife vibrant bars neon lights street'),
+            ('100-million-broadway-season-2024', 'Broadway theater New York City bright marquee lights stage night'),
+            ('nyfw-2026-recap', 'New York Fashion Week runway show elegant models fashion designer'),
+            ('pride-2026-nyc-events', 'NYC Pride parade rainbow flags celebration crowd energy joy'),
+            ('tony-awards-2026-preview', 'Tony Awards Broadway theater award ceremony stage spotlight'),
+            ('ultimate-nyc-nightlife-guide', 'New York City skyline nightlife Manhattan evening lights'),
+            ('lgbtq-bars-clubs-nyc-guide', 'LGBTQ bar club NYC community inclusive vibrant nightlife'),
+            ('evolution-of-drag-culture', 'Drag performance art vibrant costume makeup stage spotlight'),
+            ('rooftop-bars-nyc-2026', 'NYC rooftop bar Manhattan skyline sunset cocktails city view'),
+          ]
+
+          generated = 0
+          for slug, prompt in articles:
+            path = img_dir / f'{slug}.jpg'
+            if path.exists():
+              print(f'exists: {slug}')
+              continue
+            print(f'generating: {slug}')
+            try:
+              r = requests.post(
+                'https://api.openai.com/v1/images/generations',
+                headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'},
+                json={'model':'dall-e-3','prompt':f'Editorial photojournalism style image for NYC entertainment news article about {prompt}. Professional, cinematic, dramatic lighting.','size':'1792x1024','quality':'standard','n':1},
+                timeout=60
+              )
+              if r.status_code != 200:
+                print(f'error {r.status_code}: {r.text[:100]}')
+                continue
+              img_data = requests.get(r.json()['data'][0]['url'], timeout=30).content
+              path.write_bytes(img_data)
+              print(f'saved: {slug} ({len(img_data)} bytes)')
+              generated += 1
+              time.sleep(3)
+            except Exception as e:
+              print(f'ERROR {slug}: {e}')
+          print(f'Done: {generated} new images')
+          PYEOF
+
+      - name: Commit images
+        run: |
+          git config user.name "NYSR Image Bot"
+          git config user.email "bots@nyspotlightreport.com"
+          git add images/articles/
+          if git diff --staged --quiet; then
+            echo "No new images"
+          else
+            git commit -m "Add DALL-E 3 editorial images for articles"
+            git push
+          fi
