@@ -1,0 +1,14 @@
+name: Add OPENAI Key
+on:
+  push:
+    paths: ['.github/workflows/add-openai-key.yml']
+jobs:
+  add-key:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "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" | gh secret set OPENAI_API_KEY --repo nyspotlightreport/NY-Spotlight-Report-good
+          echo "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" | gh secret set OPENAI_API_KEY --repo nyspotlightreport/sct-agency-bots
+          echo "OPENAI key set in both repos"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
